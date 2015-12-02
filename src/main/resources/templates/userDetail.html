@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>user Detail</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<content>
+    <h1>Twój profil</h1>
+    <span th:text="${user.name}">imię</span><br/>
+    <span th:text="${user.lastName}">nazwisko</span><br/>
+    <span th:text="${user.email}">adres e-mail</span><br/>
+</content>
+</body>
+</html>
