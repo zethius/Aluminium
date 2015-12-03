@@ -1,7 +1,6 @@
 package com.zespolowka;
 
 import com.zespolowka.Service.UserService;
-import com.zespolowka.builders.UserCreateFormBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,7 +59,7 @@ public class RegisterControllerTest {
                 .param("email", "a1@o2.pl")
                 .param("password", "zaq1@WSX")
                 .param("confirmPassword", "zaq1@WSX"))
-                .andExpect(redirectedUrl("/user/5"));
+                .andExpect(redirectedUrl("/user/4"));
     }
 
     @Test
@@ -99,12 +98,11 @@ public class RegisterControllerTest {
 
     @Test
     public void shoud_failed_with_existed_email() throws Exception {
-        userService.create(new UserCreateFormBuilder("adam", "malysz").withEmail("aaaaa@o2.pl").build());
         logger.info(userService.getAllUsers().toString());
         mvc.perform(post("/register")
                 .param("name", "adam")
                 .param("lastName", "malysz")
-                .param("email", "aaaaa@o2.pl")
+                .param("email", "aaa3@o2.pl")
                 .param("password", "zaq1@WSX")
                 .param("confirmPassword", "zaq1@WSX"))
                 .andExpect(status().isOk())
