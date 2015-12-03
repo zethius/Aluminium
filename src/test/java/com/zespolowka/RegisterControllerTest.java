@@ -54,7 +54,7 @@ public class RegisterControllerTest {
         mvc.perform(post("/register")
                 .param("name", "adam")
                 .param("lastName", "malysz")
-                .param("email", "a@o2.pl")
+                .param("email", "a1@o2.pl")
                 .param("password", "zaq1@WSX")
                 .param("confirmPassword", "zaq1@WSX"))
                 .andExpect(redirectedUrl("/user/5"));
@@ -73,12 +73,12 @@ public class RegisterControllerTest {
         mvc.perform(post("/register")
                 .param("name", "adam")
                 .param("lastName", "malysz")
-                .param("email", "aaaaa@o2.pl")
+                .param("email", "a2@o2.pl")
                 .param("password", "zaq1@WSX")
                 .param("confirmPassword", "zaq1@WSXa"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("register"))
-                .andExpect(model().errorCount(2));
+                .andExpect(model().errorCount(1));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class RegisterControllerTest {
         mvc.perform(post("/register")
                 .param("name", "adam")
                 .param("lastName", "malysz")
-                .param("email", "aaaaa@o2.pl")
+                .param("email", "a3@o2.pl")
                 .param("password", "11111111")
                 .param("confirmPassword", "11111111"))
                 .andExpect(status().isOk())
