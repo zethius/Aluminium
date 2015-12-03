@@ -1,19 +1,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>user Detail</title>
+    <title>user List</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 <content>
     <h1>Lista użytkowników</h1>
-    <tr th:each="user : ${Users}">
-        <td><label type="text"
-                   th:text="${user.name}"/></td>
-        <td><label type="text"
-                   th:text="${user.role}"/></td>
-        <td><label type="text"
-                   th:text="${user.id}"/></td>
-    </tr>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>LastName</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>View</th>
+            <th>Edit</th>
+        </tr>
+        <tr th:each="user : ${Users}">
+            <td th:text="${user.name}">Name</td>
+            <td th:text="${user.lastName}">LastName</td>
+            <td th:text="${user.role}">Role</td>
+            <td th:text="${user.email}">Email</td>
+            <td><a th:href="${'/user/' + user.id}">View</a></td>
+            <td><a th:href="${'/user/edit/' + user.id}">Edit</a></td>
+        </tr>
+    </table>
 </content>
 </body>
 </html>

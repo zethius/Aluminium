@@ -20,11 +20,11 @@ public class DevDBConfig {
 
     @PostConstruct
     public void populateDatabase() {
-        repository.save(new User("Imie1", "Nazwisko1", "aaa@o2.pl", "abcd"));
-        User user = new User("Admin", "admin", "aaa@o2.pl", "abcd");
+        repository.save(new User("Imie1", "Nazwisko1", "aaa1@o2.pl", "abcd"));
+        User user = new User("Admin", "admin", "aaa2@o2.pl", "abcd");
         user.setRole(Role.ADMIN);
         repository.save(user);
-        user = new User("SuperAdmin", "superadmin", "aaa@o2.pl", "abcd");
+        user = new User("SuperAdmin", "superadmin", "aaa3@o2.pl", "abcd");
         user.setRole(Role.SUPERADMIN);
         repository.save(user);
     }

@@ -1,5 +1,7 @@
 package com.zespolowka;
 
+import com.zespolowka.Service.UserService;
+import com.zespolowka.builders.UserCreateFormBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +30,9 @@ public class RegisterControllerTest {
     @Autowired
     private WebApplicationContext wac;
 
+    @Autowired
+    private UserService userService;
+
     private MockMvc mvc;
 
 
@@ -49,10 +54,10 @@ public class RegisterControllerTest {
         mvc.perform(post("/register")
                 .param("name", "adam")
                 .param("lastName", "malysz")
-                .param("email", "aaaaa@o2.pl")
-                .param("password", "11111111")
-                .param("confirmPassword", "11111111"))
-                .andExpect(redirectedUrl("/user/4"));
+                .param("email", "a@o2.pl")
+                .param("password", "zaq1@WSX")
+                .param("confirmPassword", "zaq1@WSX"))
+                .andExpect(redirectedUrl("/user/5"));
     }
 
     @Test
@@ -62,4 +67,45 @@ public class RegisterControllerTest {
                 .andExpect(view().name("register"))
                 .andExpect(model().errorCount(5));
     }
+
+    @Test
+    public void should_failed_password_confirmation() throws Exception {
+        mvc.perform(post("/register")
+                .param("name", "adam")
+                .param("lastName", "malysz")
+                .param("email", "aaaaa@o2.pl")
+                .param("password", "zaq1@WSX")
+                .param("confirmPassword", "zaq1@WSXa"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("register"))
+                .andExpect(model().errorCount(2));
+    }
+
+    @Test
+    public void should_failed_with_easy_password() throws Exception {
+        mvc.perform(post("/register")
+                .param("name", "adam")
+                .param("lastName", "malysz")
+                .param("email", "aaaaa@o2.pl")
+                .param("password", "11111111")
+                .param("confirmPassword", "11111111"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("register"))
+                .andExpect(model().errorCount(1));
+    }
+
+    @Test
+    public void shoud_failed_with_existed_email() throws Exception {
+        userService.create(new UserCreateFormBuilder("adam", "malysz").withEmail("aaaaa@o2.pl").build());
+        mvc.perform(post("/register")
+                .param("name", "adam")
+                .param("lastName", "malysz")
+                .param("email", "aaaaa@o2.pl")
+                .param("password", "zaq1@WSX")
+                .param("confirmPassword", "zaq1@WSX"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("register"))
+                .andExpect(model().errorCount(1));
+    }
+
 }
