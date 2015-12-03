@@ -1,12 +1,14 @@
 package com.zespolowka;
 
 import org.junit.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Pitek on 2015-12-03.
  */
+@ActiveProfiles("test")
 public class PasswordRegexTest {
     @Test
     public void shoud_show_main_page() throws Exception {

@@ -5,6 +5,8 @@ import com.zespolowka.builders.UserCreateFormBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
@@ -26,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = AluminiumApplication.class)
 @WebAppConfiguration
 public class RegisterControllerTest {
+    private static final Logger logger = LoggerFactory.getLogger(RegisterControllerTest.class);
 
     @Autowired
     private WebApplicationContext wac;
@@ -97,6 +100,7 @@ public class RegisterControllerTest {
     @Test
     public void shoud_failed_with_existed_email() throws Exception {
         userService.create(new UserCreateFormBuilder("adam", "malysz").withEmail("aaaaa@o2.pl").build());
+        logger.info(userService.getAllUsers().toString());
         mvc.perform(post("/register")
                 .param("name", "adam")
                 .param("lastName", "malysz")

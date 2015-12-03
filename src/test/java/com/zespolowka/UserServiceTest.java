@@ -8,6 +8,7 @@ import com.zespolowka.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +20,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 /**
  * Created by Pitek on 2015-12-03.
  */
+@ActiveProfiles("test")
 public class UserServiceTest {
 
     @Mock

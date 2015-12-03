@@ -7,6 +7,7 @@ import com.zespolowka.controller.UsersController;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.ui.Model;
 
 import java.util.Arrays;
@@ -19,6 +20,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 /**
  * Created by Pitek on 2015-12-03.
  */
+@ActiveProfiles("test")
 public class UsersControllerTest {
     @Mock
     private UserService userService;
