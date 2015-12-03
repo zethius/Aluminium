@@ -4,6 +4,8 @@ import com.zespolowka.Entity.User;
 import com.zespolowka.Entity.UserCreateForm;
 import com.zespolowka.Entity.UserEditForm;
 import com.zespolowka.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import java.util.Collection;
  */
 @Service
 public class UserServiceImpl implements UserService {
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
 

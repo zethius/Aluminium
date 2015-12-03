@@ -3,6 +3,8 @@ package com.zespolowka.controller;
 import com.zespolowka.Entity.User;
 import com.zespolowka.Entity.UserEditForm;
 import com.zespolowka.Service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private UserService userService;
 
@@ -30,25 +33,39 @@ public class UserController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showUserDetail(@PathVariable Long id, Model model) {
-        User user = userService.getUserById(id);
-        model.addAttribute(user);
+        logger.info("nazwa metody = showUserDetail");
+        try {
+            User user = userService.getUserById(id);
+            model.addAttribute(user);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            logger.info(id.toString() + "\n" + model);
+        }
         return "userDetail";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String editUser(@PathVariable Integer id, Model model) {
-        model.addAttribute("userEditForm", new UserEditForm(userService.getUserById(id)));
+        logger.info("nazwa metody = editUser");
+        try {
+            model.addAttribute("userEditForm", new UserEditForm(userService.getUserById(id)));
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            logger.info(id.toString() + "\n" + model + "\n" + userService.getUserById(id));
+        }
         return "userEdit";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String saveUser(@PathVariable Integer id, @ModelAttribute @Valid UserEditForm userEditForm, Errors errors) {
+        logger.info("nazwa metody = saveUser");
         if (errors.hasErrors()) {
             return "userEdit";
         } else {
             User user = userService.editUser(userEditForm);
             return "redirect:/user/" + user.getId();
         }
+
     }
 
 }

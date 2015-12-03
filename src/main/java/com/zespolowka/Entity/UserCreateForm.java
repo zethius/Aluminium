@@ -25,12 +25,10 @@ public class UserCreateForm {
     private String email;
 
     @NotNull
-    @Size(min = 8, max = 25)
     @Pattern(regexp = "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,})(?!.*\\s).{8,}$", message = "Your password is too easy")
     private String password;
 
     @NotNull
-    @Size(min = 8, max = 25)
     private String confirmPassword;
 
     private Role role = Role.USER;

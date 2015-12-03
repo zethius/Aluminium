@@ -1,5 +1,8 @@
 package com.zespolowka.Entity;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -7,6 +10,8 @@ import javax.validation.constraints.Size;
  * Created by Admin on 2015-12-02.
  */
 public class ChangePasswordForm {
+
+    private static final Logger logger = LoggerFactory.getLogger(ChangePasswordForm.class);
 
     private Long id;
 
