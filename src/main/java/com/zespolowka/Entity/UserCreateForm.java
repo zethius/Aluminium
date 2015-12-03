@@ -1,6 +1,7 @@
 package com.zespolowka.Entity;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -18,8 +19,8 @@ public class UserCreateForm {
     @Size(min = 4, max = 20)
     private String lastName;
 
-    @NotNull
     @Email
+    @NotBlank
     private String email;
 
     @NotNull

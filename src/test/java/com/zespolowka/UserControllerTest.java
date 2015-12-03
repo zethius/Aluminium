@@ -17,49 +17,45 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
- * Created by Pitek on 2015-11-30.
+ * Created by Pitek on 2015-12-03.
  */
 @ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = AluminiumApplication.class)
 @WebAppConfiguration
-public class RegisterControllerTest {
-
+public class UserControllerTest {
     @Autowired
     private WebApplicationContext wac;
 
     private MockMvc mvc;
-
 
     @Before
     public void setUp() throws Exception {
         this.mvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
 
-
     @Test
-    public void shoud_show_register_page() throws Exception {
-        mvc.perform(get("/register"))
+    public void shoud_show_userDetail_page() throws Exception {
+        mvc.perform(get("/user/1"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("register"));
+                .andExpect(view().name("userDetail"));
     }
 
     @Test
-    public void should_process_registration() throws Exception {
-        mvc.perform(post("/register")
+    public void should_process_edit_user() throws Exception {
+        mvc.perform(post("/user/edit/1")
                 .param("name", "adam")
                 .param("lastName", "malysz")
                 .param("email", "aaaaa@o2.pl")
-                .param("password", "11111111")
-                .param("confirmPassword", "11111111"))
-                .andExpect(redirectedUrl("/user/4"));
+                .param("role", "USER"))
+                .andExpect(redirectedUrl("/user/1"));
     }
 
     @Test
-    public void should_failed_registration() throws Exception {
-        mvc.perform(post("/register"))
+    public void should_failed_edit_user() throws Exception {
+        mvc.perform(post("/user/edit/1"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("register"))
-                .andExpect(model().errorCount(5));
+                .andExpect(view().name("userEdit"))
+                .andExpect(model().errorCount(3));
     }
 }

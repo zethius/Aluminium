@@ -5,7 +5,6 @@ import com.zespolowka.Entity.UserCreateForm;
 import com.zespolowka.Entity.UserEditForm;
 
 import java.util.Collection;
-import java.util.Optional;
 
 /**
  * Created by Admin on 2015-12-01.
@@ -14,7 +13,7 @@ public interface UserService {
 
     User getUserById(long id);
 
-    Optional<User> getUserByEmail(String email);
+    User getUserByEmail(String email);
 
     Collection<User> getAllUsers();
 
