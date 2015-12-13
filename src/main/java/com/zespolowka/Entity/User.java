@@ -18,7 +18,7 @@ public class User {
 
     private String email;
 
-    private String password_hash;
+    private String passwordHash;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -27,11 +27,11 @@ public class User {
 
     }
 
-    public User(String name, String lastName, String email, String password_hash) {
+    public User(String name, String lastName, String email, String passwordHash) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.password_hash = password_hash;
+        this.passwordHash = passwordHash;
         this.role = Role.USER;
     }
 
@@ -51,12 +51,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword_hash() {
-        return password_hash;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword_hash(String password_hash) {
-        this.password_hash = password_hash;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public Role getRole() {
@@ -90,7 +90,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", password_hash='" + password_hash + '\'' +
+                ", password_hash='" + passwordHash + '\'' +
                 ", role=" + role +
                 '}';
     }

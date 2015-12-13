@@ -3,7 +3,6 @@ package com.zespolowka.Entity;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -12,11 +11,11 @@ import javax.validation.constraints.Size;
  */
 public class UserCreateForm {
 
-    @NotNull
+    @NotBlank
     @Size(min = 4, max = 15)
     private String name;
 
-    @NotNull
+    @NotBlank
     @Size(min = 4, max = 20)
     private String lastName;
 
@@ -24,11 +23,11 @@ public class UserCreateForm {
     @NotBlank
     private String email;
 
-    @NotNull
-    @Pattern(regexp = "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,})(?!.*\\s).{8,}$", message = "Your password is too easy")
+    @NotBlank
+    @Pattern(regexp = "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,})(?!.*\\s).{8,}$")
     private String password;
 
-    @NotNull
+    @NotBlank
     private String confirmPassword;
 
     private Role role = Role.USER;

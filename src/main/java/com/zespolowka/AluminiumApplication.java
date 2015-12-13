@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan()
+@ComponentScan
 public class AluminiumApplication {
     private static final Logger logger = LoggerFactory.getLogger(AluminiumApplication.class);
 

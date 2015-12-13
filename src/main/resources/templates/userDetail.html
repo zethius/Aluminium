@@ -1,14 +1,18 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>user Detail</title>
+    <title>Alluminium</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 <content>
-    <h1>Twój profil</h1>
+    <h1 th:text="#{userDetail.your_profile}"></h1>
     <span th:text="${user.name}">imię</span><br/>
     <span th:text="${user.lastName}">nazwisko</span><br/>
     <span th:text="${user.email}">adres e-mail</span><br/>
 </content>
 </body>
+<footer>
+    <a th:href="@{?lang=en}" th:text="En"></a> |
+    <a th:href="@{?lang=pl}" th:text="Pl"></a>
+</footer>
 </html>

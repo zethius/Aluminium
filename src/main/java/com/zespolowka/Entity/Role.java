@@ -1,9 +1,11 @@
 package com.zespolowka.Entity;
 
+import org.springframework.security.core.GrantedAuthority;
+
 /**
  * Created by Pitek on 2015-11-29.
  */
-public enum Role {
+public enum Role implements GrantedAuthority {
     USER("user"),
 
     ADMIN("admin"),
@@ -18,5 +20,10 @@ public enum Role {
 
     public String getDisplayName() {
         return displayName;
+    }
+
+    @Override
+    public String getAuthority() {
+        return name();
     }
 }

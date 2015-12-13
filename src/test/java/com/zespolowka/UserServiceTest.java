@@ -45,18 +45,18 @@ public class UserServiceTest {
         assertThat(users.get(0).getName()).isEqualTo(expectedUsers.get(0).getName());
         assertThat(users.get(0).getLastName()).isEqualTo(expectedUsers.get(0).getLastName());
         assertThat(users.get(0).getEmail()).isEqualTo(expectedUsers.get(0).getEmail());
-        assertThat(users.get(0).getPassword_hash()).isEqualTo(expectedUsers.get(0).getPassword_hash());
+        assertThat(users.get(0).getPasswordHash()).isEqualTo(expectedUsers.get(0).getPasswordHash());
         assertThat(users.get(0).getRole()).isEqualTo(expectedUsers.get(0).getRole());
 
         assertThat(users.get(1).getName()).isEqualTo(expectedUsers.get(1).getName());
         assertThat(users.get(1).getLastName()).isEqualTo(expectedUsers.get(1).getLastName());
         assertThat(users.get(1).getEmail()).isEqualTo(expectedUsers.get(1).getEmail());
-        assertThat(users.get(1).getPassword_hash()).isEqualTo(expectedUsers.get(1).getPassword_hash());
+        assertThat(users.get(1).getPasswordHash()).isEqualTo(expectedUsers.get(1).getPasswordHash());
         assertThat(users.get(1).getRole()).isEqualTo(expectedUsers.get(1).getRole());
     }
 
     @Test
-    public void getUserByEmailShoudReturnUser() throws Exception {
+    public void getUserByEmailShouldReturnUser() throws Exception {
         String email = "test@o2.pl";
         User user = new UserBuilder("imie", "nazwisko").withEmail(email).build();
         when(userService.getUserByEmail(email)).thenReturn(user);

@@ -7,6 +7,7 @@ import com.zespolowka.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService {
         user.setName(form.getName());
         user.setLastName(form.getLastName());
         user.setEmail(form.getEmail());
-        //user.setPasswordHash(new BCryptPasswordEncoder().encode(form.getPassword()));
+        user.setPasswordHash(new BCryptPasswordEncoder().encode(form.getPassword()));
         user.setRole(form.getRole());
         return userRepository.save(user);
     }

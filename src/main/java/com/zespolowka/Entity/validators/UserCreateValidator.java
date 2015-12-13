@@ -32,11 +32,11 @@ public class UserCreateValidator implements Validator {
     public void validate(Object target, Errors errors) {
         UserCreateForm form = (UserCreateForm) target;
         if (!form.getPassword().equals(form.getConfirmPassword())) {
-            errors.rejectValue("password", "", "Password do not match");
+            errors.rejectValue("password", "password_error");
         }
 
         if (userService.getUserByEmail(form.getEmail()) != null) {
-            errors.rejectValue("email", "", "User with this email already exists");
+            errors.rejectValue("email", "email_error");
         }
     }
 }

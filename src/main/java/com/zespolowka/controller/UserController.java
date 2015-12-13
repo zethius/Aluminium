@@ -6,6 +6,8 @@ import com.zespolowka.Service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -31,9 +33,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    @PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showUserDetail(@PathVariable Long id, Model model) {
         logger.info("nazwa metody = showUserDetail");
+        logger.debug("showUserDetail, model={}", model);
         try {
             User user = userService.getUserById(id);
             model.addAttribute(user);
@@ -44,9 +48,10 @@ public class UserController {
         return "userDetail";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String editUser(@PathVariable Integer id, Model model) {
-        logger.info("nazwa metody = editUser");
+    public String editUser(@PathVariable Integer id, Model model, SecurityContextHolderAwareRequestWrapper request) {
+        logger.debug("nazwa metody = editUser");
         try {
             model.addAttribute("userEditForm", new UserEditForm(userService.getUserById(id)));
         } catch (Exception e) {
@@ -56,6 +61,7 @@ public class UserController {
         return "userEdit";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String saveUser(@PathVariable Integer id, @ModelAttribute @Valid UserEditForm userEditForm, Errors errors) {
         logger.info("nazwa metody = saveUser");

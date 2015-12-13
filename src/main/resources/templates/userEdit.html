@@ -1,33 +1,33 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Aluminium-register</title>
+    <title>Alluminium</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<h1>Edit User</h1>
+<h1 th:text="#{userEdit.edit_user}"></h1>
 
 <form action="" th:object="${userEditForm}" method="post">
     <input type="hidden" th:field="*{id}"/>
     <table>
         <tr>
-            <td>Name:</td>
+            <td th:text="#{userEdit.name}"></td>
             <td><input type="text" th:field="*{name}"/></td>
             <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name Error</td>
         </tr>
         <tr>
-            <td>Last name:</td>
+            <td th:text="#{userEdit.last_name}"></td>
             <td><input type="text" th:field="*{lastName}"/></td>
             <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">lastName Error</td>
         </tr>
         <tr>
-            <td>Adres email:</td>
+            <td th:text="#{userEdit.email}"></td>
             <td><input type="text" th:field="*{email}"/></td>
             <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</td>
         </tr>
         <tr>
-            <td>Rola:</td>
+            <td th:text="#{userEdit.role}"></td>
             <td>
-                <select id="userRole" class="form-control" th:field="*{role}">
+                <select id="userRole" th:field="*{role}">
                     <option th:each="userRole : ${T(com.zespolowka.Entity.Role).values()}" th:value="${userRole}"
                             th:text="${userRole}">
                     </option>
@@ -36,11 +36,15 @@
         </tr>
         <tr>
             <td>
-                <button type="submit">Submit</button>
+                <button type="submit" th:text="#{userEdit.submit}"></button>
             </td>
         </tr>
     </table>
-
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 </form>
 </body>
+<footer>
+    <a th:href="@{?lang=en}" th:text="En"></a> |
+    <a th:href="@{?lang=pl}" th:text="Pl"></a>
+</footer>
 </html>

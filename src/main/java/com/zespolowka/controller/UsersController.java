@@ -24,7 +24,7 @@ public class UsersController {
 
     @RequestMapping("/users")
     public String getUsersPage(Model model) {
-        logger.info("nazwa metody = saveUser");
+        logger.info("nazwa metody = getUsersPage");
         try {
             model.addAttribute("Users", userService.getAllUsers());
         } catch (Exception e) {
