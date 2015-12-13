@@ -1,13 +1,16 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+   <!DOCTYPE HTML>
+   <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>
-            Aluminium - REGISTER
-        </title>
+        <title>testpage</title>
+		 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-        <h1> register 
-			src\main\resources\templates
-		</h1>      
+        <h3>Please register here</h3>
+		<form action="#" th:action="@{/register}" th:object="${user}" method="post">
+    	<p>Name: <input type="text" th:field="*{name}" /></p>
+        <p>Id: <input type="text" th:field="*{id}" /></p>
+	    <p>Password: <input type="text" th:field="*{password}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>	   
     </body>
 </html>
