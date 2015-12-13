@@ -3,7 +3,8 @@ package com.zespolowka;
 public class User {
     private String name;
     private long id;
-    private String password;
+    private String Password;
+    private String ConfPassword;
  
  public String getName(){
       return name;
@@ -18,9 +19,15 @@ public class User {
       id=tid;
   }
  public String getPassword(){
-      return password;
+      return Password;
   }
  public void setPassword(String tpass){
-      password=tpass;
+      Password=tpass;
   }
+ public void setConfPassword(String tpass){
+     ConfPassword=tpass;
+ }
+ public String getConfPassword(){
+     return ConfPassword;
+ }
 }

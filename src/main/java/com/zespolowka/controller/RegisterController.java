@@ -32,6 +32,7 @@ public class RegisterController {
                 return "regError";
         }
         model.addAttribute("user", user);    
+        //tutaj klasa do bazy
         return "regSuccess";
     }        
 
