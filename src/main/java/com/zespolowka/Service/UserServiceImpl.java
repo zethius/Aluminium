@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 /**
  * Created by Admin on 2015-12-01.
@@ -27,13 +29,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(long id) {
+    public Optional<User> getUserById(long id) {
         logger.info("Pobieranie uzytkownika o id = {}", id);
-        return userRepository.findOne(id);
+        return Optional.ofNullable(userRepository.findOne(id));
     }
 
     @Override
-    public User getUserByEmail(String email) {
+    public Optional<User> getUserByEmail(String email) {
         logger.info("Pobieranie uzytkownika o mailu = {}", email);
         return userRepository.findUserByEmail(email);
     }
@@ -62,11 +64,13 @@ public class UserServiceImpl implements UserService {
      * Edytuje uzytkownika
      */
     public User editUser(UserEditForm userEditForm) {
-        User user = getUserById(userEditForm.getId());
+        User user = getUserById(userEditForm.getId())
+                .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", userEditForm.getId())));
         user.setName(userEditForm.getName());
         user.setLastName(userEditForm.getLastName());
         user.setEmail(userEditForm.getEmail());
         user.setRole(userEditForm.getRole());
+        logger.info("Stworzono uzytkownika");
         return userRepository.save(user);
     }
 

@@ -12,6 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -59,7 +60,8 @@ public class UserServiceTest {
     public void getUserByEmailShouldReturnUser() throws Exception {
         String email = "test@o2.pl";
         User user = new UserBuilder("imie", "nazwisko").withEmail(email).build();
-        when(userService.getUserByEmail(email)).thenReturn(user);
+        when(userService.getUserByEmail(email))
+                .thenReturn(Optional.of(user));
 
         User expectedUser = new UserBuilder("imie", "nazwisko").withEmail(email).build();
         assertThat(user.getEmail()).isEqualTo(expectedUser.getEmail());

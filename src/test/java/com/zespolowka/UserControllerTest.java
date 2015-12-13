@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -19,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by Pitek on 2015-12-03.
  */
+
 @ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = AluminiumApplication.class)
@@ -31,7 +33,8 @@ public class UserControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        this.mvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+        this.mvc = MockMvcBuilders.webAppContextSetup(this.wac)
+                .build();
     }
 
     @Test
@@ -53,7 +56,8 @@ public class UserControllerTest {
 
     @Test
     public void should_failed_edit_user() throws Exception {
-        mvc.perform(post("/user/edit/1"))
+        mvc.perform(post("/user/edit/1")
+                .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("userEdit"))
                 .andExpect(model().errorCount(3));

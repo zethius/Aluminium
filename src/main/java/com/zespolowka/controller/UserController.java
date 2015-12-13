@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.NoSuchElementException;
 
 /**
  * Created by Pitek on 2015-12-01.
@@ -38,7 +39,8 @@ public class UserController {
     public String showUserDetail(@PathVariable Long id, Model model) {
         logger.info("nazwa metody = showUserDetail");
         try {
-            User user = userService.getUserById(id);
+            User user = userService.getUserById(id)
+                    .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
             model.addAttribute(user);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -52,7 +54,8 @@ public class UserController {
     public String editUser(@PathVariable Integer id, Model model, SecurityContextHolderAwareRequestWrapper request) {
         logger.debug("nazwa metody = editUser");
         try {
-            model.addAttribute("userEditForm", new UserEditForm(userService.getUserById(id)));
+            model.addAttribute("userEditForm", new UserEditForm(userService.getUserById(id)
+                    .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)))));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             logger.info(id.toString() + "\n" + model + "\n" + userService.getUserById(id));

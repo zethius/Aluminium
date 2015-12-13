@@ -3,9 +3,11 @@ package com.zespolowka.repository;
 import com.zespolowka.Entity.User;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Optional;
+
 /**
- * Created by Admin on 2015-11-29.
+ * Created by Pitek on 2015-11-29.
  */
 public interface UserRepository extends CrudRepository<User, Long> {
-    User findUserByEmail(String email);
+    Optional<User> findUserByEmail(String email);
 }

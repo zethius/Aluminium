@@ -40,7 +40,8 @@
             </td>
         </tr>
     </table>
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <input type="hidden" th:name="${_csrf != null ? _csrf.parameterName : 'testing'}"
+           th:value="${_csrf != null ? _csrf.token : 'testing'}"/>
 </form>
 </body>
 <footer>

@@ -92,4 +92,15 @@ public class UserCreateForm {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "UserCreateForm{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

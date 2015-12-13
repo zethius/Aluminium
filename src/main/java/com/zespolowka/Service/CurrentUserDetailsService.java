@@ -25,8 +25,8 @@ public class CurrentUserDetailsService implements UserDetailsService {
     @Override
     public CurrentUser loadUserByUsername(String email) throws UsernameNotFoundException {
         logger.info("Autentykacja uzytkownika o mailu = {}", email);
-        User user = userService.getUserByEmail(email);  ///TODO optional do getUserByEmail
-        //.orElseThrow(() -> new UsernameNotFoundException(String.format("User with email=%s was not found", email)));
+        User user = userService.getUserByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with email=%s was not found", email)));
         return new CurrentUser(user);
     }
 }

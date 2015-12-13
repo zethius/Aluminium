@@ -53,6 +53,7 @@ public class RegisterController {
                 return "register";
             } else {
                 User user = userService.create(userCreateForm);
+                logger.info(user.toString());
                 return "redirect:/user/" + user.getId();
             }
         }

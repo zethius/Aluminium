@@ -31,12 +31,12 @@ public class UserCreateValidator implements Validator {
 
     public void validate(Object target, Errors errors) {
         UserCreateForm form = (UserCreateForm) target;
-        logger.info("Validating {}", target);
+        logger.info("Walidacja {}", target);
         if (!form.getPassword().equals(form.getConfirmPassword())) {
             errors.rejectValue("password", "password_error");
         }
 
-        if (userService.getUserByEmail(form.getEmail()) != null) {
+        if (userService.getUserByEmail(form.getEmail()).isPresent()) {
             errors.rejectValue("email", "email_error");
         }
     }
