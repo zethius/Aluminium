@@ -28,16 +28,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(long id) {
+        logger.info("Pobieranie uzytkownika o id = {}", id);
         return userRepository.findOne(id);
     }
 
     @Override
     public User getUserByEmail(String email) {
+        logger.info("Pobieranie uzytkownika o mailu = {}", email);
         return userRepository.findUserByEmail(email);
     }
 
     @Override
     public Collection<User> getAllUsers() {
+        logger.info("Pobieranie wszystkich uzytkownikow");
         return (Collection<User>) userRepository.findAll();
     }
 

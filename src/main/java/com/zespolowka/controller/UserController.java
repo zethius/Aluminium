@@ -37,7 +37,6 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showUserDetail(@PathVariable Long id, Model model) {
         logger.info("nazwa metody = showUserDetail");
-        logger.debug("showUserDetail, model={}", model);
         try {
             User user = userService.getUserById(id);
             model.addAttribute(user);

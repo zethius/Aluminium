@@ -31,6 +31,7 @@ public class UserCreateValidator implements Validator {
 
     public void validate(Object target, Errors errors) {
         UserCreateForm form = (UserCreateForm) target;
+        logger.info("Validating {}", target);
         if (!form.getPassword().equals(form.getConfirmPassword())) {
             errors.rejectValue("password", "password_error");
         }
