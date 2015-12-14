@@ -1,6 +1,5 @@
 package com.zespolowka.controller;
 
-
 import com.zespolowka.User;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -22,9 +21,7 @@ public class RegisterController {
     public String regForm(Model model) {
         model.addAttribute("user", new User());
         return "register";
-    }
- 
-    
+    }  
 
     @RequestMapping(value="/register", method=RequestMethod.POST)
     public String regSubmit(@Valid @ModelAttribute User user, BindingResult result, ModelMap model) {
