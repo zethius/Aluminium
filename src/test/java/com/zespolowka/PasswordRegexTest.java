@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 @ActiveProfiles("test")
 public class PasswordRegexTest {
     @Test
-    public void shoud_show_main_page() throws Exception {
+    public void checkValidation() throws Exception {
         String regex = "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,})(?!.*\\s).{8,}$";
 
         assertEquals(true, "zaq1@WSX".matches(regex));

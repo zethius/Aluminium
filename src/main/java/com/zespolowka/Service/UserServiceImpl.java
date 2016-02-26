@@ -57,6 +57,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(form.getEmail());
         user.setPasswordHash(new BCryptPasswordEncoder().encode(form.getPassword()));
         user.setRole(form.getRole());
+        logger.info("Stworzono uzytkownika");
         return userRepository.save(user);
     }
 
@@ -70,7 +71,11 @@ public class UserServiceImpl implements UserService {
         user.setLastName(userEditForm.getLastName());
         user.setEmail(userEditForm.getEmail());
         user.setRole(userEditForm.getRole());
-        logger.info("Stworzono uzytkownika");
+        logger.info("Edytowano uzytkownika");
+        return userRepository.save(user);
+    }
+
+    public User update(User user){
         return userRepository.save(user);
     }
 

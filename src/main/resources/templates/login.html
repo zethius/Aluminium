@@ -7,7 +7,7 @@
 <h1 th:text="#{login.login_page}"></h1>
 
 
-<p th:if="${loginError}" th:text="#{login.error_message}"></p>
+<p th:if="${loginError}" th:text="${errorMessage}"></p>
 
 <div sec:authorize="isAuthenticated()">
     <p th:text="#{login.logged_user}"/>

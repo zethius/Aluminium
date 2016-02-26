@@ -21,4 +21,6 @@ public interface UserService {
     User create(UserCreateForm form);
 
     User editUser(UserEditForm userEditForm);
+
+    User update(User user);
 }
