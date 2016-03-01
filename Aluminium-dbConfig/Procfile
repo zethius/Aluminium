@@ -1,1 +1,0 @@
-web:    java $JAVA_OPTS -Dspring.profiles.active=prod -jar target/aluminium-0.0.1-SNAPSHOT.jar --server.port=$PORT
