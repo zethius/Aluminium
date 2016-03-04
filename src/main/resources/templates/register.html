@@ -1,50 +1,77 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorator="layout">
 <head>
-    <title>Alluminium</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title th:text="#{login.register}" ></title>
 </head>
 <body>
-<h1 th:text="#{register.register_form}"></h1>
+<div layout:fragment="content">
+    <form class="form-register" th:action="@{/register}" th:object="${userCreateForm}" method="post">
 
-<form action="#" th:action="@{/register}" th:object="${userCreateForm}" method="post">
-    <table>
-        <tr>
-            <td th:text="#{register.name}"></td>
-            <td><input type="text" th:field="*{name}"/></td>
-            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name Error</td>
-        </tr>
-        <tr>
-            <td th:text="#{register.lastName}"></td>
-            <td><input type="text" th:field="*{lastName}"/></td>
-            <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">lastName Error</td>
-        </tr>
-        <tr>
-            <td th:text="#{register.email}"></td>
-            <td><input type="text" th:field="*{email}"/></td>
-            <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</td>
-        </tr>
-        <tr>
-            <td th:text="#{register.password}"></td>
-            <td><input type="password" th:field="*{password}"/></td>
-            <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</td>
-        </tr>
-        <tr>
-            <td th:text="#{register.confirm_password}"></td>
-            <td><input type="password" th:field="*{confirmPassword}"/></td>
-            <td th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">confirmPassword Error
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button type="submit" th:text="#{register.submit}"></button>
-            </td>
-        </tr>
-    </table>
-</form>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" th:text="#{register.register_form}"></h3>
+            </div>
+
+            <div class="panel-body">
+                <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
+                    <p th:each="err:${#fields.allErrors()}" th:text="${err}">...</p>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="email" th:text="#{register.email}"/>
+                        <div class="input-group">
+                            <input class="form-control" id="email"  type="text" th:field="*{email}" th:placeholder="#{register.email}" required="required"/>
+                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                  th:class="text-danger">email Error</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="name" th:text="#{register.name}"/>
+                        <div class="input-group">
+                            <input id="name"  type="text" class="form-control" th:placeholder="#{register.name}" required="required" th:field="*{name}"/>
+                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="text-danger">name
+                                Error</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="lastName" th:text="#{register.lastName}"/>
+                        <div class="input-group">
+                            <input id="lastName" type="text" class="form-control" th:placeholder="#{register.lastName}" required="required"
+                                   th:field="*{lastName}"/>
+                            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                  th:class="text-danger">lastName Error</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="password" th:text="#{register.password}"/>
+                        <div class="input-group">
+                            <input id="password"  type="password" class="form-control" th:placeholder="#{register.password}" required="required" th:field="*{password}"/>
+                            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:class="text-danger">password
+                                Error</span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="confirmPassword" th:text="#{register.confirm_password}"/>
+                        <div class="input-group">
+                            <input id="confirmPassword" type="password" class="form-control" th:placeholder="#{register.confirm_password}" required="required"
+                                   th:field="*{confirmPassword}"/>
+                            <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
+                                  th:class="text-danger">lastName Error</span>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" name="submit" id="submit" th:value="#{register.submit}" class="btn btn-primary pull-right"/>
+            </div>
+        </div>
+
+    </form>
+
+</div>
 </body>
-<footer>
-    <a th:href="@{?lang=en}" th:text="En"></a> |
-    <a th:href="@{?lang=pl}" th:text="Pl"></a>
-</footer>
 </html>

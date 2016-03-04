@@ -36,4 +36,9 @@ public class LoginController {
         model.addAttribute("errorMessage",request.getSession().getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION));
         return "login";
     }
+    @RequestMapping(value = "/remindPassword", method = RequestMethod.GET)
+    public String getRemindPasswordPage() {
+        logger.info("nazwa metody = getRemindPasswordPage");
+        return "remindPassword";
+    }
 }
