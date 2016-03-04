@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Peps on 2016-02-27.
  */
 
-@Entity //problem z utworzeniem tabeli jak to jest -> zle skonfigurowane hibernate?
+@Entity
 @Table(name = "NotificationTable")
 public class Notification {
     @Id

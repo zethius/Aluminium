@@ -1,5 +1,6 @@
 package com.zespolowka.controller;
 
+import com.zespolowka.Entity.CurrentUser;
 import com.zespolowka.Entity.User;
 import com.zespolowka.Entity.UserEditForm;
 import com.zespolowka.Service.UserService;
@@ -8,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,7 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private UserService userService;
+
     @Autowired
     private NotificationRepository notificationRepository;
 
@@ -37,12 +40,12 @@ public class UserController {
         this.userService = userService;
     }
 
+
     @PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showUserDetail(@PathVariable Long id, Model model) {
         logger.info("nazwa metody = showUserDetail");
         try {
-
             User user = userService.getUserById(id)
                     .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
             model.addAttribute(user);
@@ -52,6 +55,46 @@ public class UserController {
             logger.info(id.toString() + "\n" + model);
         }
         return "userDetail";
+    }
+
+    @RequestMapping(value = "/show", method = RequestMethod.GET)
+    public String showCurrentUserDetail(Model model) {
+        logger.info("nazwa metody = showCurrentUserDetail");
+        try {
+            CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user=currentUser.getUser();
+            model.addAttribute(user);
+            model.addAttribute("Notifications", notificationRepository.findByUserIdOrUserRole(user.getId(), user.getRole()));
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "userDetail";
+    }
+
+
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String editCurrentUserDetail(Model model) {
+        logger.info("nazwa metody = showCurrentUserDetail");
+        try {
+            CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user=currentUser.getUser();
+            model.addAttribute("userEditForm", new UserEditForm(user));
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "userEdit";
+    }
+
+    //na razie nie zapisuje
+    @RequestMapping(value = "/edit/", method = RequestMethod.POST)
+    public String saveCurrentUser(@ModelAttribute @Valid UserEditForm userEditForm, Errors errors) {
+        logger.info("nazwa metody = saveCurrentUser");
+        if (errors.hasErrors()) {
+            return "userEdit";
+        } else {
+            userService.editUser(userEditForm);
+            return "redirect:/user/show";
+        }
     }
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
@@ -78,7 +121,7 @@ public class UserController {
             User user = userService.editUser(userEditForm);
             return "redirect:/user/" + user.getId();
         }
-
     }
+
 }
 

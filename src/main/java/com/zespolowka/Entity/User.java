@@ -12,6 +12,8 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    private boolean enabled;
+
     private String name;
 
     private String lastName;
@@ -24,15 +26,18 @@ public class User {
     private Role role;
 
     public User() {
-
+        super();
+        this.enabled=false;
     }
 
     public User(String name, String lastName, String email, String passwordHash) {
+        super();
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.passwordHash = passwordHash;
         this.role = Role.USER;
+        this.enabled=false;
     }
 
     public Long getId() {
@@ -83,14 +88,23 @@ public class User {
         this.lastName = lastName;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", enabled=" + enabled +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", password_hash='" + passwordHash + '\'' +
+                ", passwordHash='" + passwordHash + '\'' +
                 ", role=" + role +
                 '}';
     }

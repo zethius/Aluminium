@@ -1,7 +1,6 @@
 package com.zespolowka;
 
 import com.zespolowka.Entity.User;
-import com.zespolowka.Service.NotificationService;
 import com.zespolowka.Service.UserService;
 import com.zespolowka.builders.UserBuilder;
 import com.zespolowka.controller.UsersController;
@@ -14,6 +13,7 @@ import org.springframework.ui.Model;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -30,13 +30,11 @@ public class UsersControllerTest {
     private List<User> userList;
 
     private UsersController usersController;
-    private NotificationService notificationService;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
         usersController = new UsersController(userService);
-        // usersController = new UsersController(userService,notificationService);
     }
 
     @Test

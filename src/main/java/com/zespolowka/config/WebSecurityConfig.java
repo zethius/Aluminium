@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 /**
  * Created by Pitek on 2015-12-10.
@@ -25,16 +26,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private AuthenticationFailureHandler authenticationFailureHandler=new CustomAuthenticationFailureHandler();
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/register", "/login**").permitAll()
+                .antMatchers("/", "/register", "/login**","/registrationConfirm**","/remindPassword")
+                .permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login-error")
+                .failureHandler(authenticationFailureHandler)
                 .permitAll()
                 .and()
                 .logout()
@@ -44,14 +50,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .rememberMe();
+
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        System.out.println("TO sie wywoluje?" + userDetailsService);
         auth
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
+
 
 }
