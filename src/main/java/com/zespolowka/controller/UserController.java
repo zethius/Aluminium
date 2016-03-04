@@ -98,6 +98,18 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String saveCurrentUser(@PathVariable Integer id, @ModelAttribute @Valid UserEditForm userEditForm, Errors errors) {
+        logger.info("nazwa metody = saveUser");
+        if (errors.hasErrors()) {
+            return "userEdit";
+        } else {
+            User user = userService.editUser(userEditForm);
+            return "redirect:/user/" + user.getId();
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String editUser(@PathVariable Integer id, Model model, SecurityContextHolderAwareRequestWrapper request) {
         logger.debug("nazwa metody = editUser");
