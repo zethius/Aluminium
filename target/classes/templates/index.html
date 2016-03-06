@@ -1,23 +1,46 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorator="layout">
 <head>
-    <title>
-        Aluminium
-    </title>
+    <title th:text="#{login.login_page}"></title>
 </head>
 <body>
-<h1 th:text="#{home.welcome}"></h1>
+<div layout:fragment="content">
+    <div class="jumbotron">
+        <div class="container">
+            <h1 th:text="${pageMessage}"></h1>
+            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">Ruchaj więcej &raquo;</a></p>
+        </div>
+    </div>
 
-<h2 th:text="${pageMessage}"></h2>
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Ruchać</h2>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                <p><a class="btn btn-default" href="#" role="button">Wchodzę w to &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Jebać</h2>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                <p><a class="btn btn-default" href="#" role="button">Na ostro &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Python z Królikiem</h2>
+                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                <p><a class="btn btn-default" href="#" role="button">Sprawdź rozmiar &raquo;</a></p>
+            </div>
+        </div>
 
-<p>Click <a th:href="@{/register}">here</a> to register</p>
+        <hr/>
 
-<p>Click <a th:href="@{/users}">here</a> to Show all users</p>
+        <footer>
+            <p>&copy; 2015-2016 <strong>Uczestnicy Programowania Zespołowego.</strong></p>
+        </footer>
+    </div>
+</div>
 </body>
-<footer>
-    <a th:href="@{?lang=en}" th:text="En"></a> |
-    <a th:href="@{?lang=pl}" th:text="Pl"></a>
-</footer>
 </html>
-
