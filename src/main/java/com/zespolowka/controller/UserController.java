@@ -85,8 +85,8 @@ public class UserController {
         return "userEdit";
     }
 
-    //na razie nie zapisuje
-    @RequestMapping(value = "/edit/", method = RequestMethod.POST)
+    //zapisuje ale nie wyswleta na /user/show
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String saveCurrentUser(@ModelAttribute @Valid UserEditForm userEditForm, Errors errors) {
         logger.info("nazwa metody = saveCurrentUser");
         if (errors.hasErrors()) {
@@ -96,7 +96,7 @@ public class UserController {
             return "redirect:/user/show";
         }
     }
-    
+
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String editUser(@PathVariable Integer id, Model model, SecurityContextHolderAwareRequestWrapper request) {
