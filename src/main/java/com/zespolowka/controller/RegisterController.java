@@ -109,4 +109,9 @@ public class RegisterController {
         }
     }
 
+    @RequestMapping("/test")
+    public String createTest(){
+        return "createTest";
+    }
+
 }

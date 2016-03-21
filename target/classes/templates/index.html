@@ -9,8 +9,54 @@
 <div layout:fragment="content">
     <div class="jumbotron">
         <div class="container">
-            <h1 th:text="${pageMessage}"></h1>
-            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+            <h1>Witaj <strong>Ruchaczu WielkaPała</strong></h1>
+            <h2>Zapoznaj się z testami</h2>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#aktywne" aria-controls="aktywne" role="tab" data-toggle="tab">Aktywne testy</a></li>
+                <li role="presentation"><a href="#archiwalne" aria-controls="archiwalne" role="tab" data-toggle="tab">Testy archiwalne</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="aktywne">.
+                    <table class="grid table" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>Nazwa</th>
+                            <th>Podejście</th>
+                            <th>Język</th>
+                            <th>Data końca</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Wielki test penetracyjny he he</td>
+                            <td>69</td>
+                            <td>Francuski</td>
+                            <td>12.12.2012</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="archiwalne">...
+                    <table class="grid table" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>Nazwa</th>
+                            <th>Podejście</th>
+                            <th>Język</th>
+                            <th>Wynik</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Wielki test penetracyjny he he</td>
+                            <td>69</td>
+                            <td>Francuski</td>
+                            <td>190%</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <p><a class="btn btn-primary btn-lg" href="#" role="button">Ruchaj więcej &raquo;</a></p>
         </div>
     </div>

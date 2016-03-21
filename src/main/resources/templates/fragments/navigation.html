@@ -13,6 +13,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Strona główna</a></li>
                 <li><a href="#">Rozpocznij test</a></li>
+                <li><a href="#">Utwórz test</a></li>
                 <li><a href="#">Lista wyników</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Zadania <span class="caret"></span></a>
@@ -29,12 +30,22 @@
                 <li><a th:href="@{?lang=pl}"><img src="images/pl.png" alt="PL"/></a></li>
                 <li><a th:href="@{?lang=en}"><img src="images/eng.png" alt="EN"/></a></li>
                 <li sec:authorize="isAuthenticated()" class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Wiadomości <span class="badge">4</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> <strong>WIadomos nie odczytana..</strong></a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Przeczytales to</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Walmy sie ostro</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Pokaz wszystkie</a></li>
+                    </ul>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <span sec:authentication="principal.username">name</span>
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Edytuj dane</a></li>
+                        <li><a th:href="@{/user/edit}">Edytuj dane</a></li>
                         <li><a href="#">Moje osiągnięcia</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="javascript:{}" onclick="document.getElementById('my_form').submit();">Wyloguj</a></li>
