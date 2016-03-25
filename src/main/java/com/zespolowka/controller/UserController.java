@@ -1,9 +1,9 @@
 package com.zespolowka.controller;
 
-import com.zespolowka.Entity.CurrentUser;
-import com.zespolowka.Entity.User;
-import com.zespolowka.Entity.UserEditForm;
-import com.zespolowka.Service.UserService;
+import com.zespolowka.entity.user.CurrentUser;
+import com.zespolowka.entity.user.User;
+import com.zespolowka.forms.UserEditForm;
+import com.zespolowka.service.inteface.UserService;
 import com.zespolowka.repository.NotificationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,7 +88,6 @@ public class UserController {
         return "userEdit";
     }
 
-    //zapisuje ale nie wyswleta na /user/show
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String saveCurrentUser(@ModelAttribute @Valid final UserEditForm userEditForm, final Errors errors) {
         logger.info("nazwa metody = saveCurrentUser");

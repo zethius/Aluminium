@@ -1,7 +1,7 @@
 package com.zespolowka.repository;
 
-import com.zespolowka.Entity.Notification;
-import com.zespolowka.Entity.Role;
+import com.zespolowka.entity.Notification;
+import com.zespolowka.entity.user.Role;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

@@ -1,8 +1,9 @@
-package com.zespolowka.Service;
+package com.zespolowka.service;
 
-import com.zespolowka.Entity.Notification;
-import com.zespolowka.Entity.Role;
+import com.zespolowka.entity.Notification;
+import com.zespolowka.entity.user.Role;
 import com.zespolowka.repository.NotificationRepository;
+import com.zespolowka.service.inteface.NotificationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 
-/**
- * Created by Peps on 2016-02-27.
- */
 @Service
 public class NotificationServiceImpl implements NotificationService {
     private static final Logger logger = LoggerFactory.getLogger(NotificationService.class);
@@ -38,7 +36,7 @@ public class NotificationServiceImpl implements NotificationService {
 
         Collection<Notification> temp = new ArrayList<>();
         // Notification poz=notificationRepository.findOne(uid);
-        //  logger.info("Test={}", poz.getMessage());
+        //  logger.info("createTest={}", poz.getMessage());
         // temp.add(poz);
         temp.add(notificationRepository.findOne(uid));//bieda
         return temp;

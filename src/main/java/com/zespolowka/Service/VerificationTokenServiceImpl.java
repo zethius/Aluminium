@@ -1,8 +1,9 @@
-package com.zespolowka.Service;
+package com.zespolowka.service;
 
-import com.zespolowka.Entity.User;
-import com.zespolowka.Entity.VerificationToken;
+import com.zespolowka.entity.user.User;
+import com.zespolowka.entity.VerificationToken;
 import com.zespolowka.repository.VerificationTokenRepository;
+import com.zespolowka.service.inteface.VerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

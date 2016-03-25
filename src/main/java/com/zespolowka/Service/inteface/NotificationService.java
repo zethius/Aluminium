@@ -1,7 +1,7 @@
-package com.zespolowka.Service;
+package com.zespolowka.service.inteface;
 
-import com.zespolowka.Entity.Notification;
-import com.zespolowka.Entity.Role;
+import com.zespolowka.entity.Notification;
+import com.zespolowka.entity.user.Role;
 
 import java.util.Collection;
 

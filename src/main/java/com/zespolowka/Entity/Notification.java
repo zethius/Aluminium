@@ -1,4 +1,6 @@
-package com.zespolowka.Entity;
+package com.zespolowka.entity;
+
+import com.zespolowka.entity.user.Role;
 
 import javax.persistence.*;
 

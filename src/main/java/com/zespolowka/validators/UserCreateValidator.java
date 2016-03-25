@@ -1,7 +1,7 @@
-package com.zespolowka.Entity.validators;
+package com.zespolowka.validators;
 
-import com.zespolowka.Entity.UserCreateForm;
-import com.zespolowka.Service.UserService;
+import com.zespolowka.forms.UserCreateForm;
+import com.zespolowka.service.inteface.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

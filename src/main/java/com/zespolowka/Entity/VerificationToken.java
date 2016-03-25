@@ -1,8 +1,8 @@
-package com.zespolowka.Entity;
+package com.zespolowka.entity;
+
+import com.zespolowka.entity.user.User;
 
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

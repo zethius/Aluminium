@@ -1,6 +1,6 @@
-package com.zespolowka.Service;
+package com.zespolowka.service.inteface;
 
-import com.zespolowka.Entity.User;
+import com.zespolowka.entity.user.User;
 import org.springframework.core.io.FileSystemResource;
 
 /**

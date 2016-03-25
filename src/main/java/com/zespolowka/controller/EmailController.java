@@ -1,17 +1,14 @@
 package com.zespolowka.controller;
 
-import com.zespolowka.Entity.CurrentUser;
-import com.zespolowka.Service.SendMailService;
-import com.zespolowka.Service.UserService;
+import com.zespolowka.entity.user.CurrentUser;
+import com.zespolowka.service.inteface.SendMailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
-import java.security.Principal;
 
 /**
  * Created by Admin on 2016-02-17.

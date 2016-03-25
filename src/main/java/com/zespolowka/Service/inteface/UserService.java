@@ -1,8 +1,8 @@
-package com.zespolowka.Service;
+package com.zespolowka.service.inteface;
 
-import com.zespolowka.Entity.User;
-import com.zespolowka.Entity.UserCreateForm;
-import com.zespolowka.Entity.UserEditForm;
+import com.zespolowka.entity.user.User;
+import com.zespolowka.forms.UserCreateForm;
+import com.zespolowka.forms.UserEditForm;
 
 import java.util.Collection;
 import java.util.Optional;

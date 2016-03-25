@@ -1,4 +1,4 @@
-package com.zespolowka.Entity;
+package com.zespolowka.entity.user;
 
 import javax.persistence.*;
 
@@ -98,7 +98,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "user{" +
                 "id=" + id +
                 ", enabled=" + enabled +
                 ", name='" + name + '\'' +

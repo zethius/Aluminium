@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorator="layout">
+<head>
+    <title th:text="#{login.register}"></title>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+    <h1>Wiadomości</h1>
+    <div class="list-group">
+        <a href="#" class="list-group-item active">
+            <h4 class="list-group-item-heading">Wiadomość nowa</h4>
+            <p class="list-group-item-text">Sed mollis euismod congue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam in nulla rhoncus, tempus leo vel, lacinia metus. Suspendisse non leo augue. Nulla mauris mi, interdum at felis vitae, volutpat ultrices velit. </p>
+        </a>
+        <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">Wiadomość stara</h4>
+            <p class="list-group-item-text">Morbi elit ex, tristique vestibulum laoreet id, lobortis non enim. Sed purus elit, fringilla eu vehicula at, egestas sit amet dolor. Morbi tortor nisl, sodales nec luctus vitae, ullamcorper vitae orci. Sed ut dignissim ex, ac vehicula arcu. Morbi maximus ligula ligula, a volutpat lectus tincidunt ac. Etiam quis metus id quam sagittis bibendum. Pellentesque maximus, felis sed laoreet vehicula, dui augue fermentum augue, tempus imperdiet dolor arcu eu nunc. Quisque euismod posuere lacus id tristique. </p>
+        </a>
+        <a href="#" class="list-group-item ">
+            <h4 class="list-group-item-heading">Motyw z dymaniem być musi</h4>
+            <p class="list-group-item-text">Quisque nisi augue, feugiat eget lectus et, faucibus dapibus eros.</p>
+        </a>
+    </div>
+    <nav>
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>

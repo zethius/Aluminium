@@ -1,6 +1,6 @@
 package com.zespolowka.repository;
 
-import com.zespolowka.Entity.User;
+import com.zespolowka.entity.user.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

@@ -1,7 +1,8 @@
-package com.zespolowka.Service;
+package com.zespolowka.service;
 
-import com.zespolowka.Entity.CurrentUser;
-import com.zespolowka.Entity.User;
+import com.zespolowka.entity.user.CurrentUser;
+import com.zespolowka.entity.user.User;
+import com.zespolowka.service.inteface.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

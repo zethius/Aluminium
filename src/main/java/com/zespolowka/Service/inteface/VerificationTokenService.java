@@ -1,14 +1,11 @@
-package com.zespolowka.Service;
+package com.zespolowka.service.inteface;
 
-import com.zespolowka.Entity.User;
-import com.zespolowka.Entity.VerificationToken;
+import com.zespolowka.entity.user.User;
+import com.zespolowka.entity.VerificationToken;
 
 import java.util.Collection;
 import java.util.Optional;
 
-/**
- * Created by Admin on 2016-02-17.
- */
 public interface VerificationTokenService {
     Optional<VerificationToken> getVerificationTokenById(long id);
 

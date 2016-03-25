@@ -1,4 +1,4 @@
-package com.zespolowka.Entity;
+package com.zespolowka.entity.user;
 
 import org.springframework.security.core.authority.AuthorityUtils;
 

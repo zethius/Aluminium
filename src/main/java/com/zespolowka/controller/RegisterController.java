@@ -1,12 +1,12 @@
 package com.zespolowka.controller;
 
-import com.zespolowka.Entity.User;
-import com.zespolowka.Entity.UserCreateForm;
-import com.zespolowka.Entity.VerificationToken;
-import com.zespolowka.Entity.validators.UserCreateValidator;
-import com.zespolowka.Service.SendMailService;
-import com.zespolowka.Service.UserService;
-import com.zespolowka.Service.VerificationTokenService;
+import com.zespolowka.entity.user.User;
+import com.zespolowka.forms.UserCreateForm;
+import com.zespolowka.entity.VerificationToken;
+import com.zespolowka.validators.UserCreateValidator;
+import com.zespolowka.service.inteface.SendMailService;
+import com.zespolowka.service.inteface.UserService;
+import com.zespolowka.service.inteface.VerificationTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,11 +107,6 @@ public class RegisterController {
             userService.update(user);
             return "login";
         }
-    }
-
-    @RequestMapping("/test")
-    public String createTest(){
-        return "createTest";
     }
 
 }
