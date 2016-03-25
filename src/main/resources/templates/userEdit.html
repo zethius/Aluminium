@@ -28,7 +28,7 @@
             <td th:text="#{userEdit.role}"></td>
             <td>
                 <select id="userRole" th:field="*{role}">
-                    <option th:each="userRole : ${T(com.zespolowka.entity.Role).values()}" th:value="${userRole}"
+                    <option th:each="userRole : ${T(com.zespolowka.entity.user.Role).values()}" th:value="${userRole}"
                             th:text="${userRole}">
                     </option>
                 </select>

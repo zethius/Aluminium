@@ -39,7 +39,7 @@ public class HomeController {
 
     @RequestMapping(value = "/messages")
     public String messagesPage(){
-        return "messages";
+        return "editProfile";
     }
 
 }
