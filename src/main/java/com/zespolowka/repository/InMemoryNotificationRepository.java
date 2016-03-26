@@ -18,9 +18,9 @@ public class InMemoryNotificationRepository {
 
     public InMemoryNotificationRepository() {
         Date data = new Date();
-        Notification pow1 = new Notification("Wiadomosc testowa", data.toString(), 1);
-        Notification pow2 = new Notification("Wiadomosc testowa2", data.toString(), 2);
-        Notification pow3 = new Notification("GRUPOWA", data.toString(), Role.USER);
+        Notification pow1 = new Notification("Wiadomosc testowa", data, 1);
+        Notification pow2 = new Notification("Wiadomosc testowa2", data, 2);
+        Notification pow3 = new Notification("GRUPOWA", data, Role.USER);
         listofNotifications.add(pow1);
         listofNotifications.add(pow2);
         listofNotifications.add(pow3);

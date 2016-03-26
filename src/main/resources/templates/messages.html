@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorator="layout">
+<head>
+    <title th:text="#{userDetail.your_profile}"></title>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+    <h1>Wiadomości</h1>
+    <div class="list-group" th:each="notification : ${Notifications}">
+        <a href="#" class="list-group-item ">
+            <h4 class="list-group-item-heading" th:text="${notification.date}"></h4>
+            <p class="list-group-item-text" th:text="${notification.message}"></p>
+            <strong th:text="${notification.unread}"></strong>
+         </a>
+    </div>
+    <nav>
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>

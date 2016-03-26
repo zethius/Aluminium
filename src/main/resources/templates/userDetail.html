@@ -9,24 +9,6 @@
     <span th:text="${user.name}">imię</span><br/>
     <span th:text="${user.lastName}">nazwisko</span><br/>
     <span th:text="${user.email}">adres e-mail</span><br/>
-
-    <table>
-        <tr>
-            <th >Message</th>
-            <th >Date</th>
-            <th >Group</th>
-            <th >UID</th>
-        </tr>
-        <tr th:each="notification : ${Notifications}">
-            <td th:text="${notification.message}"></td>
-            <td th:text="${notification.date}"></td>
-            <td th:text="${notification.userRole}"></td>
-            <td th:text="${notification.userId}"></td>
-            <td><a th:href="${'/deleteNotification/' + notification.id}" th:text="Delete"></a></td>
-        </tr>
-    </table>
-    <td><a th:href="${'/user/edit/'}" th:text="#{users.edit}"></a></td>
-
 </content>
 </body>
 <footer>

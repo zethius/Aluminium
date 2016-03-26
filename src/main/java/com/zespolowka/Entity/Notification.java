@@ -1,6 +1,7 @@
 package com.zespolowka.Entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Peps on 2016-02-27.
@@ -15,8 +16,8 @@ public class Notification {
 
     private String message;
 
-    private String date;
-
+    private Date date;
+    private boolean unread;
     private long userId;
     @Column
     @Enumerated(EnumType.STRING)
@@ -25,18 +26,20 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(String message, String date, Role userRole) {
+    public Notification(String message, Date date, Role userRole) {
         this.message = message;
         this.date = date;
         this.userId = -1;
         this.userRole = userRole;
+        this.unread=true;
     }
 
-    public Notification(String message, String data, long userId) {
+    public Notification(String message, Date data, long userId) {
         this.message = message;
         this.date = data;
         this.userId = userId;
         this.userRole = null;
+        this.unread=true;
     }
 
     public Long getId() {
@@ -55,11 +58,11 @@ public class Notification {
         this.message = message;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -77,6 +80,14 @@ public class Notification {
 
     public void setUserRole(Role userRole) {
         this.userRole = userRole;
+    }
+
+    public boolean isUnread() {
+        return unread;
+    }
+
+    public void setUnread(boolean unread) {
+        this.unread = unread;
     }
 
     @Override
