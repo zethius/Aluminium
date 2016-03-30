@@ -1,12 +1,12 @@
 package com.zespolowka.controller;
 
+import com.zespolowka.entity.VerificationToken;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.UserCreateForm;
-import com.zespolowka.entity.VerificationToken;
-import com.zespolowka.validators.UserCreateValidator;
 import com.zespolowka.service.inteface.SendMailService;
 import com.zespolowka.service.inteface.UserService;
 import com.zespolowka.service.inteface.VerificationTokenService;
+import com.zespolowka.validators.UserCreateValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,46 +62,42 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerSubmit(@ModelAttribute @Valid UserCreateForm userCreateForm, BindingResult result,WebRequest request) {
+    public String registerSubmit(@ModelAttribute @Valid UserCreateForm userCreateForm, BindingResult result, WebRequest request, Model model) {
         logger.info("nazwa metody = registerSubmit");
+        userCreateValidator.validate(userCreateForm, result);
         if (result.hasErrors()) {
             return "register";
         } else {
-            userCreateValidator.validate(userCreateForm, result);
-            if (result.hasErrors()) {
-                return "register";
-            } else {
-
-                User user = userService.create(userCreateForm);
-                String token= UUID.randomUUID().toString();
-                VerificationToken verificationToken=verificationTokenService.create(user,token);
-                String url="http://localhost:8080"+request.getContextPath()+"/registrationConfirm?token=" + token;
-                sendMailService.sendVerificationMail(url,user);
-                logger.info(user.toString());
-
-                return "redirect:/user/" + user.getId();
-            }
+            User user = userService.create(userCreateForm);
+            String token = UUID.randomUUID().toString();
+            VerificationToken verificationToken = verificationTokenService.create(user, token);
+            String url = "http://localhost:8080" + request.getContextPath() + "/registrationConfirm?token=" + token;
+            sendMailService.sendVerificationMail(url, user);
+            logger.info(user.toString());
+            model.addAttribute("userCreateForm", new UserCreateForm());
+            model.addAttribute("confirmRegistration", true);
+            return "register";
         }
-
     }
-    @RequestMapping(value="/registrationConfirm",method = RequestMethod.GET)
-    public String confirmRegistration(Model model, @RequestParam("token")String token){
+
+
+    @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
+    public String confirmRegistration(Model model, @RequestParam("token") String token) {
         logger.info("Potwierdzenie rejestacji");
-        VerificationToken verificationToken=verificationTokenService.getVerificationTokenByToken(token).
+        VerificationToken verificationToken = verificationTokenService.getVerificationTokenByToken(token).
                 orElseThrow(() -> new NoSuchElementException(String.format("Podany token = %s nie istnieje", token)));
-        User user=verificationToken.getUser();
-        LocalDateTime localDateTime=LocalDateTime.now();
-        long diff=Duration.between(localDateTime,verificationToken.getExpiryDate()).toMinutes();
+        User user = verificationToken.getUser();
+        LocalDateTime localDateTime = LocalDateTime.now();
+        long diff = Duration.between(localDateTime, verificationToken.getExpiryDate()).toMinutes();
 
         /**
          * TODO
          * Poprawic to
          */
-        if (diff<0) {
-            logger.info(String.format("Token juz jest nieaktulany \n dataDO= %s \n",verificationToken.getExpiryDate()));
+        if (diff < 0) {
+            logger.info(String.format("Token juz jest nieaktulany \n dataDO= %s \n", verificationToken.getExpiryDate()));
             return "login";
-        }
-        else{
+        } else {
             logger.info("Token jest aktualny - aktywacja konta");
             user.setEnabled(true);
             userService.update(user);

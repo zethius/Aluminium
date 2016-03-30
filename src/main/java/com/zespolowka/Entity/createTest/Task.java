@@ -1,7 +1,5 @@
 package com.zespolowka.entity.createTest;
 
-import com.zespolowka.entity.solutionTest.TaskSolution;
-
 import javax.persistence.*;
 
 @Entity
@@ -16,7 +14,7 @@ public class Task {
     private Integer max_points;
 
 
-    public Task( final String question, final Integer max_points) {
+    public Task(final String question, final Integer max_points) {
         this.question = question;
         this.max_points = max_points;
     }

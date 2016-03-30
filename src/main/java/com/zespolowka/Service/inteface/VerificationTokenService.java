@@ -1,7 +1,7 @@
 package com.zespolowka.service.inteface;
 
-import com.zespolowka.entity.user.User;
 import com.zespolowka.entity.VerificationToken;
+import com.zespolowka.entity.user.User;
 
 import java.util.Collection;
 import java.util.Optional;

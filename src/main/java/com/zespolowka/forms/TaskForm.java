@@ -4,10 +4,10 @@ import javax.validation.constraints.Size;
 
 public class TaskForm {
     public static final int CLOSEDTASK = 0;
-    public static final int OPENTASK=1;
-    public static final int PROGRAMMINGTASK=2;
+    public static final int OPENTASK = 1;
+    public static final int PROGRAMMINGTASK = 2;
 
-    @Size(min = 5,max = 25)
+    @Size(min = 5, max = 25)
     private String question;
 
     @Size(min = 2)
@@ -29,13 +29,13 @@ public class TaskForm {
         this.question = question;
         this.taskType = taskType;
         this.answer = answer;
-        this.testCode="";
+        this.testCode = "";
     }
 
     public TaskForm(String question, String programmingAnswer, int taskType) {
         this.question = question;
         this.testCode = programmingAnswer;
-        this.answer="";
+        this.answer = "";
         this.taskType = taskType;
     }
 

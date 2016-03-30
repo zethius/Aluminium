@@ -12,7 +12,7 @@ public class TaskSolution {
     private Long id;
     private Integer points;
 
-    @ManyToOne(optional = true, cascade =CascadeType.MERGE)
+    @ManyToOne(optional = true, cascade = CascadeType.MERGE)
     private Task task;
 
     public TaskSolution() {

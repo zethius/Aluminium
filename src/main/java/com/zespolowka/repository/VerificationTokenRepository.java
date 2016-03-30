@@ -2,6 +2,7 @@ package com.zespolowka.repository;
 
 import com.zespolowka.entity.VerificationToken;
 import org.springframework.data.repository.CrudRepository;
+
 import java.util.Optional;
 
 /**

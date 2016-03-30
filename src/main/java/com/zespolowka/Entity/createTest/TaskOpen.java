@@ -7,7 +7,7 @@ public class TaskOpen extends Task {
     private String answer;
 
     public TaskOpen(String question, Integer max_points, String answer) {
-        super( question, max_points);
+        super(question, max_points);
         this.answer = answer;
     }
 

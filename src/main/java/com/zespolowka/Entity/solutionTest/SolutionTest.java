@@ -60,7 +60,7 @@ public class SolutionTest {
             Integer pointPerAnswer = taskClo.getMax_points() / correctAnswers.size();
             for (String key : userAnswers.keySet()) {
                 if (userAnswers.get(key).equals(correctAnswers.get(key)))
-                    points +=pointPerAnswer;
+                    points += pointPerAnswer;
             }
 
         }

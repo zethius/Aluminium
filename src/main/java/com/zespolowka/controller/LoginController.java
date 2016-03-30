@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
-/**
- * Created by Pitek on 2015-12-10.
- */
 
 @Controller
 public class LoginController {
@@ -33,9 +30,10 @@ public class LoginController {
     public String loginError(Model model, HttpServletRequest request) {
         logger.info("nazwa metody = loginError");
         model.addAttribute("loginError", true);
-        model.addAttribute("errorMessage",request.getSession().getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION));
+        model.addAttribute("errorMessage", request.getSession().getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION));
         return "login";
     }
+
     @RequestMapping(value = "/remindPassword", method = RequestMethod.GET)
     public String getRemindPasswordPage() {
         logger.info("nazwa metody = getRemindPasswordPage");

@@ -28,8 +28,8 @@ public class HomeController {
         try {
             model.addAttribute("pageMessage", this.pageMessage);
             logger.info(testService.getAllTests().toString());
-            model.addAttribute("activeTest",testService.getAllTests());
-            model.addAttribute("archiveTest",testService.getAllTests());
+            model.addAttribute("activeTest", testService.getAllTests());
+            model.addAttribute("archiveTest", testService.getAllTests());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             logger.info(model.toString() + " " + this.pageMessage);
@@ -38,7 +38,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/messages")
-    public String messagesPage(){
+    public String messagesPage() {
         return "editProfile";
     }
 

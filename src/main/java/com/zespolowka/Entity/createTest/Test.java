@@ -1,7 +1,5 @@
 package com.zespolowka.entity.createTest;
 
-import com.zespolowka.entity.solutionTest.SolutionTest;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,7 +17,7 @@ public class Test {
     private LocalDate beginDate;
     private LocalDate endDate;
     private Integer maxPoints;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Task> tasks;
 
 

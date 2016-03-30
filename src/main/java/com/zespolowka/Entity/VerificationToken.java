@@ -2,15 +2,8 @@ package com.zespolowka.entity;
 
 import com.zespolowka.entity.user.User;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 public class VerificationToken {
@@ -30,7 +23,7 @@ public class VerificationToken {
 
     private LocalDateTime expiryDate;
 
-    public VerificationToken(String token,User user) {
+    public VerificationToken(String token, User user) {
         super();
         this.token = token;
         this.user = user;
@@ -66,10 +59,9 @@ public class VerificationToken {
     }
 
     private LocalDateTime calculateExpiryDate(int expiryTime) {
-        LocalDateTime now=LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
         return now.plusDays(expiryTime);
     }
-
 
 
 }

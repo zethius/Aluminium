@@ -1,20 +1,25 @@
 package com.zespolowka.repository;
 
+
 import com.zespolowka.entity.Notification;
 import com.zespolowka.entity.user.Role;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 
-/**
- * Created by Peps on 2016-02-27.
- */
-public interface NotificationRepository extends CrudRepository<Notification, Long> {
-    List<Notification> findByUserId(Long userId);
+public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
-    List<Notification> findByUserRole(Role userRole);
+    List<Notification> findByUserIdOrUserRoleOrderByDateDesc(Long userId, Role userRole);
 
-    List<Notification> findByUserIdOrUserRole(Long userId, Role userRole);
+    List<Notification> findTop5ByUserIdOrUserRoleOrderByDateDesc(Long userId, Role userRole);
+
+    Long countByUnreadAndUserId(boolean unread, Long userId);
+
+    Long countByUnreadAndUserRole(boolean unread, Role userRole);
+
+    Page<Notification> findAllByUserIdOrUserRoleOrderByDateDesc(Pageable var1,Long userId, Role userRole);
 }
 

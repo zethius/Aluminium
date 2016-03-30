@@ -24,15 +24,16 @@ public class TestController {
     private CreateTestForm createTestForm;
 
     @Autowired
-    public TestController(final TestFormService testFormService,TestService testService) {
+    public TestController(final TestFormService testFormService, TestService testService) {
         this.testFormService = testFormService;
-        this.testService=testService;
+        this.testService = testService;
     }
 
     @RequestMapping(value = "create")
     public String createTest(final Model model) {
         logger.info("Metoda - createTest");
         createTestForm = this.testFormService.getTestFromSession();
+        logger.info(createTestForm.toString());
         model.addAttribute("createTestForm", createTestForm);
         return "tmpCreateTest";
     }
@@ -40,6 +41,7 @@ public class TestController {
     @RequestMapping(value = "create/add", method = RequestMethod.POST)
     public String addQuestion(@RequestParam(value = "questionId", defaultValue = "0") int questionId, final CreateTestForm createTestForm, final Model model) {
         testFormService.updateTestFormInSession(createTestForm);
+        logger.info(testFormService.getTestFromSession().toString());
         logger.info("Metoda - addQuestion");
         switch (questionId) {
             case 0: {
@@ -65,7 +67,7 @@ public class TestController {
     public String save(final CreateTestForm createTestForm, final BindingResult result) {
         logger.info("Metoda - save");
         testFormService.updateTestFormInSession(createTestForm);
-        Test test=testService.create(createTestForm);
+        Test test = testService.create(createTestForm);
         testFormService.updateTestFormInSession(new CreateTestForm());
         return "redirect:/test/create";
     }

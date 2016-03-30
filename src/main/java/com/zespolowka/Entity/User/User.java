@@ -27,7 +27,7 @@ public class User {
 
     public User() {
         super();
-        this.enabled=false;
+        this.enabled = false;
     }
 
     public User(String name, String lastName, String email, String passwordHash) {
@@ -37,7 +37,7 @@ public class User {
         this.email = email;
         this.passwordHash = passwordHash;
         this.role = Role.USER;
-        this.enabled=false;
+        this.enabled = false;
     }
 
     public Long getId() {

@@ -1,7 +1,7 @@
 package com.zespolowka.service;
 
-import com.zespolowka.entity.user.User;
 import com.zespolowka.entity.VerificationToken;
+import com.zespolowka.entity.user.User;
 import com.zespolowka.repository.VerificationTokenRepository;
 import com.zespolowka.service.inteface.VerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +41,8 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
     }
 
     public VerificationToken create(User user, String token) {
-        VerificationToken verificationToken=new VerificationToken(token,user);
-        logger.info("Stworzono token"+token);
+        VerificationToken verificationToken = new VerificationToken(token, user);
+        logger.info("Stworzono token" + token);
         return verificationTokenRepository.save(verificationToken);
     }
 }

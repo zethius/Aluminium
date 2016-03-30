@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="author" content="climerx"/>
 </head>
-<body>
-<div class="container">
+<body ng-app="ngApp">
+<div class="container" ng-controller="NotificationController">
     <div th:replace="/fragments/navigation"></div>
     <div layout:fragment="content"></div>
     <div th:replace="/fragments/footer"></div>

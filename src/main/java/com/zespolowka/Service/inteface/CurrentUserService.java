@@ -7,5 +7,6 @@ import com.zespolowka.entity.user.CurrentUser;
  */
 public interface CurrentUserService {
     boolean canAccessUser(CurrentUser currentUser, Long userId);
+
     boolean isVerifiedUser(CurrentUser currentUser);
 }

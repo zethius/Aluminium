@@ -3,7 +3,7 @@ package com.zespolowka.controller.doWyjebania;
 import java.util.ArrayList;
 import java.util.List;
 
-public class  SubjectGroup {
+public class SubjectGroup {
     private String name;
     private List<SubjectGroupOption> options;
 
@@ -13,7 +13,7 @@ public class  SubjectGroup {
     }
 
     public SubjectGroup() {
-        this.options=new ArrayList<>();
+        this.options = new ArrayList<>();
     }
 
     public String getName() {

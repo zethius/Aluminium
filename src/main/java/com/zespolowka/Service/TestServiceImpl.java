@@ -59,9 +59,9 @@ public class TestServiceImpl implements TestService {
                     String[] answers = answerList.split("[\\r\\n]+");
                     for (String answer : answers) {
                         if (answer.startsWith("<*>")) {
-                            taskClosed.getAnswers().put(answer.substring(3, answer.length()),true);
+                            taskClosed.getAnswers().put(answer.substring(3, answer.length()), true);
                         } else {
-                            taskClosed.getAnswers().put(answer,false);
+                            taskClosed.getAnswers().put(answer, false);
                         }
                     }
                     test.addTaskToTest(taskClosed);

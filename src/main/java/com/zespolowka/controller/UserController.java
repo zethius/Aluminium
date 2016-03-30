@@ -3,8 +3,8 @@ package com.zespolowka.controller;
 import com.zespolowka.entity.user.CurrentUser;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.UserEditForm;
+import com.zespolowka.service.inteface.NotificationService;
 import com.zespolowka.service.inteface.UserService;
-import com.zespolowka.repository.NotificationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private NotificationRepository notificationRepository;
+    private NotificationService notificationService;
 
 
     @Autowired
@@ -67,7 +67,7 @@ public class UserController {
             final User user = currentUser.getUser();
             logger.info(user.toString());
             model.addAttribute(user);
-            model.addAttribute("Notifications", notificationRepository.findByUserIdOrUserRole(user.getId(), user.getRole()));
+            model.addAttribute("Notifications", notificationService.findTop5ByUserIdOrUserRoleOrderByDateDesc(user.getId(), user.getRole()));
         } catch (final Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -95,7 +95,7 @@ public class UserController {
             return "userEdit";
         } else {
             final User user = userService.editUser(userEditForm);
-            CurrentUser currentUser=new CurrentUser(user);
+            CurrentUser currentUser = new CurrentUser(user);
             Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, currentUser.getPassword(), currentUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             logger.info(user.toString());
