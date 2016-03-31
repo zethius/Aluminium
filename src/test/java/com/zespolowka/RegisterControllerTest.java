@@ -61,7 +61,7 @@ public class RegisterControllerTest {
                 .param("password", "zaq1@WSX")
                 .param("confirmPassword", "zaq1@WSX")
                 .with(csrf()))
-                .andExpect(redirectedUrl("/user/4"));
+                .andExpect(model().errorCount(0));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class RegisterControllerTest {
         mvc.perform(post("/register"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("register"))
-                .andExpect(model().errorCount(5));
+                .andExpect(model().errorCount(6));
     }
 
     @Test
