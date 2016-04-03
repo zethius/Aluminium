@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <link>
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+    <meta name="author" content="climerx" ></meta>
+    
+    <title>Edytuj swój profil</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="css/signin.css" rel="stylesheet"></link>
+  </link>
+  </head>
+
+  <body>
+
+<div class="container">		
+<nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Amelinium</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Strona główna</a></li>
+              <li><a href="#">Rozpocznij test</a></li>
+              <li><a href="#">Lista wyników</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Zadania <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Marzec 2015</a></li>
+                  <li><a href="#">Kwiecie 2016</a></li>
+                  <li><a href="#">Czerwiec 1337</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">undy grundig</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">Moje konto</a></li>
+              <li><a href="#pl"><img src="img/pl.png" alt="PL"></a></li>
+              <li><a href="#en"><img src="img/eng.png" alt="EN"></a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+    
+      <form class="form-register">
+
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Edytuj swój profil <strong>nazwa_loginu</strong></h3>
+            </div>
+            <div class="panel-body">
+              <div class="alert alert-success" role="alert">
+        <strong>Well done!</strong> You successfully read this important alert message.
+      </div>
+      <div class="alert alert-info" role="alert">
+        <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
+      </div>
+      <div class="alert alert-warning" role="alert">
+        <strong>Warning!</strong> Best check yo self, you're not looking too good.
+      </div>
+      <div class="alert alert-danger" role="alert">
+        <strong>Oh snap!</strong> Change a few things up and try submitting again.
+      </div>	
+            <div class="row">
+             	<div class="form-group col-md-6">
+                  
+                  <label for="InputEmail">Imię</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="InputImie" name="InputEmail" value="Aktualne imie" placeholder="Imie">
+                       
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="InputEmail">Nazwisko</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="InputNazwisko" name="InputEmail" value="Aktualne nazwisko" placeholder="Nazwisko">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+             	<div class="form-group col-md-6">
+                  
+                  <label for="InputEmail">Adres email</label>
+                    <div class="input-group">
+                        <input type="email" class="form-control" id="InputEmailFirst" name="InputEmail" value="Aktualny email"  placeholder="Enter Email">
+                        
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="InputEmail">Potwierdz email</label>
+                    <div class="input-group">
+                        <input type="email" class="form-control" id="InputEmailSecond" name="InputEmail" >
+                        
+                    </div>
+                </div>
+            </div>
+           <div class="row">
+             	<div class="form-group col-md-6">
+                  
+                  <label for="InputEmail">Haslo</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="InputEmailFirst" name="InputEmail" placeholder="Haslo">
+                        
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="InputEmail">Potwierdź Hasło</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="InputEmailSecond" name="InputEmail" placeholder="Haslo">
+                        
+                    </div>
+                </div>
+            </div>
+           
+
+                <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary pull-right">
+            
+            </div>
+          </div>
+
+      </form>
+
+    </div> <!-- /container -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -3,6 +3,7 @@ package com.zespolowka.controller;
 import com.zespolowka.Entity.CurrentUser;
 import com.zespolowka.Entity.User;
 import com.zespolowka.Entity.UserEditForm;
+import com.zespolowka.Entity.validators.ChangePasswordValidator;
 import com.zespolowka.Service.UserService;
 import com.zespolowka.repository.NotificationRepository;
 import org.slf4j.Logger;
@@ -37,6 +38,8 @@ public class UserController {
     @Autowired
     private NotificationRepository notificationRepository;
 
+    @Autowired
+    private ChangePasswordValidator changePasswordValidator;
 
     @Autowired
     public UserController(final UserService userService) {
@@ -73,7 +76,6 @@ public class UserController {
         return "userDetail";
     }
 
-
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editCurrentUserDetail(final Model model) {
         logger.info("nazwa metody = editCurrentUserDetail");
@@ -87,19 +89,29 @@ public class UserController {
         return "userEdit";
     }
 
-    //zapisuje ale nie wyswleta na /user/show
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String saveCurrentUser(@ModelAttribute @Valid final UserEditForm userEditForm, final Errors errors) {
+    public String saveCurrentUser(@ModelAttribute @Valid final UserEditForm userEditForm, final Errors errors, final Model model) {
         logger.info("nazwa metody = saveCurrentUser");
         if (errors.hasErrors()) {
+            String err=errors.getAllErrors().get(0).toString();
+            logger.info("err:"+err);
+            logger.info(userEditForm.toString());
             return "userEdit";
         } else {
-            final User user = userService.editUser(userEditForm);
-            CurrentUser currentUser=new CurrentUser(user);
-            Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, currentUser.getPassword(), currentUser.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            logger.info(user.toString());
-            return "redirect:/user/show";
+            changePasswordValidator.validate(userEditForm, errors);
+            if(errors.hasErrors()){
+                logger.info("validator error");
+                return "userEdit";
+            }else{
+                final User user = userService.editUser(userEditForm);
+                CurrentUser currentUser=new CurrentUser(user);
+                Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, currentUser.getPassword(), currentUser.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                logger.info(user.toString());
+                logger.info(userEditForm.toString());
+                model.addAttribute("sukces", true);
+                return "userEdit";
+            }
         }
     }
 

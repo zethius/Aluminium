@@ -27,6 +27,10 @@ public class UserEditForm {
 
     private Role role = Role.USER;
 
+    private String password;
+
+    private String confirmPassword;
+
     public UserEditForm() {
     }
 
@@ -36,6 +40,8 @@ public class UserEditForm {
         this.lastName = user.getLastName();
         this.email = user.getEmail();
         this.role = user.getRole();
+        this.password=user.getPasswordHash();
+        this.confirmPassword=this.password;
     }
 
 
@@ -77,5 +83,34 @@ public class UserEditForm {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEditForm{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                '}';
     }
 }

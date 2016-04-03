@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 /**
  * Created by Admin on 2015-12-02.
  */
+//nieuzywane
 public class ChangePasswordForm {
 
     private static final Logger logger = LoggerFactory.getLogger(ChangePasswordForm.class);
