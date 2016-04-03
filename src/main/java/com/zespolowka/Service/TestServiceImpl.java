@@ -54,7 +54,7 @@ public class TestServiceImpl implements TestService {
         for (TaskForm taskForm : taskFormList) {
             switch (taskForm.getTaskType()) {
                 case 0: {
-                    TaskClosed taskClosed = new TaskClosed(taskForm.getQuestion(), 1);
+                    TaskClosed taskClosed = new TaskClosed(taskForm.getQuestion(), 1f);
                     String answerList = taskForm.getAnswer();
                     String[] answers = answerList.split("[\\r\\n]+");
                     for (String answer : answers) {
@@ -68,13 +68,13 @@ public class TestServiceImpl implements TestService {
                     break;
                 }
                 case 1: {
-                    TaskOpen taskOpen = new TaskOpen(taskForm.getQuestion(), 1);
+                    TaskOpen taskOpen = new TaskOpen(taskForm.getQuestion(), 1f);
                     taskOpen.setAnswer(taskForm.getAnswer());
                     test.addTaskToTest(taskOpen);
                     break;
                 }
                 case 2: {
-                    TaskProgramming taskProgramming = new TaskProgramming(taskForm.getQuestion(), 1);
+                    TaskProgramming taskProgramming = new TaskProgramming(taskForm.getQuestion(), 1f);
                     taskProgramming.setTestCode(taskForm.getTestCode());
                     test.addTaskToTest(taskProgramming);
                     break;

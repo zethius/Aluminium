@@ -1,5 +1,6 @@
 package com.zespolowka.controller;
 
+import com.zespolowka.service.inteface.SolutionTestService;
 import com.zespolowka.service.inteface.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,8 @@ public class HomeController {
     @Autowired
     private TestService testService;
 
+    @Autowired
+    private SolutionTestService solutionTestService;
 
     @Value("${homepage.message}")
     private String pageMessage;
@@ -29,17 +32,13 @@ public class HomeController {
             model.addAttribute("pageMessage", this.pageMessage);
             logger.info(testService.getAllTests().toString());
             model.addAttribute("activeTest", testService.getAllTests());
-            model.addAttribute("archiveTest", testService.getAllTests());
+            model.addAttribute("archiveTest", solutionTestService.getAllTests());
+            logger.info(solutionTestService.getAllTests().toString());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             logger.info(model.toString() + " " + this.pageMessage);
         }
         return "index";
-    }
-
-    @RequestMapping(value = "/messages")
-    public String messagesPage() {
-        return "editProfile";
     }
 
 }

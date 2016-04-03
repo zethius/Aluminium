@@ -20,8 +20,8 @@ public class UserCreateForm {
     @Size(min = 4, max = 20)
     private String lastName;
 
-    @Email
     @NotBlank
+    @Pattern(regexp = "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")
     private String email;
 
     @NotBlank

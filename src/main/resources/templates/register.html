@@ -3,13 +3,11 @@
       layout:decorator="layout">
 <head>
     <title th:text="#{login.register}"></title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"/>
-    <script src="/js/registerController.js"/>
 </head>
-<body ng-app="ngApp">
-<div layout:fragment="content" ng-controller="RegisterController">
+<body>
+<div layout:fragment="content">
     <form class="form-register" name="registerForm" th:action="@{/register}" th:object="${userCreateForm}"
-          method="post">
+          method="post" ng-controller="RegisterController">
 
         <div class="panel panel-primary">
             <div class="panel-heading">

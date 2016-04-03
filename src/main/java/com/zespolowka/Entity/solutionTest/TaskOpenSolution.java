@@ -9,10 +9,12 @@ public class TaskOpenSolution extends TaskSolution {
     private String answer;
 
     public TaskOpenSolution() {
+        this.answer = new String();
     }
 
     public TaskOpenSolution(Task task) {
         super(task);
+        this.answer = new String();
     }
 
     public TaskOpenSolution(Task task, String answer) {

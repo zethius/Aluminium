@@ -11,10 +11,10 @@ public class Task {
     @Column(name = "idTask")
     private Long id;
     private String question;
-    private Integer max_points;
+    private Float max_points;
 
 
-    public Task(final String question, final Integer max_points) {
+    public Task(final String question, final Float max_points) {
         this.question = question;
         this.max_points = max_points;
     }
@@ -38,11 +38,11 @@ public class Task {
         this.question = question;
     }
 
-    public Integer getMax_points() {
+    public Float getMax_points() {
         return max_points;
     }
 
-    public void setMax_points(final int max_points) {
+    public void setMax_points(final Float max_points) {
         this.max_points = max_points;
     }
 

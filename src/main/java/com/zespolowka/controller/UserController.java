@@ -5,6 +5,7 @@ import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.UserEditForm;
 import com.zespolowka.service.inteface.NotificationService;
 import com.zespolowka.service.inteface.UserService;
+import com.zespolowka.validators.ChangePasswordValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +33,20 @@ import java.util.NoSuchElementException;
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
-    private NotificationService notificationService;
+    private final NotificationService notificationService;
+
+    @Autowired
+    private final ChangePasswordValidator changePasswordValidator;
 
 
     @Autowired
-    public UserController(final UserService userService) {
+    public UserController(final UserService userService, NotificationService notificationService, ChangePasswordValidator changePasswordValidator) {
         this.userService = userService;
+        this.notificationService = notificationService;
+        this.changePasswordValidator = changePasswordValidator;
     }
 
     @PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
@@ -89,46 +95,54 @@ public class UserController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String saveCurrentUser(@ModelAttribute @Valid final UserEditForm userEditForm, final Errors errors) {
+    public String saveCurrentUser(@ModelAttribute @Valid final UserEditForm userEditForm, final Errors errors, final Model model) {
         logger.info("nazwa metody = saveCurrentUser");
+        changePasswordValidator.validate(userEditForm, errors);
         if (errors.hasErrors()) {
+            String err = errors.getAllErrors().get(0).toString();
+            logger.info("err:" + err);
+            logger.info(userEditForm.toString());
             return "userEdit";
         } else {
-            final User user = userService.editUser(userEditForm);
-            CurrentUser currentUser = new CurrentUser(user);
-            Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, currentUser.getPassword(), currentUser.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            logger.info(user.toString());
-            return "redirect:/user/show";
-        }
+                final User user = userService.editUser(userEditForm);
+                CurrentUser currentUser = new CurrentUser(user);
+                Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, currentUser.getPassword(), currentUser.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                logger.info(user.toString());
+                logger.info(userEditForm.toString());
+                model.addAttribute("sukces", true);
+                return "userEdit";
+            }
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String editUser(@PathVariable final Integer id, final Model model, final SecurityContextHolderAwareRequestWrapper request) {
-        logger.debug("nazwa metody = editUser");
-        try {
-            model.addAttribute("userEditForm", new UserEditForm(userService.getUserById(id)
-                    .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)))));
-        } catch (final Exception e) {
-            logger.error(e.getMessage(), e);
-            logger.info(id.toString() + "\n" + model + "\n" + userService.getUserById(id));
-        }
-        return "userEdit";
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public String saveUser(@PathVariable final Integer id, @ModelAttribute @Valid final UserEditForm userEditForm, final Errors errors) {
-        logger.info("nazwa metody = saveUser");
-        if (errors.hasErrors()) {
+        @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
+        @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+        public String editUser ( @PathVariable final Integer id, final Model model,
+        final SecurityContextHolderAwareRequestWrapper request){
+            logger.debug("nazwa metody = editUser");
+            try {
+                model.addAttribute("userEditForm", new UserEditForm(userService.getUserById(id)
+                        .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)))));
+            } catch (final Exception e) {
+                logger.error(e.getMessage(), e);
+                logger.info(id.toString() + "\n" + model + "\n" + userService.getUserById(id));
+            }
             return "userEdit";
-        } else {
-            final User user = userService.editUser(userEditForm);
-            return "redirect:/user/" + user.getId();
+        }
+
+        @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
+        @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+        public String saveUser ( @PathVariable final Integer id, @ModelAttribute @Valid final UserEditForm userEditForm,
+        final Errors errors){
+            logger.info("nazwa metody = saveUser");
+            if (errors.hasErrors()) {
+                return "userEdit";
+            } else {
+                final User user = userService.editUser(userEditForm);
+                return "redirect:/user/" + user.getId();
+            }
+
         }
 
     }
-
-}
 

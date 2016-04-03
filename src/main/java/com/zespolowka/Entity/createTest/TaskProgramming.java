@@ -9,11 +9,11 @@ public class TaskProgramming extends Task {
     public TaskProgramming() {
     }
 
-    public TaskProgramming(final String question, final Integer max_points) {
+    public TaskProgramming(final String question, final Float max_points) {
         super(question, max_points);
     }
 
-    public TaskProgramming(final String question, final Integer max_points, final String testCode) {
+    public TaskProgramming(final String question, final Float max_points, final String testCode) {
         super(question, max_points);
         this.testCode = testCode;
     }

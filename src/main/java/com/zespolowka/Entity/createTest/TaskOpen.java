@@ -6,16 +6,18 @@ import javax.persistence.Entity;
 public class TaskOpen extends Task {
     private String answer;
 
-    public TaskOpen(String question, Integer max_points, String answer) {
+    public TaskOpen(String question, Float max_points, String answer) {
         super(question, max_points);
         this.answer = answer;
     }
 
     public TaskOpen() {
+        this.answer=new String();
     }
 
-    public TaskOpen(String question, Integer max_points) {
+    public TaskOpen(String question, Float max_points) {
         super(question, max_points);
+        this.answer=new String();
     }
 
     public String getAnswer() {

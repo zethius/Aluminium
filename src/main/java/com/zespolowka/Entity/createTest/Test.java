@@ -16,14 +16,14 @@ public class Test {
     private Long attempts;
     private LocalDate beginDate;
     private LocalDate endDate;
-    private Integer maxPoints;
+    private Float maxPoints;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Task> tasks;
 
 
     public Test() {
         this.tasks = new ArrayList<>();
-        this.maxPoints = 0;
+        this.maxPoints = 0f;
     }
 
     public Test(final String name, final Long attempts, final LocalDate beginDate, final LocalDate endDate, final List<Task> tasks) {
@@ -32,7 +32,7 @@ public class Test {
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.tasks = tasks;
-        this.maxPoints = 0;
+        this.maxPoints = 0f;
     }
 
     public void addTaskToTest(final Task task) {
@@ -40,7 +40,7 @@ public class Test {
         updateMaxPoints(task.getMax_points());
     }
 
-    public void updateMaxPoints(Integer points) {
+    public void updateMaxPoints(Float points) {
         this.maxPoints += points;
     }
 
@@ -88,11 +88,15 @@ public class Test {
         return tasks;
     }
 
-    public Integer getMaxPoints() {
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public Float getMaxPoints() {
         return maxPoints;
     }
 
-    public void setMaxPoints(int maxPoints) {
+    public void setMaxPoints(Float maxPoints) {
         this.maxPoints = maxPoints;
     }
 

@@ -14,12 +14,12 @@ public class TaskClosed extends Task {
     public TaskClosed() {
     }
 
-    public TaskClosed(String question, Integer max_points, TreeMap<String, Boolean> answers) {
+    public TaskClosed(String question, Float max_points, TreeMap<String, Boolean> answers) {
         super(question, max_points);
         this.answers = answers;
     }
 
-    public TaskClosed(String question, Integer max_points) {
+    public TaskClosed(String question, Float max_points) {
         super(question, max_points);
     }
 

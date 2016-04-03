@@ -4,15 +4,12 @@ import com.zespolowka.entity.Notification;
 import com.zespolowka.entity.createTest.TaskClosed;
 import com.zespolowka.entity.createTest.TaskOpen;
 import com.zespolowka.entity.createTest.Test;
-import com.zespolowka.entity.solutionTest.SolutionTest;
-import com.zespolowka.entity.solutionTest.TaskClosedSolution;
-import com.zespolowka.entity.solutionTest.TaskOpenSolution;
 import com.zespolowka.entity.user.Role;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.repository.NotificationRepository;
 import com.zespolowka.repository.TestRepository;
 import com.zespolowka.repository.UserRepository;
-import com.zespolowka.service.inteface.SolutionTestRepository;
+import com.zespolowka.repository.SolutionTestRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +22,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.TreeMap;
 
 @Configuration
@@ -72,20 +68,50 @@ public class DevDBConfig {
         notificationRepository.save(new Notification("Wiadomosc7", sdf.parse("31-08-1912 10:20:56"), 2));
 
         Test test = new Test("TestBHP", Long.valueOf(3), LocalDate.now().minusWeeks(1), LocalDate.now().plusWeeks(1), new ArrayList<>());
-        TaskClosed taskClosed = new TaskClosed("Ssij pałke", 6);
+        TaskClosed taskClosed = new TaskClosed("Ile to jest 2+2*2", 6f);
         TreeMap<String, Boolean> answer = new TreeMap<>();
-        answer.put("a", false);
-        answer.put("b", true);
-        answer.put("c", false);
+        answer.put("8", false);
+        answer.put("6", true);
+        answer.put("3*2", true);
         taskClosed.setAnswers(answer);
-        TaskOpen taskOpen = new TaskOpen("Lubisz to ", 10);
-        taskOpen.setAnswer("suko");
         test.addTaskToTest(taskClosed);
+        taskClosed = new TaskClosed("Ile to jest 2+2+2", 6f);
+        answer = new TreeMap<>();
+        answer.put("8", false);
+        answer.put("6", true);
+        answer.put("4", false);
+        taskClosed.setAnswers(answer);
+        test.addTaskToTest(taskClosed);
+        taskClosed = new TaskClosed("Ile to jest 3*3*3", 6f);
+        answer = new TreeMap<>();
+        answer.put("27", true);
+        answer.put("9", false);
+        answer.put("aaa", false);
+        taskClosed.setAnswers(answer);
+        test.addTaskToTest(taskClosed);
+        taskClosed = new TaskClosed("Zaznacz wszystko", 6f);
+        answer = new TreeMap<>();
+        answer.put("1", true);
+        answer.put("2", true);
+        answer.put("3", true);
+        answer.put("4", true);
+        answer.put("5", true);
+        taskClosed.setAnswers(answer);
+        test.addTaskToTest(taskClosed);
+        taskClosed = new TaskClosed("Zaznacz imie rozpoczynajace sie na M ", 6f);
+        answer = new TreeMap<>();
+        answer.put("Adam", false);
+        answer.put("Ewa", false);
+        answer.put("Michal", true);
+        taskClosed.setAnswers(answer);
+        test.addTaskToTest(taskClosed);
+        TaskOpen taskOpen = new TaskOpen("Napisz jak ma na imie Adam Małysz", 10f);
+        taskOpen.setAnswer("Adam");
         test.addTaskToTest(taskOpen);
         test = testRepository.save(test);
         logger.info(test.toString());
 
-        SolutionTest solutionTest = new SolutionTest(test);
+        /*SolutionTest solutionTest = new SolutionTest(test);
         solutionTest.setAttempt(1);
         solutionTest.setBeginSolution(LocalDate.now());
         solutionTest.setEndSolution(LocalDate.now().plusDays(1));
@@ -122,6 +148,7 @@ public class DevDBConfig {
         logger.info(test.toString());
         logger.info(solutionTest.toString());
         logger.info(solutionTest2.toString());
+        */
     }
 
 }

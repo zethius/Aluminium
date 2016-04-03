@@ -10,7 +10,7 @@ public class TaskSolution {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
-    private Integer points;
+    private Float points;
 
     @ManyToOne(optional = true, cascade = CascadeType.MERGE)
     private Task task;
@@ -30,11 +30,11 @@ public class TaskSolution {
         this.id = id;
     }
 
-    public Integer getPoints() {
+    public Float getPoints() {
         return points;
     }
 
-    public void setPoints(Integer points) {
+    public void setPoints(Float points) {
         this.points = points;
     }
 
@@ -51,7 +51,7 @@ public class TaskSolution {
         return "SolutionTask{" +
                 "id=" + id +
                 ", points=" + points +
-                //", task=" + task +
+               // ", task=" + task +
                 '}';
     }
 }
