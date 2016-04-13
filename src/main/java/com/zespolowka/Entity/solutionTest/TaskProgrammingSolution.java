@@ -5,6 +5,7 @@ import com.zespolowka.entity.createTest.Task;
 
 import javax.persistence.Entity;
 
+@SuppressWarnings("RedundantStringConstructorCall")
 @Entity
 public class TaskProgrammingSolution extends TaskSolution {
     private String answerCode;
@@ -14,7 +15,7 @@ public class TaskProgrammingSolution extends TaskSolution {
 
     public TaskProgrammingSolution(Task task) {
         super(task);
-        this.answerCode=new String();
+        this.answerCode= "";
     }
 
     public TaskProgrammingSolution(Task task, String answerCode) {

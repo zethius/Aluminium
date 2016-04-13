@@ -2,9 +2,7 @@ package com.zespolowka.forms;
 
 import com.zespolowka.entity.user.Role;
 import com.zespolowka.entity.user.User;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 
 import javax.validation.constraints.Pattern;

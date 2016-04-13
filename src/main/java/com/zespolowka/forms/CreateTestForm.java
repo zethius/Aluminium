@@ -22,6 +22,10 @@ public class CreateTestForm {
 
     private String endDate;
 
+    private int timePerAttempt;
+
+    private String password= "";
+
     private List<TaskForm> tasks;
 
     public CreateTestForm() {
@@ -80,6 +84,22 @@ public class CreateTestForm {
         this.tasks = tasks;
     }
 
+    public int getTimePerAttempt() {
+        return timePerAttempt;
+    }
+
+    public void setTimePerAttempt(int timePerAttempt) {
+        this.timePerAttempt = timePerAttempt;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "CreateTestForm{" +
@@ -87,6 +107,8 @@ public class CreateTestForm {
                 ", attempts=" + attempts +
                 ", beginDate='" + beginDate + '\'' +
                 ", endDate='" + endDate + '\'' +
+                ", timePerAttempt=" + timePerAttempt +
+                ", password='" + password + '\'' +
                 ", tasks=" + tasks +
                 '}';
     }

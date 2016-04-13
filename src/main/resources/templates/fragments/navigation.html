@@ -38,12 +38,12 @@
                     </a>
                     <ul class="dropdown-menu" ng-init="getTop5Notifications()">
                         <li ng-repeat="notification in data3">
-                            <a ng-href=""
+                            <a ng-href="/messages/{{notification.id}}"
                                ng-click="changeNotificationStatus(notification.id)" ng-if="(!notification.unread)">
                                 <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                 {{notification.message}}
                             </a>
-                            <a ng-href=""
+                            <a ng-href="/messages/{{notification.id}}"
                                ng-click="changeNotificationStatus(notification.id)" ng-if="(notification.unread)">
                                 <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                                 <strong>{{notification.message}}</strong>

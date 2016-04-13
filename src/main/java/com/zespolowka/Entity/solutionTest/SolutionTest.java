@@ -1,23 +1,25 @@
 package com.zespolowka.entity.solutionTest;
 
-import com.zespolowka.entity.createTest.TaskClosed;
-import com.zespolowka.entity.createTest.TaskOpen;
-import com.zespolowka.entity.createTest.TaskProgramming;
-import com.zespolowka.entity.createTest.Test;
+import com.zespolowka.entity.createTest.*;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.SolutionTaskForm;
 import com.zespolowka.forms.SolutionTestForm;
+import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @Entity
 public class SolutionTest {
+    private static final Logger logger = LoggerFactory.getLogger(SolutionTest.class);
     @Id
     @GeneratedValue
     private Long id;
@@ -62,55 +64,98 @@ public class SolutionTest {
         this.points = points;
     }
 
-    public void addTaskSolutionToTest(TaskSolution taskSolution) {
+    public void addTaskSolutionToTest(TaskSolution taskSolution) throws IOException, ParseException {
         taskSolution.setTask(test.getTasks().get(taskNo++));
         if (taskSolution instanceof TaskClosedSolution) {
             TaskClosedSolution taskSol = (TaskClosedSolution) taskSolution;
             TaskClosed taskClo = (TaskClosed) taskSol.getTask();
             Map<String, Boolean> userAnswers = taskSol.getAnswers();
             Map<String, Boolean> correctAnswers = taskClo.getAnswers();
-            Float pointsDivide = 0f;
-            Float noCorrectAnswers = 0f;
-            Boolean chooseIncorect = false;
-            for (String key : userAnswers.keySet()) {
-                if (userAnswers.get(key) == null) userAnswers.put(key, false);
-                System.out.println(correctAnswers);
-                if (correctAnswers.get(key) == true) pointsDivide++;
-                if (userAnswers.get(key) == true && correctAnswers.get(key) == false) {
-                    chooseIncorect = true;
-                    break;
-                } else if (userAnswers.get(key).equals(correctAnswers.get(key)) && correctAnswers.get(key) == true)
-                    noCorrectAnswers++;
-            }
-            if (chooseIncorect || noCorrectAnswers < 1) {
-                taskSol.setPoints(0f);
+            if (taskClo.getCountingType() == taskClo.WRONG_RESET) {
+                Boolean theSame = true;
+                for (String key : userAnswers.keySet()) {
+                    if ((userAnswers.get(key)!=null && userAnswers.get(key) == true) && (correctAnswers.get(key) == false)) {
+                        theSame = false;
+                        break;
+                    } else if ((userAnswers.get(key) == null || userAnswers.get(key) == false ) && (correctAnswers.get(key) == true)) {
+                        theSame = false;
+                        break;
+                    }
+                }
+
+                if (theSame) {
+                    taskSol.setPoints(taskClo.getMax_points());
+                } else taskSol.setPoints(0f);
             } else {
-                taskSol.setPoints(taskClo.getMax_points() / (pointsDivide / noCorrectAnswers));
+                Float pointsDivide = 0f;
+                Float noCorrectAnswers = 0f;
+                Boolean chooseIncorect = false;
+                for (String key : userAnswers.keySet()) {
+                    if (userAnswers.get(key) == null) userAnswers.put(key, false);
+                    if (correctAnswers.get(key) == true) pointsDivide++;
+                    if (userAnswers.get(key) == true && correctAnswers.get(key) == false) {
+                        chooseIncorect = true;
+                        break;
+                    } else if (userAnswers.get(key).equals(correctAnswers.get(key)) && correctAnswers.get(key) == true)
+                        noCorrectAnswers++;
+                }
+                if (chooseIncorect || noCorrectAnswers < 1) {
+                    taskSol.setPoints(0f);
+                } else {
+                    taskSol.setPoints(taskClo.getMax_points() / (pointsDivide / noCorrectAnswers));
+                }
             }
             points += taskSol.getPoints();
-            System.out.println(taskSol.getPoints());
             solutionTasks.add(taskSol);
         }
         if (taskSolution instanceof TaskOpenSolution) {
             TaskOpenSolution taskSol = (TaskOpenSolution) taskSolution;
             TaskOpen taskOp = (TaskOpen) taskSol.getTask();
-            if (taskSol.getAnswer().equals(taskOp.getAnswer())) {
-                points += taskOp.getMax_points();
-                taskSol.setPoints(taskOp.getMax_points());
-            } else taskSol.setPoints(0f);
+            if (!taskOp.getCaseSens()) {
+                if (taskSol.getAnswer().toUpperCase().equals(taskOp.getAnswer().toUpperCase())) {
+                    points += taskOp.getMax_points();
+                    taskSol.setPoints(taskOp.getMax_points());
+                } else taskSol.setPoints(0f);
+            } else {
+                if (taskSol.getAnswer().equals(taskOp.getAnswer())) {
+                    points += taskOp.getMax_points();
+                    taskSol.setPoints(taskOp.getMax_points());
+                } else taskSol.setPoints(0f);
+            }
             solutionTasks.add(taskSol);
         }
         if (taskSolution instanceof TaskProgrammingSolution) {
+            logger.info("tu wchodzisz?");
             TaskProgrammingSolution taskSol = (TaskProgrammingSolution) taskSolution;
             TaskProgramming taskProgramming = (TaskProgramming) taskSol.getTask();
-            if (taskSol.getAnswerCode().equals(taskProgramming.getTestCode())) {
-                points += taskProgramming.getMax_points();
+            logger.info("sprawdzam czy to działa");
+
+            Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
+            for (TaskProgrammingDetail taskProgrammingDetail : taskProgrammingDetails) {
+                if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.JAVA)) {
+                    FileUtils.writeStringToFile(new File("Dodawanie.java"), taskSol.getAnswerCode());
+                    FileUtils.writeStringToFile(new File("MyTests.java"), taskProgrammingDetail.getTestCode());
+                    FileUtils.writeStringToFile(new File("allowed_list_java"), taskProgrammingDetail.getWhiteList());
+                }
             }
+
+            String output = executeCommand("ping wp.pl");
+            JSONObject obj = new JSONObject();
+            obj.put("result", output);
+            FileUtils.writeStringToFile(new File("output.json"), obj.toJSONString());
+
+            JSONParser parser = new JSONParser();
+            Object result = parser.parse(new FileReader("output.json"));
+            JSONObject jsonObject = (JSONObject) result;
+            logger.info((String) jsonObject.get("result"));
+
+            points += taskProgramming.getMax_points();
+            taskSol.setPoints(taskProgramming.getMax_points());
             solutionTasks.add(taskSol);
         }
     }
 
-    public SolutionTest create(SolutionTestForm solutionTestForm) {
+    public SolutionTest create(SolutionTestForm solutionTestForm) throws IOException, ParseException {
         List<SolutionTaskForm> solutionTaskForms = solutionTestForm.getTasks();
         for (SolutionTaskForm solutionTaskForm : solutionTaskForms)
             if (solutionTaskForm.getTaskType() == SolutionTaskForm.CLOSEDTASK) {
@@ -124,11 +169,33 @@ public class SolutionTest {
                 taskOpenSolution.setAnswer(solutionTaskForm.getAnswer());
                 addTaskSolutionToTest(taskOpenSolution);
             } else if (solutionTaskForm.getTaskType() == SolutionTaskForm.PROGRAMMINGTASK) {
+                logger.info(solutionTaskForm.toString());
                 TaskProgrammingSolution taskProgrammingSolution = new TaskProgrammingSolution(solutionTaskForm.getTask());
                 taskProgrammingSolution.setAnswerCode(solutionTaskForm.getAnswerCode());
                 addTaskSolutionToTest(taskProgrammingSolution);
             }
         return this;
+    }
+
+    private String executeCommand(String command) {
+        StringBuilder output = new StringBuilder();
+        Process p;
+        try {
+            p = Runtime.getRuntime().exec(command);
+            p.waitFor();
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line).append("\n");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return output.toString();
     }
 
     public Long getId() {

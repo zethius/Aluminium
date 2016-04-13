@@ -1,7 +1,6 @@
 package com.zespolowka.entity.solutionTest;
 
 import com.zespolowka.entity.createTest.Task;
-import com.zespolowka.entity.createTest.TaskClosed;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;

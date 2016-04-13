@@ -11,3 +11,5 @@ body {background: #eee;}
 .jumbotron {background: #fff;}
 
 .popover {display:block;position:fixed;left:20px;}
+.row {position: relative;}
+.row .usunPytanie {position: absolute; top: 2px; left: -15px; font-size: 22px; background: #fff; padding: 5px; cursor: pointer;}

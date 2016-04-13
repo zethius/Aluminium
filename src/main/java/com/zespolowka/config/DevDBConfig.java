@@ -1,15 +1,14 @@
 package com.zespolowka.config;
 
 import com.zespolowka.entity.Notification;
-import com.zespolowka.entity.createTest.TaskClosed;
-import com.zespolowka.entity.createTest.TaskOpen;
-import com.zespolowka.entity.createTest.Test;
+import com.zespolowka.entity.createTest.*;
+import com.zespolowka.entity.createTest.TaskProgrammingDetail;
 import com.zespolowka.entity.user.Role;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.repository.NotificationRepository;
+import com.zespolowka.repository.SolutionTestRepository;
 import com.zespolowka.repository.TestRepository;
 import com.zespolowka.repository.UserRepository;
-import com.zespolowka.repository.SolutionTestRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +66,9 @@ public class DevDBConfig {
         notificationRepository.save(new Notification("Wiadomosc6", sdf.parse("31-08-1911 10:20:56"), 2));
         notificationRepository.save(new Notification("Wiadomosc7", sdf.parse("31-08-1912 10:20:56"), 2));
 
-        Test test = new Test("TestBHP", Long.valueOf(3), LocalDate.now().minusWeeks(1), LocalDate.now().plusWeeks(1), new ArrayList<>());
+        Test test = new Test("TestBHP", 3L, LocalDate.now().minusWeeks(1), LocalDate.now().plusWeeks(1), new ArrayList<>());
+        test.setTimePerAttempt(90);
+        test.setPassword("");
         TaskClosed taskClosed = new TaskClosed("Ile to jest 2+2*2", 6f);
         TreeMap<String, Boolean> answer = new TreeMap<>();
         answer.put("8", false);
@@ -90,6 +91,7 @@ public class DevDBConfig {
         taskClosed.setAnswers(answer);
         test.addTaskToTest(taskClosed);
         taskClosed = new TaskClosed("Zaznacz wszystko", 6f);
+        taskClosed.setCountingType(taskClosed.COUNT_NOT_FULL);
         answer = new TreeMap<>();
         answer.put("1", true);
         answer.put("2", true);
@@ -106,8 +108,22 @@ public class DevDBConfig {
         taskClosed.setAnswers(answer);
         test.addTaskToTest(taskClosed);
         TaskOpen taskOpen = new TaskOpen("Napisz jak ma na imie Adam Małysz", 10f);
+        taskOpen.setCaseSens(false);
         taskOpen.setAnswer("Adam");
         test.addTaskToTest(taskOpen);
+
+        taskOpen = new TaskOpen("Podaj pierwsze 5 malych liter alfabetu polskiego", 10f);
+        taskOpen.setCaseSens(true);
+        taskOpen.setAnswer("abcde");
+        test.addTaskToTest(taskOpen);
+
+        TaskProgramming taskProgramming = new TaskProgramming("fib", 10f);
+        TaskProgrammingDetail taskProgrammingDetail=new TaskProgrammingDetail();
+        taskProgrammingDetail.setLanguage(ProgrammingLanguages.JAVA);
+        taskProgrammingDetail.setTestCode("fib");
+        taskProgrammingDetail.setWhiteList("aaa");
+        taskProgramming.getProgrammingDetailSet().add(taskProgrammingDetail);
+        test.addTaskToTest(taskProgramming);
         test = testRepository.save(test);
         logger.info(test.toString());
 

@@ -12,8 +12,8 @@ public class SolutionTaskForm {
     public static final int PROGRAMMINGTASK = 2;
     private Task task;
     private Map<String, Boolean> answers = new LinkedHashMap<>();
-    private String answer = new String();
-    private String answerCode = new String();
+    private String answer = "";
+    private String answerCode = "";
     private int taskType;
 
     public SolutionTaskForm() {

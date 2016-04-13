@@ -1,10 +1,14 @@
 package com.zespolowka.entity.createTest;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class TaskProgramming extends Task {
-    private String testCode;
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,targetEntity = TaskProgrammingDetail.class, fetch = FetchType.EAGER)
+    private Set<TaskProgrammingDetail> programmingDetailSet=new HashSet<>();
 
     public TaskProgramming() {
     }
@@ -13,18 +17,16 @@ public class TaskProgramming extends Task {
         super(question, max_points);
     }
 
-    public TaskProgramming(final String question, final Float max_points, final String testCode) {
-        super(question, max_points);
-        this.testCode = testCode;
+    public Set<TaskProgrammingDetail> getProgrammingDetailSet() {
+        return programmingDetailSet;
     }
 
-
-    public String getTestCode() {
-        return testCode;
+    public void setProgrammingDetailSet(Set<TaskProgrammingDetail> programmingDetailSet) {
+        this.programmingDetailSet = programmingDetailSet;
     }
 
-    public void setTestCode(String testCode) {
-        this.testCode = testCode;
+    public void addTaskkProgrammingDetail(TaskProgrammingDetail taskProgrammingDetail){
+        this.programmingDetailSet.add(taskProgrammingDetail);
     }
 
     @Override
@@ -32,7 +34,7 @@ public class TaskProgramming extends Task {
         return "TaskProgramming{" +
                 "Task='" + super.toString() + '\'' +
                 "question='" + super.getQuestion() + '\'' +
-                ", testCode='" + testCode + '\'' +
+                "programmingDetailSet=" + programmingDetailSet +
                 '}';
     }
 }

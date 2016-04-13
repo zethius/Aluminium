@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
@@ -16,11 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
-/**
- * Created by Pitek on 2016-02-20.
- * TODO
- * Do poprawy - to rozwiazanie jest dosc zjebane
- */
+
 @Component
 public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     private static final Logger logger = LoggerFactory.getLogger(CustomAuthenticationFailureHandler.class);
@@ -36,10 +33,12 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
             throws IOException, ServletException {
         logger.info("Bledna autoryzacja uzytkownika");
         logger.info(exception.getMessage());
-
         setDefaultFailureUrl("/login-error");
+        if (exception instanceof BadCredentialsException) {
+            String name = request.getParameter("username");
+            logger.info(name);
+        }
         super.onAuthenticationFailure(request, response, exception);
-
         Locale locale = localeResolver.resolveLocale(request);
         String errorMessage = messages.getMessage("message.badCredentials", null, locale);
 

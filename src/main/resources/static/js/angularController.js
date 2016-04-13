@@ -9,8 +9,8 @@ angular.module('ngApp', [])
         };
     })
     .controller('TimerController', ['$scope', '$timeout', function ($scope, $timeout) {
-        $scope.Timer = function () {
-            $scope.counter = 3600;
+        $scope.Timer = function (value) {
+            $scope.counter = value*60;
             $scope.minutes = parseInt($scope.counter / 60, 10);
             $scope.seconds = parseInt($scope.counter % 60, 10);
 
@@ -18,8 +18,8 @@ angular.module('ngApp', [])
                 $scope.counter--;
                 $scope.minutes = parseInt($scope.counter / 60, 10)
                 $scope.seconds = parseInt($scope.counter % 60, 10);
-                if($scope.counter==0) alert("test");
-                else mytimeout = $timeout($scope.onTimeout,1000);
+                if ($scope.counter == 0) alert("test");
+                else mytimeout = $timeout($scope.onTimeout, 1000);
             }
             var mytimeout = $timeout($scope.onTimeout, 1000);
         }
@@ -27,6 +27,53 @@ angular.module('ngApp', [])
     .controller('RegisterController', ['$scope', function ($scope) {
 
     }])
+    .controller('CreateTestController', function ($scope, $http) {
+        $scope.integerval = /^\d*$/;
+        $scope.questionNumber = null;
+        $scope.selectedValue = null;
+        $scope.languagesSet = [
+            {id: '1', name: 'CPP'},
+            {id: '2', name: 'JAVA'},
+            {id: '3', name: 'PYTHON'}
+        ];
+        $scope.selectedLanguages=[];
+
+
+        $scope.setQuestionType = function (selectedValue) {
+            var element = document.getElementById('selectQuestion');
+            element.value = '0';
+            $scope.addQuestion(selectedValue);
+        };
+        $scope.addQuestion = function (questionId) {
+            document.getElementById('testform').setAttribute("action", "/test/create/add?questionId=" + questionId);
+            var element = document.getElementById('testform');
+            element.submit();
+        };
+        $scope.setLanguages = function (languages) {
+            var array=languages.split(",");
+            for (var i = 0; i < $scope.languagesSet.length; i++) {
+                if (array.indexOf($scope.languagesSet[i].name) > -1) {
+                    $scope.selectedLanguages.push($scope.languagesSet[i].name);
+                }
+            }
+        }
+        $scope.changeLanguages = function (taskId) {
+            var element = document.getElementById('selectedLanguages');
+            var selected1 = [];
+            for (var i = 0; i < element.length; i++) {
+                if (element.options[i].selected)
+                    selected1.push(element.options[i].value);
+            }
+            document.getElementById('testform').setAttribute("action", "/test/create/change?taskId=" + taskId + "&selected=" + selected1);
+            document.getElementById('testform').submit();
+
+        }
+        $scope.removeQuestion=function(taskId){
+            alert("CHUJ"+taskId);
+            document.getElementById('testform').setAttribute("action", "/test/create/remove?taskId=" + taskId);
+            document.getElementById('testform').submit();
+        }
+    })
     .controller('NotificationController', function ($scope, $http) {
         $scope.pageNumber = 0;
         $scope.totalPages = null;

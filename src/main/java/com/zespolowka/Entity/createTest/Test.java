@@ -17,6 +17,8 @@ public class Test {
     private LocalDate beginDate;
     private LocalDate endDate;
     private Float maxPoints;
+    private String password="";
+    private Integer timePerAttempt;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Task> tasks;
 
@@ -24,6 +26,7 @@ public class Test {
     public Test() {
         this.tasks = new ArrayList<>();
         this.maxPoints = 0f;
+        this.password="";
     }
 
     public Test(final String name, final Long attempts, final LocalDate beginDate, final LocalDate endDate, final List<Task> tasks) {
@@ -100,6 +103,22 @@ public class Test {
         this.maxPoints = maxPoints;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getTimePerAttempt() {
+        return timePerAttempt;
+    }
+
+    public void setTimePerAttempt(Integer timePerAttempt) {
+        this.timePerAttempt = timePerAttempt;
+    }
+
     @Override
     public String toString() {
         return "createTest{" +
@@ -110,6 +129,7 @@ public class Test {
                 ", beginDate=" + beginDate +
                 ", endDate=" + endDate +
                 ", tasks=" + tasks +
+                ", timePerAttempt=" + timePerAttempt +
                 '}';
     }
 }

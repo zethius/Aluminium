@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 public class NotificationServiceImpl implements NotificationService {
     private static final Logger logger = LoggerFactory.getLogger(NotificationService.class);
     private final NotificationRepository notificationRepository;
-    private static String DEFAULT_SORT_BY_DATE = "date";
 
     @Autowired
     public NotificationServiceImpl(NotificationRepository notificationRepository) {
@@ -74,6 +73,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public List<Notification> getProducts(Integer page, Integer size) {
+        String DEFAULT_SORT_BY_DATE = "date";
         PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC, DEFAULT_SORT_BY_DATE);
         return notificationRepository.findAll(pageRequest).getContent().stream().map(Notification::new).collect(Collectors.toList());
     }
