@@ -9,3 +9,5 @@ body {background: #eee;}
 .navbar-right .dropdown-menu>li>a {padding: 3px 20px;}
 
 .jumbotron {background: #fff;}
+
+.popover {display:block;position:fixed;left:20px;}

@@ -1,30 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/Role.java" line="20" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="f90f67c8-feda-4406-8ffd-53636fddb08d" name="Default" comment="Edycja uzytkownika">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/validators/ChangePasswordValidator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/tmp/editProfile2.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/tmp/indexTMP.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/tmp/userEdit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/tmp/userEditTMP.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/templates/indexTMP.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/templates/messages_pliki/viewsource.css" afterPath="" />
+    <list default="true" id="f90f67c8-feda-4406-8ffd-53636fddb08d" name="Default" comment="Przypominanie hasla, blokowanie uzytkownika przy zlym logowaniu">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_h2database_h2_1_4_191.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_mail_javax_mail_1_5_5.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_9.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_security_1_3_3_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_1_3_3_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_thymeleaf_1_3_3_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_1_3_3_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_1_3_3_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_4_2_5_RELEASE.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/SolutionTestController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/TestController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/doWyjebania/SubjectGroup.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/doWyjebania/SubjectGroupController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/doWyjebania/SubjectGroupOption.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/rest/NotificationRestController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/Task.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/TaskClosed.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/TaskOpen.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/TaskProgramming.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/Test.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/SolutionTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/TaskClosedSolution.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/TaskOpenSolution.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/TaskProgrammingSolution.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/TaskSolution.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/TaskTypeChecker.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/user/CurrentUser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/user/Role.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/user/User.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/CreateTestForm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/NewMessageForm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/SolutionTaskForm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/SolutionTestForm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/TaskForm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/UserCreateForm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/UserEditForm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/SolutionTestRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/TestRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/SolutionTestServiceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/TestFormService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/TestServiceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/CurrentUserService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/NotificationService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/SendMailService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/SolutionTestService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/TestService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/UserService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/VerificationTokenService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/validators/ChangePasswordValidator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/validators/UserCreateValidator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/static/js/angularController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/static/js/createTestController.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/add.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/editProfile.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/sendMessage.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/solutionTestCheckAnswers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/testSolution.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/tmpCreateTest.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/templates/tmpCreateTestTmp.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_h2database_h2_1_3_156.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_mail_javax_mail_1_5_4.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_mail_1_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_security_1_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_thymeleaf_1_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_1_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_1_3_0_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_4_2_3_RELEASE.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/ChangePasswordForm.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/CurrentUser.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/Role.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/Task.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/TaskClosed.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/TaskOpen.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/User.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/UserCreateForm.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/UserEditForm.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/validators/ChangePasswordValidator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/validators/UserCreateValidator.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserService.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/NotificationService.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/SendMailService.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/UserService.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/VerificationTokenService.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/messages_pl.properties" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/templates/createTest.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/templates/tmp/editProfile2.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/templates/tmp/indexTMP.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/templates/tmp/userEdit.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/templates/tmp/userEditTMP.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/resourceBundles.xml" afterPath="$PROJECT_DIR$/.idea/resourceBundles.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/ChangePasswordForm.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/ChangePasswordForm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/UserEditForm.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/UserEditForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Alluminium0.0.1.iml" afterPath="$PROJECT_DIR$/Alluminium0.0.1.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aluminium.iml" afterPath="$PROJECT_DIR$/aluminium.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/Notification.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/Notification.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/VerificationToken.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/VerificationToken.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserDetailsService.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserDetailsService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/NotificationServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/NotificationServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/SendMailServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/SendMailServiceImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/UserServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/UserServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/VerificationTokenServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/VerificationTokenServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/config/CustomAuthenticationFailureHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/config/CustomAuthenticationFailureHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/config/DevDBConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/config/DevDBConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/config/MailConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/config/MailConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/config/WebSecurityConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/config/WebSecurityConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/EmailController.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/EmailController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/HomeController.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/HomeController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/LoginController.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/LoginController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/NotificationController.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/NotificationController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/RegisterController.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/RegisterController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UsersController.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UsersController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/InMemoryNotificationRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/InMemoryNotificationRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/NotificationRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/NotificationRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/UserRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/UserRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/VerificationTokenRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/VerificationTokenRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/messages_en.properties" afterPath="$PROJECT_DIR$/src/main/resources/messages_en.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/messages_pl.properties" afterPath="$PROJECT_DIR$/src/main/resources/messages_pl.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/css/signin.css" afterPath="$PROJECT_DIR$/src/main/resources/static/css/signin.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/js.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/js.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/navigation.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/navigation.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/style.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/style.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/layout.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/messages.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/messages.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/register.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/register.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/remindPassword.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/remindPassword.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/userEdit.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/userEdit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/zespolowka/RegisterControllerTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/zespolowka/RegisterControllerTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/zespolowka/UserControllerTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/zespolowka/UserControllerTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/zespolowka/UserServiceTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/zespolowka/UserServiceTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/zespolowka/UsersControllerTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/zespolowka/UsersControllerTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/zespolowka/VerificationTokenTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/zespolowka/VerificationTokenTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/zespolowka/builders/UserBuilder.java" afterPath="$PROJECT_DIR$/src/test/java/com/zespolowka/builders/UserBuilder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/zespolowka/builders/UserCreateFormBuilder.java" afterPath="$PROJECT_DIR$/src/test/java/com/zespolowka/builders/UserCreateFormBuilder.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_1_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_1_5.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_1_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_1_5.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_6_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_6_5.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_6_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_6_5.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_6_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_6_5.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_collections_commons_collections_3_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_collections_commons_collections_3_2_2.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_37.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_38.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__nz_net_ultraq_thymeleaf_thymeleaf_layout_dialect_1_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__nz_net_ultraq_thymeleaf_thymeleaf_layout_dialect_1_3_3.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_8_0_28.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_8_0_32.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_8_0_28.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_8_0_32.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_logging_juli_8_0_28.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_logging_juli_8_0_32.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_8_0_28.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_8_0_32.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_tomcat_jdbc_8_0_28.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_tomcat_juli_8_0_32.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_tomcat_juli_8_0_28.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_tomcat_jdbc_8_0_32.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_7.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_8.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_2_4_4.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_groovy_groovy_2_4_6.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_validator_5_2_2_Final.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_validator_5_2_4_Final.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_13.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_16.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_13.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_16.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_log4j_over_slf4j_1_7_13.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_log4j_over_slf4j_1_7_16.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_13.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_16.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_1_3_0_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_1_3_3_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_actuator_1_3_0_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_actuator_1_3_3_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_1_3_0_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_1_3_3_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_1_3_0_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_1_3_3_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_actuator_1_3_0_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_actuator_1_3_3_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_1_3_0_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_1_3_3_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_1_3_0_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_1_3_3_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_1_3_0_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_1_3_3_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_1_3_0_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_1_3_3_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_1_3_0_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_mail_1_3_3_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_1_3_0_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_1_3_3_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_1_11_1_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_1_11_4_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_1_9_1_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_1_9_4_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_2_3_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_2_5_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_4_2_3_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_4_2_5_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_2_3_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_2_5_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_2_3_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_2_5_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_4_2_3_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_4_2_5_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_2_3_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_2_5_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_4_2_3_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_4_2_5_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_4_2_3_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_4_2_5_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_4_2_3_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_4_2_5_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_4_2_3_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_4_2_5_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_4_2_3_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_4_2_5_RELEASE.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_4_2_3_RELEASE.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_4_2_5_RELEASE.xml" />
     </list>
     <ignored path="Alluminium0.0.1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,25 +219,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="userEdit.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/userEdit.html">
+      <file leaf-file-name="NotificationServiceImpl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/NotificationServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="7.1923075">
-              <caret line="52" column="83" selection-start-line="52" selection-start-column="83" selection-end-line="52" selection-end-column="83" />
-              <folding />
+            <state vertical-scroll-proportion="-0.18543047">
+              <caret line="104" column="55" selection-start-line="104" selection-start-column="55" selection-end-line="104" selection-end-column="55" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChangePasswordForm.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/ChangePasswordForm.java">
+      <file leaf-file-name="NotificationService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/NotificationService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3115183">
-              <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
-              <folding>
-                <element signature="e#828#829#0" expanded="true" />
-                <element signature="e#882#883#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0">
+              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -81,17 +245,37 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="111" column="50" selection-start-line="111" selection-start-column="50" selection-end-line="111" selection-end-column="50" />
+              <caret line="126" column="48" selection-start-line="126" selection-start-column="48" selection-end-line="126" selection-end-column="48" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChangePasswordValidator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/validators/ChangePasswordValidator.java">
+      <file leaf-file-name="NotificationController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/NotificationController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <caret line="75" column="8" selection-start-line="75" selection-start-column="8" selection-end-line="75" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Role.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/entity/user/Role.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Notification.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/entity/Notification.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -111,16 +295,10 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="PREVIOUS_COMMIT_AUTHORS">
-      <list>
-        <option value="zethius" />
-      </list>
-    </option>
-    <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="tasks" />
+        <entry key="$PROJECT_DIR$" value="LoginTriesRemindPassword" />
       </map>
     </option>
   </component>
@@ -139,59 +317,64 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/java/com/zespolowka/builders/UserCreateFormBuilder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/HomeController.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/zespolowka/PasswordRegexTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/zespolowka/UsersControllerTest.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/messages_en_US.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/config/InternationalConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/AluminiumApplication.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/messages.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/config/LocaleConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/User.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/CurrentUser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/Role.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UsersController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/CurrentUserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/register.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/userDetail.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/users.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/login.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/messages_pl.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/messages_en.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/UserService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/UserRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserDetailsService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/config/WebSecurityConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/UserCreateForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/RegisterController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/validators/UserCreateValidator.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/zespolowka/RegisterControllerTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/zespolowka/UserServiceTest.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/userEdit.html" />
         <option value="$PROJECT_DIR$/src/test/java/com/zespolowka/UserControllerTest.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/config/ProdDBConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/InMemoryNotificationRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/config/DevDBConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/LoginController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/Notification.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/NotificationRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/NotificationController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/messages.html" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/UserEditForm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/UserServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/validators/ChangePasswordValidator.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/fragments/navigation.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/fragments/style.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UserController.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/messages_en.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/messages_pl.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/userEdit.html" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/ChangePasswordForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/User/CurrentUser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/User/Role.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/User/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserDetailsService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/inteface/UserService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/EmailController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/Notification.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/messages.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/rest/NotificationRestController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/NotificationRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/config/DevDBConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/remindPassword.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/login.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/config/WebSecurityConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/user/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/user/CurrentUser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/SendMailService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/service/SendMailServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/config/CustomAuthenticationFailureHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/HomeController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/LoginController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/service/CurrentUserDetailsService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/UserRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/fragments/navigation.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/NewMessageForm.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/sendMessage.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/NotificationService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/NotificationController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/service/NotificationServiceImpl.java" />
       </list>
     </option>
+  </component>
+  <component name="InvalidFacetManager">
+    <ignored-facets>
+      <facet id="Alluminium0.0.1/invalid/JRebel" />
+    </ignored-facets>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" />
   <component name="JsBuildToolPackageJson" detection-done="true" />
@@ -312,7 +495,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -330,8 +513,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -502,7 +683,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Service" />
+              <option name="myItemId" value="service" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -536,7 +717,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Entity" />
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inteface" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -570,11 +755,113 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Entity" />
+              <option name="myItemId" value="repository" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Alluminium0.0.1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ZESPOLOWKA" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="validators" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zespolowka" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="forms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Alluminium0.0.1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ZESPOLOWKA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zespolowka" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="entity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Alluminium0.0.1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ZESPOLOWKA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zespolowka" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="entity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -648,12 +935,14 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.zeroturnaround.javarebel.idea.plugin.settings.AdvancedConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.23287672" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -664,9 +953,6 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="SearchEverywhereHistoryKey" value="create&#9;PSI&#9;JAVA://com.zespolowka.Service.UserService#create&#10;pom&#9;FILE&#9;file://C:/Users/Admin/allegro/WildsnakeSsss/Alluminium0.0.1/pom.xml" />
-    <property name="OverrideImplement.combined" value="true" />
-    <property name="OverrideImplement.overriding.sorted" value="false" />
-    <property name="restartRequiresConfirmation" value="false" />
     <property name="js-jscs-nodeInterpreter" value="E:\Program Files\nodejs\node.exe" />
   </component>
   <component name="RecentsManager">
@@ -1300,26 +1586,18 @@
       <workItem from="1452071698654" duration="225000" />
       <workItem from="1452071945540" duration="278000" />
       <workItem from="1452072248117" duration="20000" />
-      <workItem from="1458583768718" duration="2452000" />
-      <workItem from="1458817465209" duration="20081000" />
-      <workItem from="1458993867153" duration="401000" />
-      <workItem from="1459443998845" duration="10116000" />
-      <workItem from="1459524848848" duration="9456000" />
-      <workItem from="1459692472899" duration="6279000" />
+      <workItem from="1460020881658" duration="9001000" />
+      <workItem from="1460034986229" duration="1861000" />
+      <workItem from="1460045517759" duration="4973000" />
+      <workItem from="1460052203387" duration="9807000" />
+      <workItem from="1460576263281" duration="8166000" />
     </task>
-    <task id="LOCAL-00001" summary="Powiadomienia w Navibarze">
-      <created>1458994131001</created>
-      <option name="number" value="00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1458994131001</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="223805000" />
+    <option name="totallyTimeSpent" value="208828000" />
   </component>
-  <component name="TodoView">
+  <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -1333,22 +1611,22 @@
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299363" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3527559" sideWeight="0.49713466" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32913387" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20944881" sideWeight="0.49713466" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35433072" sideWeight="0.27826726" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3007874" sideWeight="0.5088106" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32020056" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35433072" sideWeight="0.72173274" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.48031497" sideWeight="0.49118942" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299363" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2650514" sideWeight="0.7772152" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25256976" sideWeight="0.48844376" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295129" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2655068" sideWeight="0.18592964" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1357,9 +1635,8 @@
       <window_info id="JRebel Executor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="JRebel remote servers log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
-      <window_info id="JRebel" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2655068" sideWeight="0.22278482" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="JRebel" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14652778" sideWeight="0.51155627" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30393702" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1374,8 +1651,8 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Powiadomienia w Navibarze" />
-    <option name="LAST_COMMIT_MESSAGE" value="Powiadomienia w Navibarze" />
+    <MESSAGE value="Przypominanie hasla, blokowanie uzytkownika przy zlym logowaniu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Przypominanie hasla, blokowanie uzytkownika przy zlym logowaniu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1388,390 +1665,387 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/zespolowka/HomeControllerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="57" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/zespolowka/PasswordRegexTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/zespolowka/UserServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="44" selection-start-line="63" selection-start-column="44" selection-end-line="63" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/zespolowka/RegisterControllerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="97" column="47" selection-start-line="97" selection-start-column="47" selection-end-line="97" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/zespolowka/UserControllerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="11" selection-start-line="33" selection-start-column="11" selection-end-line="33" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/config/LocaleConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="61" selection-start-line="20" selection-start-column="61" selection-end-line="20" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.576923">
-          <caret line="85" column="59" selection-start-line="85" selection-start-column="59" selection-end-line="85" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="36" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/config/ProdDBConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/Role.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-          <folding>
-            <element signature="e#321#322#0" expanded="false" />
-            <element signature="e#367#368#0" expanded="false" />
-            <element signature="e#405#406#0" expanded="false" />
-            <element signature="e#439#440#0" expanded="false" />
-            <element signature="e#489#490#0" expanded="false" />
-            <element signature="e#518#519#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/config/WebSecurityConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="15" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/fragments/footer.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/EmailController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32020548">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/layout.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application-local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Service/NotificationServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Service/NotificationService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3207547">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/repository/InMemoryNotificationRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73315364">
-          <caret line="22" column="60" selection-start-line="22" selection-start-column="60" selection-end-line="22" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/HomeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35675675">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/userDetail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09883721">
+        <state vertical-scroll-proportion="0.08695652">
           <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/LoginController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/editProfile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="2" selection-start-line="31" selection-start-column="2" selection-end-line="32" selection-end-column="36" />
+        <state vertical-scroll-proportion="-2.0869565">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UsersController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/add.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7220709">
-          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/Notification.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="84" column="31" selection-start-line="84" selection-start-column="31" selection-end-line="84" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/fragments/js.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3489736">
-          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/users.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60394263">
-          <caret line="25" column="12" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.230769">
-          <caret line="8" column="31" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Service/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="64" selection-start-line="8" selection-start-column="64" selection-end-line="8" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49853373">
-          <caret line="10" column="30" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/createTest.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.1923075">
-          <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/repository/NotificationRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/CurrentUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="e#496#497#0" expanded="false" />
-            <element signature="e#523#524#0" expanded="false" />
-            <element signature="e#550#551#0" expanded="false" />
-            <element signature="e#585#586#0" expanded="false" />
-            <element signature="e#614#615#0" expanded="false" />
-            <element signature="e#651#652#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding>
-            <element signature="e#801#802#0" expanded="false" />
-            <element signature="e#826#827#0" expanded="false" />
-            <element signature="e#860#861#0" expanded="false" />
-            <element signature="e#888#889#0" expanded="false" />
-            <element signature="e#920#921#0" expanded="false" />
-            <element signature="e#948#949#0" expanded="false" />
-            <element signature="e#990#991#0" expanded="false" />
-            <element signature="e#1024#1025#0" expanded="false" />
-            <element signature="e#1063#1064#0" expanded="false" />
-            <element signature="e#1098#1099#0" expanded="false" />
-            <element signature="e#1154#1155#0" expanded="false" />
-            <element signature="e#1202#1203#0" expanded="false" />
-            <element signature="e#1231#1232#0" expanded="false" />
-            <element signature="e#1258#1259#0" expanded="false" />
-            <element signature="e#1296#1297#0" expanded="false" />
-            <element signature="e#1328#1329#0" expanded="false" />
-            <element signature="e#1359#1360#0" expanded="false" />
-            <element signature="e#1386#1387#0" expanded="false" />
-            <element signature="e#1426#1427#0" expanded="false" />
-            <element signature="e#1458#1459#0" expanded="false" />
-            <element signature="e#1493#1494#0" expanded="false" />
-            <element signature="e#1524#1525#0" expanded="false" />
-            <element signature="e#1572#1573#0" expanded="false" />
-            <element signature="e#1612#1613#0" expanded="false" />
-            <element signature="e#1646#1647#0" expanded="false" />
-            <element signature="e#1676#1677#0" expanded="false" />
-            <element signature="e#1723#1724#0" expanded="false" />
-            <element signature="e#1761#1762#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/NotificationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="61" selection-start-line="14" selection-start-column="61" selection-end-line="14" selection-end-column="61" />
-          <folding />
+        <state vertical-scroll-proportion="-0.04347826">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/messages.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.65384614">
-          <caret line="1" column="62" selection-start-line="1" selection-start-column="62" selection-end-line="1" selection-end-column="62" />
-          <folding />
+        <state vertical-scroll-proportion="-11.115385">
+          <caret line="17" column="44" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/RegisterController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/rest/NotificationRestController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6230366">
-          <caret line="70" column="37" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="7" selection-start-line="63" selection-start-column="7" selection-end-line="63" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/config/DevDBConfig.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/repository/NotificationRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5091384">
-          <caret line="58" column="100" selection-start-line="58" selection-start-column="60" selection-end-line="58" selection-end-column="100" />
-          <folding />
+        <state vertical-scroll-proportion="0.6115108">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/UserEditForm.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/static/css/signin.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4308094">
-          <caret line="85" column="5" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/Task.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/register.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6729776">
-          <caret line="44" column="23" selection-start-line="44" selection-start-column="23" selection-end-line="45" selection-end-column="78" />
+        <state vertical-scroll-proportion="0.13672923">
+          <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/validators/UserCreateValidator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/remindPassword.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32784185">
-          <caret line="23" column="5" selection-start-line="21" selection-start-column="31" selection-end-line="23" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.45576409">
+          <caret line="13" column="86" selection-start-line="13" selection-start-column="86" selection-end-line="13" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/TestService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2982456">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/security/spring-security-core/4.0.3.RELEASE/spring-security-core-4.0.3.RELEASE.jar!/org/springframework/security/core/userdetails/User.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.074074">
+          <caret line="36" column="37" selection-start-line="36" selection-start-column="37" selection-end-line="36" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.061594203">
+          <caret line="14" column="63" selection-start-line="14" selection-start-column="63" selection-end-line="14" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/entity/user/CurrentUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7317881">
+          <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/entity/user/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5629139">
+          <caret line="59" column="33" selection-start-line="59" selection-start-column="33" selection-end-line="59" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/config/WebSecurityConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33112583">
+          <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/solutionTestCheckAnswers.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35734072">
+          <caret line="18" column="61" selection-start-line="18" selection-start-column="61" selection-end-line="18" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.61218834">
+          <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/messages.properties">
+      <provider editor-type-id="ResourceBundle">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33240223">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.7423823">
+          <caret line="37" column="29" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UsersController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/VerificationTokenServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.6821192">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/CurrentUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3807947">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/CurrentUserServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09933775">
+          <caret line="18" column="72" selection-start-line="18" selection-start-column="72" selection-end-line="18" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/config/CustomAuthenticationFailureHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="2" selection-start-line="48" selection-start-column="2" selection-end-line="48" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/CurrentUserDetailsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="62" selection-start-line="7" selection-start-column="62" selection-end-line="7" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/repository/SolutionTestRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16803955">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/repository/TestRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14003295">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/SendMailService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44810542">
+          <caret line="17" column="44" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/SendMailServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.4645798">
+          <caret line="100" column="57" selection-start-line="100" selection-start-column="57" selection-end-line="100" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/TestServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="43" column="4" selection-start-line="43" selection-start-column="4" selection-end-line="43" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/UserServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="52" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/validators/ChangePasswordValidator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/TestFormService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16803955">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/repository/UserRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22405271">
+          <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/HomeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5881384">
+          <caret line="30" column="47" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/fragments/navigation.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.1923075">
-          <caret line="38" column="57" selection-start-line="38" selection-start-column="57" selection-end-line="38" selection-end-column="57" />
+        <state vertical-scroll-proportion="0.69363165">
+          <caret line="69" column="21" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/fragments/style.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/RegisterController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19101124">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        <state vertical-scroll-proportion="-0.28830314">
+          <caret line="47" column="4" selection-start-line="47" selection-start-column="4" selection-end-line="48" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Service/UserServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/forms/UserCreateForm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4764398">
-          <caret line="76" column="9" selection-start-line="76" selection-start-column="9" selection-end-line="76" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.5629139">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/forms/UserEditForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22516556">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/userEdit.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.5384617">
+          <caret line="82" column="4" selection-start-line="82" selection-start-column="4" selection-end-line="83" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/config/DevDBConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.05629139">
+          <caret line="46" column="110" selection-start-line="46" selection-start-column="68" selection-end-line="46" selection-end-column="110" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/sendMessage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8768116">
+          <caret line="46" column="72" selection-start-line="46" selection-start-column="72" selection-end-line="46" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/forms/NewMessageForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11258278">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/entity/Notification.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/entity/user/Role.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/NotificationService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/NotificationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="75" column="8" selection-start-line="75" selection-start-column="8" selection-end-line="75" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -1779,53 +2053,17 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="111" column="50" selection-start-line="111" selection-start-column="50" selection-end-line="111" selection-end-column="50" />
+          <caret line="126" column="48" selection-start-line="126" selection-start-column="48" selection-end-line="126" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/AluminiumApplication.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/NotificationServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4450262">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/messages_pl.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5104712">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/messages_en.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5340314">
-          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/userEdit.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="7.1923075">
-          <caret line="52" column="83" selection-start-line="52" selection-start-column="83" selection-end-line="52" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/ChangePasswordForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3115183">
-          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+        <state vertical-scroll-proportion="-0.18543047">
+          <caret line="104" column="55" selection-start-line="104" selection-start-column="55" selection-end-line="104" selection-end-column="55" />
           <folding>
-            <element signature="e#828#829#0" expanded="true" />
-            <element signature="e#882#883#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1847,7 +2085,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>Invalid</last-edited>
+          <last-edited>JRebel</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1882,7 +2120,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>Alluminium0.0.1</last-edited>
+          <last-edited>JRebel|Alluminium0.0.1</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

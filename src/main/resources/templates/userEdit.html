@@ -15,9 +15,16 @@
         <input type="hidden" th:field="*{role}"/>
         <div class="panel panel-primary">
             <div class="panel-heading" sec:authorize="isAuthenticated()">
-                <h3 class="panel-title">Edytuj swój profil <strong sec:authentication="principal.username">name</strong></h3>
+                <h3 class="panel-title">Edytuj swój profil <strong sec:authentication="principal.username">name</strong>
+                </h3>
             </div>
             <div class="panel-body">
+                <div th:if="${sukces}" class="alert alert-success" role="alert" th:text="#{userEdit.saved}">Zapisano
+                    zmiany
+                </div>
+                <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
+                    <p th:each="err:${#fields.allErrors()}" th:text="${err}">...</p>
+                </div>
 
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -27,10 +34,6 @@
                         <div class="input-group">
                             <input type="text" class="form-control" id="InputImie" name="InputImie"
                                    value="Aktualne imie" placeholder="Imie" th:field="*{name}"/>
-
-                            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('name')}"
-                                 th:errors="*{name}">name Error
-                            </div>
                         </div>
                     </div>
                     <div class="form-group col-md-6">
@@ -39,10 +42,6 @@
                         <div class="input-group">
                             <input type="text" class="form-control" id="InputNazwisko" name="InputNazwisko"
                                    value="Aktualne nazwisko" placeholder="Nazwisko" th:field="*{lastName}"/>
-
-                            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('lastName')}"
-                                 th:errors="*{lastName}">name Error
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -52,9 +51,6 @@
                         <div class="input-group">
                             <input type="email" class="form-control" id="InputEmail" name="InputEmail"
                                    value="Aktualny email" placeholder="Enter Email" th:field="*{email}"/>
-                            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('email')}"
-                                 th:errors="*{email}">name Error
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -64,26 +60,24 @@
                         <label for="InputPasswordFirst">Haslo</label>
 
                         <div class="input-group">
-                            <input type="password" class="form-control" id="InputPasswordFirst" name="InputPasswordFirst"
+                            <input type="password" class="form-control" id="InputPasswordFirst"
+                                   name="InputPasswordFirst"
                                    placeholder="Haslo" th:field="*{password}"/>
-                            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
-                                <strong></strong> Change a few things up and try submitting again.
-                            </div>
                         </div>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="InputPasswordSecond">Potwierdź Hasło</label>
 
                         <div class="input-group">
-                            <input type="password" class="form-control" id="InputPasswordSecond" name="InputPasswordSecond"
+                            <input type="password" class="form-control" id="InputPasswordSecond"
+                                   name="InputPasswordSecond"
                                    placeholder="Haslo" th:field="*{confirmPassword}"/>
                         </div>
                     </div>
                 </div>
 
-                <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary pull-right" th:text="#{userEdit.submit}"/>
-                <div th:if="${sukces}" class="alert alert-success" role="alert" th:text="#{userEdit.saved}">Zapisano zmiany</div>
-
+                <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary pull-right"
+                        th:text="#{userEdit.submit}"/>
             </div>
         </div>
         <input type="hidden" th:name="${_csrf != null ? _csrf.parameterName : 'testing'}"

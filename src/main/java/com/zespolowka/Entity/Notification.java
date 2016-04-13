@@ -1,11 +1,9 @@
-package com.zespolowka.Entity;
+package com.zespolowka.entity;
+
+import com.zespolowka.entity.user.Role;
 
 import javax.persistence.*;
 import java.util.Date;
-
-/**
- * Created by Peps on 2016-02-27.
- */
 
 @Entity
 @Table(name = "NotificationTable")
@@ -15,7 +13,7 @@ public class Notification {
     private Long id;
 
     private String message;
-
+    private String topic;
     private Date date;
     private boolean unread;
     private long userId;
@@ -26,20 +24,26 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(String message, Date date, Role userRole) {
+    public Notification(String message, String topic, Date date, long userId) {
         this.message = message;
+        this.topic = topic;
         this.date = date;
-        this.userId = -1;
-        this.userRole = userRole;
-        this.unread=true;
+        this.userId = userId;
+        this.unread = true;
+        this.userRole = null;
     }
 
-    public Notification(String message, Date data, long userId) {
+    public Notification(String message, String topic, Date date, Role userRole) {
         this.message = message;
-        this.date = data;
-        this.userId = userId;
-        this.userRole = null;
-        this.unread=true;
+        this.topic = topic;
+        this.date = date;
+        this.userRole = userRole;
+        this.unread = true;
+        this.userId = -1;
+    }
+
+    public Notification(Notification notification) {
+
     }
 
     public Long getId() {
@@ -90,15 +94,24 @@ public class Notification {
         this.unread = unread;
     }
 
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
     @Override
     public String toString() {
         return "Notification{" +
-                "group=" + userRole +
-                ", userId=" + userId +
-                ", date='" + date + '\'' +
+                "id=" + id +
                 ", message='" + message + '\'' +
-                ", id=" + id +
+                ", topic='" + topic + '\'' +
+                ", date=" + date +
+                ", unread=" + unread +
+                ", userId=" + userId +
+                ", userRole=" + userRole +
                 '}';
     }
 }
-

@@ -1,6 +1,5 @@
 package com.zespolowka;
 
-import com.zespolowka.Entity.VerificationToken;
 import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 

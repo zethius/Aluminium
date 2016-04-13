@@ -1,6 +1,6 @@
 package com.zespolowka.builders;
 
-import com.zespolowka.Entity.User;
+import com.zespolowka.entity.user.User;
 
 /**
  * Created by Pitek on 2015-12-03.

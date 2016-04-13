@@ -1,0 +1,171 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title th:text="#{test.createTestForm}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"/>
+    <script src="/js/createTestController.js"></script>
+
+</head>
+<body ng-app="ngApp">
+<div layout:fragment="content" ng-controller="CreateTestController">
+    <form id="testform" action="/test/create" class="form-register"  th:object="${createTestForm}"
+          method="POST">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" th:text="#{test.createTestForm}"/>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label for="testName" th:text="#{test.testName}"/>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="testName" name="testName" th:field="*{name}"
+                                   th:placeholder="#{test.testNamePlaceholder}" required="required"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-asterisk"/>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="attempts" th:text="#{test.testAttempts}"/>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="attempts" name="attempts"
+                                   th:field="*{attempts}"
+                                   th:placeholder="#{test.testAttemptsPlaceholder}" required="required"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-asterisk"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="testDateBegin" th:text="#{test.testDateBegin}"/>
+                        <div class="input-group">
+                            <input type="date" class="form-control" id="testDateBegin" name="testDateBegin"
+                                   placeholder="" th:field="*{beginDate}"
+                                   required="required"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-asterisk"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="testDateEnd" th:text="#{test.testDateEnd}"/>
+                        <div class="input-group">
+                            <input type="date" class="form-control" id="testDateEnd" name="testDateEnd" placeholder=""
+                                   th:field="*{endDate}" required="required"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-asterisk"/>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div th:each="task, rowStat : *{tasks}">
+                    <input hidden="hidden" th:field="*{tasks[__${rowStat.index}__].taskType}"/>
+                    <div th:if="*{tasks[__${rowStat.index}__].taskType}==0" class="row">
+                        <div class="form-group col-md-6">
+                            <label for="question" th:text="#{test.questionText}"/>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="question" name="question"
+                                       th:field="*{tasks[__${rowStat.index}__].question}"
+                                       placeholder="" required="required"/>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-asterisk">
+                                                </span>
+                                            </span>
+                            </div>
+                            <th:block th:utext="#{test.taskClosedHint}"/>
+                            <pre th:utext="#{test.taskClosedHintPre}"/>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="answer" th:text="#{test.answers}"/>
+                            <div class="input-group">
+                                <textarea id="answer" rows="10" class="form-control"
+                                          th:field="*{tasks[__${rowStat.index}__].answer}"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-asterisk"/>
+                                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:if="*{tasks[__${rowStat.index}__].taskType}==1" class="row">
+                        <div class="form-group col-md-6">
+                            <label for="question" th:text="#{test.questionText}"/>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="question" name="question" placeholder=""
+                                       th:field="*{tasks[__${rowStat.index}__].question}" required="required"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-asterisk"/>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="answer" th:text="#{test.answer}"/>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="answer" name="answer" placeholder=""
+                                       th:field="*{tasks[__${rowStat.index}__].answer}" required="required"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-asterisk"/>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:if="*{tasks[__${rowStat.index}__].taskType}==2" class="row">
+                        <div class="form-group col-md-12">
+                            <label for="programmingQuestion" th:text="#{test.programmingQuestionLabel}"/>
+                            <div class="input-group">
+                                <textarea id="programmingQuestion" rows="5" class="form-control"
+                                          th:field="*{tasks[__${rowStat.index}__].question}"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-asterisk"/>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:if="*{tasks[__${rowStat.index}__].taskType}==2" class="row">
+                        <div class="form-group col-md-12">
+                            <label for="answer" th:text="#{test.programmingAnswerLabel}"/>
+                            <div class="input-group">
+                                <textarea rows="30" class="form-control"
+                                          th:field="*{tasks[__${rowStat.index}__].testCode}"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-asterisk"/>
+                                 </span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label for="selectQuestion" th:text="#{test.nextQuestion}"/>
+                        <select id="selectQuestion" onchange="changeQuestionType()" class="form-control">
+                            <option th:text="#{test.questionType1}"/>
+                            <option th:text="#{test.questionType2}"/>
+                            <option th:text="#{test.questionType3}"/>
+                            <option th:text="#{test.questionType4}"/>
+                        </select>
+                        <button type="submit" id="addQuestion" onclick="changeQuestionType()" class="btn btn-primary">Kliknij
+                            by dodac pytanie</button>
+                    </div>
+                </div>
+                <input type="hidden" th:name="${_csrf != null ? _csrf.parameterName : 'testing'}"
+                       th:value="${_csrf != null ? _csrf.token : 'testing'}"/>
+                <input type="submit" name="submit" id="submit" th:value="#{test.finishTest}"
+                       class="btn btn-primary pull-right"/>
+
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script layout:fragment="customScripts">
+    function changeQuestionType() {
+        var idQuestion = document.getElementById('selectQuestion').selectedIndex;
+        document.getElementById('testform').setAttribute("action", "/test/create/add?questionId=" + idQuestion);
+}
+
+</script>
+</html>

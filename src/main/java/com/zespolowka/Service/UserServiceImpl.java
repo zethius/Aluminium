@@ -1,9 +1,10 @@
-package com.zespolowka.Service;
+package com.zespolowka.service;
 
-import com.zespolowka.Entity.User;
-import com.zespolowka.Entity.UserCreateForm;
-import com.zespolowka.Entity.UserEditForm;
+import com.zespolowka.entity.user.User;
+import com.zespolowka.forms.UserCreateForm;
+import com.zespolowka.forms.UserEditForm;
 import com.zespolowka.repository.UserRepository;
+import com.zespolowka.service.inteface.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,8 @@ public class UserServiceImpl implements UserService {
     /**
      * Edytuje uzytkownika
      */
+
+
     public User editUser(UserEditForm userEditForm) {
         User user = getUserById(userEditForm.getId())
                 .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", userEditForm.getId())));
@@ -71,7 +74,8 @@ public class UserServiceImpl implements UserService {
         user.setLastName(userEditForm.getLastName());
         user.setEmail(userEditForm.getEmail());
         user.setRole(userEditForm.getRole());
-        if(!userEditForm.getPassword().isEmpty()) {
+        logger.info(userEditForm.getPassword());
+        if (!userEditForm.getPassword().isEmpty()) {
             user.setPasswordHash(new BCryptPasswordEncoder().encode(userEditForm.getPassword()));
             logger.info("Password=" + userEditForm.getPassword());
         }
@@ -79,7 +83,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    public User update(User user){
+    public User update(User user) {
         return userRepository.save(user);
     }
 
