@@ -2,6 +2,7 @@ package com.zespolowka.service.inteface;
 
 import com.zespolowka.entity.Notification;
 import com.zespolowka.entity.user.Role;
+import com.zespolowka.forms.NewMessageForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -24,11 +25,13 @@ public interface NotificationService {
 
     Notification createNotification(Notification notification);
 
-    List<Notification> getProducts(final Integer page, final Integer size);
+    List<Notification> getNotifications(final Integer page, final Integer size);
 
-    Page<Notification> findAllPageable(Pageable pageable,Long userId,Role role);
+    Page<Notification> findAllPageable(Pageable pageable, Long userId, Role role);
 
     Notification changeStatus(Long id);
+
+    void sendMessage(NewMessageForm form);
 
 }
 

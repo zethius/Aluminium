@@ -20,7 +20,7 @@ public class ChangePasswordValidator implements Validator {
     public void validate(Object target, Errors errors) {
         UserEditForm form = (UserEditForm) target;
         logger.info("Walidacja hasla {}", target);
-        if(!form.getPassword().isEmpty()) {
+        if (!form.getPassword().isEmpty()) {
             if (!form.getPassword().equals(form.getConfirmPassword())) {
                 errors.rejectValue("password", "password_error");
             }

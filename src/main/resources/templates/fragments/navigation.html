@@ -14,7 +14,8 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Strona główna</a></li>
                 <li><a href="/solutionTest">Rozpocznij test</a></li>
-                <li><a href="/test/create">Utwórz test</a></li>
+                <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/test/create">Utwórz
+                    test</a></li>
                 <li><a href="#">Lista wyników</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -29,6 +30,7 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li sec:authorize="!isAuthenticated()"><a href="/login">Zaloguj sie</a></li>
                 <li><a th:href="@{?lang=pl}"><img src="/images/pl.png" alt="PL"/></a></li>
                 <li><a th:href="@{?lang=en}"><img src="/images/eng.png" alt="EN"/></a></li>
                 <li sec:authorize="isAuthenticated()" class="dropdown" ng-init="getMsgCount()">
@@ -41,12 +43,12 @@
                             <a ng-href="/messages/{{notification.id}}"
                                ng-click="changeNotificationStatus(notification.id)" ng-if="(!notification.unread)">
                                 <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-                                {{notification.message}}
+                                {{notification.topic}}
                             </a>
                             <a ng-href="/messages/{{notification.id}}"
                                ng-click="changeNotificationStatus(notification.id)" ng-if="(notification.unread)">
                                 <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-                                <strong>{{notification.message}}</strong>
+                                <strong>{{notification.topic}}</strong>
                             </a>
                         </li>
                         <li role="separator" class="divider"></li>

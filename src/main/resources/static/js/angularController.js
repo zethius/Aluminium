@@ -10,17 +10,17 @@ angular.module('ngApp', [])
     })
     .controller('TimerController', ['$scope', '$timeout', function ($scope, $timeout) {
         $scope.Timer = function (value) {
-            $scope.counter = value*60;
+            $scope.counter = value;
             $scope.minutes = parseInt($scope.counter / 60, 10);
             $scope.seconds = parseInt($scope.counter % 60, 10);
 
             $scope.onTimeout = function () {
                 $scope.counter--;
-                $scope.minutes = parseInt($scope.counter / 60, 10)
+                $scope.minutes = parseInt($scope.counter / 60, 10);
                 $scope.seconds = parseInt($scope.counter % 60, 10);
                 if ($scope.counter == 0) alert("test");
                 else mytimeout = $timeout($scope.onTimeout, 1000);
-            }
+            };
             var mytimeout = $timeout($scope.onTimeout, 1000);
         }
     }])
@@ -36,7 +36,7 @@ angular.module('ngApp', [])
             {id: '2', name: 'JAVA'},
             {id: '3', name: 'PYTHON'}
         ];
-        $scope.selectedLanguages=[];
+        $scope.selectedLanguages = [];
 
 
         $scope.setQuestionType = function (selectedValue) {
@@ -50,13 +50,13 @@ angular.module('ngApp', [])
             element.submit();
         };
         $scope.setLanguages = function (languages) {
-            var array=languages.split(",");
+            var array = languages.split(",");
             for (var i = 0; i < $scope.languagesSet.length; i++) {
                 if (array.indexOf($scope.languagesSet[i].name) > -1) {
                     $scope.selectedLanguages.push($scope.languagesSet[i].name);
                 }
             }
-        }
+        };
         $scope.changeLanguages = function (taskId) {
             var element = document.getElementById('selectedLanguages');
             var selected1 = [];
@@ -67,9 +67,9 @@ angular.module('ngApp', [])
             document.getElementById('testform').setAttribute("action", "/test/create/change?taskId=" + taskId + "&selected=" + selected1);
             document.getElementById('testform').submit();
 
-        }
-        $scope.removeQuestion=function(taskId){
-            alert("CHUJ"+taskId);
+        };
+        $scope.removeQuestion = function (taskId) {
+            alert("CHUJ" + taskId);
             document.getElementById('testform').setAttribute("action", "/test/create/remove?taskId=" + taskId);
             document.getElementById('testform').submit();
         }
@@ -91,6 +91,9 @@ angular.module('ngApp', [])
                     });
                 });
         };
+        $scope.setNotificationId = function (aaa) {
+            $scope.activeNotification = aaa;
+        };
         $scope.getTop5Notifications = function () {
             $http.get('/api/notifications/top5')
                 .success(function (data) {
@@ -103,7 +106,7 @@ angular.module('ngApp', [])
                     $scope.pageNumber = page - 1;
                     $scope.data = data;
                 });
-        }
+        };
         $scope.getTotalPages = function () {
             $http.get('/api/notifications/get/totalPages?page=' + $scope.pageNumber).success(function (data2) {
                     $scope.totalPages = data2;

@@ -19,7 +19,8 @@
                         <h4 th:text="${rowStat.count}+'. '+*{solutionTasks[__${rowStat.index}__].task.question}"/>
                         <div class="input-group">
                             <input type="text" class="form-control" id="answerOpenTask" name="answerOpenTask"
-                                   placeholder="Oodpowiedz słowna" th:field="*{solutionTasks[__${rowStat.index}__].answer}"
+                                   placeholder="Oodpowiedz słowna"
+                                   th:field="*{solutionTasks[__${rowStat.index}__].answer}"
                                    required="required"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-asterisk"/>

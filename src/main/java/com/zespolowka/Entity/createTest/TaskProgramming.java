@@ -1,14 +1,17 @@
 package com.zespolowka.entity.createTest;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class TaskProgramming extends Task {
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,targetEntity = TaskProgrammingDetail.class, fetch = FetchType.EAGER)
-    private Set<TaskProgrammingDetail> programmingDetailSet=new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = TaskProgrammingDetail.class, fetch = FetchType.EAGER)
+    private Set<TaskProgrammingDetail> programmingDetailSet = new HashSet<>();
 
     public TaskProgramming() {
     }
@@ -25,7 +28,7 @@ public class TaskProgramming extends Task {
         this.programmingDetailSet = programmingDetailSet;
     }
 
-    public void addTaskkProgrammingDetail(TaskProgrammingDetail taskProgrammingDetail){
+    public void addTaskkProgrammingDetail(TaskProgrammingDetail taskProgrammingDetail) {
         this.programmingDetailSet.add(taskProgrammingDetail);
     }
 

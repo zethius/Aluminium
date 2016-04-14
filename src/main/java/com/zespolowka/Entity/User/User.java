@@ -22,12 +22,17 @@ public class User {
 
     private String passwordHash;
 
+    private int login_tries;
+
+    private boolean accountNonLocked = true;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
     public User() {
         super();
         this.enabled = false;
+        this.login_tries = 3;
     }
 
     public User(String name, String lastName, String email, String passwordHash) {
@@ -38,6 +43,7 @@ public class User {
         this.passwordHash = passwordHash;
         this.role = Role.USER;
         this.enabled = false;
+        this.login_tries = 3;
     }
 
     public Long getId() {
@@ -96,15 +102,33 @@ public class User {
         this.enabled = enabled;
     }
 
+    public int getLogin_tries() {
+        return login_tries;
+    }
+
+    public void setLogin_tries(int login_tries) {
+        this.login_tries = login_tries;
+    }
+
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
     @Override
     public String toString() {
-        return "user{" +
+        return "User{" +
                 "id=" + id +
                 ", enabled=" + enabled +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", passwordHash='" + passwordHash + '\'' +
+                ", login_tries=" + login_tries +
+                ", accountNonLocked=" + accountNonLocked +
                 ", role=" + role +
                 '}';
     }

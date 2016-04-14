@@ -7,7 +7,6 @@ public enum ProgrammingLanguages {
     PYTHON("PYTHON");
 
     ProgrammingLanguages(String displayName) {
-        String displayName1 = displayName;
     }
 
 }

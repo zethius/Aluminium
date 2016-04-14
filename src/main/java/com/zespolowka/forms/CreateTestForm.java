@@ -24,7 +24,7 @@ public class CreateTestForm {
 
     private int timePerAttempt;
 
-    private String password= "";
+    private String password = "";
 
     private List<TaskForm> tasks;
 

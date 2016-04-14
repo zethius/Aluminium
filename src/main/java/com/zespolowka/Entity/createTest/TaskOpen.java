@@ -20,7 +20,7 @@ public class TaskOpen extends Task {
     public TaskOpen(String question, Float max_points) {
         super(question, max_points);
         this.answer = "";
-        this.caseSens=false;
+        this.caseSens = false;
     }
 
     public String getAnswer() {

@@ -21,7 +21,7 @@
             <div class="panel-body">
                 <div class="popover bottom" style="" ng-controller="TimerController">
                     <h3 class="popover-title">Czas</h3>
-                    <div class="popover-content" th:attr="ng-init='Timer('+*{timePerAttempt}+')'">
+                    <div class="popover-content" th:attr="ng-init='Timer('+*{timeToEnd}+')'">
                         <p>Zostało <strong>{{minutes}}</strong>min <strong>{{seconds}}</strong>s!</p>
                         <input type="submit" name="submitSave" id="submitSave" value="Zapisz" class="btn btn-primary"/>
                     </div>
@@ -62,7 +62,8 @@
                     <div th:if="*{tasks[__${rowStat.index}__].taskType}==2" class="form-group col-md-12">
                         <h4 th:text="${rowStat.count}+'. '+*{tasks[__${rowStat.index}__].task.question}"/>
                         <div class="input-group">
-                            <textarea rows="30" class="form-control" th:field="*{tasks[__${rowStat.index}__].answerCode}"/>
+                            <textarea rows="30" class="form-control"
+                                      th:field="*{tasks[__${rowStat.index}__].answerCode}"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-asterisk"/>
                             </span>

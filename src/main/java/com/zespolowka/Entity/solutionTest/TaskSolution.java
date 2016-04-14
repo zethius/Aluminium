@@ -51,7 +51,7 @@ public class TaskSolution {
         return "SolutionTask{" +
                 "id=" + id +
                 ", points=" + points +
-               // ", task=" + task +
+                // ", task=" + task +
                 '}';
     }
 }

@@ -17,7 +17,7 @@ public class Test {
     private LocalDate beginDate;
     private LocalDate endDate;
     private Float maxPoints;
-    private String password="";
+    private String password = "";
     private Integer timePerAttempt;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Task> tasks;
@@ -26,7 +26,7 @@ public class Test {
     public Test() {
         this.tasks = new ArrayList<>();
         this.maxPoints = 0f;
-        this.password="";
+        this.password = "";
     }
 
     public Test(final String name, final Long attempts, final LocalDate beginDate, final LocalDate endDate, final List<Task> tasks) {

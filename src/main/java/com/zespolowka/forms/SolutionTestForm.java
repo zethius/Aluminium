@@ -6,7 +6,7 @@ import java.util.List;
 public class SolutionTestForm {
     private String name;
 
-    private int timePerAttempt;
+    private Long timeToEnd;
 
     private List<SolutionTaskForm> tasks;
 
@@ -33,12 +33,12 @@ public class SolutionTestForm {
         this.name = name;
     }
 
-    public int getTimePerAttempt() {
-        return timePerAttempt;
+    public Long getTimeToEnd() {
+        return timeToEnd;
     }
 
-    public void setTimePerAttempt(int timePerAttempt) {
-        this.timePerAttempt = timePerAttempt;
+    public void setTimeToEnd(Long timeToEnd) {
+        this.timeToEnd = timeToEnd;
     }
 
     @Override

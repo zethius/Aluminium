@@ -15,7 +15,7 @@ public class TaskProgrammingSolution extends TaskSolution {
 
     public TaskProgrammingSolution(Task task) {
         super(task);
-        this.answerCode= "";
+        this.answerCode = "";
     }
 
     public TaskProgrammingSolution(Task task, String answerCode) {

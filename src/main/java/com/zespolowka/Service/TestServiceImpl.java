@@ -36,7 +36,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public Collection<Test> getAllTests() {
-        return (Collection<Test>) testRepository.findAll();
+        return testRepository.findAll();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class TestServiceImpl implements TestService {
         for (TaskForm taskForm : taskFormList) {
             switch (taskForm.getTaskType()) {
                 case 0: {
-                    TaskClosed taskClosed = new TaskClosed(taskForm.getQuestion(),(float)taskForm.getPoints());
+                    TaskClosed taskClosed = new TaskClosed(taskForm.getQuestion(), (float) taskForm.getPoints());
                     String answerList = taskForm.getAnswer();
                     String[] answers = answerList.split("[\\r\\n]+");
                     for (String answer : answers) {
@@ -64,14 +64,14 @@ public class TestServiceImpl implements TestService {
                     }
                     if (taskForm.getWrongReset()) {
                         taskClosed.setCountingType(taskClosed.WRONG_RESET);
-                    }else {
+                    } else {
                         taskClosed.setCountingType(taskClosed.COUNT_NOT_FULL);
                     }
                     test.addTaskToTest(taskClosed);
                     break;
                 }
                 case 1: {
-                    TaskOpen taskOpen = new TaskOpen(taskForm.getQuestion(),(float)taskForm.getPoints());
+                    TaskOpen taskOpen = new TaskOpen(taskForm.getQuestion(), (float) taskForm.getPoints());
                     taskOpen.setAnswer(taskForm.getAnswer());
                     taskOpen.setCaseSens(taskForm.getCaseSensitivity());
                     taskOpen.setMax_points((float) taskForm.getPoints());
@@ -79,7 +79,7 @@ public class TestServiceImpl implements TestService {
                     break;
                 }
                 case 2: {
-                    TaskProgramming taskProgramming = new TaskProgramming(taskForm.getQuestion(),(float)taskForm.getPoints());
+                    TaskProgramming taskProgramming = new TaskProgramming(taskForm.getQuestion(), (float) taskForm.getPoints());
                     Set<ProgrammingTaskForm> programmingTaskForms = taskForm.getProgrammingTaskForms();
                     programmingTaskForms.stream().filter(ProgrammingTaskForm::getHidden).forEach(programmingTaskForm -> {
                         logger.info(" " + programmingTaskForm.toString());

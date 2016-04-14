@@ -27,7 +27,7 @@ public class TaskForm {
 
     private Boolean caseSensitivity;
 
-    private Boolean wrongReset=true;
+    private Boolean wrongReset = true;
 
     private Boolean countNotFull;
 

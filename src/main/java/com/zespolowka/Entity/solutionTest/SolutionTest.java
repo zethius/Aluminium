@@ -14,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -74,10 +75,10 @@ public class SolutionTest {
             if (taskClo.getCountingType() == taskClo.WRONG_RESET) {
                 Boolean theSame = true;
                 for (String key : userAnswers.keySet()) {
-                    if ((userAnswers.get(key)!=null && userAnswers.get(key) == true) && (correctAnswers.get(key) == false)) {
+                    if ((userAnswers.get(key) != null && userAnswers.get(key)) && (!correctAnswers.get(key))) {
                         theSame = false;
                         break;
-                    } else if ((userAnswers.get(key) == null || userAnswers.get(key) == false ) && (correctAnswers.get(key) == true)) {
+                    } else if ((userAnswers.get(key) == null || !userAnswers.get(key)) && (correctAnswers.get(key))) {
                         theSame = false;
                         break;
                     }
@@ -92,11 +93,11 @@ public class SolutionTest {
                 Boolean chooseIncorect = false;
                 for (String key : userAnswers.keySet()) {
                     if (userAnswers.get(key) == null) userAnswers.put(key, false);
-                    if (correctAnswers.get(key) == true) pointsDivide++;
-                    if (userAnswers.get(key) == true && correctAnswers.get(key) == false) {
+                    if (correctAnswers.get(key)) pointsDivide++;
+                    if (userAnswers.get(key) && !correctAnswers.get(key)) {
                         chooseIncorect = true;
                         break;
-                    } else if (userAnswers.get(key).equals(correctAnswers.get(key)) && correctAnswers.get(key) == true)
+                    } else if (userAnswers.get(key).equals(correctAnswers.get(key)) && correctAnswers.get(key))
                         noCorrectAnswers++;
                 }
                 if (chooseIncorect || noCorrectAnswers < 1) {
@@ -196,6 +197,13 @@ public class SolutionTest {
         }
 
         return output.toString();
+    }
+
+    public Long secondsToEnd() {
+        Timestamp timestamp = Timestamp.valueOf(beginSolution.plusMinutes(test.getTimePerAttempt()));
+        Timestamp timestamp1 = Timestamp.valueOf(LocalDateTime.now());
+        Long value = timestamp.getTime() - timestamp1.getTime();
+        return value / 1000;
     }
 
     public Long getId() {

@@ -108,9 +108,9 @@ public class TestController {
     }
 
     @RequestMapping(value = "create/remove", method = RequestMethod.POST)
-    public String removeQuestion(@RequestParam(value = "taskId") int taskId,final CreateTestForm createTestForm, final Model model) {
+    public String removeQuestion(@RequestParam(value = "taskId") int taskId, final CreateTestForm createTestForm, final Model model) {
         logger.info("removeQuestion");
-        logger.info(createTestForm+"");
+        logger.info(createTestForm + "");
         createTestForm.getTasks().remove(taskId);
         testFormService.updateTestFormInSession(createTestForm);
         model.addAttribute("createTestForm", testFormService.getTestFromSession());

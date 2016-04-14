@@ -35,6 +35,7 @@ public class TestFormService {
         logger.info("Metoda - updateTestFormInSession");
         this.httpSession.setAttribute(TEST_ATTRIBUTE_NAME, createTestForm);
     }
+
     public void updateSelectedLanguagesInSession(final String selected) {
         logger.info("Metoda - updateSelectedLanguagesInSession");
         this.httpSession.setAttribute("sprawdzmy", selected);

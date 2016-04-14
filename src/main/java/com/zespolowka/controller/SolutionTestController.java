@@ -48,9 +48,8 @@ public class SolutionTestController {
             logger.info("ni chuja");
             return "testSolution";
         } else {
-            logger.info(test.getTimePerAttempt()+"   asdassa");
+            logger.info(test.getTimePerAttempt() + "   asdassa");
             SolutionTestForm solutionTestForm = solutionTestService.createForm(test, user);
-            solutionTestForm.setTimePerAttempt(test.getTimePerAttempt());
             model.addAttribute("solutionTest", solutionTestForm);
             return "testSolution";
         }

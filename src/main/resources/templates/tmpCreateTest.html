@@ -292,17 +292,17 @@
 </body>
 <script layout:fragment="customScripts">
     function changeValue(id) {
-        var baseCheckbox=id.substr(0,id.length-1);
-        var appendCheckbox=id.substr(id.length-1,id.length);
+        var baseCheckbox = id.substr(0, id.length - 1);
+        var appendCheckbox = id.substr(id.length - 1, id.length);
         var anotherCheckbox;
-        if (appendCheckbox=='1') anotherCheckbox='2';
-        else anotherCheckbox='1';
+        if (appendCheckbox == '1') anotherCheckbox = '2';
+        else anotherCheckbox = '1';
         if (document.getElementById(id).checked == true) {
-            document.getElementById(baseCheckbox+''+anotherCheckbox).checked = false;
+            document.getElementById(baseCheckbox + '' + anotherCheckbox).checked = false;
         }
-        if (document.getElementById(id).checked == false){
-            alert(baseCheckbox+anotherCheckbox);
-            if(document.getElementById(baseCheckbox+anotherCheckbox).checked ==false) {
+        if (document.getElementById(id).checked == false) {
+            alert(baseCheckbox + anotherCheckbox);
+            if (document.getElementById(baseCheckbox + anotherCheckbox).checked == false) {
                 document.getElementById(baseCheckbox + '1').checked = true;
             }
         }

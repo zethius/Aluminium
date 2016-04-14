@@ -7,11 +7,13 @@ import org.springframework.core.io.FileSystemResource;
  * Created by Admin on 2016-02-17.
  */
 public interface SendMailService {
-    public void sendSimpleMail(String to, String subject, String body);
+    void sendSimpleMail(String to, String subject, String body);
 
-    public void sendMailWIthAttachment(String to, String subject, String body, FileSystemResource file);
+    void sendMailWIthAttachment(String to, String subject, String body, FileSystemResource file);
 
-    public void sendRichMail(String to, String subject, String body, User user);
+    void sendRichMail(String to, String subject, String body, User user);
 
-    public void sendVerificationMail(String url, User user);
+    void sendVerificationMail(String url, User user);
+
+    void sendReminderMail(User user);
 }
