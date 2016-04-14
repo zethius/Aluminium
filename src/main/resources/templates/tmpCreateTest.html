@@ -3,13 +3,11 @@
       layout:decorator="layout">
 <head>
     <title th:text="#{test.createTestForm}"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"/>
-    <script src="/js/createTestController.js"></script>
 
 </head>
-<body ng-app="ngApp">
+<body>
 <div layout:fragment="content" ng-controller="CreateTestController">
-    <form id="testform" action="/test/create" class="form-register"  th:object="${createTestForm}"
+    <form id="testform" action="/test/create" class="form-register" th:object="${createTestForm}"
           method="POST">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -62,11 +60,36 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="testTimePerAttempt" th:text="#{test.testTimePerAttempt}"/>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="testTimePerAttempt"
+                                   th:field="*{timePerAttempt}"
+                                   th:placeholder="#{test.testAttemptTimePlaceholder}" required="required"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-asterisk"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="testPassword" th:text="#{test.password}"/>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="testPassword" th:field="*{password}"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-asterisk"/>
+                            </span>
+                        </div>
+                    </div>
+                </div>
                 <div th:each="task, rowStat : *{tasks}">
                     <input hidden="hidden" th:field="*{tasks[__${rowStat.index}__].taskType}"/>
                     <div th:if="*{tasks[__${rowStat.index}__].taskType}==0" class="row">
-                        <div class="form-group col-md-6">
-                            <label for="question" th:text="#{test.questionText}"/>
+                        <a href="" th:attr="ng-click='removeQuestion(\''+${rowStat.index}+'\')'"><i
+                                class="glyphicon glyphicon-remove-circle usunPytanie"
+                                th:title="#{test.removeQuestion}"></i></a>
+                        <div class="form-group col-md-5">
+                            <label for="question" th:text="${rowStat.count}+'. '+#{test.questionText}"/>
                             <div class="input-group">
                                 <input type="text" class="form-control" id="question" name="question"
                                        th:field="*{tasks[__${rowStat.index}__].question}"
@@ -79,7 +102,7 @@
                             <th:block th:utext="#{test.taskClosedHint}"/>
                             <pre th:utext="#{test.taskClosedHintPre}"/>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-5">
                             <label for="answer" th:text="#{test.answers}"/>
                             <div class="input-group">
                                 <textarea id="answer" rows="10" class="form-control"
@@ -89,10 +112,46 @@
                                                 </span>
                             </div>
                         </div>
+                        <div class="form-group col-md-2">
+                            <label for="nazwaTest" th:text="#{test.points}"/>
+                            <div class="input-group">
+                                <input type="number" class="form-control"
+                                       th:field="*{tasks[__${rowStat.index}__].points}" id="nazwaTest"
+                                       required="required"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-asterisk"/>
+                                </span>
+                            </div>
+                            <div class="input-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input th:id="'checkbox'+${rowStat.index}+'1'"
+                                               th:attr="onclick='changeValue(\'checkbox'+${rowStat.index}+'1\')'"
+                                               type="checkbox"
+                                               th:checked="*{tasks[__${rowStat.index}__].wrongReset}"
+                                               th:field="*{tasks[__${rowStat.index}__].wrongReset}"/>
+                                        <th:block th:text="#{test.wrongReset}"/>
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input th:id="'checkbox'+${rowStat.index}+'2'"
+                                               th:attr="onclick='changeValue(\'checkbox'+${rowStat.index}+'2\')'"
+                                               type="checkbox"
+                                               th:checked="*{tasks[__${rowStat.index}__].countNotFull}"
+                                               th:field="*{tasks[__${rowStat.index}__].countNotFull}"/>
+                                        <th:block th:text="#{test.countNotFull}"/>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div th:if="*{tasks[__${rowStat.index}__].taskType}==1" class="row">
-                        <div class="form-group col-md-6">
-                            <label for="question" th:text="#{test.questionText}"/>
+                        <a href="" th:attr="ng-click='removeQuestion(\''+${rowStat.index}+'\')'">
+                            <i class="glyphicon glyphicon-remove-circle usunPytanie"
+                               th:title="#{test.removeQuestion}"></i></a>
+                        <div class="form-group col-md-4">
+                            <label for="question" th:text="${rowStat.count}+'. '+#{test.questionText}"/>
                             <div class="input-group">
                                 <input type="text" class="form-control" id="question" name="question" placeholder=""
                                        th:field="*{tasks[__${rowStat.index}__].question}" required="required"/>
@@ -101,7 +160,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="answer" th:text="#{test.answer}"/>
                             <div class="input-group">
                                 <input type="text" class="form-control" id="answer" name="answer" placeholder=""
@@ -111,10 +170,32 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="form-group col-md-2">
+                            <label for="nazwaTest" th:text="#{test.caseSensitivity}"/>
+                            <div class="checkbox">
+                                <label><input type="checkbox" th:field="*{tasks[__${rowStat.index}__].caseSensitivity}"
+                                              value="case_sens"/> Tak</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="nazwaTest" th:text="#{test.points}"/>
+                            <div class="input-group">
+                                <input type="number" class="form-control"
+                                       th:field="*{tasks[__${rowStat.index}__].points}" id="nazwaTest"
+                                       required="required"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-asterisk"/>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <div th:if="*{tasks[__${rowStat.index}__].taskType}==2" class="row">
+                        <a href="" th:attr="ng-click='removeQuestion(\''+${rowStat.index}+'\')'"><i
+                                class="glyphicon glyphicon-remove-circle usunPytanie"
+                                th:title="#{test.removeQuestion}"></i></a>
                         <div class="form-group col-md-12">
-                            <label for="programmingQuestion" th:text="#{test.programmingQuestionLabel}"/>
+                            <label for="programmingQuestion"
+                                   th:text="${rowStat.count}+'. '+#{test.programmingQuestionLabel}"/>
                             <div class="input-group">
                                 <textarea id="programmingQuestion" rows="5" class="form-control"
                                           th:field="*{tasks[__${rowStat.index}__].question}"/>
@@ -124,36 +205,84 @@
                             </div>
                         </div>
                     </div>
-                    <div th:if="*{tasks[__${rowStat.index}__].taskType}==2" class="row">
-                        <div class="form-group col-md-12">
-                            <label for="answer" th:text="#{test.programmingAnswerLabel}"/>
-                            <div class="input-group">
-                                <textarea rows="30" class="form-control"
-                                          th:field="*{tasks[__${rowStat.index}__].testCode}"/>
+                    <div th:if="*{tasks[__${rowStat.index}__].taskType}==2">
+                        <div class="row">
+                            <div class="form-group col-md-10">
+                                <label for="programmingQuestion" th:text="#{test.programmingLanguageChoose}"/>
+                                <select id="selectedLanguages"
+                                        th:attr="ng-init='setLanguages(\''+${session.sprawdzmy}+'\')',ng-change='changeLanguages('+${rowStat.count}+')'"
+                                        name="languages[]" multiple="true" ng-multiple="true"
+                                        ng-model="selectedLanguages" class="form-control"
+                                        th:field="*{tasks[__${rowStat.index}__].languages}">
+                                    <option ng-repeat="item in languagesSet"
+                                            value="{{item.name}}">
+                                        {{item.name}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="nazwaTest" th:text="#{test.points}"/>
+                                <div class="input-group">
+                                    <input type="number" class="form-control"
+                                           th:field="*{tasks[__${rowStat.index}__].points}" id="nazwaTest"
+                                           required="required"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-asterisk"/>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:each="programmingTask, row : *{tasks[__${rowStat.index}__].programmingTaskForms}"
+                             th:if="${programmingTask.hidden}">
+                            <input hidden="hidden"
+                                   th:field="*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].language}"/>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="answer"
+                                           th:text="#{test.whiteList}+' '+*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].language}"/>
+                                    <div class="input-group">
+                                        <textarea rows="5" class="form-control"
+                                                  th:field="*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].whiteList}"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-asterisk"/>
                                  </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="answer"
+                                           th:text="#{test.programmingAnswerLabel}+' '+*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].language}"/>
+                                    <div class="input-group">
+                                <textarea rows="30" class="form-control"
+                                          th:field="*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].testCode}"/>
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-asterisk"/>
+                                 </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <hr/>
                     </div>
-                    <hr/>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-12">
                         <label for="selectQuestion" th:text="#{test.nextQuestion}"/>
-                        <select id="selectQuestion" onchange="changeQuestionType()" class="form-control">
-                            <option th:text="#{test.questionType1}"/>
-                            <option th:text="#{test.questionType2}"/>
-                            <option th:text="#{test.questionType3}"/>
-                            <option th:text="#{test.questionType4}"/>
+                        <select id="selectQuestion" ng-model="selectedValue" ng-change="setQuestionType(selectedValue)"
+                                class="form-control">
+                            <option></option>
+                            <option ng-value='0' th:text="#{test.questionType1}"/>
+                            <option ng-value='1' th:text="#{test.questionType2}"/>
+                            <option ng-value='2' th:text="#{test.questionType3}"/>
+                            <option ng-value='3' th:text="#{test.questionType4}"/>
                         </select>
-                        <button type="submit" id="addQuestion" onclick="changeQuestionType()" class="btn btn-primary">Kliknij
-                            by dodac pytanie</button>
                     </div>
                 </div>
                 <input type="hidden" th:name="${_csrf != null ? _csrf.parameterName : 'testing'}"
                        th:value="${_csrf != null ? _csrf.token : 'testing'}"/>
-                <input type="submit" name="submit" id="submit" th:value="#{test.finishTest}"
+                <input type="submit" name="Btnsubmit" id="Btnsubmit" th:value="#{test.finishTest}"
                        class="btn btn-primary pull-right"/>
 
             </div>
@@ -162,10 +291,21 @@
 </div>
 </body>
 <script layout:fragment="customScripts">
-    function changeQuestionType() {
-        var idQuestion = document.getElementById('selectQuestion').selectedIndex;
-        document.getElementById('testform').setAttribute("action", "/test/create/add?questionId=" + idQuestion);
-}
-
+    function changeValue(id) {
+        var baseCheckbox = id.substr(0, id.length - 1);
+        var appendCheckbox = id.substr(id.length - 1, id.length);
+        var anotherCheckbox;
+        if (appendCheckbox == '1') anotherCheckbox = '2';
+        else anotherCheckbox = '1';
+        if (document.getElementById(id).checked == true) {
+            document.getElementById(baseCheckbox + '' + anotherCheckbox).checked = false;
+        }
+        if (document.getElementById(id).checked == false) {
+            alert(baseCheckbox + anotherCheckbox);
+            if (document.getElementById(baseCheckbox + anotherCheckbox).checked == false) {
+                document.getElementById(baseCheckbox + '1').checked = true;
+            }
+        }
+    }
 </script>
 </html>

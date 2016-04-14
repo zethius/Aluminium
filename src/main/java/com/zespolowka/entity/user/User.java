@@ -22,16 +22,17 @@ public class User {
 
     private String passwordHash;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
     private int login_tries;
 
-    private boolean accountNonLocked=true;
+    private boolean accountNonLocked = true;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public User() {
         super();
         this.enabled = false;
+        this.login_tries = 3;
     }
 
     public User(String name, String lastName, String email, String passwordHash) {
@@ -42,7 +43,7 @@ public class User {
         this.passwordHash = passwordHash;
         this.role = Role.USER;
         this.enabled = false;
-        this.login_tries=3;
+        this.login_tries = 3;
     }
 
     public Long getId() {
@@ -119,13 +120,15 @@ public class User {
 
     @Override
     public String toString() {
-        return "user{" +
+        return "User{" +
                 "id=" + id +
                 ", enabled=" + enabled +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", passwordHash='" + passwordHash + '\'' +
+                ", login_tries=" + login_tries +
+                ", accountNonLocked=" + accountNonLocked +
                 ", role=" + role +
                 '}';
     }

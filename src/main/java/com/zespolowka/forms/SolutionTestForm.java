@@ -6,6 +6,8 @@ import java.util.List;
 public class SolutionTestForm {
     private String name;
 
+    private Long timeToEnd;
+
     private List<SolutionTaskForm> tasks;
 
     public SolutionTestForm() {
@@ -29,6 +31,14 @@ public class SolutionTestForm {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getTimeToEnd() {
+        return timeToEnd;
+    }
+
+    public void setTimeToEnd(Long timeToEnd) {
+        this.timeToEnd = timeToEnd;
     }
 
     @Override

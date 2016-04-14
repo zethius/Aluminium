@@ -32,7 +32,7 @@ public class UserCreateValidator implements Validator {
     public void validate(Object target, Errors errors) {
         UserCreateForm form = (UserCreateForm) target;
         logger.info("Walidacja {}", target);
-        if(form.getPassword()==null || form.getConfirmPassword()==null)
+        if (form.getPassword() == null || form.getConfirmPassword() == null)
             errors.rejectValue("password", "password_error");
         else if (!form.getPassword().equals(form.getConfirmPassword())) {
             errors.rejectValue("password", "password_error");

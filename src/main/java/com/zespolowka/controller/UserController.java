@@ -104,45 +104,45 @@ public class UserController {
             logger.info(userEditForm.toString());
             return "userEdit";
         } else {
-                final User user = userService.editUser(userEditForm);
-                CurrentUser currentUser = new CurrentUser(user);
-                Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, currentUser.getPassword(), currentUser.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                logger.info(user.toString());
-                logger.info(userEditForm.toString());
-                model.addAttribute("sukces", true);
-                return "userEdit";
-            }
-    }
-
-        @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
-        @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-        public String editUser ( @PathVariable final Integer id, final Model model,
-        final SecurityContextHolderAwareRequestWrapper request){
-            logger.debug("nazwa metody = editUser");
-            try {
-                model.addAttribute("userEditForm", new UserEditForm(userService.getUserById(id)
-                        .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)))));
-            } catch (final Exception e) {
-                logger.error(e.getMessage(), e);
-                logger.info(id.toString() + "\n" + model + "\n" + userService.getUserById(id));
-            }
+            final User user = userService.editUser(userEditForm);
+            CurrentUser currentUser = new CurrentUser(user);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, currentUser.getPassword(), currentUser.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            logger.info(user.toString());
+            logger.info(userEditForm.toString());
+            model.addAttribute("sukces", true);
             return "userEdit";
         }
+    }
 
-        @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
-        @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-        public String saveUser ( @PathVariable final Integer id, @ModelAttribute @Valid final UserEditForm userEditForm,
-        final Errors errors){
-            logger.info("nazwa metody = saveUser");
-            if (errors.hasErrors()) {
-                return "userEdit";
-            } else {
-                final User user = userService.editUser(userEditForm);
-                return "redirect:/user/" + user.getId();
-            }
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editUser(@PathVariable final Integer id, final Model model,
+                           final SecurityContextHolderAwareRequestWrapper request) {
+        logger.debug("nazwa metody = editUser");
+        try {
+            model.addAttribute("userEditForm", new UserEditForm(userService.getUserById(id)
+                    .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)))));
+        } catch (final Exception e) {
+            logger.error(e.getMessage(), e);
+            logger.info(id.toString() + "\n" + model + "\n" + userService.getUserById(id));
+        }
+        return "userEdit";
+    }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+    public String saveUser(@PathVariable final Integer id, @ModelAttribute @Valid final UserEditForm userEditForm,
+                           final Errors errors) {
+        logger.info("nazwa metody = saveUser");
+        if (errors.hasErrors()) {
+            return "userEdit";
+        } else {
+            final User user = userService.editUser(userEditForm);
+            return "redirect:/user/" + user.getId();
         }
 
     }
+
+}
 

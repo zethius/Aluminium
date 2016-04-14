@@ -1,11 +1,12 @@
 package com.zespolowka.entity.solutionTest;
 
 import com.zespolowka.entity.createTest.Task;
-import com.zespolowka.entity.createTest.TaskClosed;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Entity
 public class TaskClosedSolution extends TaskSolution {

@@ -26,8 +26,8 @@ public class EmailController {
     private NotificationService notificationService;
 
     @Autowired
-    public EmailController(SendMailService sendMailService,NotificationService notificationService) {
-        this.notificationService=notificationService;
+    public EmailController(SendMailService sendMailService, NotificationService notificationService) {
+        this.notificationService = notificationService;
         this.sendMailService = sendMailService;
     }
 
@@ -46,8 +46,9 @@ public class EmailController {
         CurrentUser user = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         sendMailService.sendRichMail("olsz72@o2.pl", "Ladniejszy mail", "Wiadomosc testowa", user.getUser());
     }
+
     @RequestMapping("/sendMessage")
     public void sendMessage() {
-        notificationService.createNotification(new Notification("GRUPOWA","Temat",new Date(), Role.ADMIN));
+        notificationService.createNotification(new Notification("GRUPOWA", "Temat", new Date(), Role.ADMIN));
     }
 }

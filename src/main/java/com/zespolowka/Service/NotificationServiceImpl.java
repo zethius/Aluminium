@@ -27,13 +27,12 @@ import java.util.stream.Collectors;
 public class NotificationServiceImpl implements NotificationService {
     private static final Logger logger = LoggerFactory.getLogger(NotificationService.class);
     private final NotificationRepository notificationRepository;
-    private static String DEFAULT_SORT_BY_DATE = "date";
     private final UserRepository userRepository;
 
     @Autowired
-    public NotificationServiceImpl(NotificationRepository notificationRepository,UserRepository userRepository) {
+    public NotificationServiceImpl(NotificationRepository notificationRepository, UserRepository userRepository) {
         this.notificationRepository = notificationRepository;
-        this.userRepository=userRepository;
+        this.userRepository = userRepository;
     }
 
 
@@ -46,7 +45,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public Collection<Notification> getAllNotifications() {
         logger.info("getAllNotifications = ");
-        return (Collection<Notification>) notificationRepository.findAll();
+        return notificationRepository.findAll();
     }
 
     @Override
@@ -73,25 +72,21 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationRepository.countByUnreadAndUserRole(unread, userRole);
     }
 
-//    @Override
-//    public Long countByUnreadAndUserRoleOrUserId(boolean unread, Role userRole,Long userId){
-//        logger.info("countByUnread={}AndUserId={}AndUserRole={}", unread,userId, userRole);
-//        return notificationRepository.countByUnreadAndUserRoleOrUserId(unread,userRole,userId);
-//    }
     @Override
     public Notification createNotification(Notification notification) {
-        logger.info("createNotif"+notification);
+        logger.info("createNotif" + notification);
         return notificationRepository.save(notification);
     }
 
     @Override
-    public List<Notification> getProducts(Integer page, Integer size) {
+    public List<Notification> getNotifications(Integer page, Integer size) {
+        String DEFAULT_SORT_BY_DATE = "date";
         PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC, DEFAULT_SORT_BY_DATE);
         return notificationRepository.findAll(pageRequest).getContent().stream().map(Notification::new).collect(Collectors.toList());
     }
 
-    public Page<Notification> findAllPageable(Pageable pageable,Long userId, Role userRol) {
-        return notificationRepository.findAllByUserIdOrUserRoleOrderByDateDesc(pageable,userId,userRol);
+    public Page<Notification> findAllPageable(Pageable pageable, Long userId, Role userRol) {
+        return notificationRepository.findAllByUserIdOrUserRoleOrderByDateDesc(pageable, userId, userRol);
     }
 
     @Override
@@ -100,21 +95,22 @@ public class NotificationServiceImpl implements NotificationService {
         notification.setUnread(false);
         return notificationRepository.save(notification);
     }
-    public void send(NewMessageForm form) {
 
-        String result[]=form.getReceivers().split(",");
+    public void sendMessage(NewMessageForm form) {
+
+        String result[] = form.getReceivers().split(",");
         Notification notif;
-        for (String s: result) {
-            String st=s.replaceAll("\\s+","");
-            if(s.contains("@")){
-                User usr= userRepository.findUserByEmail(st)
+        for (String s : result) {
+            String st = s.replaceAll("\\s+", "");
+            if (s.contains("@")) {
+                User usr = userRepository.findUserByEmail(st)
                         .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o emailu =%s nie istnieje", st)));
-                 notif=new Notification(form.getMessage(), form.getTopic(), new Date(), usr.getId());
-                logger.info("Wiadomosc wyslana do: "+st);
+                notif = new Notification(form.getMessage(), form.getTopic(), new Date(), usr.getId());
+                logger.info("Wiadomosc wyslana do: " + st);
                 notificationRepository.save(notif);
-            }else{
-                notif=new Notification(form.getMessage(),form.getTopic(),new Date(),Role.valueOf(st));
-                logger.info("Grupowa wiadomosc do: "+st);
+            } else {
+                notif = new Notification(form.getMessage(), form.getTopic(), new Date(), Role.valueOf(st));
+                logger.info("Grupowa wiadomosc do: " + st);
                 notificationRepository.save(notif);
             }
         }

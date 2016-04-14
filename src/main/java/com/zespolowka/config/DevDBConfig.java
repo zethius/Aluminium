@@ -1,15 +1,13 @@
 package com.zespolowka.config;
 
 import com.zespolowka.entity.Notification;
-import com.zespolowka.entity.createTest.TaskClosed;
-import com.zespolowka.entity.createTest.TaskOpen;
-import com.zespolowka.entity.createTest.Test;
+import com.zespolowka.entity.createTest.*;
 import com.zespolowka.entity.user.Role;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.repository.NotificationRepository;
+import com.zespolowka.repository.SolutionTestRepository;
 import com.zespolowka.repository.TestRepository;
 import com.zespolowka.repository.UserRepository;
-import com.zespolowka.repository.SolutionTestRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +42,10 @@ public class DevDBConfig {
     @PostConstruct
     public void populateDatabase() throws ParseException {
         logger.info("ładowanie bazy testowej");
-        repository.save(new User("Imie1", "Nazwisko1", "aaa1@o2.pl", new BCryptPasswordEncoder().encode("aaa")));
-        User user = new User("Admin", "admin", "aaa2@o2.pl", new BCryptPasswordEncoder().encode("1"));
+        User user = new User("Imie1", "Nazwisko1", "aaa1@o2.pl", new BCryptPasswordEncoder().encode("aaa"));
+        user.setEnabled(true);
+        repository.save(user);
+        user = new User("Admin", "admin", "aaa2@o2.pl", new BCryptPasswordEncoder().encode("1"));
         user.setEnabled(true);
         user.setRole(Role.ADMIN);
         repository.save(user);
@@ -55,20 +55,22 @@ public class DevDBConfig {
         repository.save(user);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-        notificationRepository.save(new Notification("Wiadomosc testowa","topic", sdf.parse("31-08-1983 10:20:56"), 1));
-        notificationRepository.save(new Notification("Wiad2","topic2", sdf.parse("31-08-1984 10:20:56"), 1));
-        notificationRepository.save(new Notification("GRUPOWAADMIN", "topic3",sdf.parse("31-08-1985 10:20:56"), Role.ADMIN));
-        notificationRepository.save(new Notification("GRUPOWAUSER", "topic3",sdf.parse("31-08-1985 10:20:56"), Role.USER));
-        notificationRepository.save(new Notification("Dla:aaa2 topic4","topic4", sdf.parse("31-08-1986 10:20:56"), 2));
-        notificationRepository.save(new Notification("aaa2","topic5", sdf.parse("31-08-1987 10:20:56"), 2));
-        notificationRepository.save(new Notification("Wiadomosc3","topic6", sdf.parse("31-08-1988 10:20:56"), 1));
-        notificationRepository.save(new Notification("Wiadomosc4","topic7", sdf.parse("31-08-1989 10:20:56"), 1));
+        notificationRepository.save(new Notification("Wiadomosc testowa", "topic", sdf.parse("31-08-1983 10:20:56"), 1));
+        notificationRepository.save(new Notification("Wiad2", "topic2", sdf.parse("31-08-1984 10:20:56"), 1));
+        notificationRepository.save(new Notification("GRUPOWAADMIN", "topic3", sdf.parse("31-08-1985 10:20:56"), Role.ADMIN));
+        notificationRepository.save(new Notification("GRUPOWAUSER", "topic3", sdf.parse("31-08-1985 10:20:56"), Role.USER));
+        notificationRepository.save(new Notification("Dla:aaa2 topic4", "topic4", sdf.parse("31-08-1986 10:20:56"), 2));
+        notificationRepository.save(new Notification("aaa2", "topic5", sdf.parse("31-08-1987 10:20:56"), 2));
+        notificationRepository.save(new Notification("Wiadomosc3", "topic6", sdf.parse("31-08-1988 10:20:56"), 1));
+        notificationRepository.save(new Notification("Wiadomosc4", "topic7", sdf.parse("31-08-1989 10:20:56"), 1));
         //notificationRepository.save(new Notification("Morbi elit ex, tristique vestibulum laoreet id, lobortis non enim. Sed purus elit, fringilla eu vehicula at, egestas sit amet dolor. Morbi tortor nisl, sodales nec luctus vitae, ullamcorper vitae orci. Sed ut dignissim ex", data, 2));
-        notificationRepository.save(new Notification("Wiadomosc5","topic8", sdf.parse("31-08-1910 10:20:56"), 1));
-        notificationRepository.save(new Notification("Wiadaaa2","topic9", sdf.parse("31-08-1911 10:20:56"), 2));
-        notificationRepository.save(new Notification("Wiadomosc7","topic10", sdf.parse("31-08-1912 10:20:56"), 2));
+        notificationRepository.save(new Notification("Wiadomosc5", "topic8", sdf.parse("31-08-1910 10:20:56"), 1));
+        notificationRepository.save(new Notification("Wiadaaa2", "topic9", sdf.parse("31-08-1911 10:20:56"), 2));
+        notificationRepository.save(new Notification("Wiadomosc7", "topic10", sdf.parse("31-08-1912 10:20:56"), 2));
 
-        Test test = new Test("TestBHP", Long.valueOf(3), LocalDate.now().minusWeeks(1), LocalDate.now().plusWeeks(1), new ArrayList<>());
+        Test test = new Test("TestBHP", 3L, LocalDate.now().minusWeeks(1), LocalDate.now().plusWeeks(1), new ArrayList<>());
+        test.setTimePerAttempt(90);
+        test.setPassword("");
         TaskClosed taskClosed = new TaskClosed("Ile to jest 2+2*2", 6f);
         TreeMap<String, Boolean> answer = new TreeMap<>();
         answer.put("8", false);
@@ -91,6 +93,7 @@ public class DevDBConfig {
         taskClosed.setAnswers(answer);
         test.addTaskToTest(taskClosed);
         taskClosed = new TaskClosed("Zaznacz wszystko", 6f);
+        taskClosed.setCountingType(taskClosed.COUNT_NOT_FULL);
         answer = new TreeMap<>();
         answer.put("1", true);
         answer.put("2", true);
@@ -107,8 +110,22 @@ public class DevDBConfig {
         taskClosed.setAnswers(answer);
         test.addTaskToTest(taskClosed);
         TaskOpen taskOpen = new TaskOpen("Napisz jak ma na imie Adam Małysz", 10f);
+        taskOpen.setCaseSens(false);
         taskOpen.setAnswer("Adam");
         test.addTaskToTest(taskOpen);
+
+        taskOpen = new TaskOpen("Podaj pierwsze 5 malych liter alfabetu polskiego", 10f);
+        taskOpen.setCaseSens(true);
+        taskOpen.setAnswer("abcde");
+        test.addTaskToTest(taskOpen);
+
+        TaskProgramming taskProgramming = new TaskProgramming("fib", 10f);
+        TaskProgrammingDetail taskProgrammingDetail = new TaskProgrammingDetail();
+        taskProgrammingDetail.setLanguage(ProgrammingLanguages.JAVA);
+        taskProgrammingDetail.setTestCode("fib");
+        taskProgrammingDetail.setWhiteList("aaa");
+        taskProgramming.getProgrammingDetailSet().add(taskProgrammingDetail);
+        test.addTaskToTest(taskProgramming);
         test = testRepository.save(test);
         logger.info(test.toString());
 

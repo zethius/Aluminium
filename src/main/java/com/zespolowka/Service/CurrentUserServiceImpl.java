@@ -18,14 +18,12 @@ public class CurrentUserServiceImpl implements CurrentUserService {
     @Override
     public boolean canAccessUser(CurrentUser currentUser, Long userId) {
         logger.info("Sprawdzam czy uzytkownik = {} ma dostep do informacji o uzytkowniku o id = {}", currentUser.getUsername(), userId);
-        return currentUser != null
-                && (currentUser.getRole() == Role.ADMIN || currentUser.getRole() == Role.SUPERADMIN || currentUser.getId().equals(userId));
+        return (currentUser.getRole() == Role.ADMIN || currentUser.getRole() == Role.SUPERADMIN || currentUser.getId().equals(userId));
     }
 
     @Override
     public boolean isVerifiedUser(CurrentUser currentUser) {
         logger.info("Sprawdzam czy uzytkownik = {} zweryfikowal swoje konto za pomoca linku weryfikacyjnego", currentUser.getUsername());
-        return currentUser != null
-                && (currentUser.getUser().isEnabled());
+        return (currentUser.getUser().isEnabled());
     }
 }

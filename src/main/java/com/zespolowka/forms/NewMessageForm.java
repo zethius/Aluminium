@@ -1,8 +1,5 @@
 package com.zespolowka.forms;
 
-/**
- * Created by Peps on 2016-04-13.
- */
 public class NewMessageForm {
 
     private String message;
@@ -31,5 +28,14 @@ public class NewMessageForm {
 
     public void setReceivers(String receivers) {
         this.receivers = receivers;
+    }
+
+    @Override
+    public String toString() {
+        return "NewMessageForm{" +
+                "message='" + message + '\'' +
+                ", topic='" + topic + '\'' +
+                ", receivers='" + receivers + '\'' +
+                '}';
     }
 }

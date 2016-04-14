@@ -8,6 +8,7 @@ import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.SolutionTestForm;
 import com.zespolowka.service.inteface.SolutionTestService;
 import com.zespolowka.service.inteface.TestService;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 
 @Controller
@@ -41,12 +43,12 @@ public class SolutionTestController {
         Integer attemptForUser = solutionTestService.getSolutionTestsByUserAndTest(user, test).size();
         logger.info(attemptForUser + "");
         logger.info(test.getAttempts() + "");
-        if (attemptForUser == null) attemptForUser = 0;
         if (test.getAttempts().intValue() <= attemptForUser) {
             model.addAttribute("testSolutionError", true);
             logger.info("ni chuja");
             return "testSolution";
         } else {
+            logger.info(test.getTimePerAttempt() + "   asdassa");
             SolutionTestForm solutionTestForm = solutionTestService.createForm(test, user);
             model.addAttribute("solutionTest", solutionTestForm);
             return "testSolution";
@@ -54,7 +56,7 @@ public class SolutionTestController {
     }
 
     @RequestMapping(value = "/solutionTest", method = RequestMethod.POST)
-    public String saveSolutionTest(final SolutionTestForm solutionTestForm, Model model, final RedirectAttributes redirectAttributes) {
+    public String saveSolutionTest(final SolutionTestForm solutionTestForm, Model model, final RedirectAttributes redirectAttributes) throws IOException, ParseException {
         logger.info("Metoda - saveSolutionTest");
         SolutionTest solutionTest = (SolutionTest) this.httpSession.getAttribute(TEST_ATTRIBUTE_NAME);
         solutionTest.create(solutionTestForm);

@@ -1,9 +1,9 @@
 package com.zespolowka;
 
-import com.zespolowka.entity.user.User;
-import com.zespolowka.service.inteface.UserService;
 import com.zespolowka.builders.UserBuilder;
 import com.zespolowka.controller.UsersController;
+import com.zespolowka.entity.user.User;
+import com.zespolowka.service.inteface.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

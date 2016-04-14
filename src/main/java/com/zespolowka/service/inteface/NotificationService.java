@@ -25,13 +25,13 @@ public interface NotificationService {
 
     Notification createNotification(Notification notification);
 
-    List<Notification> getProducts(final Integer page, final Integer size);
+    List<Notification> getNotifications(final Integer page, final Integer size);
 
-    Page<Notification> findAllPageable(Pageable pageable,Long userId,Role role);
+    Page<Notification> findAllPageable(Pageable pageable, Long userId, Role role);
 
     Notification changeStatus(Long id);
 
-    void send(NewMessageForm form);
+    void sendMessage(NewMessageForm form);
 
 }
 

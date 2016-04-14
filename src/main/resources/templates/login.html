@@ -1,6 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       layout:decorator="layout">
 <head>
     <title th:text="#{login.login_page}"></title>
@@ -11,17 +10,20 @@
         <p th:text="${errorMessage}"></p>
     </div>
 
-    <form th:action=
-                  "@{/login}" method="post" class="form-signin">
+    <form th:action="@{/login}" method="post" class="form-signin">
         <h2 class="form-signin-heading" th:text="#{login.login}"></h2>
         <div th:if="${loginError}" class="alert alert-danger" role="alert">
             <span th:text="${errorMessage}"></span>
         </div>
         <label for="username" th:text="#{login.email}" class="sr-only"/>
-        <input type="email" name="username" id="username" class="form-control" th:placeholder="#{login.email}" required="autofocus"/>
+        <input type="email" name="username" id="username" class="form-control" th:placeholder="#{login.email}"
+               required="autofocus"/>
         <label for="password" th:text="#{login.password}" class="sr-only"></label>
-        <input type="password" name="password" id="password" class="form-control" th:placeholder="#{login.password}" required="required"/>
-        <p><a th:href="@{/remindPassword}" th:text="#{login.forgotten_password}"></a> | <a th:href="@{/register}" th:text="#{login.register}"></a></p>
+        <input type="password" name="password" id="password" class="form-control" th:placeholder="#{login.password}"
+               required="required"/>
+        <p><a th:href="@{/remindPassword}" th:text="#{login.forgotten_password}"></a> | <a th:href="@{/register}"
+                                                                                           th:text="#{login.register}"></a>
+        </p>
         <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.submit}"></button>
     </form>
 </div>

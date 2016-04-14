@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 
-public interface NotificationRepository extends JpaRepository<Notification, Long> {
+public interface NotificationRepository extends JpaRepository<Notification, Long>, CustomNotificationRepository {
 
     List<Notification> findByUserIdOrUserRoleOrderByDateDesc(Long userId, Role userRole);
 
@@ -20,8 +20,6 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
 
     Long countByUnreadAndUserRole(boolean unread, Role userRole);
 
-   // Long countByUnreadAndUserRoleOrUserId(boolean unread, Role userRole, Long userId);
-
-    Page<Notification> findAllByUserIdOrUserRoleOrderByDateDesc(Pageable var1,Long userId, Role userRole);
+    Page<Notification> findAllByUserIdOrUserRoleOrderByDateDesc(Pageable var1, Long userId, Role userRole);
 }
 

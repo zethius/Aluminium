@@ -38,8 +38,9 @@ public class NotificationRestController {
         user = currentUser.getUser();
         return notificationService.findAllPageable(new PageRequest(evalPage, MESSAGES_ON_PAGE), user.getId(), user.getRole()).getContent();
     }
+
     @CrossOrigin
-    @RequestMapping(value = "/top5",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/top5", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Notification> getTop5Notifications(@RequestParam(value = "page", required = false) Integer page) {
         int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
         currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -56,21 +57,21 @@ public class NotificationRestController {
         logger.info("Stron = " + notificationService.findAllPageable(new PageRequest(evalPage, MESSAGES_ON_PAGE), user.getId(), user.getRole()).getTotalPages());
         return notificationService.findAllPageable(new PageRequest(evalPage, MESSAGES_ON_PAGE), user.getId(), user.getRole()).getTotalPages();
     }
+
     @CrossOrigin
     @RequestMapping(value = "/get/msgCount", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Long getMsgCount() {
         currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         user = currentUser.getUser();
-        long unreadNotificationById = notificationService.countByUnreadAndUserId(true,user.getId());
-        long unreadNotificationByRole = notificationService.countByUnreadAndUserRole(true,user.getRole());
-        return unreadNotificationById+unreadNotificationByRole;
-     ///   return notificationService.countByUnreadAndUserRoleOrUserId(true,user.getRole(),user.getId());
+        long unreadNotificationById = notificationService.countByUnreadAndUserId(true, user.getId());
+        long unreadNotificationByRole = notificationService.countByUnreadAndUserRole(true, user.getRole());
+        return unreadNotificationById + unreadNotificationByRole;
     }
 
     @CrossOrigin
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, value = "/update/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateNotification(@PathVariable("id") Long id,@RequestBody Notification notification) {
+    public void updateNotification(@PathVariable("id") Long id, @RequestBody Notification notification) {
         logger.info("Zaktualizuj wiadomosc o id " + id);
         notificationService.changeStatus(id);
     }

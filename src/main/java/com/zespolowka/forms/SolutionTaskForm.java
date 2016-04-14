@@ -12,8 +12,8 @@ public class SolutionTaskForm {
     public static final int PROGRAMMINGTASK = 2;
     private Task task;
     private Map<String, Boolean> answers = new LinkedHashMap<>();
-    private String answer = new String();
-    private String answerCode = new String();
+    private String answer = "";
+    private String answerCode = "";
     private int taskType;
 
     public SolutionTaskForm() {
@@ -27,12 +27,12 @@ public class SolutionTaskForm {
     public SolutionTaskForm(Task task, int taskType) {
         this.task = task;
         this.taskType = taskType;
-        if (taskType==CLOSEDTASK){
+        if (taskType == CLOSEDTASK) {
             TaskClosed taskClosed = (TaskClosed) task;
             List<Map.Entry<String, Boolean>> list = new ArrayList<>(taskClosed.getAnswers().entrySet());
             Collections.shuffle(list);
             for (Map.Entry<String, Boolean> entry : list) {
-                answers.put(entry.getKey(),false);
+                answers.put(entry.getKey(), false);
             }
         }
     }

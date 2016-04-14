@@ -30,7 +30,8 @@
                                    th:placeholder="#{register.email}" required="required"/>
                             <span class="input-group-addon">
                                    <span ng-show="registerForm.email.$pristine" class="glyphicon glyphicon-asterisk"/>
-                                   <span ng-show="registerForm.email.$dirty &amp;&amp; registerForm.email.$invalid" class="glyphicon glyphicon-remove"/>
+                                   <span ng-show="registerForm.email.$dirty &amp;&amp; registerForm.email.$invalid"
+                                         class="glyphicon glyphicon-remove"/>
                                    <span ng-show="registerForm.email.$valid" class="glyphicon glyphicon-ok"/>
                             </span>
                         </div>
@@ -45,7 +46,8 @@
                                    ng-model="name" required="required" th:field="*{name}"/>
                             <span class="input-group-addon">
                                    <span ng-show="registerForm.name.$pristine" class="glyphicon glyphicon-asterisk"/>
-                                   <span ng-show="registerForm.name.$dirty &amp;&amp; registerForm.name.$invalid" class="glyphicon glyphicon-remove"/>
+                                   <span ng-show="registerForm.name.$dirty &amp;&amp; registerForm.name.$invalid"
+                                         class="glyphicon glyphicon-remove"/>
                                    <span ng-show="registerForm.name.$valid" class="glyphicon glyphicon-ok"/>
                             </span>
                         </div>
@@ -58,8 +60,10 @@
                                    ng-minlength="4" ng-maxlength="20"
                                    th:field="*{lastName}"/>
                             <span class="input-group-addon">
-                                   <span ng-show="registerForm.lastName.$pristine" class="glyphicon glyphicon-asterisk"/>
-                                   <span ng-show="registerForm.lastName.$dirty &amp;&amp; registerForm.lastName.$invalid" class="glyphicon glyphicon-remove"/>
+                                   <span ng-show="registerForm.lastName.$pristine"
+                                         class="glyphicon glyphicon-asterisk"/>
+                                   <span ng-show="registerForm.lastName.$dirty &amp;&amp; registerForm.lastName.$invalid"
+                                         class="glyphicon glyphicon-remove"/>
                                    <span ng-show="registerForm.lastName.$valid" class="glyphicon glyphicon-ok"/>
                             </span>
                         </div>
@@ -73,8 +77,10 @@
                                    ng-pattern="/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/"
                                    th:placeholder="#{register.password}" required="required" th:field="*{password}"/>
                             <span class="input-group-addon">
-                                   <span ng-show="registerForm.password.$pristine" class="glyphicon glyphicon-asterisk"/>
-                                   <span ng-show="registerForm.password.$dirty &amp;&amp; registerForm.password.$invalid" class="glyphicon glyphicon-remove"/>
+                                   <span ng-show="registerForm.password.$pristine"
+                                         class="glyphicon glyphicon-asterisk"/>
+                                   <span ng-show="registerForm.password.$dirty &amp;&amp; registerForm.password.$invalid"
+                                         class="glyphicon glyphicon-remove"/>
                                    <span ng-show="registerForm.password.$valid" class="glyphicon glyphicon-ok"/>
                             </span>
                         </div>
@@ -87,8 +93,10 @@
                                    ng-pattern="/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/"
                                    ng-model="confirmPassword" th:field="*{confirmPassword}"/>
                             <span class="input-group-addon">
-                                   <span ng-show="registerForm.confirmPassword.$pristine" class="glyphicon glyphicon-asterisk"/>
-                                   <span ng-show="registerForm.confirmPassword.$dirty &amp;&amp; registerForm.confirmPassword.$invalid" class="glyphicon glyphicon-remove"/>
+                                   <span ng-show="registerForm.confirmPassword.$pristine"
+                                         class="glyphicon glyphicon-asterisk"/>
+                                   <span ng-show="registerForm.confirmPassword.$dirty &amp;&amp; registerForm.confirmPassword.$invalid"
+                                         class="glyphicon glyphicon-remove"/>
                                    <span ng-show="registerForm.confirmPassword.$valid" class="glyphicon glyphicon-ok"/>
                             </span>
                         </div>

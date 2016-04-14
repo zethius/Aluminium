@@ -100,23 +100,22 @@ public class SendMailServiceImpl implements SendMailService {
     public void sendReminderMail(User user) {
         String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         SecureRandom rnd = new SecureRandom();
-        StringBuilder sb = new StringBuilder( 8 );
-        for( int i = 0; i < 8; i++ ){
-            sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
+        StringBuilder sb = new StringBuilder(8);
+        for (int i = 0; i < 8; i++) {
+            sb.append(AB.charAt(rnd.nextInt(AB.length())));
         }
         try {
             message = new MimeMessageHelper(mimeMessage, true);
             message.setFrom("noreply@gmail.com");
             message.setTo(user.getEmail());
             message.setSubject("Przypomnienie Hasła");
-            String newPassword=sb.toString();
-            user.setPasswordHash( new BCryptPasswordEncoder().encode(newPassword));
-            message.setText("<html><body><h4>Witaj "+user.getName()+"!</h4><p>Twoje nowe hasło to: "+newPassword+"</p></body></html>",true);
+            String newPassword = sb.toString();
+            user.setPasswordHash(new BCryptPasswordEncoder().encode(newPassword));
+            message.setText("<html><body><h4>Witaj " + user.getName() + "!</h4><p>Twoje nowe hasło to: " + newPassword + "</p></body></html>", true);
             mailSender.send(mimeMessage);
-            logger.info("Reminder sent",newPassword);
+            logger.info("Reminder sent", newPassword);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
     }
-
 }
