@@ -7,9 +7,7 @@ public class TaskProgrammingDetail {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(length = 10000)
     private String testCode;
-    @Column(length = 10000)
     private String whiteList;
     @Enumerated(EnumType.STRING)
     private ProgrammingLanguages language;

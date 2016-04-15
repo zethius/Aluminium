@@ -3,13 +3,14 @@ package com.zespolowka.entity.solutionTest;
 
 import com.zespolowka.entity.createTest.Task;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
 public class TaskProgrammingSolution extends TaskSolution {
-    @Column(length = 10000)
     private String answerCode;
+
+    private String language;
+
 
     public TaskProgrammingSolution() {
     }
@@ -32,11 +33,20 @@ public class TaskProgrammingSolution extends TaskSolution {
         this.answerCode = answerCode;
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
     @Override
     public String toString() {
         return "TaskProgrammingSolution{" +
                 "TaskSolution='" + super.toString() + '\'' +
                 "answerCode='" + answerCode + '\'' +
+                "language='" + language + '\'' +
                 '}';
     }
 }
