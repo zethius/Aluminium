@@ -1,0 +1,114 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title th:text="#{login.register}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <form class="form-register" name="registerForm" th:action="@{/register}" th:object="${userCreateForm}"
+          method="post" ng-controller="RegisterController">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" th:text="#{register.register_form}"></h3>
+            </div>
+
+            <div class="panel-body">
+                <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
+                    <p th:each="err:${#fields.allErrors()}" th:text="${err}">...</p>
+                </div>
+                <div th:if="${confirmRegistration}" class="alert alert-warning">
+                    <p th:text="#{confirmRegistrationMessage}"></p>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="email" th:text="#{register.email}"/>
+                        <div class="input-group">
+                            <input class="form-control" id="email" type="email" th:field="*{email}"
+                                   ng-model="email"
+                                   th:placeholder="#{register.email}" required="required"/>
+                            <span class="input-group-addon">
+                                   <span ng-show="registerForm.email.$pristine" class="glyphicon glyphicon-asterisk"/>
+                                   <span ng-show="registerForm.email.$dirty &amp;&amp; registerForm.email.$invalid"
+                                         class="glyphicon glyphicon-remove"/>
+                                   <span ng-show="registerForm.email.$valid" class="glyphicon glyphicon-ok"/>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="name" th:text="#{register.name}"/>
+                        <div class="input-group">
+                            <input id="name" type="text" class="form-control" th:placeholder="#{register.name}"
+                                   ng-minlength="4" ng-maxlength="15"
+                                   ng-model="name" required="required" th:field="*{name}"/>
+                            <span class="input-group-addon">
+                                   <span ng-show="registerForm.name.$pristine" class="glyphicon glyphicon-asterisk"/>
+                                   <span ng-show="registerForm.name.$dirty &amp;&amp; registerForm.name.$invalid"
+                                         class="glyphicon glyphicon-remove"/>
+                                   <span ng-show="registerForm.name.$valid" class="glyphicon glyphicon-ok"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="lastName" th:text="#{register.lastName}"/>
+                        <div class="input-group">
+                            <input id="lastName" type="text" class="form-control" th:placeholder="#{register.lastName}"
+                                   required="required" ng-model="lastName"
+                                   ng-minlength="4" ng-maxlength="20"
+                                   th:field="*{lastName}"/>
+                            <span class="input-group-addon">
+                                   <span ng-show="registerForm.lastName.$pristine"
+                                         class="glyphicon glyphicon-asterisk"/>
+                                   <span ng-show="registerForm.lastName.$dirty &amp;&amp; registerForm.lastName.$invalid"
+                                         class="glyphicon glyphicon-remove"/>
+                                   <span ng-show="registerForm.lastName.$valid" class="glyphicon glyphicon-ok"/>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="password" th:text="#{register.password}"/>
+                        <div class="input-group">
+                            <input id="password" type="password" class="form-control" ng-model="password"
+                                   ng-pattern="/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/"
+                                   th:placeholder="#{register.password}" required="required" th:field="*{password}"/>
+                            <span class="input-group-addon">
+                                   <span ng-show="registerForm.password.$pristine"
+                                         class="glyphicon glyphicon-asterisk"/>
+                                   <span ng-show="registerForm.password.$dirty &amp;&amp; registerForm.password.$invalid"
+                                         class="glyphicon glyphicon-remove"/>
+                                   <span ng-show="registerForm.password.$valid" class="glyphicon glyphicon-ok"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="confirmPassword" th:text="#{register.confirm_password}"/>
+                        <div class="input-group">
+                            <input id="confirmPassword" type="password" class="form-control"
+                                   th:placeholder="#{register.confirm_password}" required="required"
+                                   ng-pattern="/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/"
+                                   ng-model="confirmPassword" th:field="*{confirmPassword}"/>
+                            <span class="input-group-addon">
+                                   <span ng-show="registerForm.confirmPassword.$pristine"
+                                         class="glyphicon glyphicon-asterisk"/>
+                                   <span ng-show="registerForm.confirmPassword.$dirty &amp;&amp; registerForm.confirmPassword.$invalid"
+                                         class="glyphicon glyphicon-remove"/>
+                                   <span ng-show="registerForm.confirmPassword.$valid" class="glyphicon glyphicon-ok"/>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" name="submit" id="submit" th:value="#{register.submit}"
+                       class="btn btn-primary pull-right"/>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>
