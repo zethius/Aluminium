@@ -1,10 +1,10 @@
 package com.zespolowka;
 
-import com.zespolowka.Entity.User;
-import com.zespolowka.Service.UserService;
-import com.zespolowka.Service.UserServiceImpl;
 import com.zespolowka.builders.UserBuilder;
+import com.zespolowka.entity.user.User;
 import com.zespolowka.repository.UserRepository;
+import com.zespolowka.service.UserServiceImpl;
+import com.zespolowka.service.inteface.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

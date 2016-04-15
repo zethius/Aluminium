@@ -1,10 +1,7 @@
 package com.zespolowka;
 
-import com.zespolowka.Entity.VerificationToken;
 import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Pitek on 2015-02-16.

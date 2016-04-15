@@ -13,6 +13,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.util.WebUtils;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created by Pitek on 2015-12-10.
@@ -27,13 +42,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private AuthenticationFailureHandler authenticationFailureHandler=new CustomAuthenticationFailureHandler();
+    private AuthenticationFailureHandler authenticationFailureHandler = new CustomAuthenticationFailureHandler();
+
+    @Autowired
+    private AuthenticationSuccessHandler authenticationSuccessHandler = new CustomAuthenticationSuccessHandler();
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/register", "/login**","/registrationConfirm**","/remindPassword")
+                .antMatchers("/", "/register", "/login**", "/registrationConfirm**", "/remindPassword")
                 .permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and()
@@ -41,6 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .failureUrl("/login-error")
                 .failureHandler(authenticationFailureHandler)
+                .successHandler(authenticationSuccessHandler)
                 .permitAll()
                 .and()
                 .logout()
@@ -49,7 +68,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("remember-me")
                 .permitAll()
                 .and()
-                .rememberMe();
+                .rememberMe()
+                .and()
+                .csrf().csrfTokenRepository(csrfTokenRepository()).and()
+                .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
 
     }
 
@@ -58,6 +80,35 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(new BCryptPasswordEncoder());
+    }
+
+    private Filter csrfHeaderFilter() {
+        return new OncePerRequestFilter() {
+            @Override
+            protected void doFilterInternal(HttpServletRequest request,
+                                            HttpServletResponse response, FilterChain filterChain)
+                    throws ServletException, IOException {
+                CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class
+                        .getName());
+                if (csrf != null) {
+                    Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
+                    String token = csrf.getToken();
+                    if (cookie == null || token != null
+                            && !token.equals(cookie.getValue())) {
+                        cookie = new Cookie("XSRF-TOKEN", token);
+                        cookie.setPath("/");
+                        response.addCookie(cookie);
+                    }
+                }
+                filterChain.doFilter(request, response);
+            }
+        };
+    }
+
+    private CsrfTokenRepository csrfTokenRepository() {
+        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+        repository.setHeaderName("X-XSRF-TOKEN");
+        return repository;
     }
 
 

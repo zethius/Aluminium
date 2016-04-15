@@ -1,6 +1,6 @@
 package com.zespolowka.builders;
 
-import com.zespolowka.Entity.UserCreateForm;
+import com.zespolowka.forms.UserCreateForm;
 
 /**
  * Created by Pitek on 2015-12-03.

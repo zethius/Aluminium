@@ -1,6 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       layout:decorator="layout">
 <head>
     <title th:text="#{login.login_page}"></title>
@@ -9,9 +8,63 @@
 <div layout:fragment="content">
     <div class="jumbotron">
         <div class="container">
-            <h1 th:text="${pageMessage}"></h1>
-            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Ruchaj więcej &raquo;</a></p>
+            <h1>Witaj <strong>Użytkowniku</strong></h1>
+            <h2>Zapoznaj się z testami</h2>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#aktywne" aria-controls="aktywne" role="tab"
+                                                          data-toggle="tab">Aktywne testy</a></li>
+                <li role="presentation"><a href="#archiwalne" aria-controls="archiwalne" role="tab" data-toggle="tab">Testy
+                    archiwalne</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="aktywne">.
+                    <table class="grid table" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>Nazwa</th>
+                            <th>Liczba podejsc</th>
+                            <th>Liczba zadan</th>
+                            <th>Max ilosc punktow</th>
+                            <th>Data końca</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="test:*{activeTest}">
+                            <td th:text="*{test.name}"/>
+                            <td th:text="*{test.attempts}"/>
+                            <td th:text="${#lists.size(test.tasks)}"/>
+                            <td th:text="*{test.maxPoints}"/>
+                            <td th:text="*{test.endDate}"/>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="archiwalne">...
+                    <table class="grid table" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>Nazwa</th>
+                            <th>Podejście</th>
+                            <th>Data rozpoczecia</th>
+                            <th>Data zakonczenia</th>
+                            <th>Punkty</th>
+                            <th>Max punktow</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="test:*{archiveTest}">
+                            <td th:text="*{test.test.name}"/>
+                            <td th:text="*{test.attempt}"/>
+                            <td th:text="*{test.beginSolution}"/>
+                            <td th:text="*{test.endSolution}"/>
+                            <td th:text="*{test.points}"/>
+                            <td th:text="*{test.test.maxPoints}"/>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">więcej &raquo;</a></p>
         </div>
     </div>
 
@@ -19,19 +72,25 @@
         <!-- Example row of columns -->
         <div class="row">
             <div class="col-md-4">
-                <h2>Ruchać</h2>
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                <p><a class="btn btn-default" href="#" role="button">Wchodzę w to &raquo;</a></p>
+                <h2>Dalej</h2>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                    mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                    mollis euismod. Donec sed odio dui. </p>
+                <p><a class="btn btn-default" href="#" role="button">Krzychu &raquo;</a></p>
             </div>
             <div class="col-md-4">
-                <h2>Jebać</h2>
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                <p><a class="btn btn-default" href="#" role="button">Na ostro &raquo;</a></p>
+                <h2>nie wiem</h2>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                    mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                    mollis euismod. Donec sed odio dui. </p>
+                <p><a class="btn btn-default" href="#" role="button">ma problem &raquo;</a></p>
             </div>
             <div class="col-md-4">
-                <h2>Python z Królikiem</h2>
-                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                <p><a class="btn btn-default" href="#" role="button">Sprawdź rozmiar &raquo;</a></p>
+                <h2>po co to</h2>
+                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
+                    porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+                    ut fermentum massa justo sit amet risus.</p>
+                <p><a class="btn btn-default" href="#" role="button">z erekcja &raquo;</a></p>
             </div>
         </div>
 
