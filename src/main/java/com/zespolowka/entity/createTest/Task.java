@@ -10,6 +10,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "idTask")
     private Long id;
+    @Column(length = 10000)
     private String question;
     private Float max_points;
 

@@ -12,6 +12,7 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(length = 10000)
     private String message;
     private String topic;
     private Date date;

@@ -52,7 +52,12 @@ public class SolutionTestController {
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = currentUser.getUser();
         logger.info(test2.toString());
-        Test test = testService.getTestById(test2.getId());
+        Long id;
+        if(test2==null){
+            id=1l;
+        }
+        else id=test2.getId();
+        Test test = testService.getTestById(id);
         Integer attemptForUser = solutionTestService.getSolutionTestsByUserAndTest(user, test).size();
         logger.info(attemptForUser + "");
         logger.info(test.getAttempts() + "");

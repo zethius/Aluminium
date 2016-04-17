@@ -1,10 +1,12 @@
 package com.zespolowka.entity.solutionTest;
 
 import com.zespolowka.entity.createTest.*;
+import com.zespolowka.entity.solutionTest.config.SolutionConfig;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.SolutionTaskForm;
 import com.zespolowka.forms.SolutionTestForm;
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -14,6 +16,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.*;
+import java.math.BigDecimal;
+import java.net.Socket;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -39,6 +43,12 @@ public class SolutionTest {
 
     @Transient
     private int taskNo;
+
+    @Transient
+    private String dir = "/home/pitek/zespolowka/skrypty/";
+
+    @Transient
+    private String resultDir = "/tmp/";
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<TaskSolution> solutionTasks;
@@ -85,7 +95,6 @@ public class SolutionTest {
                         break;
                     }
                 }
-
                 if (theSame) {
                     taskSol.setPoints(taskClo.getMax_points());
                 } else taskSol.setPoints(0f);
@@ -133,24 +142,39 @@ public class SolutionTest {
             TaskProgramming taskProgramming = (TaskProgramming) taskSol.getTask();
             logger.info("sprawdzam czy to działa");
 
+            SolutionConfig solutionConfig = new SolutionConfig();
+            JSONObject jsonObject = new JSONObject();
+            String userDirectory = test.getName() + "_" + this.getAttempt() + "_" + user.getEmail() + "_" + UUID.randomUUID().toString().substring(0, 4) + "/";
+
+
             Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
             for (TaskProgrammingDetail taskProgrammingDetail : taskProgrammingDetails) {
                 if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.JAVA)) {
-                    FileUtils.writeStringToFile(new File("Dodawanie.java"), taskSol.getAnswerCode());
-                    FileUtils.writeStringToFile(new File("MyTests.java"), taskProgrammingDetail.getTestCode());
-                    FileUtils.writeStringToFile(new File("allowed_list_java"), taskProgrammingDetail.getWhiteList());
+                    jsonObject = solutionConfig.createJavaConfig("Dodawanie.java", "MyTests.java", "allowed_list_path");
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "Dodawanie.java"), taskSol.getAnswerCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "MyTests.java"), taskProgrammingDetail.getTestCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "allowed_list_java"), taskProgrammingDetail.getWhiteList());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "config.json"), jsonObject.toJSONString());
                 }
             }
-
-            String output = executeCommand("ping wp.pl");
-            JSONObject obj = new JSONObject();
-            obj.put("result", output);
-            FileUtils.writeStringToFile(new File("output.json"), obj.toJSONString());
+            Socket socket = new Socket("localhost", 54321);
+            PrintWriter printWriter = new PrintWriter(socket.getOutputStream());
+            printWriter.println("\"" + userDirectory + "\"");
+            printWriter.close();
+            socket.close();
 
             JSONParser parser = new JSONParser();
-            Object result = parser.parse(new FileReader("output.json"));
-            JSONObject jsonObject = (JSONObject) result;
-            logger.info((String) jsonObject.get("result"));
+            Object result = parser.parse(new FileReader(resultDir + userDirectory + "output.json"));
+            if (result instanceof JSONArray) {
+                JSONArray jsonArray = (JSONArray) result;
+                Long passed = (Long) jsonArray.get(1);
+                Long all = (Long) jsonArray.get(2);
+                BigDecimal wynik = new BigDecimal((float) passed / all).setScale(2);
+                logger.info(wynik.doubleValue() + "");
+            } else {
+                jsonObject = (JSONObject) result;
+                logger.info(jsonObject.toString());
+            }
 
             points += taskProgramming.getMax_points();
             taskSol.setPoints(taskProgramming.getMax_points());
