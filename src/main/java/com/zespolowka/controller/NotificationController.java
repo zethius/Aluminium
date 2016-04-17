@@ -3,12 +3,14 @@ package com.zespolowka.controller;
 import com.zespolowka.entity.Notification;
 import com.zespolowka.forms.NewMessageForm;
 import com.zespolowka.service.inteface.NotificationService;
+import com.zespolowka.validators.SendMessageValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,8 @@ public class NotificationController {
     private static final Logger logger = LoggerFactory.getLogger(NotificationController.class);
     @Autowired
     private NotificationService notificationService;
-
+    @Autowired
+    private SendMessageValidator sendMessageValidator;
 
     @RequestMapping(value = "/messages", method = RequestMethod.GET)
     public String showNotifications(final Model model, @ModelAttribute("Notification") final Notification notification) {
@@ -56,14 +59,28 @@ public class NotificationController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/sendMessage", method = RequestMethod.POST)
-    public String sendMessage(final Model model, @ModelAttribute final NewMessageForm newMessageForm) {
+    public String sendMessage(final Model model, @ModelAttribute final NewMessageForm newMessageForm, final Errors errors) {
         logger.info("nazwa metody = sendMessage");
-        try {
-            notificationService.sendMessage(newMessageForm);
-        } catch (final Exception e) {
-            logger.error(e.getMessage(), e);
-            logger.info("\n" + model + "\n");
+        sendMessageValidator.validate(newMessageForm, errors);
+        if (errors.hasErrors()) {
+            String err = errors.getAllErrors().get(0).toString();
+            logger.info("err:" + err);
+            logger.info(newMessageForm.toString());
+            try {
+               notificationService.sendMessage(newMessageForm);//zakomentowac jesli nie ma wysylac w przypadku jakiegokolwiek bledu
+            } catch (final Exception e) {
+                logger.info("\n" + model + "\n");
+            }
+            return "sendMessage";
+        } else {
+            try {
+                notificationService.sendMessage(newMessageForm);
+                model.addAttribute("sukces", true);
+            } catch (final Exception e) {
+                //logger.error(e.getMessage(), e);
+                logger.info("\n" + model + "\n");
+            }
+            return "sendMessage";
         }
-        return "sendMessage";
     }
 }

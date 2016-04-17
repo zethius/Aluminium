@@ -16,10 +16,13 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
 
     List<Notification> findTop5ByUserIdOrUserRoleOrderByDateDesc(Long userId, Role userRole);
 
+    List<Notification>  deleteByUserId(long UserId);
+
     Long countByUnreadAndUserId(boolean unread, Long userId);
 
     Long countByUnreadAndUserRole(boolean unread, Role userRole);
 
     Page<Notification> findAllByUserIdOrUserRoleOrderByDateDesc(Pageable var1, Long userId, Role userRole);
 }
+
 

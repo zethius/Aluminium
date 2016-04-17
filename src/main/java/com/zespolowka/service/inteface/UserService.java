@@ -23,4 +23,6 @@ public interface UserService {
     User editUser(UserEditForm userEditForm);
 
     User update(User user);
+
+    void delete(long id);
 }
