@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.NoSuchElementException;
@@ -143,6 +144,31 @@ public class UserController {
         }
 
     }
-
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteUser(@PathVariable final Long id, RedirectAttributes redirectAttributes){
+        final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        logger.info("nazwa metody = deleteUser");
+        if(currentUser.getId()==id){
+            logger.info("Nie mozesz usunac siebie");
+            redirectAttributes.addFlashAttribute("blad",true);
+            redirectAttributes.addFlashAttribute("message","Nie mozesz usunac siebie");
+        }else{
+            User user=userService.getUserById(id)
+                    .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
+            if(currentUser.getRole().name().equals("ADMIN") && user.getRole().name().equals("SUPERADMIN")){
+                logger.info("Nie mozesz usunac SA");
+                redirectAttributes.addFlashAttribute("blad",true);
+                redirectAttributes.addFlashAttribute("message","Nie mozesz usunac SA");
+            }else{
+                String usunieto="Usunieto uzytkownika "+user.getEmail();
+                userService.delete(user.getId());
+                notificationService.deleteMessagesByUserId(user.getId());
+                redirectAttributes.addFlashAttribute("sukces",true);
+                redirectAttributes.addFlashAttribute("message",usunieto);
+            }
+        }
+        return "redirect:/users";
+    }
 }
 

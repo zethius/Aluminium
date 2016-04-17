@@ -7,6 +7,7 @@ import com.zespolowka.entity.createTest.TaskProgramming;
 import com.zespolowka.entity.createTest.TaskProgrammingDetail;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SolutionTaskForm {
     public static final int CLOSEDTASK = 0;
@@ -42,9 +43,7 @@ public class SolutionTaskForm {
         if (taskType == PROGRAMMINGTASK) {
             TaskProgramming taskProgramming = (TaskProgramming) task;
             Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
-            for (TaskProgrammingDetail taskProgrammingDetail : taskProgrammingDetails) {
-                languages.add(taskProgrammingDetail.getLanguage().toString());
-            }
+            languages.addAll(taskProgrammingDetails.stream().map(taskProgrammingDetail -> taskProgrammingDetail.getLanguage().toString()).collect(Collectors.toList()));
         }
     }
 

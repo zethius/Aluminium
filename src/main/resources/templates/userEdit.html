@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       layout:decorator="layout">
 <head>
-    <title th:text="#{userEdit.edit_user}">Edytuj swój profil</title>
+    <title th:text="#{userEdit.edit_user}">Edytuj profil</title>
 </head>
 
 <body>
@@ -15,7 +15,7 @@
         <input type="hidden" th:field="*{role}"/>
         <div class="panel panel-primary">
             <div class="panel-heading" sec:authorize="isAuthenticated()">
-                <h3 class="panel-title">Edytuj swój profil <strong sec:authentication="principal.username">name</strong>
+                <h3 class="panel-title" th:text="#{userEdit.edit_user}" ><strong sec:authentication="principal.username">name</strong>
                 </h3>
             </div>
             <div class="panel-body">

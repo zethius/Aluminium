@@ -12,9 +12,14 @@
                 <h3 class="panel-title">Nowa wiadomosc</h3>
             </div>
             <div class="panel-body">
+                <div th:if="${sukces}" class="alert alert-success" role="alert" th:text="#{notification.send_success}">Wiadomosc wyslana
+                </div>
+                <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
+                    <p th:each="err:${#fields.allErrors()}" th:text="${err}">...</p>
+                </div>
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <h4>Login uzytkownika lub nazwa grupy:</h4>
+                        <h4 th:text="#{notification.receivers}">Login uzytkownika lub nazwa grupy:</h4>
                         <div class="input-group">
                             <input type="text" class="form-control" id="receivers" name="receivers"
                                    th:field="*{receivers}"/>
@@ -24,7 +29,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <h4>Temat</h4>
+                        <h4 th:text="#{notification.topic}">Temat</h4>
                         <div class="input-group">
                             <input type="text" class="form-control" id="topic" name="topic" th:field="*{topic}"/>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
@@ -33,9 +38,9 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <h4>Wiadomosc.</h4>
+                        <h4 th:text="#{notification.content}"></h4>
                         <div class="input-group">
-                            <textarea rows="30" class="form-control" name="message" th:field="*{message}"></textarea>
+                            <textarea rows="10" class="form-control" name="message" th:field="*{message}"></textarea>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                         </div>
                     </div>
