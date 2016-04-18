@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -71,7 +72,7 @@ public class TestController {
     }
 
     @RequestMapping(value = "create/change", method = RequestMethod.POST)
-    public String changeLanguages(@RequestParam(value = "taskId") int taskId, @RequestParam(value = "selected", defaultValue = "") String selected, final CreateTestForm createTestForm, final Model model) {
+    public String changeLanguages(@RequestParam(value = "taskId", defaultValue = "0") int taskId, @RequestParam(value = "selected", defaultValue = "") String selected, final CreateTestForm createTestForm, final Model model) {
         logger.info("Metoda - changeLanguages");
         taskId -= 1;
         testFormService.updateSelectedLanguagesInSession(selected);  ///TODO zmienic by to w sesji jak pizdy nie było
@@ -79,8 +80,6 @@ public class TestController {
         TaskForm taskForm = createTestForm.getTasks().get(taskId);
         Set<ProgrammingTaskForm> programmingTaskFormSet = taskForm.getProgrammingTaskForms();
         Set<ProgrammingTaskForm> newProgrammingTaskFormSet = new TreeSet<>();
-
-
         for (ProgrammingLanguages prLanguage : ProgrammingLanguages.values()) {
             String language = prLanguage.toString();
             if (Arrays.asList(languages).indexOf(language) > -1) {
@@ -118,8 +117,12 @@ public class TestController {
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String save(final CreateTestForm createTestForm, final BindingResult result) {
+    public String save(final @Valid CreateTestForm createTestForm, final BindingResult result) {
         logger.info("Metoda - save");
+        if (result.hasErrors()) {
+            logger.info(result.getAllErrors().toString());
+            return "tmpCreateTest";
+        }
         logger.info(createTestForm.toString());
         testFormService.updateTestFormInSession(createTestForm);
         Test test = testService.create(createTestForm);

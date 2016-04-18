@@ -143,7 +143,7 @@ public class SolutionTest {
             logger.info("sprawdzam czy to działa");
 
             SolutionConfig solutionConfig = new SolutionConfig();
-            JSONObject jsonObject = new JSONObject();
+            JSONObject jsonObject;
             String userDirectory = test.getName() + "_" + this.getAttempt() + "_" + user.getEmail() + "_" + UUID.randomUUID().toString().substring(0, 4) + "/";
 
 

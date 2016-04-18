@@ -130,7 +130,7 @@ public class SolutionConfig {
         this.language = "sql";
         this.sources = sources;
         this.tests = tests;
-        this.interpreter="/usr/bin/python3";
+        this.interpreter = "/usr/bin/python3";
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(LANGUAGE, language);
         jsonObject.put(SOURCES, sources);

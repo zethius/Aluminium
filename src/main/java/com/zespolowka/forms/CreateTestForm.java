@@ -1,10 +1,13 @@
 package com.zespolowka.forms;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,19 +19,25 @@ public class CreateTestForm {
     private String name;
 
     @Min(1)
-    private Integer attempts;
+    private Integer attempts = 1;
 
-    private String beginDate;
+    @NotNull
+    private String beginDate = LocalDate.now().toString();
 
-    private String endDate;
+    @NotNull
+    private String endDate = LocalDate.now().plusWeeks(1).toString();
 
-    private int timePerAttempt;
+    @Min(1)
+    private int timePerAttempt = 1;
 
     private String password = "";
 
+    @NotEmpty
     private List<TaskForm> tasks;
 
     public CreateTestForm() {
+        this.attempts = 1;
+        this.timePerAttempt = 1;
         this.tasks = new ArrayList<>();
     }
 
