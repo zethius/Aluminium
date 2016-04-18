@@ -54,6 +54,14 @@ public class DevDBConfig {
         user.setEnabled(true);
         repository.save(user);
 
+        user = new User("Adam", "Małysz", "malysz@o2.pl", new BCryptPasswordEncoder().encode("a"));
+        user.setEnabled(false);
+        repository.save(user);
+
+        user = new User("Mirek", "Mirecki", "mirecki@o2.pl", new BCryptPasswordEncoder().encode("a"));
+        user.setAccountNonLocked(false);
+        repository.save(user);
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
         notificationRepository.save(new Notification("Wiadomosc testowa", "topic", sdf.parse("31-08-1983 10:20:56"), 1));
         notificationRepository.save(new Notification("Wiad2", "topic2", sdf.parse("31-08-1984 10:20:56"), 1));

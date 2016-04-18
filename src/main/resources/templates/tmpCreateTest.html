@@ -33,7 +33,7 @@
 
                         <div class="input-group">
                             <input type="number" class="form-control" id="attempts" name="attempts"
-                                   th:field="*{attempts}"
+                                   th:field="*{attempts}" th:min="1"
                                    th:placeholder="#{test.testAttemptsPlaceholder}" required="required"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-asterisk"/>
@@ -70,7 +70,7 @@
 
                         <div class="input-group">
                             <input type="number" class="form-control" id="testTimePerAttempt"
-                                   th:field="*{timePerAttempt}"
+                                   th:field="*{timePerAttempt}" th:min="5"
                                    th:placeholder="#{test.testAttemptTimePlaceholder}" required="required"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-asterisk"/>
@@ -127,7 +127,7 @@
 
                             <div class="input-group">
                                 <input type="number" class="form-control"
-                                       th:field="*{tasks[__${rowStat.index}__].points}" id="nazwaTest"
+                                       th:field="*{tasks[__${rowStat.index}__].points}" th:min="1" id="nazwaTest"
                                        required="required"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-asterisk"/>
@@ -197,7 +197,8 @@
 
                             <div class="input-group">
                                 <input type="number" class="form-control"
-                                       th:field="*{tasks[__${rowStat.index}__].points}" id="nazwaTest"
+                                       th:field="*{tasks[__${rowStat.index}__].points}" th:value="*{tasks[__${rowStat.index}__].points}" th:min="1"
+                                       id="nazwaTest"
                                        required="required"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-asterisk"/>
@@ -243,7 +244,7 @@
 
                                 <div class="input-group">
                                     <input type="number" class="form-control"
-                                           th:field="*{tasks[__${rowStat.index}__].points}" id="nazwaTest"
+                                           th:field="*{tasks[__${rowStat.index}__].points}" th:min="1" id="nazwaTest"
                                            required="required"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-asterisk"/>

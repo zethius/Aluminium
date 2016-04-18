@@ -27,8 +27,8 @@ public class CreateTestForm {
     @NotNull
     private String endDate = LocalDate.now().plusWeeks(1).toString();
 
-    @Min(1)
-    private int timePerAttempt = 1;
+    @Min(5)
+    private int timePerAttempt = 5;
 
     private String password = "";
 
@@ -37,7 +37,7 @@ public class CreateTestForm {
 
     public CreateTestForm() {
         this.attempts = 1;
-        this.timePerAttempt = 1;
+        this.timePerAttempt = 5;
         this.tasks = new ArrayList<>();
     }
 

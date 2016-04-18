@@ -72,7 +72,7 @@ public class TestController {
     }
 
     @RequestMapping(value = "create/change", method = RequestMethod.POST)
-    public String changeLanguages(@RequestParam(value = "taskId", defaultValue = "0") int taskId, @RequestParam(value = "selected", defaultValue = "") String selected, final CreateTestForm createTestForm, final Model model) {
+    public String changeLanguages(@RequestParam(value = "taskId", defaultValue = "0") Integer taskId, @RequestParam(value = "selected", defaultValue = "java") String selected, final CreateTestForm createTestForm, final Model model) {
         logger.info("Metoda - changeLanguages");
         taskId -= 1;
         testFormService.updateSelectedLanguagesInSession(selected);  ///TODO zmienic by to w sesji jak pizdy nie było
