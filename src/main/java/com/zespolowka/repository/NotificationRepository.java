@@ -16,7 +16,7 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
 
     List<Notification> findTop5ByUserIdOrUserRoleOrderByDateDesc(Long userId, Role userRole);
 
-    List<Notification>  deleteByUserId(long UserId);
+    List<Notification> deleteByUserId(long UserId);
 
     Long countByUnreadAndUserId(boolean unread, Long userId);
 

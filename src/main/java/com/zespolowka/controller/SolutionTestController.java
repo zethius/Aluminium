@@ -1,6 +1,5 @@
 package com.zespolowka.controller;
 
-import com.zespolowka.entity.Notification;
 import com.zespolowka.entity.createTest.Test;
 import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.solutionTest.TaskTypeChecker;
@@ -48,15 +47,14 @@ public class SolutionTestController {
 
 
     @RequestMapping(value = "/solutionTest")
-    public String solutionTestPage(Model model,@ModelAttribute("Test") Test test2) {
+    public String solutionTestPage(Model model, @ModelAttribute("Test") Test test2) {
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = currentUser.getUser();
         logger.info(test2.toString());
         Long id;
-        if(test2==null){
-            id=1l;
-        }
-        else id=test2.getId();
+        if (test2 == null) {
+            id = 1L;
+        } else id = test2.getId();
         Test test = testService.getTestById(id);
         Integer attemptForUser = solutionTestService.getSolutionTestsByUserAndTest(user, test).size();
         logger.info(attemptForUser + "");

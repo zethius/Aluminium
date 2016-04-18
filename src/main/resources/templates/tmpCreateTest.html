@@ -31,7 +31,7 @@
                         <label for="attempts" th:text="#{test.testAttempts}"/>
                         <div class="input-group">
                             <input type="number" class="form-control" id="attempts" name="attempts"
-                                   th:field="*{attempts}"
+                                   th:field="*{attempts}" th:min="1" th:value="*{attempts}"
                                    th:placeholder="#{test.testAttemptsPlaceholder}" required="required"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-asterisk"/>
@@ -65,7 +65,7 @@
                         <label for="testTimePerAttempt" th:text="#{test.testTimePerAttempt}"/>
                         <div class="input-group">
                             <input type="number" class="form-control" id="testTimePerAttempt"
-                                   th:field="*{timePerAttempt}"
+                                   th:field="*{timePerAttempt}" th:min="1" th:value="*{timePerAttempt}"
                                    th:placeholder="#{test.testAttemptTimePlaceholder}" required="required"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-asterisk"/>

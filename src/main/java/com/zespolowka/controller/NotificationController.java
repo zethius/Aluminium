@@ -77,15 +77,13 @@ public class NotificationController {
             } catch (final Exception e) {
                 logger.info("\n" + model + "\n");
             }
+            model.addAttribute("newMessageForm", new NewMessageForm());
             return "sendMessage";
         } else {
-            try {
-                notificationService.sendMessage(newMessageForm);
-                model.addAttribute("sukces", true);
-            } catch (final Exception e) {
-                //logger.error(e.getMessage(), e);
-                logger.info("\n" + model + "\n");
-            }
+            notificationService.sendMessage(newMessageForm);
+            logger.info("Przeszly maile");
+            model.addAttribute("sukces", true);
+            model.addAttribute("newMessageForm", new NewMessageForm());
             return "sendMessage";
         }
     }

@@ -63,8 +63,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     public SolutionTestForm createForm(Test test, User user) {
         SolutionTest solutionTest = (SolutionTest) this.httpSession.getAttribute(TEST_ATTRIBUTE_NAME);
         logger.info(test.toString());
-        if (solutionTest != null) {
-        } else {
+        if (solutionTest == null) {
             solutionTest = new SolutionTest(test, user);
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m:s");
             LocalDateTime dateTime = LocalDateTime.now();
