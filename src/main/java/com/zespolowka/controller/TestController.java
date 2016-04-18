@@ -10,6 +10,7 @@ import com.zespolowka.service.inteface.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -130,5 +131,17 @@ public class TestController {
         testFormService.updateTestFormInSession(new CreateTestForm());
         testFormService.updateSelectedLanguagesInSession(new String());
         return "redirect:/test/create";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
+    @RequestMapping("/all")
+    public String showAll(Model model){
+        logger.info("metoda - showAll");
+        try {
+            model.addAttribute("Tests", testService.getAllTests());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "tests";
     }
 }
