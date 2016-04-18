@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       layout:decorator="layout">
 <head>
-    <title th:text="#{userEdit.edit_user}">Edytuj profil</title>
+    <title th:text="#{userEdit.edit_user}">Edytuj swój profil</title>
 </head>
 
 <body>
@@ -13,10 +13,11 @@
     <form class="form-register" action="" th:object="${userEditForm}" method="post">
         <input type="hidden" th:field="*{id}"/>
         <input type="hidden" th:field="*{role}"/>
+
         <div class="panel panel-primary">
             <div class="panel-heading" sec:authorize="isAuthenticated()">
-                <h3 class="panel-title" th:text="#{userEdit.edit_user}"><strong sec:authentication="principal.username">name</strong>
-                </h3>
+                <h3 class="panel-title" style="display: inline;" th:text="#{userEdit.edit_user}"></h3>
+                <span style="display: inline;"><strong sec:authentication="principal.username"></strong></span>
             </div>
             <div class="panel-body">
                 <div th:if="${sukces}" class="alert alert-success" role="alert" th:text="#{userEdit.saved}">Zapisano
@@ -29,49 +30,51 @@
                 <div class="row">
                     <div class="form-group col-md-6">
 
-                        <label for="InputImie">Imię</label>
+                        <label for="InputImie" th:text="#{userEdit.name}"></label>
 
                         <div class="input-group">
                             <input type="text" class="form-control" id="InputImie" name="InputImie"
-                                   value="Aktualne imie" placeholder="Imie" th:field="*{name}"/>
+                                   value="Aktualne imie" th:placeholder="#{userEdit.name}" th:field="*{name}"/>
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="InputNazwisko">Nazwisko</label>
+                        <label for="InputNazwisko" th:text="#{userEdit.last_name}"></label>
 
                         <div class="input-group">
                             <input type="text" class="form-control" id="InputNazwisko" name="InputNazwisko"
-                                   value="Aktualne nazwisko" placeholder="Nazwisko" th:field="*{lastName}"/>
+                                   value="Aktualne nazwisko" th:placeholder="#{userEdit.last_name}"
+                                   th:field="*{lastName}"/>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label for="InputEmail">Adres email</label>
+                        <label for="InputEmail" th:text="#{userEdit.email}"></label>
+
                         <div class="input-group">
                             <input type="email" class="form-control" id="InputEmail" name="InputEmail"
-                                   value="Aktualny email" placeholder="Enter Email" th:field="*{email}"/>
+                                   value="Aktualny email" th:placeholder="#{userEdit.email}" th:field="*{email}"/>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
 
-                        <label for="InputPasswordFirst">Haslo</label>
+                        <label for="InputPasswordFirst" th:text="#{userEdit.password}"></label>
 
                         <div class="input-group">
                             <input type="password" class="form-control" id="InputPasswordFirst"
                                    name="InputPasswordFirst"
-                                   placeholder="Haslo" th:field="*{password}"/>
+                                   th:placeholder="#{userEdit.password}" th:field="*{password}"/>
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="InputPasswordSecond">Potwierdź Hasło</label>
+                        <label for="InputPasswordSecond" th:text="#{userEdit.confirm_password}"></label>
 
                         <div class="input-group">
                             <input type="password" class="form-control" id="InputPasswordSecond"
                                    name="InputPasswordSecond"
-                                   placeholder="Haslo" th:field="*{confirmPassword}"/>
+                                   th:placeholder="#{userEdit.password}" th:field="*{confirmPassword}"/>
                         </div>
                     </div>
                 </div>
@@ -84,6 +87,7 @@
 
     </form>
 
-</div> <!-- /container -->
+</div>
+<!-- /container -->
 </body>
 </html>

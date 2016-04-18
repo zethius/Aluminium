@@ -17,6 +17,7 @@
                 <div class="row">
                     <div class="form-group col-md-12">
                         <label for="testName" th:text="#{test.testName}"/>
+
                         <div class="input-group">
                             <input type="text" class="form-control" id="testName" name="testName" th:field="*{name}"
                                    th:placeholder="#{test.testNamePlaceholder}" required="required"/>
@@ -29,9 +30,10 @@
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="attempts" th:text="#{test.testAttempts}"/>
+
                         <div class="input-group">
                             <input type="number" class="form-control" id="attempts" name="attempts"
-                                   th:field="*{attempts}" th:min="1" th:value="*{attempts}"
+                                   th:field="*{attempts}"
                                    th:placeholder="#{test.testAttemptsPlaceholder}" required="required"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-asterisk"/>
@@ -40,6 +42,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="testDateBegin" th:text="#{test.testDateBegin}"/>
+
                         <div class="input-group">
                             <input type="date" class="form-control" id="testDateBegin" name="testDateBegin"
                                    placeholder="" th:field="*{beginDate}"
@@ -51,6 +54,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="testDateEnd" th:text="#{test.testDateEnd}"/>
+
                         <div class="input-group">
                             <input type="date" class="form-control" id="testDateEnd" name="testDateEnd" placeholder=""
                                    th:field="*{endDate}" required="required"/>
@@ -63,9 +67,10 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="testTimePerAttempt" th:text="#{test.testTimePerAttempt}"/>
+
                         <div class="input-group">
                             <input type="number" class="form-control" id="testTimePerAttempt"
-                                   th:field="*{timePerAttempt}" th:min="1" th:value="*{timePerAttempt}"
+                                   th:field="*{timePerAttempt}"
                                    th:placeholder="#{test.testAttemptTimePlaceholder}" required="required"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-asterisk"/>
@@ -74,6 +79,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="testPassword" th:text="#{test.password}"/>
+
                         <div class="input-group">
                             <input type="text" class="form-control" id="testPassword" th:field="*{password}"/>
                             <span class="input-group-addon">
@@ -84,12 +90,15 @@
                 </div>
                 <div th:each="task, rowStat : *{tasks}">
                     <input hidden="hidden" th:field="*{tasks[__${rowStat.index}__].taskType}"/>
+
                     <div th:if="*{tasks[__${rowStat.index}__].taskType}==0" class="row">
                         <a href="" th:attr="ng-click='removeQuestion(\''+${rowStat.index}+'\')'"><i
                                 class="glyphicon glyphicon-remove-circle usunPytanie"
                                 th:title="#{test.removeQuestion}"></i></a>
+
                         <div class="form-group col-md-5">
                             <label for="question" th:text="${rowStat.count}+'. '+#{test.questionText}"/>
+
                             <div class="input-group">
                                 <input type="text" class="form-control" id="question" name="question"
                                        th:field="*{tasks[__${rowStat.index}__].question}"
@@ -104,6 +113,7 @@
                         </div>
                         <div class="form-group col-md-5">
                             <label for="answer" th:text="#{test.answers}"/>
+
                             <div class="input-group">
                                 <textarea id="answer" rows="10" class="form-control"
                                           th:field="*{tasks[__${rowStat.index}__].answer}"/>
@@ -114,6 +124,7 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label for="nazwaTest" th:text="#{test.points}"/>
+
                             <div class="input-group">
                                 <input type="number" class="form-control"
                                        th:field="*{tasks[__${rowStat.index}__].points}" id="nazwaTest"
@@ -150,8 +161,10 @@
                         <a href="" th:attr="ng-click='removeQuestion(\''+${rowStat.index}+'\')'">
                             <i class="glyphicon glyphicon-remove-circle usunPytanie"
                                th:title="#{test.removeQuestion}"></i></a>
+
                         <div class="form-group col-md-4">
                             <label for="question" th:text="${rowStat.count}+'. '+#{test.questionText}"/>
+
                             <div class="input-group">
                                 <input type="text" class="form-control" id="question" name="question" placeholder=""
                                        th:field="*{tasks[__${rowStat.index}__].question}" required="required"/>
@@ -162,6 +175,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="answer" th:text="#{test.answer}"/>
+
                             <div class="input-group">
                                 <input type="text" class="form-control" id="answer" name="answer" placeholder=""
                                        th:field="*{tasks[__${rowStat.index}__].answer}" required="required"/>
@@ -172,13 +186,15 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label for="nazwaTest" th:text="#{test.caseSensitivity}"/>
+
                             <div class="checkbox">
                                 <label><input type="checkbox" th:field="*{tasks[__${rowStat.index}__].caseSensitivity}"
-                                              value="case_sens"/> Tak</label>
+                                              value="case_sens" th:text="#{yes}"/></label>
                             </div>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="nazwaTest" th:text="#{test.points}"/>
+
                             <div class="input-group">
                                 <input type="number" class="form-control"
                                        th:field="*{tasks[__${rowStat.index}__].points}" id="nazwaTest"
@@ -193,9 +209,11 @@
                         <a href="" th:attr="ng-click='removeQuestion(\''+${rowStat.index}+'\')'"><i
                                 class="glyphicon glyphicon-remove-circle usunPytanie"
                                 th:title="#{test.removeQuestion}"></i></a>
+
                         <div class="form-group col-md-12">
                             <label for="programmingQuestion"
                                    th:text="${rowStat.count}+'. '+#{test.programmingQuestionLabel}"/>
+
                             <div class="input-group">
                                 <textarea id="programmingQuestion" rows="5" class="form-control"
                                           th:field="*{tasks[__${rowStat.index}__].question}"/>
@@ -222,6 +240,7 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="nazwaTest" th:text="#{test.points}"/>
+
                                 <div class="input-group">
                                     <input type="number" class="form-control"
                                            th:field="*{tasks[__${rowStat.index}__].points}" id="nazwaTest"
@@ -236,10 +255,12 @@
                              th:if="${programmingTask.hidden}">
                             <input hidden="hidden"
                                    th:field="*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].language}"/>
+
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label for="answer"
                                            th:text="#{test.whiteList}+' '+*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].language}"/>
+
                                     <div class="input-group">
                                         <textarea rows="5" class="form-control"
                                                   th:field="*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].whiteList}"/>
@@ -253,6 +274,7 @@
                                 <div class="form-group col-md-12">
                                     <label for="answer"
                                            th:text="#{test.programmingAnswerLabel}+' '+*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].language}"/>
+
                                     <div class="input-group">
                                 <textarea rows="30" class="form-control"
                                           th:field="*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].testCode}"/>

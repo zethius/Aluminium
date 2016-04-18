@@ -12,6 +12,7 @@
 
     <form th:action="@{/login}" method="post" class="form-signin">
         <h2 class="form-signin-heading" th:text="#{login.login}"></h2>
+
         <div th:if="${loginError}" class="alert alert-danger" role="alert">
             <span th:text="${errorMessage}"></span>
         </div>
@@ -21,6 +22,7 @@
         <label for="password" th:text="#{login.password}" class="sr-only"></label>
         <input type="password" name="password" id="password" class="form-control" th:placeholder="#{login.password}"
                required="required"/>
+
         <p><a th:href="@{/remindPassword}" th:text="#{login.forgotten_password}"></a> | <a th:href="@{/register}"
                                                                                            th:text="#{login.register}"></a>
         </p>

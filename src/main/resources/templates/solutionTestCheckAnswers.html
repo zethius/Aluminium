@@ -17,6 +17,7 @@
                 <div class="row" th:each="task, rowStat :*{solutionTasks}">
                     <div th:if="${taskTypeChecker.isTaskOpenSolution(task)}" class="form-group col-md-12">
                         <h4 th:text="${rowStat.count}+'. '+*{solutionTasks[__${rowStat.index}__].task.question}"/>
+
                         <div class="input-group">
                             <input type="text" class="form-control" id="answerOpenTask" name="answerOpenTask"
                                    placeholder="Oodpowiedz słowna"
@@ -30,6 +31,7 @@
                     </div>
                     <div th:if="${taskTypeChecker.isTaskClosedSolution(task)}" class="form-group col-md-12">
                         <h4 th:text="${rowStat.count}+'. '+*{solutionTasks[__${rowStat.index}__].task.question}"/>
+
                         <div class="input-group">
                             <div class="checkbox" th:each="entry,row:*{solutionTasks[__${rowStat.index}__].answers}">
                                 <label>
@@ -43,6 +45,7 @@
                     </div>
                     <div th:if="${taskTypeChecker.isTaskProgrammingSolution(task)}" class="form-group col-md-12">
                         <h4 th:text="${rowStat.count}+'. '+*{solutionTasks[__${rowStat.index}__].task.question}"/>
+
                         <div class="input-group">
                             <textarea rows="30" class="form-control"/>
                             <span class="input-group-addon">

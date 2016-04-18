@@ -8,24 +8,26 @@
 <div layout:fragment="content">
     <div class="jumbotron" sec:authorize="isAuthenticated()">
         <div class="container">
-            <h1>Witaj <strong>Użytkowniku</strong></h1>
-            <h2>Zapoznaj się z testami</h2>
+            <h1 style="float:left" th:text="#{home.welcome}"></h1><span><h1><strong th:text="#{mainPage.user}"></strong>
+        </h1></span>
+
+            <h2 th:text="#{mainPage.greetings}"></h2>
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#aktywne" aria-controls="aktywne" role="tab"
-                                                          data-toggle="tab">Aktywne testy</a></li>
-                <li role="presentation"><a href="#archiwalne" aria-controls="archiwalne" role="tab" data-toggle="tab">Testy
-                    archiwalne</a></li>
+                                                          data-toggle="tab" th:text="#{mainPage.activeTests}"></a></li>
+                <li role="presentation"><a href="#archiwalne" aria-controls="archiwalne" role="tab"
+                                           data-toggle="tab" th:text="#{mainPage.activeTests}"></a></li>
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="aktywne">.
                     <table class="grid table" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                            <th>Nazwa</th>
-                            <th>Liczba podejsc</th>
-                            <th>Liczba zadan</th>
-                            <th>Max ilosc punktow</th>
-                            <th>Data końca</th>
+                            <th th:text="#{mainPage.testName}"></th>
+                            <th th:text="#{mainPage.attempts}"></th>
+                            <th th:text="#{mainPage.numberOfTasks}"></th>
+                            <th th:text="#{mainPage.maxPoints}"></th>
+                            <th th:text="#{mainPage.endDate}"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -44,12 +46,12 @@
                     <table class="grid table" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                            <th>Nazwa</th>
-                            <th>Podejście</th>
-                            <th>Data rozpoczecia</th>
-                            <th>Data zakonczenia</th>
-                            <th>Punkty</th>
-                            <th>Max punktow</th>
+                            <th th:text="#{mainPage.testName}"></th>
+                            <th th:text="#{mainPage.attempts}"></th>
+                            <th th:text="#{mainPage.startDate}"></th>
+                            <th th:text="#{mainPage.endDate}"></th>
+                            <th th:text="#{mainPage.points}"></th>
+                            <th th:text="#{mainPage.maxPoints}"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -65,7 +67,7 @@
                     </table>
                 </div>
             </div>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">więcej &raquo;</a></p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button" th:text="#{more}"></a></p>
         </div>
     </div>
 
@@ -74,23 +76,29 @@
         <div class="row">
             <div class="col-md-4">
                 <h2>Dalej</h2>
+
                 <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
                     mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
                     mollis euismod. Donec sed odio dui. </p>
+
                 <p><a class="btn btn-default" href="#" role="button">Krzychu &raquo;</a></p>
             </div>
             <div class="col-md-4">
                 <h2>nie wiem</h2>
+
                 <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
                     mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
                     mollis euismod. Donec sed odio dui. </p>
+
                 <p><a class="btn btn-default" href="#" role="button">ma problem &raquo;</a></p>
             </div>
             <div class="col-md-4">
                 <h2>po co to</h2>
+
                 <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
                     porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
                     ut fermentum massa justo sit amet risus.</p>
+
                 <p><a class="btn btn-default" href="#" role="button">z erekcja &raquo;</a></p>
             </div>
         </div>
