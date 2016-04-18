@@ -1,8 +1,9 @@
 package com.zespolowka.forms;
 
 import com.zespolowka.entity.createTest.ProgrammingLanguages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.validation.constraints.Size;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -10,11 +11,10 @@ public class TaskForm {
     public static final int CLOSEDTASK = 0;
     public static final int OPENTASK = 1;
     public static final int PROGRAMMINGTASK = 2;
+    private static final Logger logger = LoggerFactory.getLogger(TaskForm.class);
 
-    @Size(min = 5, max = 25)
     private String question;
 
-    @Size(min = 2)
     private String answer;
 
     private int taskType;
@@ -44,6 +44,7 @@ public class TaskForm {
             programmingTaskForms.add(new ProgrammingTaskForm(ProgrammingLanguages.CPP.toString()));
             programmingTaskForms.add(new ProgrammingTaskForm(ProgrammingLanguages.PYTHON.toString()));
         }
+        logger.info("test1");
     }
 
     public TaskForm(String question, int taskType, String answer) {
@@ -85,6 +86,8 @@ public class TaskForm {
     }
 
     public void setLanguages(Set<String> languages) {
+        logger.info("setLanguages");
+        if (languages == null) languages = new TreeSet<>();
         this.languages = languages;
         Set<ProgrammingTaskForm> programmingTaskFormSet = new TreeSet<>();
         if (languages.contains(ProgrammingLanguages.JAVA.toString())) {
@@ -103,7 +106,6 @@ public class TaskForm {
             programmingTaskFormSet.add(new ProgrammingTaskForm(ProgrammingLanguages.PYTHON.toString()));
         }
         setProgrammingTaskForms(programmingTaskFormSet);
-
     }
 
     public Set<ProgrammingTaskForm> getProgrammingTaskForms() {
@@ -112,6 +114,7 @@ public class TaskForm {
 
     public void setProgrammingTaskForms(Set<ProgrammingTaskForm> programmingTaskForms) {
         this.programmingTaskForms = programmingTaskForms;
+        logger.info("setProgrammingTaskForms");
     }
 
     public int getTaskType() {
@@ -119,6 +122,7 @@ public class TaskForm {
     }
 
     public void setTaskType(int taskType) {
+        logger.info("setTaskType");
         this.taskType = taskType;
     }
 
@@ -127,6 +131,7 @@ public class TaskForm {
     }
 
     public void setPoints(int points) {
+        logger.info("setPoints");
         this.points = points;
     }
 
@@ -135,6 +140,7 @@ public class TaskForm {
     }
 
     public void setCaseSensitivity(Boolean caseSensitivity) {
+        logger.info("setCaseSensitivity");
         this.caseSensitivity = caseSensitivity;
     }
 
@@ -143,6 +149,7 @@ public class TaskForm {
     }
 
     public void setWrongReset(Boolean wrongReset) {
+        logger.info("setWrongReset");
         this.wrongReset = wrongReset;
     }
 
@@ -151,6 +158,7 @@ public class TaskForm {
     }
 
     public void setCountNotFull(Boolean countNotFull) {
+        logger.info("setCountNotFull");
         this.countNotFull = countNotFull;
     }
 

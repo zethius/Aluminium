@@ -3,8 +3,11 @@ package com.zespolowka.forms;
 
 import com.zespolowka.entity.createTest.Task;
 import com.zespolowka.entity.createTest.TaskClosed;
+import com.zespolowka.entity.createTest.TaskProgramming;
+import com.zespolowka.entity.createTest.TaskProgrammingDetail;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SolutionTaskForm {
     public static final int CLOSEDTASK = 0;
@@ -14,6 +17,8 @@ public class SolutionTaskForm {
     private Map<String, Boolean> answers = new LinkedHashMap<>();
     private String answer = "";
     private String answerCode = "";
+    private Set<String> languages = new TreeSet<>();
+    private String language = new String();
     private int taskType;
 
     public SolutionTaskForm() {
@@ -34,6 +39,11 @@ public class SolutionTaskForm {
             for (Map.Entry<String, Boolean> entry : list) {
                 answers.put(entry.getKey(), false);
             }
+        }
+        if (taskType == PROGRAMMINGTASK) {
+            TaskProgramming taskProgramming = (TaskProgramming) task;
+            Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
+            languages.addAll(taskProgrammingDetails.stream().map(taskProgrammingDetail -> taskProgrammingDetail.getLanguage().toString()).collect(Collectors.toList()));
         }
     }
 
@@ -73,6 +83,22 @@ public class SolutionTaskForm {
         this.taskType = taskType;
     }
 
+    public Set<String> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(Set<String> languages) {
+        this.languages = languages;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
     @Override
     public String toString() {
         return "SolutionTaskForm{" +
@@ -80,6 +106,7 @@ public class SolutionTaskForm {
                 ", answers=" + answers +
                 ", answer='" + answer + '\'' +
                 ", answerCode='" + answerCode + '\'' +
+                ", languages='" + languages + '\'' +
                 ", taskType=" + taskType +
                 '}';
     }

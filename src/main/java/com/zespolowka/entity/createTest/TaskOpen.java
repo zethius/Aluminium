@@ -1,9 +1,11 @@
 package com.zespolowka.entity.createTest;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
 public class TaskOpen extends Task {
+    @Column(length = 10000)
     private String answer;
 
     private Boolean caseSens;

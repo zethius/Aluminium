@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -35,11 +36,26 @@ public class SolutionTestController {
     @Autowired
     private TestService testService;
 
+    @RequestMapping(value = "/solutionTest/{id}", method = RequestMethod.GET)
+    public String getSolutionTestPage(@PathVariable final Integer id, final RedirectAttributes redirectAttributes) {
+        logger.info("getSoltutionTestPage dla testu o id={}", id);
+        Test test = testService.getTestById(id);
+        redirectAttributes.addFlashAttribute("Test", test);
+        logger.info(test.toString());
+        return "redirect:/solutionTest";
+    }
+
+
     @RequestMapping(value = "/solutionTest")
-    public String solutionTestPage(Model model) {
+    public String solutionTestPage(Model model, @ModelAttribute("Test") Test test2) {
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = currentUser.getUser();
-        Test test = testService.getTestById(1);
+        logger.info(test2.toString());
+        Long id;
+        if (test2 == null) {
+            id = 1L;
+        } else id = test2.getId();
+        Test test = testService.getTestById(id);
         Integer attemptForUser = solutionTestService.getSolutionTestsByUserAndTest(user, test).size();
         logger.info(attemptForUser + "");
         logger.info(test.getAttempts() + "");
@@ -48,9 +64,10 @@ public class SolutionTestController {
             logger.info("ni chuja");
             return "testSolution";
         } else {
-            logger.info(test.getTimePerAttempt() + "   asdassa");
+            logger.info(test + "");
             SolutionTestForm solutionTestForm = solutionTestService.createForm(test, user);
             model.addAttribute("solutionTest", solutionTestForm);
+            logger.info(solutionTestForm.toString());
             return "testSolution";
         }
     }
@@ -59,6 +76,9 @@ public class SolutionTestController {
     public String saveSolutionTest(final SolutionTestForm solutionTestForm, Model model, final RedirectAttributes redirectAttributes) throws IOException, ParseException {
         logger.info("Metoda - saveSolutionTest");
         SolutionTest solutionTest = (SolutionTest) this.httpSession.getAttribute(TEST_ATTRIBUTE_NAME);
+        this.httpSession.removeAttribute(TEST_ATTRIBUTE_NAME);
+        logger.info(solutionTest.toString());
+        logger.info(solutionTestForm.toString());
         solutionTest.create(solutionTestForm);
         solutionTestService.create(solutionTest);
         model.addAttribute("solutionTest", solutionTest);

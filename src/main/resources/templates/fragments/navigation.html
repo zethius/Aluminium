@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav xmlns:th="http://www.w3.org/1999/xhtml" class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -12,30 +12,31 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Strona główna</a></li>
-                <li><a href="/solutionTest">Rozpocznij test</a></li>
-                <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/test/create">Utwórz
-                    test</a></li>
-                <li><a href="#">Lista wyników</a></li>
+                <li class="active"><a href="/" th:text="#{navigation.mainPage}"></a></li>
+                <li><a href="/solutionTest" th:text="#{navigation.beginTest}"></a></li>
+                <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/test/create"
+                                                                                           th:text="#{navigation.createTest}"></a>
+                </li>
+                <li><a href="#" th:text="#{navigation.results}"></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Zadania <span class="caret"></span></a>
+                       aria-expanded="false" th:text="#{navigation.tasks}"><span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Marzec 2015</a></li>
-                        <li><a href="#">Kwiecie 2016</a></li>
-                        <li><a href="#">Czerwiec 1337</a></li>
+                        <li><a href="#" th:text="#{month.date.march}+' 2015'"></a></li>
+                        <li><a href="#" th:text="#{month.date.april}+' 2016'"></a></li>
+                        <li><a href="#" th:text="#{month.date.june} +' 1337'"></a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">undy grundig</a></li>
                     </ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li sec:authorize="!isAuthenticated()"><a href="/login">Zaloguj sie</a></li>
+                <li sec:authorize="!isAuthenticated()"><a href="/login" th:text="#{login.login}"></a></li>
                 <li><a th:href="@{?lang=pl}"><img src="/images/pl.png" alt="PL"/></a></li>
                 <li><a th:href="@{?lang=en}"><img src="/images/eng.png" alt="EN"/></a></li>
                 <li sec:authorize="isAuthenticated()" class="dropdown" ng-init="getMsgCount()">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Wiadomości
+                       aria-expanded="false" th:text="#{messages}">
                         <span class="badge">{{unreadNotification}}</span>
                     </a>
                     <ul class="dropdown-menu" ng-init="getTop5Notifications()">
@@ -52,7 +53,7 @@
                             </a>
                         </li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/messages}">Pokaz wszystkie</a></li>
+                        <li><a th:href="@{/messages}" th:text="#{navigation.showAll}"></a></li>
                     </ul>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="dropdown">
@@ -62,16 +63,20 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="@{/user/edit}">Edytuj dane</a></li>
-                        <li><a th:href="@{/sendMessage}">Wyslij wiadomosc</a></li>
+                        <li><a th:href="@{/user/edit}" th:text="#{navigation.editUser}"></a></li>
+                        <li><a href="#" th:text="#{navigation.achievements}"></a></li>
+                        <li><a th:href="@{/sendMessage}" th:text="#{sendMessage.title}"></a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="javascript:{}" onclick="document.getElementById('my_form').submit();">Wyloguj</a>
+                        <li><a href="javascript:{}" onclick="document.getElementById('my_form').submit();"
+                               th:text="#{logout}"></a>
                         </li>
                     </ul>
                 </li>
             </ul>
-        </div><!--/.nav-collapse -->
-    </div><!--/.container-fluid -->
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+    <!--/.container-fluid -->
 </nav>
 <form id="my_form" th:action="@{/logout}" method="post">
 </form>

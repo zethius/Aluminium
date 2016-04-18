@@ -2,10 +2,12 @@ package com.zespolowka.entity.solutionTest;
 
 import com.zespolowka.entity.createTest.Task;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
 public class TaskOpenSolution extends TaskSolution {
+    @Column(length = 10000)
     private String answer;
 
     public TaskOpenSolution() {

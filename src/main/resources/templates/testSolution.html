@@ -21,6 +21,7 @@
             <div class="panel-body">
                 <div class="popover bottom" style="" ng-controller="TimerController">
                     <h3 class="popover-title">Czas</h3>
+
                     <div class="popover-content" th:attr="ng-init='Timer('+*{timeToEnd}+')'">
                         <p>Zostało <strong>{{minutes}}</strong>min <strong>{{seconds}}</strong>s!</p>
                         <input type="submit" name="submitSave" id="submitSave" value="Zapisz" class="btn btn-primary"/>
@@ -35,8 +36,10 @@
                 </div>
                 <div class="row" th:each="task, rowStat :*{tasks}">
                     <input hidden="hidden" th:field="*{tasks[__${rowStat.index}__].taskType}"/>
+
                     <div th:if="*{tasks[__${rowStat.index}__].taskType}==1" class="form-group col-md-12">
                         <h4 th:text="${rowStat.count}+'. '+*{tasks[__${rowStat.index}__].task.question}"/>
+
                         <div class="input-group">
                             <input type="text" class="form-control" id="answerOpenTask" name="answerOpenTask"
                                    placeholder="Odpowiedz słowna" th:field="*{tasks[__${rowStat.index}__].answer}"
@@ -48,6 +51,7 @@
                     </div>
                     <div th:if="*{tasks[__${rowStat.index}__].taskType}==0" class="form-group col-md-12">
                         <h4 th:text="${rowStat.count}+'. '+*{tasks[__${rowStat.index}__].task.question}"/>
+
                         <div class="input-group">
                             <div class="checkbox" th:each="entry,row:*{tasks[__${rowStat.index}__].answers}">
                                 <label>
@@ -60,7 +64,16 @@
                         </div>
                     </div>
                     <div th:if="*{tasks[__${rowStat.index}__].taskType}==2" class="form-group col-md-12">
-                        <h4 th:text="${rowStat.count}+'. '+*{tasks[__${rowStat.index}__].task.question}"/>
+                        <h4 th:text="${rowStat.count}+'. '+*{tasks[__${rowStat.index}__].task.question}+'. '+#{test.programmingSolution}"/>
+                        <label for="selectLanguage">Wybierz język, w którym rozwiążesz zadanie</label>
+                        <select id="selectLanguage"
+                                th:field="*{tasks[__${rowStat.index}__].language}"
+                                class="form-control">
+                            <option th:each="language:*{tasks[__${rowStat.index}__].languages}" th:value="${language}"
+                                    th:text="${language}"></option>
+                        </select>
+                        <br/>
+
                         <div class="input-group">
                             <textarea rows="30" class="form-control"
                                       th:field="*{tasks[__${rowStat.index}__].answerCode}"/>

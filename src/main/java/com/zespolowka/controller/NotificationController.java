@@ -21,10 +21,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class NotificationController {
     private static final Logger logger = LoggerFactory.getLogger(NotificationController.class);
+    private final NotificationService notificationService;
+
+    private final SendMessageValidator sendMessageValidator;
+
     @Autowired
-    private NotificationService notificationService;
-    @Autowired
-    private SendMessageValidator sendMessageValidator;
+    public NotificationController(NotificationService notificationService, SendMessageValidator sendMessageValidator) {
+        this.notificationService = notificationService;
+        this.sendMessageValidator = sendMessageValidator;
+    }
+
 
     @RequestMapping(value = "/messages", method = RequestMethod.GET)
     public String showNotifications(final Model model, @ModelAttribute("Notification") final Notification notification) {
@@ -67,19 +73,17 @@ public class NotificationController {
             logger.info("err:" + err);
             logger.info(newMessageForm.toString());
             try {
-               notificationService.sendMessage(newMessageForm);//zakomentowac jesli nie ma wysylac w przypadku jakiegokolwiek bledu
+                notificationService.sendMessage(newMessageForm);
             } catch (final Exception e) {
                 logger.info("\n" + model + "\n");
             }
+            model.addAttribute("newMessageForm", new NewMessageForm());
             return "sendMessage";
         } else {
-            try {
-                notificationService.sendMessage(newMessageForm);
-                model.addAttribute("sukces", true);
-            } catch (final Exception e) {
-                //logger.error(e.getMessage(), e);
-                logger.info("\n" + model + "\n");
-            }
+            notificationService.sendMessage(newMessageForm);
+            logger.info("Przeszly maile");
+            model.addAttribute("sukces", true);
+            model.addAttribute("newMessageForm", new NewMessageForm());
             return "sendMessage";
         }
     }

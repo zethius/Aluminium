@@ -34,6 +34,7 @@ public interface NotificationService {
     void sendMessage(NewMessageForm form);
 
     void deleteMessagesByUserId(Long id);
+
 }
 
 

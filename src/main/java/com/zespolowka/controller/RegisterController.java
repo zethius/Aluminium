@@ -80,6 +80,7 @@ public class RegisterController {
         }
     }
 
+
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
     public String confirmRegistration(Model model, @RequestParam("token") String token) {
         logger.info("Potwierdzenie rejestacji");
