@@ -10,7 +10,9 @@ import com.zespolowka.forms.SolutionTestForm;
 import com.zespolowka.repository.SolutionTestRepository;
 import com.zespolowka.service.inteface.SolutionTestService;
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,10 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -99,7 +99,6 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.PROGRAMMINGTASK));
             }
         }
-        logger.info("CHUUUUUUUUUJ" + tasks);
         solutionTestForm.setTasks(solutionTaskFormList);
         this.httpSession.setAttribute(TEST_ATTRIBUTE_NAME, solutionTest);
         this.taskNo = 0;
@@ -109,16 +108,11 @@ public class SolutionTestServiceImpl implements SolutionTestService {
 
     public void addTaskSolutionToTest(SolutionTest solutionTest, TaskSolution taskSolution) throws IOException, ParseException {
         taskSolution.setTask(solutionTest.getTest().getTasks().get(taskNo++));
-        logger.info("aaa" + taskSolution.getTask().toString());
-        logger.info("bbb" + solutionTest.toString());
-        logger.info("ccc" + solutionTest.getTest().toString());
         if (taskSolution instanceof TaskClosedSolution) {
             TaskClosedSolution taskSol = (TaskClosedSolution) taskSolution;
             TaskClosed taskClo = (TaskClosed) taskSol.getTask();
             Map<String, Boolean> userAnswers = taskSol.getAnswers();
             Map<String, Boolean> correctAnswers = taskClo.getAnswers();
-            logger.info("JAKAS CHUJNIA" + userAnswers);
-            logger.info("Podobna CHUJNIA" + correctAnswers);
             if (taskClo.getCountingType() == taskClo.WRONG_RESET) {
                 Boolean theSame = true;
                 for (Map.Entry<String, Boolean> stringBooleanEntry : userAnswers.entrySet()) {
@@ -190,12 +184,13 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                     FileUtils.writeStringToFile(new File(dir + userDirectory + "config.json"), jsonObject.toJSONString());
                 }
             }
+            executeCommand(dir + "skrypt.rb \"" + dir + " \""+userDirectory+"\"");
             /*Socket socket = new Socket("localhost", 54321);
             PrintWriter printWriter = new PrintWriter(socket.getOutputStream());
             printWriter.println("\"" + userDirectory + "\"");
             printWriter.close();
             socket.close();
-
+*/
             JSONParser parser = new JSONParser();
             Object result = parser.parse(new FileReader(resultDir + userDirectory + "output.json"));
             if (result instanceof JSONArray) {
@@ -208,7 +203,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 jsonObject = (JSONObject) result;
                 logger.info(jsonObject.toString());
             }
-*/
+
             solutionTest.setPoints(solutionTest.getPoints() + taskProgramming.getMax_points());
             taskSol.setPoints(taskProgramming.getMax_points());
             solutionTest.getSolutionTasks().add(taskSol);
