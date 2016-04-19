@@ -36,6 +36,9 @@ public class SolutionTestController {
     @Autowired
     private TestService testService;
 
+    public SolutionTestController() {
+    }
+
     @RequestMapping(value = "/solutionTest/{id}", method = RequestMethod.GET)
     public String getSolutionTestPage(@PathVariable final Integer id, final RedirectAttributes redirectAttributes) {
         logger.info("getSoltutionTestPage dla testu o id={}", id);
@@ -48,27 +51,34 @@ public class SolutionTestController {
 
     @RequestMapping(value = "/solutionTest")
     public String solutionTestPage(Model model, @ModelAttribute("Test") Test test2) {
-        CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = currentUser.getUser();
-        logger.info(test2.toString());
-        Long id;
-        if (test2 == null) {
-            id = 1L;
-        } else id = test2.getId();
-        Test test = testService.getTestById(id);
-        Integer attemptForUser = solutionTestService.getSolutionTestsByUserAndTest(user, test).size();
-        logger.info(attemptForUser + "");
-        logger.info(test.getAttempts() + "");
-        if (test.getAttempts().intValue() <= attemptForUser) {
-            model.addAttribute("testSolutionError", true);
-            logger.info("ni chuja");
-            return "testSolution";
-        } else {
-            logger.info(test + "");
-            SolutionTestForm solutionTestForm = solutionTestService.createForm(test, user);
+        SolutionTest solutionTest = (SolutionTest) this.httpSession.getAttribute(TEST_ATTRIBUTE_NAME);
+        if (solutionTest != null) {
+            SolutionTestForm solutionTestForm = solutionTestService.createForm(solutionTest.getTest(), solutionTest.getUser());
             model.addAttribute("solutionTest", solutionTestForm);
             logger.info(solutionTestForm.toString());
             return "testSolution";
+        } else {
+            CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = currentUser.getUser();
+            logger.info(test2.toString());
+            Long id;
+            if (test2 == null) {
+                id = 1L;
+            } else id = test2.getId();
+            Test test = testService.getTestById(id);
+            Integer attemptForUser = solutionTestService.getSolutionTestsByUserAndTest(user, test).size();
+            logger.info(String.valueOf(attemptForUser));
+            logger.info(String.valueOf(test.getAttempts()));
+            if (test.getAttempts().intValue() <= attemptForUser) {
+                model.addAttribute("testSolutionError", true);
+                return "testSolution";
+            } else {
+                logger.info(String.valueOf(test));
+                SolutionTestForm solutionTestForm = solutionTestService.createForm(test, user);
+                model.addAttribute("solutionTest", solutionTestForm);
+                logger.info(solutionTestForm.toString());
+                return "testSolution";
+            }
         }
     }
 
@@ -79,7 +89,7 @@ public class SolutionTestController {
         this.httpSession.removeAttribute(TEST_ATTRIBUTE_NAME);
         logger.info(solutionTest.toString());
         logger.info(solutionTestForm.toString());
-        solutionTest.create(solutionTestForm);
+        solutionTest = solutionTestService.create(solutionTest, solutionTestForm);
         solutionTestService.create(solutionTest);
         model.addAttribute("solutionTest", solutionTest);
         redirectAttributes.addFlashAttribute("sendModel", solutionTest);
@@ -89,9 +99,17 @@ public class SolutionTestController {
     @RequestMapping(value = "/solutionTestCheckAnswers")
     public String checkSolutionTestPage(@ModelAttribute("sendModel") final SolutionTest solutionTest, Model model) {
         model.addAttribute(new TaskTypeChecker());
-        logger.info(solutionTest + "");
+        logger.info(String.valueOf(solutionTest));
         model.addAttribute("solutionTest", solutionTest);
         return "solutionTestCheckAnswers";
     }
 
+    @Override
+    public String toString() {
+        return "SolutionTestController{" +
+                "httpSession=" + httpSession +
+                ", solutionTestService=" + solutionTestService +
+                ", testService=" + testService +
+                '}';
+    }
 }

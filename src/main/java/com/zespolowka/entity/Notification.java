@@ -40,7 +40,7 @@ public class Notification {
         this.date = date;
         this.userRole = userRole;
         this.unread = true;
-        this.userId = -1;
+        this.userId = -1L;
     }
 
     public Notification(Notification notification) {

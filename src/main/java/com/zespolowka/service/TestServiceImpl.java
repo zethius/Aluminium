@@ -82,7 +82,7 @@ public class TestServiceImpl implements TestService {
                     TaskProgramming taskProgramming = new TaskProgramming(taskForm.getQuestion(), (float) taskForm.getPoints());
                     Set<ProgrammingTaskForm> programmingTaskForms = taskForm.getProgrammingTaskForms();
                     programmingTaskForms.stream().filter(ProgrammingTaskForm::getHidden).forEach(programmingTaskForm -> {
-                        logger.info(" " + programmingTaskForm.toString());
+                        logger.info(' ' + programmingTaskForm.toString());
                         TaskProgrammingDetail taskProgrammingDetail = new TaskProgrammingDetail();
                         taskProgrammingDetail.setTestCode(programmingTaskForm.getTestCode());
                         taskProgrammingDetail.setWhiteList(programmingTaskForm.getWhiteList());
@@ -95,5 +95,12 @@ public class TestServiceImpl implements TestService {
             }
         }
         return testRepository.save(test);
+    }
+
+    @Override
+    public String toString() {
+        return "TestServiceImpl{" +
+                "testRepository=" + testRepository +
+                '}';
     }
 }

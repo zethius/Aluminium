@@ -4,7 +4,6 @@ import com.zespolowka.entity.createTest.ProgrammingLanguages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.validation.constraints.Min;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -20,8 +19,7 @@ public class TaskForm {
 
     private int taskType;
 
-    @Min(2)
-    private Integer points=1;
+    private Integer points = 1;
 
     private Set<String> languages = new TreeSet<>();
 
@@ -94,9 +92,9 @@ public class TaskForm {
         if (languages == null) {
             logger.info("pusto?");
             this.languages = new TreeSet<>();
-        }else this.languages = languages;
+        } else this.languages = languages;
         Set<ProgrammingTaskForm> programmingTaskFormSet = new TreeSet<>();
-        logger.info("aaaa"+this.languages.contains(ProgrammingLanguages.JAVA.toString()));
+        logger.info("aaaa" + this.languages.contains(ProgrammingLanguages.JAVA.toString()));
         if (this.languages.contains(ProgrammingLanguages.JAVA.toString())) {
             programmingTaskFormSet.add(new ProgrammingTaskForm(ProgrammingLanguages.JAVA.toString(), true));
         } else {
@@ -116,7 +114,7 @@ public class TaskForm {
     }
 
     public Set<ProgrammingTaskForm> getProgrammingTaskForms() {
-        if (programmingTaskForms.size()==0){
+        if (programmingTaskForms.size() == 0) {
             programmingTaskForms.add(new ProgrammingTaskForm(ProgrammingLanguages.JAVA.toString()));
             programmingTaskForms.add(new ProgrammingTaskForm(ProgrammingLanguages.CPP.toString()));
             programmingTaskForms.add(new ProgrammingTaskForm(ProgrammingLanguages.PYTHON.toString()));
@@ -127,8 +125,8 @@ public class TaskForm {
     public void setProgrammingTaskForms(Set<ProgrammingTaskForm> programmingTaskForms) {
         logger.info("setProgrammingTaskForms");
         if (programmingTaskForms == null) {
-            this.programmingTaskForms=new TreeSet<>();
-        }else this.programmingTaskForms = programmingTaskForms;
+            this.programmingTaskForms = new TreeSet<>();
+        } else this.programmingTaskForms = programmingTaskForms;
     }
 
     public int getTaskType() {

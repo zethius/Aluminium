@@ -13,6 +13,9 @@ import java.net.URISyntaxException;
 @Configuration
 @Profile("prod")
 public class ProdDBConfig {
+    public ProdDBConfig() {
+    }
+
     @Bean
     public BasicDataSource dataSource() throws URISyntaxException {
         String username = "zespolowka";
@@ -20,7 +23,7 @@ public class ProdDBConfig {
         String path = "46.238.244.222";
         String database = "/zespolowka";
         int port = 1500;
-        String dbUrl = "jdbc:mysql://" + path + ":" + port + database;
+        String dbUrl = "jdbc:mysql://" + path + ':' + port + database;
 
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(dbUrl);

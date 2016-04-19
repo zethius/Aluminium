@@ -45,4 +45,11 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
         logger.info("Stworzono token" + token);
         return verificationTokenRepository.save(verificationToken);
     }
+
+    @Override
+    public String toString() {
+        return "VerificationTokenServiceImpl{" +
+                "verificationTokenRepository=" + verificationTokenRepository +
+                '}';
+    }
 }

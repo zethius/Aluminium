@@ -14,6 +14,9 @@
                 <h3 class="panel-title" th:text="#{test.createTestForm}"/>
             </div>
             <div class="panel-body">
+                <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
+                    <p th:each="err:${#fields.allErrors()}" th:text="${err}">...</p>
+                </div>
                 <div class="row">
                     <div class="form-group col-md-12">
                         <label for="testName" th:text="#{test.testName}"/>
@@ -197,7 +200,8 @@
 
                             <div class="input-group">
                                 <input type="number" class="form-control"
-                                       th:field="*{tasks[__${rowStat.index}__].points}" th:value="*{tasks[__${rowStat.index}__].points}" th:min="1"
+                                       th:field="*{tasks[__${rowStat.index}__].points}"
+                                       th:value="*{tasks[__${rowStat.index}__].points}" th:min="1"
                                        id="nazwaTest"
                                        required="required"/>
                                 <span class="input-group-addon">

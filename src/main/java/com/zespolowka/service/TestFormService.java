@@ -48,4 +48,10 @@ public class TestFormService {
         updateTestFormInSession(createTestForm);
     }
 
+    @Override
+    public String toString() {
+        return "TestFormService{" +
+                "httpSession=" + httpSession +
+                '}';
+    }
 }

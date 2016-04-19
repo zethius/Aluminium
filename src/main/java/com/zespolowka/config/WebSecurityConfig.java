@@ -47,6 +47,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler = new CustomAuthenticationSuccessHandler();
 
+    public WebSecurityConfig() {
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -112,4 +115,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
+    @Override
+    public String toString() {
+        return "WebSecurityConfig{" +
+                "userDetailsService=" + userDetailsService +
+                ", authenticationFailureHandler=" + authenticationFailureHandler +
+                ", authenticationSuccessHandler=" + authenticationSuccessHandler +
+                '}';
+    }
 }

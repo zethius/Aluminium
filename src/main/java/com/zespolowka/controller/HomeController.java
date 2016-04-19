@@ -25,6 +25,9 @@ public class HomeController {
     @Value("${homepage.message}")
     private String pageMessage;
 
+    public HomeController() {
+    }
+
 
     @RequestMapping(value = "/")
     public String homePage(Model model) {
@@ -37,9 +40,17 @@ public class HomeController {
             logger.info(solutionTestService.getAllTests().toString());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            logger.info(model.toString() + " " + this.pageMessage);
+            logger.info(model.toString() + ' ' + this.pageMessage);
         }
         return "index";
     }
 
+    @Override
+    public String toString() {
+        return "HomeController{" +
+                "testService=" + testService +
+                ", solutionTestService=" + solutionTestService +
+                ", pageMessage='" + pageMessage + '\'' +
+                '}';
+    }
 }

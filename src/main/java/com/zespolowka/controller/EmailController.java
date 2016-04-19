@@ -51,4 +51,12 @@ public class EmailController {
     public void sendMessage() {
         notificationService.createNotification(new Notification("GRUPOWA", "Temat", new Date(), Role.ADMIN));
     }
+
+    @Override
+    public String toString() {
+        return "EmailController{" +
+                "sendMailService=" + sendMailService +
+                ", notificationService=" + notificationService +
+                '}';
+    }
 }

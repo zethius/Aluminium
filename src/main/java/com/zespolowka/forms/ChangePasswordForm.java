@@ -20,6 +20,9 @@ public class ChangePasswordForm {
     @Size(min = 8, max = 25)
     private String confirmPassword;
 
+    public ChangePasswordForm() {
+    }
+
     public String getPassword() {
         return password;
     }
@@ -42,5 +45,14 @@ public class ChangePasswordForm {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "ChangePasswordForm{" +
+                "id=" + id +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                '}';
     }
 }

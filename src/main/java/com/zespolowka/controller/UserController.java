@@ -61,7 +61,7 @@ public class UserController {
             model.addAttribute(user);
         } catch (final Exception e) {
             logger.error(e.getMessage(), e);
-            logger.info(id.toString() + "\n" + model);
+            logger.info(id.toString() + '\n' + model);
         }
         return "userDetail";
     }
@@ -127,7 +127,7 @@ public class UserController {
                     .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)))));
         } catch (final Exception e) {
             logger.error(e.getMessage(), e);
-            logger.info(id.toString() + "\n" + model + "\n" + userService.getUserById(id));
+            logger.info(id.toString() + '\n' + model + '\n' + userService.getUserById(id));
         }
         return "userEdit";
     }
@@ -171,6 +171,15 @@ public class UserController {
             }
         }
         return "redirect:/users";
+    }
+
+    @Override
+    public String toString() {
+        return "UserController{" +
+                "userService=" + userService +
+                ", notificationService=" + notificationService +
+                ", changePasswordValidator=" + changePasswordValidator +
+                '}';
     }
 }
 

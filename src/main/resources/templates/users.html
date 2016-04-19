@@ -61,11 +61,7 @@
 <script layout:fragment="customScripts">
     function confirmDelete() {
         var x;
-        if (confirm("Czy na pewno chcesz usunąć?") == true) {
-            x = true;
-        } else {
-            x = false;
-        }
+        x = confirm("Czy na pewno chcesz usunąć?") == true;
         return x;
     }
 </script>

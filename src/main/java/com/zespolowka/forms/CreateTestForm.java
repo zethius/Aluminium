@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -25,7 +26,7 @@ public class CreateTestForm {
     private String beginDate = LocalDate.now().toString();
 
     @NotNull
-    private String endDate = LocalDate.now().plusWeeks(1).toString();
+    private String endDate = LocalDate.now().plusWeeks(1L).toString();
 
     @Min(5)
     private int timePerAttempt = 5;
@@ -33,6 +34,7 @@ public class CreateTestForm {
     private String password = "";
 
     @NotEmpty
+    @Valid
     private List<TaskForm> tasks;
 
     public CreateTestForm() {

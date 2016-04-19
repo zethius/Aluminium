@@ -4,7 +4,9 @@ import com.zespolowka.entity.createTest.Test;
 import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.SolutionTestForm;
+import org.json.simple.parser.ParseException;
 
+import java.io.IOException;
 import java.util.Collection;
 
 /**
@@ -20,5 +22,9 @@ public interface SolutionTestService {
     SolutionTest create(SolutionTest solutionTest);
 
     SolutionTestForm createForm(Test test, User user);
+
+    String executeCommand(String command);
+
+    SolutionTest create(SolutionTest solutionTest, SolutionTestForm solutionTestForm) throws IOException, ParseException;
 
 }
