@@ -7,6 +7,7 @@ import com.zespolowka.forms.ProgrammingTaskForm;
 import com.zespolowka.forms.TaskForm;
 import com.zespolowka.service.TestFormService;
 import com.zespolowka.service.inteface.TestService;
+import com.zespolowka.validators.CreateTestValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,16 @@ import java.util.TreeSet;
 @RequestMapping("/test")
 public class TestController {
     private static final Logger logger = LoggerFactory.getLogger(TestController.class);
-    private TestFormService testFormService;
-    private TestService testService;
+    private final TestFormService testFormService;
+    private final TestService testService;
+    private final CreateTestValidator createTestValidator;
     private CreateTestForm createTestForm;
 
     @Autowired
-    public TestController(final TestFormService testFormService, TestService testService) {
+    public TestController(TestFormService testFormService, TestService testService, CreateTestValidator createTestValidator) {
         this.testFormService = testFormService;
         this.testService = testService;
+        this.createTestValidator = createTestValidator;
     }
 
     @RequestMapping(value = "create")
@@ -72,7 +75,7 @@ public class TestController {
     }
 
     @RequestMapping(value = "create/change", method = RequestMethod.POST)
-    public String changeLanguages(@RequestParam(value = "taskId", defaultValue = "0") int taskId, @RequestParam(value = "selected", defaultValue = "") String selected, final CreateTestForm createTestForm, final Model model) {
+    public String changeLanguages(@RequestParam(value = "taskId", defaultValue = "0") Integer taskId, @RequestParam(value = "selected", defaultValue = "java") String selected, final CreateTestForm createTestForm, final Model model) {
         logger.info("Metoda - changeLanguages");
         taskId -= 1;
         testFormService.updateSelectedLanguagesInSession(selected);  ///TODO zmienic by to w sesji jak pizdy nie było
@@ -109,7 +112,7 @@ public class TestController {
     @RequestMapping(value = "create/remove", method = RequestMethod.POST)
     public String removeQuestion(@RequestParam(value = "taskId") int taskId, final CreateTestForm createTestForm, final Model model) {
         logger.info("removeQuestion");
-        logger.info(createTestForm + "");
+        logger.info(String.valueOf(createTestForm));
         createTestForm.getTasks().remove(taskId);
         testFormService.updateTestFormInSession(createTestForm);
         model.addAttribute("createTestForm", testFormService.getTestFromSession());
@@ -119,6 +122,7 @@ public class TestController {
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public String save(final @Valid CreateTestForm createTestForm, final BindingResult result) {
         logger.info("Metoda - save");
+        createTestValidator.validate(createTestForm, result);
         if (result.hasErrors()) {
             logger.info(result.getAllErrors().toString());
             return "tmpCreateTest";
@@ -128,7 +132,17 @@ public class TestController {
         Test test = testService.create(createTestForm);
         logger.info(test.toString());
         testFormService.updateTestFormInSession(new CreateTestForm());
-        testFormService.updateSelectedLanguagesInSession(new String());
+        testFormService.updateSelectedLanguagesInSession("");
         return "redirect:/test/create";
+    }
+
+    @Override
+    public String toString() {
+        return "TestController{" +
+                "testFormService=" + testFormService +
+                ", testService=" + testService +
+                ", createTestValidator=" + createTestValidator +
+                ", createTestForm=" + createTestForm +
+                '}';
     }
 }

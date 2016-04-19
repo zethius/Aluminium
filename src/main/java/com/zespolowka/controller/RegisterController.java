@@ -48,6 +48,9 @@ public class RegisterController {
     @Autowired
     private SendMailService sendMailService;
 
+    public RegisterController() {
+    }
+
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registerPage(Model model) {
@@ -94,7 +97,7 @@ public class RegisterController {
          * TODO
          * Poprawic to
          */
-        if (diff < 0) {
+        if (diff < 0L) {
             logger.info(String.format("Token juz jest nieaktulany \n dataDO= %s \n", verificationToken.getExpiryDate()));
             return "login";
         } else {
@@ -105,4 +108,13 @@ public class RegisterController {
         }
     }
 
+    @Override
+    public String toString() {
+        return "RegisterController{" +
+                "userService=" + userService +
+                ", userCreateValidator=" + userCreateValidator +
+                ", verificationTokenService=" + verificationTokenService +
+                ", sendMailService=" + sendMailService +
+                '}';
+    }
 }

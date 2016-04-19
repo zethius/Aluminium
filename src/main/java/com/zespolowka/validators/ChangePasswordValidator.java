@@ -12,6 +12,9 @@ import org.springframework.validation.Validator;
 public class ChangePasswordValidator implements Validator {
     private static final Logger logger = LoggerFactory.getLogger(ChangePasswordValidator.class);
 
+    public ChangePasswordValidator() {
+    }
+
     @Override
     public boolean supports(Class<?> clazz) {
         return clazz.equals(UserEditForm.class);

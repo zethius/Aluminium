@@ -11,6 +11,9 @@ public class NotificationRepositoryImpl implements CustomNotificationRepository 
     @PersistenceContext
     private EntityManager em;
 
+    public NotificationRepositoryImpl() {
+    }
+
 
     @Override
     public Long messageCount(long userId, Role role) {
@@ -19,5 +22,12 @@ public class NotificationRepositoryImpl implements CustomNotificationRepository 
         query.setParameter("userId", userId);
         query.setParameter("role", role);
         return (Long) query.getSingleResult();
+    }
+
+    @Override
+    public String toString() {
+        return "NotificationRepositoryImpl{" +
+                "em=" + em +
+                '}';
     }
 }

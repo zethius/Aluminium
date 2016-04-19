@@ -42,4 +42,11 @@ public class UserCreateValidator implements Validator {
             errors.rejectValue("email", "email_error");
         }
     }
+
+    @Override
+    public String toString() {
+        return "UserCreateValidator{" +
+                "userService=" + userService +
+                '}';
+    }
 }

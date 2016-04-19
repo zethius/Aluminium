@@ -137,6 +137,14 @@ public class NotificationServiceImpl implements NotificationService {
         notificationRepository.deleteByUserId(id);
         logger.info("Po usunieciu:" + notificationRepository.count());
     }
+
+    @Override
+    public String toString() {
+        return "NotificationServiceImpl{" +
+                "notificationRepository=" + notificationRepository +
+                ", userRepository=" + userRepository +
+                '}';
+    }
 }
 
 

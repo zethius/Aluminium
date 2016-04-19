@@ -29,9 +29,15 @@ public class UsersController {
             model.addAttribute("Users", userService.getAllUsers());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            logger.info(model.toString() + "\n" + userService.getAllUsers().toString());
+            logger.info(model.toString() + '\n' + userService.getAllUsers().toString());
         }
         return "users";
     }
 
+    @Override
+    public String toString() {
+        return "UsersController{" +
+                "userService=" + userService +
+                '}';
+    }
 }

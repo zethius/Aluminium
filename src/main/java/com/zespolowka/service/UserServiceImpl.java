@@ -91,4 +91,10 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(id);
     }
 
+    @Override
+    public String toString() {
+        return "UserServiceImpl{" +
+                "userRepository=" + userRepository +
+                '}';
+    }
 }

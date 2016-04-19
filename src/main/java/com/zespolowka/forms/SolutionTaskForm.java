@@ -18,7 +18,7 @@ public class SolutionTaskForm {
     private String answer = "";
     private String answerCode = "";
     private Set<String> languages = new TreeSet<>();
-    private String language = new String();
+    private String language = "";
     private int taskType;
 
     public SolutionTaskForm() {

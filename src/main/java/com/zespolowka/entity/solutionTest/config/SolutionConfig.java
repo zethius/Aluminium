@@ -8,19 +8,19 @@ import java.util.HashMap;
  * Created by Admin on 2016-04-17.
  */
 public class SolutionConfig {
-    public final String MAIN_FILE = "main_file";
-    public final String RESTRICTED_LIST_PATH = "restricted_list_path";
-    public final String COMPILER = "compiler";
-    public final String INTERPRETER = "interpreter";
-    public final String COMPILER_FLAGS = "compiler_flags";
-    public final String INTERPRETER_FLAGS = "interpreter_flags";
-    public final String ULIMIT_FLAGS = "ulimit_flags";
-    public final String MAX_TIME_OF_TESTS = "max_time_of_tests";
-    public final String LANGUAGE = "language";
-    public final String SOURCES = "sources";
-    public final String TESTER_FILES = "tester_files";
-    public final String PREPARATIONS = "preparations";
-    public final String TESTS = "tests";
+    public static final String MAIN_FILE = "main_file";
+    public static final String RESTRICTED_LIST_PATH = "restricted_list_path";
+    public static final String COMPILER = "compiler";
+    public static final String INTERPRETER = "interpreter";
+    public static final String COMPILER_FLAGS = "compiler_flags";
+    public static final String INTERPRETER_FLAGS = "interpreter_flags";
+    public static final String ULIMIT_FLAGS = "ulimit_flags";
+    public static final String MAX_TIME_OF_TESTS = "max_time_of_tests";
+    public static final String LANGUAGE = "language";
+    public static final String SOURCES = "sources";
+    public static final String TESTER_FILES = "tester_files";
+    public static final String PREPARATIONS = "preparations";
+    public static final String TESTS = "tests";
 
     private String mainFile;
     private String restricted_list_path;
@@ -62,6 +62,8 @@ public class SolutionConfig {
         this.tests = tests;
         this.compiler = "/usr/bin/javac";
         this.interpreter = "/usr/bin/java";
+        this.compiler_flags = "-cp .:/home/pitek/zespolowka/skrypty/JAVA_LIB/junit-4.12.jar";
+        this.interpreter_flags = "-cp .:/home/pitek/zespolowka/skrypty/JAVA_LIB/*";
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(LANGUAGE, language);
         jsonObject.put(SOURCES, sources);

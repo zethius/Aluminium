@@ -11,7 +11,10 @@ import org.springframework.context.annotation.ComponentScan;
 public class AluminiumApplication {
     private static final Logger logger = LoggerFactory.getLogger(AluminiumApplication.class);
 
-    public static void main(String[] args) {
+    public AluminiumApplication() {
+    }
+
+    public static void main(String... args) {
         SpringApplication.run(AluminiumApplication.class, args);
         logger.info("Aplikacja uruchomiona");
     }

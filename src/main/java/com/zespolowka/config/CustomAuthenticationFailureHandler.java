@@ -34,6 +34,9 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
     @Autowired
     private UserService userService;
 
+    public CustomAuthenticationFailureHandler() {
+    }
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
             throws IOException, ServletException {
@@ -75,5 +78,14 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
             errorMessage = messages.getMessage("auth.message.blocked", null, locale);
         }
         request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, errorMessage);
+    }
+
+    @Override
+    public String toString() {
+        return "CustomAuthenticationFailureHandler{" +
+                "messages=" + messages +
+                ", localeResolver=" + localeResolver +
+                ", userService=" + userService +
+                '}';
     }
 }

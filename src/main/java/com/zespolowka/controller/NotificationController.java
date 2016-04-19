@@ -37,7 +37,7 @@ public class NotificationController {
         logger.info("nazwa metody = showNotifications");
         try {
             model.addAttribute("idNotification", notification.getId());
-            logger.info(notification.getId() + "");
+            logger.info(String.valueOf(notification.getId()));
 
         } catch (final Exception e) {
             logger.error(e.getMessage(), e);
@@ -75,7 +75,7 @@ public class NotificationController {
             try {
                 notificationService.sendMessage(newMessageForm);
             } catch (final Exception e) {
-                logger.info("\n" + model + "\n");
+                logger.info("\n" + model + '\n');
             }
             model.addAttribute("newMessageForm", new NewMessageForm());
             return "sendMessage";
@@ -86,5 +86,13 @@ public class NotificationController {
             model.addAttribute("newMessageForm", new NewMessageForm());
             return "sendMessage";
         }
+    }
+
+    @Override
+    public String toString() {
+        return "NotificationController{" +
+                "notificationService=" + notificationService +
+                ", sendMessageValidator=" + sendMessageValidator +
+                '}';
     }
 }

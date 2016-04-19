@@ -64,6 +64,6 @@ public class ProgrammingTaskForm implements Comparable<ProgrammingTaskForm> {
 
     @Override
     public int compareTo(ProgrammingTaskForm o) {
-        return this.language.compareTo(o.getLanguage());
+        return this.language.compareTo(o.language);
     }
 }

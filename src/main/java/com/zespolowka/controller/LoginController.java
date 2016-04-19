@@ -66,4 +66,12 @@ public class LoginController {
         }
         return "remindPassword";
     }
+
+    @Override
+    public String toString() {
+        return "LoginController{" +
+                "userService=" + userService +
+                ", sendMailService=" + sendMailService +
+                '}';
+    }
 }

@@ -25,7 +25,7 @@ public class Test {
 
     public Test() {
         this.tasks = new ArrayList<>();
-        this.maxPoints = 0f;
+        this.maxPoints = 0.0f;
         this.password = "";
     }
 
@@ -35,7 +35,7 @@ public class Test {
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.tasks = tasks;
-        this.maxPoints = 0f;
+        this.maxPoints = 0.0f;
     }
 
     public void addTaskToTest(final Task task) {

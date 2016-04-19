@@ -35,4 +35,11 @@ public class CurrentUserDetailsService implements UserDetailsService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public String toString() {
+        return "CurrentUserDetailsService{" +
+                "userService=" + userService +
+                '}';
+    }
 }

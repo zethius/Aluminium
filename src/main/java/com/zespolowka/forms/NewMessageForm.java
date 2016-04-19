@@ -6,6 +6,9 @@ public class NewMessageForm {
     private String topic;
     private String receivers;
 
+    public NewMessageForm() {
+    }
+
     public String getMessage() {
         return message;
     }

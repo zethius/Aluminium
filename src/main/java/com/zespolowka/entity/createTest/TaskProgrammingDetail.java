@@ -14,6 +14,9 @@ public class TaskProgrammingDetail {
     @Enumerated(EnumType.STRING)
     private ProgrammingLanguages language;
 
+    public TaskProgrammingDetail() {
+    }
+
     public Long getId() {
         return id;
     }

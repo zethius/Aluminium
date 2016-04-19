@@ -43,7 +43,7 @@ public class SendMessageValidator implements Validator {
             else receivers = form.getReceivers();
 
             String result[] = receivers.split(",");
-            logger.info(receivers.toString());
+            logger.info(receivers);
             logger.info(Arrays.toString(result));
             for (String s : result) {
                 String st = s.replaceAll("\\s+", "");
@@ -60,5 +60,12 @@ public class SendMessageValidator implements Validator {
                 }
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "SendMessageValidator{" +
+                "userService=" + userService +
+                '}';
     }
 }

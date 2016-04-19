@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 public class CurrentUserServiceImpl implements CurrentUserService {
     private static final Logger logger = LoggerFactory.getLogger(CurrentUserDetailsService.class);
 
+    public CurrentUserServiceImpl() {
+    }
+
     @Override
     public boolean canAccessUser(CurrentUser currentUser, Long userId) {
         logger.info("Sprawdzam czy uzytkownik = {} ma dostep do informacji o uzytkowniku o id = {}", currentUser.getUsername(), userId);
