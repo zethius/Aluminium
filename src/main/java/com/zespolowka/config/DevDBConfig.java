@@ -2,6 +2,8 @@ package com.zespolowka.config;
 
 import com.zespolowka.entity.Notification;
 import com.zespolowka.entity.createTest.*;
+import com.zespolowka.entity.solutionTest.SolutionTest;
+import com.zespolowka.entity.solutionTest.TaskClosedSolution;
 import com.zespolowka.entity.user.Role;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.repository.NotificationRepository;
@@ -125,16 +127,16 @@ public class DevDBConfig {
         taskProgrammingDetail.setTestCode("fib");
         taskProgrammingDetail.setWhiteList("aaa");
         taskProgramming.getProgrammingDetailSet().add(taskProgrammingDetail);
-        test.addTaskToTest(taskProgramming);
+     //   test.addTaskToTest(taskProgramming);
         test = testRepository.save(test);
         logger.info(test.toString());
 
-        /*SolutionTest solutionTest = new SolutionTest(test);
-        solutionTest.setAttempt(1);
-        solutionTest.setBeginSolution(LocalDate.now());
-        solutionTest.setEndSolution(LocalDate.now().plusDays(1));
+      //  SolutionTest solutionTest = new SolutionTest();
+       // solutionTest.setAttempt(1);
+       // solutionTest.setTest(test);
+       // solutionTest.setId((long)2);
 
-        SolutionTest solutionTest2 = new SolutionTest(test);
+        /*SolutionTest solutionTest2 = new SolutionTest(test);
         solutionTest2.setAttempt(2);
         solutionTest2.setBeginSolution(LocalDate.now().plusDays(1));
         solutionTest2.setEndSolution(LocalDate.now().plusDays(2));
@@ -165,8 +167,8 @@ public class DevDBConfig {
 
         logger.info(test.toString());
         logger.info(solutionTest.toString());
-        logger.info(solutionTest2.toString());
-        */
+        logger.info(solutionTest2.toString());*/
+
     }
 
 }

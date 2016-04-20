@@ -39,6 +39,10 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     public Collection<SolutionTest> getSolutionTestsByUserAndTest(User user, Test test) {
         return solutionTestRepository.findSolutionTestsByUserAndTest(user, test);
     }
+    @Override
+    public Collection<SolutionTest> getSolutionTestsByUser(User user){
+        return solutionTestRepository.findSolutionTestsByUser(user);
+    }
 
     @Override
     public SolutionTest getSolutionTestById(long id) {

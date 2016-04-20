@@ -32,8 +32,8 @@
                         </thead>
                         <tbody>
                         <tr th:each="test:*{activeTest}">
-                            <td><a th:href="'/solutionTest/'+*{test.id}"
-                                   th:text="*{test.name}"/></td>
+                            <td><a href="#"
+                                   th:text="*{test.name}" data-toggle="modal" data-target="#przystapTest" data-id="*{test.id}" /></td>
                             <td th:text="*{test.attempts}"/>
                             <td th:text="${#lists.size(test.tasks)}"/>
                             <td th:text="*{test.maxPoints}"/>
@@ -56,7 +56,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="test:*{archiveTest}">
-                            <td th:text="*{test.test.name}"/>
+                            <td th:text="*{test.test.name}" />
                             <td th:text="*{test.attempt}"/>
                             <td th:text="*{test.beginSolution}"/>
                             <td th:text="*{test.endSolution}"/>
@@ -66,7 +66,44 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div class="modal fade" id="przystapTest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Przystępujesz do testu <strong>xyz</strong>
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-register" method="post">
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="nazwaTest">Wpisz hasło dostępu</label>
+                                            <div class="input-group">
+                                                <input type="password" class="form-control" id="haslodostepu"
+                                                       name="haslodostepu" placeholder="Hasło"/>
+                                                <span class="input-group-addon"><span
+                                                        class="glyphicon glyphicon-asterisk"></span></span>
+                                                <script>
+                                                    var id = $(this).data("id")
+                                                </script>
+                                                <input type="submit" name="submit" id="submit" value="Rozpocznij"
+                                                    class="btn btn-primary pull-right" th:href="'/solutionTest/'+id"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             <p><a class="btn btn-primary btn-lg" href="#" role="button" th:text="#{more}"></a></p>
         </div>
     </div>

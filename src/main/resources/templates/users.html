@@ -36,7 +36,7 @@
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.name + ' ' + user.lastName}"></td>
                     <td th:text="${user.accountNonLocked}"></td>
-                    <td><a href="#">otwórz</a></td>
+                    <td><a th:href="${'/test/' + user.id}">otwórz</a></td>
                     <td th:text="${user.role}"></td>
                     <td>
                         <a th:href="${'/user/delete/' + user.id}"><span class="glyphicon glyphicon-remove"

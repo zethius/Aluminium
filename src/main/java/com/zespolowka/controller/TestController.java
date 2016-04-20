@@ -2,27 +2,30 @@ package com.zespolowka.controller;
 
 import com.zespolowka.entity.createTest.ProgrammingLanguages;
 import com.zespolowka.entity.createTest.Test;
+import com.zespolowka.entity.user.CurrentUser;
+import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.CreateTestForm;
 import com.zespolowka.forms.ProgrammingTaskForm;
 import com.zespolowka.forms.TaskForm;
 import com.zespolowka.service.TestFormService;
+import com.zespolowka.service.inteface.SolutionTestService;
 import com.zespolowka.service.inteface.TestService;
+import com.zespolowka.service.inteface.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @Controller
 @RequestMapping("/test")
@@ -31,11 +34,15 @@ public class TestController {
     private TestFormService testFormService;
     private TestService testService;
     private CreateTestForm createTestForm;
+    private final SolutionTestService solutionTestService;
+    private final UserService userService;
 
     @Autowired
-    public TestController(final TestFormService testFormService, TestService testService) {
+    public TestController(final TestFormService testFormService, TestService testService,SolutionTestService solutionTestService, UserService userService) {
         this.testFormService = testFormService;
         this.testService = testService;
+        this.solutionTestService=solutionTestService;
+        this.userService= userService;
     }
 
     @RequestMapping(value = "create")
@@ -144,4 +151,33 @@ public class TestController {
         }
         return "tests";
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String showUserTests(@PathVariable final Long id, final Model model) {
+        logger.info("nazwa metody = showUserTests");
+        try {
+            User user=userService.getUserById(id)
+                    .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
+           model.addAttribute("Tests",solutionTestService.getSolutionTestsByUser(user));
+            logger.info(user+"");
+        } catch (final Exception e) {
+            logger.error(e.getMessage(), e);
+            logger.info(id.toString() + "\n" + model);
+        }
+        return "userTests";
+    }
+    @RequestMapping(value = "/showResults", method = RequestMethod.GET)
+    public String showCurrentUserTests(final Model model) {
+        logger.info("nazwa metody = showCurrentUserTests");
+        try {
+            final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            final User user = currentUser.getUser();
+            logger.info(user+"");
+            model.addAttribute("Tests",solutionTestService.getSolutionTestsByUser(user));
+        } catch (final Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "userTests";
+    }
+
 }

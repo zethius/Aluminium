@@ -13,6 +13,8 @@ import java.util.Collection;
 public interface SolutionTestService {
     Collection<SolutionTest> getSolutionTestsByUserAndTest(User user, Test test);
 
+    Collection<SolutionTest> getSolutionTestsByUser(User user);
+
     SolutionTest getSolutionTestById(long id);
 
     Collection<SolutionTest> getAllTests();
