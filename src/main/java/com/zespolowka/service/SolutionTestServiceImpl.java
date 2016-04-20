@@ -10,7 +10,6 @@ import com.zespolowka.forms.SolutionTestForm;
 import com.zespolowka.repository.SolutionTestRepository;
 import com.zespolowka.service.inteface.SolutionTestService;
 import org.apache.commons.io.FileUtils;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -177,35 +176,43 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
             for (TaskProgrammingDetail taskProgrammingDetail : taskProgrammingDetails) {
                 if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.JAVA)) {
-                    jsonObject = solutionConfig.createJavaConfig("Dodawanie.java", "MyTests.java", "allowed_list_path");
+                    jsonObject = solutionConfig.createJavaConfig("Dodawanie.java", "MyTests.java", "restricted_list_java");
                     FileUtils.writeStringToFile(new File(dir + userDirectory + "Dodawanie.java"), taskSol.getAnswerCode());
                     FileUtils.writeStringToFile(new File(dir + userDirectory + "MyTests.java"), taskProgrammingDetail.getTestCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "allowed_list_java"), taskProgrammingDetail.getWhiteList());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_java"), taskProgrammingDetail.getWhiteList());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "config.json"), jsonObject.toJSONString());
+                } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.CPP)) {
+                    jsonObject = solutionConfig.createCppConfig("mathematic.cpp", "testMath.cpp", "restricted_list_cpp", "-w");
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "mathematic.cpp"), taskSol.getAnswerCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "testMath.cpp"), taskProgrammingDetail.getTestCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_cpp"), taskProgrammingDetail.getWhiteList());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "config.json"), jsonObject.toJSONString());
+                } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.PYTHON)) {
+                    jsonObject = solutionConfig.createPythonConfig("my_example0.py", "my_tests.py", "allowed_list_python");
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "my_example0.py"), taskSol.getAnswerCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "my_tests.py"), taskProgrammingDetail.getTestCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "allowed_list_python"), taskProgrammingDetail.getWhiteList());
                     FileUtils.writeStringToFile(new File(dir + userDirectory + "config.json"), jsonObject.toJSONString());
                 }
             }
-            executeCommand(dir + "skrypt.rb \"" + dir + " \""+userDirectory+"\"");
-            /*Socket socket = new Socket("localhost", 54321);
-            PrintWriter printWriter = new PrintWriter(socket.getOutputStream());
-            printWriter.println("\"" + userDirectory + "\"");
-            printWriter.close();
-            socket.close();
-*/
+            executeCommand("ruby " + dir + "skrypt.rb \"" + dir + "\" \"" + userDirectory + "\"");
+
             JSONParser parser = new JSONParser();
             Object result = parser.parse(new FileReader(resultDir + userDirectory + "output.json"));
-            if (result instanceof JSONArray) {
-                JSONArray jsonArray = (JSONArray) result;
-                Long passed = (Long) jsonArray.get(1);
-                Long all = (Long) jsonArray.get(2);
-                BigDecimal wynik = new BigDecimal((float) passed / all).setScale(2);
-                logger.info(wynik.doubleValue() + "");
+            jsonObject = (JSONObject) result;
+            if (jsonObject.get("time") != null) {
+                BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
+                BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
+                BigDecimal time = BigDecimal.valueOf((Double) jsonObject.get("time"));
+                BigDecimal resultTest = (passed.divide(all).setScale(2)); //TODO dodac czas rozwiazania do statystyk
+                BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSol.getTask().getMax_points())).setScale(2);
+                taskSol.setPoints(points.floatValue());
+                solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
             } else {
-                jsonObject = (JSONObject) result;
-                logger.info(jsonObject.toString());
+                logger.info("blad kompilacji itp, obrobic to potem");
+                logger.info(jsonObject.toJSONString());
+                taskSol.setPoints(0f);
             }
-
-            solutionTest.setPoints(solutionTest.getPoints() + taskProgramming.getMax_points());
-            taskSol.setPoints(taskProgramming.getMax_points());
             solutionTest.getSolutionTasks().add(taskSol);
         }
     }
@@ -236,6 +243,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     }
 
     public String executeCommand(String command) {
+        logger.info(command);
         StringBuilder output = new StringBuilder();
         Process p;
         try {
