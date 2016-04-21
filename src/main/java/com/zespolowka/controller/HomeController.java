@@ -1,5 +1,6 @@
 package com.zespolowka.controller;
 
+import com.zespolowka.repository.SolutionTestRepository;
 import com.zespolowka.service.inteface.SolutionTestService;
 import com.zespolowka.service.inteface.TestService;
 import org.slf4j.Logger;

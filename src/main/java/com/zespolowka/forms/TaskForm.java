@@ -11,6 +11,7 @@ public class TaskForm {
     public static final int CLOSEDTASK = 0;
     public static final int OPENTASK = 1;
     public static final int PROGRAMMINGTASK = 2;
+    public static final int SQLTASK = 3;
     private static final Logger logger = LoggerFactory.getLogger(TaskForm.class);
 
     private String question;
@@ -20,6 +21,8 @@ public class TaskForm {
     private int taskType;
 
     private Integer points = 1;
+
+    private String preparations;
 
     private Set<String> languages = new TreeSet<>();
 
@@ -166,6 +169,13 @@ public class TaskForm {
         this.countNotFull = countNotFull;
     }
 
+    public String getPreparations() {
+        return preparations;
+    }
+
+    public void setPreparations(String preparations) {
+        this.preparations = preparations;
+    }
 
     @Override
     public String toString() {

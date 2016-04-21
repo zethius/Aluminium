@@ -45,7 +45,7 @@ public class TestController {
         logger.info("Metoda - createTest");
         createTestForm = this.testFormService.getTestFromSession();
         logger.info(createTestForm.toString());
-        model.addAttribute("createTestForm", testService.createForm(testService.getTestById(2)));
+        model.addAttribute("createTestForm", createTestForm);
         return "tmpCreateTest";
     }
 
@@ -65,6 +65,10 @@ public class TestController {
             }
             case 2: {
                 testFormService.addTaskFormToTestForm(new TaskForm(TaskForm.PROGRAMMINGTASK));
+                break;
+            }
+            case 3: {
+                testFormService.addTaskFormToTestForm(new TaskForm(TaskForm.SQLTASK));
                 break;
             }
         }

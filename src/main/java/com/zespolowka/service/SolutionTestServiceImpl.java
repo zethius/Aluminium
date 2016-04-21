@@ -5,13 +5,12 @@ import com.zespolowka.entity.createTest.*;
 import com.zespolowka.entity.solutionTest.*;
 import com.zespolowka.entity.solutionTest.config.SolutionConfig;
 import com.zespolowka.entity.user.User;
-import com.zespolowka.forms.CreateTestForm;
 import com.zespolowka.forms.SolutionTaskForm;
 import com.zespolowka.forms.SolutionTestForm;
-import com.zespolowka.forms.TaskForm;
 import com.zespolowka.repository.SolutionTestRepository;
 import com.zespolowka.service.inteface.SolutionTestService;
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -102,6 +101,8 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.OPENTASK));
             } else if (task instanceof TaskProgramming) {
                 solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.PROGRAMMINGTASK));
+            } else if (task instanceof TaskSql) {
+                solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.SQLTASK));
             }
         }
         solutionTestForm.setTasks(solutionTaskFormList);
@@ -178,7 +179,6 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             JSONObject jsonObject;
             String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getEmail() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
 
-
             Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
             for (TaskProgrammingDetail taskProgrammingDetail : taskProgrammingDetails) {
                 if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.JAVA)) {
@@ -221,6 +221,45 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             }
             solutionTest.getSolutionTasks().add(taskSol);
         }
+        if (taskSolution instanceof TaskSqlSolution) {
+            TaskSqlSolution taskSqlSolution = (TaskSqlSolution) taskSolution;
+            TaskSql taskSql = (TaskSql) taskSqlSolution.getTask();
+            SolutionConfig solutionConfig = new SolutionConfig();
+            JSONObject jsonObject;
+            JSONObject source=new JSONObject();
+            source.put("task0", taskSqlSolution.getAnswer());
+            JSONObject tests=new JSONObject();
+            JSONArray array=new JSONArray();
+            array.add("type0");
+            array.add(taskSql.getSqlAnswer());
+            tests.put("task0",array);
+            String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getEmail() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
+            jsonObject = solutionConfig.createSqlConfig("sources.json", "preparations.txt", "tests.json", "restricted_list_sql");
+            FileUtils.writeStringToFile(new File(dir + userDirectory + "tests.json"), tests.toJSONString());
+            FileUtils.writeStringToFile(new File(dir + userDirectory + "sources.json"), source.toJSONString());
+            FileUtils.writeStringToFile(new File(dir + userDirectory + "preparations.txt"), taskSql.getPreparations());
+            FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_sql"), "drop");
+            FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
+            logger.info("ugabuga");
+            executeCommand("ruby " + dir + "skrypt.rb \"" + dir + "\" \"" + userDirectory + "\"");
+
+            JSONParser parser = new JSONParser();
+            Object result = parser.parse(new FileReader(resultDir + userDirectory + OUTPUT));
+            jsonObject = (JSONObject) result;
+            if (jsonObject.get("time") != null) {
+                BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
+                BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
+                BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(2));
+                BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSqlSolution.getTask().getMax_points())).setScale(2);
+                taskSqlSolution.setPoints(points.floatValue());
+                solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
+            } else {
+                logger.info("blad kompilacji itp, obrobic to potem");
+                logger.info(jsonObject.toJSONString());
+                taskSqlSolution.setPoints(0f);
+            }
+            solutionTest.getSolutionTasks().add(taskSqlSolution);
+        }
     }
 
     public SolutionTest create(SolutionTest solutionTest, SolutionTestForm solutionTestForm) throws IOException, ParseException {
@@ -241,9 +280,13 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 logger.info(solutionTaskForm.toString());
                 TaskProgrammingSolution taskProgrammingSolution = new TaskProgrammingSolution(solutionTaskForm.getTask());
                 taskProgrammingSolution.setAnswerCode(solutionTaskForm.getAnswerCode());
-
                 taskProgrammingSolution.setLanguage(solutionTaskForm.getLanguage());
                 addTaskSolutionToTest(solutionTest, taskProgrammingSolution);
+            } else if (solutionTaskForm.getTaskType() == SolutionTaskForm.SQLTASK) {
+                logger.info(solutionTaskForm.toString());
+                TaskSqlSolution taskSqlSolution = new TaskSqlSolution(solutionTaskForm.getTask());
+                taskSqlSolution.setAnswer(solutionTaskForm.getAnswerCode());
+                addTaskSolutionToTest(solutionTest, taskSqlSolution);
             }
         return solutionTest;
     }

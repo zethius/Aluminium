@@ -129,11 +129,12 @@ public class SolutionConfig {
         return jsonObject;
     }
 
-    public JSONObject createSqlConfig(String sources, String preparations, String mainFile, String tests, String restricted_list_path) {
+    public JSONObject createSqlConfig(String sources, String preparations,String tests, String restricted_list_path) {
         this.language = "sql";
         this.sources = sources;
         this.tests = tests;
         this.interpreter = "/usr/bin/python3";
+        this.mainFile="sql.py";
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(LANGUAGE, language);
         jsonObject.put(SOURCES, sources);

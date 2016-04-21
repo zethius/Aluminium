@@ -72,7 +72,6 @@ public class TestServiceImpl implements TestService {
                     TaskOpen taskOpen = new TaskOpen(taskForm.getQuestion(), (float) taskForm.getPoints());
                     taskOpen.setAnswer(taskForm.getAnswer());
                     taskOpen.setCaseSens(taskForm.getCaseSensitivity());
-                    taskOpen.setMax_points((float) taskForm.getPoints());
                     test.addTaskToTest(taskOpen);
                     break;
                 }
@@ -90,6 +89,14 @@ public class TestServiceImpl implements TestService {
                         taskProgramming.addTaskkProgrammingDetail(taskProgrammingDetail);
                     });
                     test.addTaskToTest(taskProgramming);
+                    break;
+                }
+                case 3: {
+                    TaskSql taskSql=new TaskSql(taskForm.getQuestion(),(float) taskForm.getPoints());
+                    taskSql.setPreparations(taskForm.getPreparations());
+                    taskSql.setSqlAnswer(taskForm.getAnswer());
+                    test.addTaskToTest(taskSql);
+
                     break;
                 }
             }
@@ -151,6 +158,12 @@ public class TestServiceImpl implements TestService {
                 }
                 taskForm.setLanguages(languages);
                 taskForm.setProgrammingTaskForms(programmingTaskFormSet);
+            }else if (task instanceof TaskSql) {
+                taskForm.setTaskType(TaskForm.SQLTASK);
+                taskForm.setQuestion(task.getQuestion());
+                taskForm.setPoints(task.getMax_points().intValue());
+                taskForm.setPreparations(((TaskSql) task).getPreparations());
+                taskForm.setAnswer(((TaskSql) task).getSqlAnswer());
             }
             taskForms.add(taskForm);
             logger.info(taskForm.toString());
