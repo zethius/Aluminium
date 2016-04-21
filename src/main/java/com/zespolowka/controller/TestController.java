@@ -45,7 +45,7 @@ public class TestController {
         logger.info("Metoda - createTest");
         createTestForm = this.testFormService.getTestFromSession();
         logger.info(createTestForm.toString());
-        model.addAttribute("createTestForm", createTestForm);
+        model.addAttribute("createTestForm", testService.createForm(testService.getTestById(2)));
         return "tmpCreateTest";
     }
 

@@ -14,4 +14,6 @@ public interface TestService {
     Collection<Test> getAllTests();
 
     Test create(CreateTestForm form);
+
+    CreateTestForm createForm(Test test);
 }

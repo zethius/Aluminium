@@ -42,7 +42,6 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
 
     public VerificationToken create(User user, String token) {
         VerificationToken verificationToken = new VerificationToken(token, user);
-        logger.info("Stworzono token" + token);
         return verificationTokenRepository.save(verificationToken);
     }
 

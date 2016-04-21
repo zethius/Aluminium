@@ -34,10 +34,8 @@ public class HomeController {
         logger.info("nazwa metody = homePage");
         try {
             model.addAttribute("pageMessage", this.pageMessage);
-            logger.info(testService.getAllTests().toString());
             model.addAttribute("activeTest", testService.getAllTests());
             model.addAttribute("archiveTest", solutionTestService.getAllTests());
-            logger.info(solutionTestService.getAllTests().toString());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             logger.info(model.toString() + ' ' + this.pageMessage);

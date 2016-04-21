@@ -2,12 +2,16 @@ package com.zespolowka.config;
 
 import com.zespolowka.entity.Notification;
 import com.zespolowka.entity.createTest.*;
+import com.zespolowka.entity.solutionTest.SolutionTest;
+import com.zespolowka.entity.solutionTest.TaskClosedSolution;
 import com.zespolowka.entity.user.Role;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.repository.NotificationRepository;
 import com.zespolowka.repository.SolutionTestRepository;
 import com.zespolowka.repository.TestRepository;
 import com.zespolowka.repository.UserRepository;
+import com.zespolowka.service.inteface.SolutionTestService;
+import com.zespolowka.service.inteface.VerificationTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +20,15 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.TreeMap;
+import java.util.UUID;
 
 @Configuration
 @Profile("!prod")
@@ -39,13 +47,23 @@ public class DevDBConfig {
     @Autowired
     private NotificationRepository notificationRepository;
 
+    @Autowired
+    private VerificationTokenService verificationTokenService;
+
+    @Autowired
+    private SolutionTestService solutionTestService;
+
+    private User user;
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+
     public DevDBConfig() {
     }
 
     @PostConstruct
     public void populateDatabase() throws ParseException {
         logger.info("ładowanie bazy testowej");
-        User user = new User("Imie1", "Nazwisko1", "aaa1@o2.pl", new BCryptPasswordEncoder().encode("aaa"));
+        User user = new User("Uzytkownik", "Ambitny", "aaa1@o2.pl", new BCryptPasswordEncoder().encode("aaa"));
         user.setEnabled(true);
         repository.save(user);
         user = new User("Admin", "admin", "aaa2@o2.pl", new BCryptPasswordEncoder().encode("1"));
@@ -57,28 +75,36 @@ public class DevDBConfig {
         user.setEnabled(true);
         repository.save(user);
 
-        user = new User("Adam", "Małysz", "malysz@o2.pl", new BCryptPasswordEncoder().encode("a"));
-        user.setEnabled(false);
-        repository.save(user);
 
-        user = new User("Mirek", "Mirecki", "mirecki@o2.pl", new BCryptPasswordEncoder().encode("a"));
-        user.setAccountNonLocked(false);
-        repository.save(user);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
         notificationRepository.save(new Notification("Wiadomosc testowa", "topic", sdf.parse("31-08-1983 10:20:56"), 1L));
         notificationRepository.save(new Notification("Wiad2", "topic2", sdf.parse("31-08-1984 10:20:56"), 1L));
         notificationRepository.save(new Notification("GRUPOWAADMIN", "topic3", sdf.parse("31-08-1985 10:20:56"), Role.ADMIN));
+        notificationRepository.save(new Notification("GRUPOWASUPERADMIN", "topic3", sdf.parse("31-08-1985 10:20:56"), Role.SUPERADMIN));
         notificationRepository.save(new Notification("GRUPOWAUSER", "topic3", sdf.parse("31-08-1985 10:20:56"), Role.USER));
         notificationRepository.save(new Notification("Dla:aaa2 topic4", "topic4", sdf.parse("31-08-1986 10:20:56"), 2L));
         notificationRepository.save(new Notification("aaa2", "topic5", sdf.parse("31-08-1987 10:20:56"), 2L));
         notificationRepository.save(new Notification("Wiadomosc3", "topic6", sdf.parse("31-08-1988 10:20:56"), 1L));
         notificationRepository.save(new Notification("Wiadomosc4", "topic7", sdf.parse("31-08-1989 10:20:56"), 1L));
-        //notificationRepository.save(new Notification("Morbi elit ex, tristique vestibulum laoreet id, lobortis non enim. Sed purus elit, fringilla eu vehicula at, egestas sit amet dolor. Morbi tortor nisl, sodales nec luctus vitae, ullamcorper vitae orci. Sed ut dignissim ex", data, 2));
+        notificationRepository.save(new Notification("Morbi elit ex, tristique vestibulum laoreet id, lobortis non enim. Sed purus elit, fringilla eu vehicula at, egestas sit amet dolor. Morbi tortor nisl, sodales nec luctus vitae, ullamcorper vitae orci. Sed ut dignissim ex", "Dluga wiadomosc", sdf.parse("31-08-2015 10:20:56"), 2));
         notificationRepository.save(new Notification("Wiadomosc5", "topic8", sdf.parse("31-08-1910 10:20:56"), 1L));
         notificationRepository.save(new Notification("Wiadaaa2", "topic9", sdf.parse("31-08-1911 10:20:56"), 2L));
         notificationRepository.save(new Notification("Wiadomosc7", "topic10", sdf.parse("31-08-1912 10:20:56"), 2L));
 
+        createTests();
+        logger.info("Testy stworzone");
+        /*createFakeUsers();
+        logger.info("Userzy stworzeni");
+        createFakeNotEnabledUsers();
+        logger.info("Userzy nieaktywni stworzeni");
+        createFakeLockedUsers();
+        logger.info("Userzy zablokowani stworzeni");
+        createFakeNotifications();
+        logger.info("Wiadomosci stworzone");
+        createFakeTestsAndSolutionTestsWithClosedTask();
+        logger.info("Testy z rozwiazaniami stworzone");*/
+    }
+
+    public void createTests() {
         Test test = new Test("TestBHP", 3L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>());
         test.setTimePerAttempt(90);
         test.setPassword("");
@@ -129,19 +155,10 @@ public class DevDBConfig {
         taskOpen.setCaseSens(true);
         taskOpen.setAnswer("abcde");
         test.addTaskToTest(taskOpen);
-
-        TaskProgramming taskProgramming = new TaskProgramming("fib", 10.0f);
-        TaskProgrammingDetail taskProgrammingDetail = new TaskProgrammingDetail();
-        taskProgrammingDetail.setLanguage(ProgrammingLanguages.JAVA);
-        taskProgrammingDetail.setTestCode("fib");
-        taskProgrammingDetail.setWhiteList("aaa");
-        taskProgramming.getProgrammingDetailSet().add(taskProgrammingDetail);
-        test.addTaskToTest(taskProgramming);
         test = testRepository.save(test);
-        logger.info(test.toString());
         Test test2 = new Test("KurzeTesty", 10L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>());
-        taskProgramming = new TaskProgramming("Zadanie z Javy", 100.0f);
-        taskProgrammingDetail = new TaskProgrammingDetail();
+        TaskProgramming taskProgramming = new TaskProgramming("Zadanie z Javy", 100.0f);
+        TaskProgrammingDetail taskProgrammingDetail = new TaskProgrammingDetail();
         taskProgrammingDetail.setLanguage(ProgrammingLanguages.JAVA);
         taskProgrammingDetail.setTestCode("import static org.junit.Assert.*;\n" +
                 "import org.junit.Test;\n" +
@@ -194,6 +211,8 @@ public class DevDBConfig {
                 "drop\n" +
                 "system\n" +
                 "Process");
+        taskProgrammingDetail.setTestClassName("MyTests.java");
+        taskProgrammingDetail.setSolutionClassName("Dodawanie.java");
         taskProgramming.getProgrammingDetailSet().add(taskProgrammingDetail);
         test2.addTaskToTest(taskProgramming);
         taskProgramming = new TaskProgramming("Zadanie z CPP", 100.0f);
@@ -491,10 +510,12 @@ public class DevDBConfig {
                 "vhangup\n" +
                 "write\n" +
                 "system");
+        taskProgrammingDetail.setTestClassName("testMath.java");
+        taskProgrammingDetail.setSolutionClassName("mathematic.java");
         taskProgramming.getProgrammingDetailSet().add(taskProgrammingDetail);
         test2.addTaskToTest(taskProgramming);
 
-        taskProgramming = new TaskProgramming("Zadanie z Javy", 100.0f);
+        taskProgramming = new TaskProgramming("Zadanie z Pythona", 100.0f);
         taskProgrammingDetail = new TaskProgrammingDetail();
         taskProgrammingDetail.setLanguage(ProgrammingLanguages.PYTHON);
         taskProgrammingDetail.setTestCode("import unittest\n" +
@@ -516,50 +537,97 @@ public class DevDBConfig {
                 "if __name__ == '__main__':\n" +
                 "    unittest.main()");
         taskProgrammingDetail.setWhiteList("fork");
+        taskProgrammingDetail.setTestClassName("my_tests.py");
+        taskProgrammingDetail.setSolutionClassName("my_example0.py");
         taskProgramming.getProgrammingDetailSet().add(taskProgrammingDetail);
         test2.addTaskToTest(taskProgramming);
-        test2=testRepository.save(test2);
-        logger.info(test2.toString());
-
-        /*SolutionTest solutionTest = new SolutionTest(test);
-        solutionTest.setAttempt(1);
-        solutionTest.setBeginSolution(LocalDate.now());
-        solutionTest.setEndSolution(LocalDate.now().plusDays(1));
-
-        SolutionTest solutionTest2 = new SolutionTest(test);
-        solutionTest2.setAttempt(2);
-        solutionTest2.setBeginSolution(LocalDate.now().plusDays(1));
-        solutionTest2.setEndSolution(LocalDate.now().plusDays(2));
-
-
-        TaskClosedSolution taskClosedSolution = new TaskClosedSolution(test.getTasks().get(0));
-        taskClosedSolution.setAnswers(answer);
-        solutionTest.addTaskSolutionToTest(taskClosedSolution);
-
-        TaskOpenSolution taskOpenSolution = new TaskOpenSolution(test.getTasks().get(1));
-        taskOpenSolution.setAnswer("chuju");
-        solutionTest.addTaskSolutionToTest(taskOpenSolution);
-
-        answer = new TreeMap<>();
-        answer.put("b", false);
-        answer.put("a", true);
-        answer.put("c", false);
-        TaskClosedSolution taskClosedSolution2 = new TaskClosedSolution(test.getTasks().get(0));
-        taskClosedSolution2.setAnswers(answer);
-        solutionTest2.addTaskSolutionToTest(taskClosedSolution2);
-
-        TaskOpenSolution taskOpenSolution2 = new TaskOpenSolution(test.getTasks().get(1));
-        taskOpenSolution2.setAnswer("suko");
-        solutionTest2.addTaskSolutionToTest(taskOpenSolution2);
-
-        solutionTest = solutionTestRepository.save(solutionTest);
-        solutionTest2 = solutionTestRepository.save(solutionTest2);
-
-        logger.info(test.toString());
-        logger.info(solutionTest.toString());
-        logger.info(solutionTest2.toString());
-        */
+        test2.setTimePerAttempt(90);
+        test2.setPassword("");
+        test2 = testRepository.save(test2);
     }
+
+    public void createFakeUsers() {
+        for (int i = 0; i < 10; i++) {
+            user = new User("Imie" + i, "Nazwisko" + i, "przykladowyEmail" + i + "@o2.pl", new BCryptPasswordEncoder().encode("password"));
+            repository.save(user);
+        }
+    }
+
+    public void createFakeNotEnabledUsers() {
+        for (int i = 1000; i < 20; i++) {
+            user = new User("Imie" + i, "Nazwisko" + i, "przykladowyEmail" + i + "@o2.pl", new BCryptPasswordEncoder().encode("password"));
+            user.setEnabled(false);
+            user = repository.save(user);
+            verificationTokenService.create(user, UUID.randomUUID().toString());
+
+
+        }
+    }
+
+    public void createFakeLockedUsers() {
+        for (int i = 2000; i < 30; i++) {
+            user = new User("Imie" + i, "Nazwisko" + i, "przykladowyEmail" + i + "@o2.pl", new BCryptPasswordEncoder().encode("password"));
+            user.setAccountNonLocked(false);
+            repository.save(user);
+        }
+    }
+
+    public void createFakeNotifications() {
+        for (int i = 0; i < 30; i++) {
+            try {
+                notificationRepository.save(new Notification("WiadomoscPrzykladowaTresc" + i, "PrzykladowyTematWiadomosci" + i, this.sdf.parse("31-08-2005 10:20:56"), i));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void createFakeTestsAndSolutionTestsWithClosedTask() {
+        for (int i = 0; i < 10; i++) {
+            Test test = new Test("PrzykladowyTest" + i, 3L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>());
+            test.setTimePerAttempt(i);
+            if (i % 3 == 0) test.setPassword("password");
+            else test.setPassword("");
+            TaskClosed taskClosed = new TaskClosed("Zaznacz wszystko", 6.0f);
+            TreeMap<String, Boolean> answer;
+            if (i % 2 == 0) taskClosed.setCountingType(taskClosed.COUNT_NOT_FULL);
+            else taskClosed.setCountingType(TaskClosed.WRONG_RESET);
+            answer = new TreeMap<>();
+            answer.put("1", true);
+            answer.put("2", true);
+            answer.put("3", true);
+            answer.put("4", true);
+            answer.put("5", true);
+            taskClosed.setAnswers(answer);
+            test.addTaskToTest(taskClosed);
+            testRepository.save(test);
+            Random random = new Random();
+            for (int j = 0; j < 5; j++) {
+                SolutionTest solutionTest = new SolutionTest(test, repository.findOne((long) (random.nextDouble() * (10))));
+                solutionTest.setAttempt(1);
+                solutionTest.setBeginSolution(LocalDateTime.now());
+                solutionTest.setEndSolution(LocalDateTime.now().plusDays(1));
+                TaskClosedSolution taskClosedSolution = new TaskClosedSolution(taskClosed);
+                answer = new TreeMap<>();
+                answer.put("1", true);
+                answer.put("2", true);
+                answer.put("3", true);
+                answer.put("4", true);
+                answer.put("5", false);
+                taskClosedSolution.setAnswers(answer);
+                solutionTestService.create(solutionTest);
+                try {
+                    solutionTestService.addTaskSolutionToTest(solutionTest, taskClosedSolution);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (org.json.simple.parser.ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
+
 
     @Override
     public String toString() {

@@ -47,7 +47,7 @@
                         <h4 th:text="${rowStat.count}+'. '+*{solutionTasks[__${rowStat.index}__].task.question}"/>
 
                         <div class="input-group">
-                            <textarea rows="30" class="form-control"/>
+                            <textarea rows="30" class="form-control" th:field="*{solutionTasks[__${rowStat.index}__].answerCode}"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-asterisk"/>
                             </span>

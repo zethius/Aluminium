@@ -5,8 +5,10 @@ import com.zespolowka.entity.createTest.*;
 import com.zespolowka.entity.solutionTest.*;
 import com.zespolowka.entity.solutionTest.config.SolutionConfig;
 import com.zespolowka.entity.user.User;
+import com.zespolowka.forms.CreateTestForm;
 import com.zespolowka.forms.SolutionTaskForm;
 import com.zespolowka.forms.SolutionTestForm;
+import com.zespolowka.forms.TaskForm;
 import com.zespolowka.repository.SolutionTestRepository;
 import com.zespolowka.service.inteface.SolutionTestService;
 import org.apache.commons.io.FileUtils;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -29,6 +32,8 @@ import java.util.*;
 public class SolutionTestServiceImpl implements SolutionTestService {
     private static final Logger logger = LoggerFactory.getLogger(SolutionTestService.class);
     private static final String TEST_ATTRIBUTE_NAME = "solutionTestSession";
+    private static final String OUTPUT = "output.json";
+    private static final String CONFIG = "config.json";
 
     private final SolutionTestRepository solutionTestRepository;
     private final HttpSession httpSession;
@@ -62,6 +67,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
 
     @Override
     public SolutionTest create(SolutionTest solutionTest) {
+        taskNo = 0;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m:s");
         LocalDateTime dateTime = LocalDateTime.now();
         solutionTest.setEndSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + '/' + dateTime.getDayOfMonth() + ' ' + dateTime.getHour() + ':' + dateTime.getMinute() + ':' + dateTime.getSecond(), dateTimeFormatter));
@@ -176,35 +182,35 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
             for (TaskProgrammingDetail taskProgrammingDetail : taskProgrammingDetails) {
                 if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.JAVA)) {
-                    jsonObject = solutionConfig.createJavaConfig("Dodawanie.java", "MyTests.java", "restricted_list_java");
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "Dodawanie.java"), taskSol.getAnswerCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "MyTests.java"), taskProgrammingDetail.getTestCode());
+                    jsonObject = solutionConfig.createJavaConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_java");
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
                     FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_java"), taskProgrammingDetail.getWhiteList());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "config.json"), jsonObject.toJSONString());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
                 } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.CPP)) {
-                    jsonObject = solutionConfig.createCppConfig("mathematic.cpp", "testMath.cpp", "restricted_list_cpp", "-w");
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "mathematic.cpp"), taskSol.getAnswerCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "testMath.cpp"), taskProgrammingDetail.getTestCode());
+                    jsonObject = solutionConfig.createCppConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_cpp", "-w");
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
                     FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_cpp"), taskProgrammingDetail.getWhiteList());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "config.json"), jsonObject.toJSONString());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
                 } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.PYTHON)) {
-                    jsonObject = solutionConfig.createPythonConfig("my_example0.py", "my_tests.py", "allowed_list_python");
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "my_example0.py"), taskSol.getAnswerCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "my_tests.py"), taskProgrammingDetail.getTestCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "allowed_list_python"), taskProgrammingDetail.getWhiteList());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "config.json"), jsonObject.toJSONString());
+                    jsonObject = solutionConfig.createPythonConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_python");
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_python"), taskProgrammingDetail.getWhiteList());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
                 }
             }
             executeCommand("ruby " + dir + "skrypt.rb \"" + dir + "\" \"" + userDirectory + "\"");
 
             JSONParser parser = new JSONParser();
-            Object result = parser.parse(new FileReader(resultDir + userDirectory + "output.json"));
+            Object result = parser.parse(new FileReader(resultDir + userDirectory + OUTPUT));
             jsonObject = (JSONObject) result;
             if (jsonObject.get("time") != null) {
                 BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
                 BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
                 BigDecimal time = BigDecimal.valueOf((Double) jsonObject.get("time"));
-                BigDecimal resultTest = (passed.divide(all).setScale(2)); //TODO dodac czas rozwiazania do statystyk
+                BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(2)); //TODO dodac czas rozwiazania do statystyk
                 BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSol.getTask().getMax_points())).setScale(2);
                 taskSol.setPoints(points.floatValue());
                 solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
@@ -268,7 +274,6 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     public String toString() {
         return "SolutionTestServiceImpl{" +
                 "solutionTestRepository=" + solutionTestRepository +
-                ", httpSession=" + httpSession +
                 ", taskNo=" + taskNo +
                 ", dir='" + dir + '\'' +
                 ", resultDir='" + resultDir + '\'' +

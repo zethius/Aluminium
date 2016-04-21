@@ -13,6 +13,8 @@ public class TaskProgrammingDetail {
     private String whiteList;
     @Enumerated(EnumType.STRING)
     private ProgrammingLanguages language;
+    private String testClassName;
+    private String solutionClassName;
 
     public TaskProgrammingDetail() {
     }
@@ -49,11 +51,29 @@ public class TaskProgrammingDetail {
         this.language = language;
     }
 
+    public String getTestClassName() {
+        return testClassName;
+    }
+
+    public void setTestClassName(String testClassName) {
+        this.testClassName = testClassName;
+    }
+
+    public String getSolutionClassName() {
+        return solutionClassName;
+    }
+
+    public void setSolutionClassName(String solutionClassName) {
+        this.solutionClassName = solutionClassName;
+    }
+
     @Override
     public String toString() {
         return "TaskProgrammingDetail{" +
                 "testCode='" + testCode + '\'' +
                 ", whiteList='" + whiteList + '\'' +
+                ", solutionClassName='" + solutionClassName + '\'' +
+                ", testClassName='" + testClassName + '\'' +
                 ", language=" + language +
                 '}';
     }

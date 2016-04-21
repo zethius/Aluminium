@@ -31,13 +31,11 @@ public class TaskForm {
 
     private Boolean countNotFull;
 
-
     public TaskForm() {
         programmingTaskForms = new TreeSet<>();
     }
 
     public TaskForm(int taskType) {
-        logger.info("TaskForm1");
         this.taskType = taskType;
         programmingTaskForms = new TreeSet<>();
         if (taskType == 2) {
@@ -90,11 +88,9 @@ public class TaskForm {
     public void setLanguages(Set<String> languages) {
         logger.info("setLanguages");
         if (languages == null) {
-            logger.info("pusto?");
             this.languages = new TreeSet<>();
         } else this.languages = languages;
         Set<ProgrammingTaskForm> programmingTaskFormSet = new TreeSet<>();
-        logger.info("aaaa" + this.languages.contains(ProgrammingLanguages.JAVA.toString()));
         if (this.languages.contains(ProgrammingLanguages.JAVA.toString())) {
             programmingTaskFormSet.add(new ProgrammingTaskForm(ProgrammingLanguages.JAVA.toString(), true));
         } else {
@@ -170,6 +166,7 @@ public class TaskForm {
         this.countNotFull = countNotFull;
     }
 
+
     @Override
     public String toString() {
         return "TaskForm{" +
@@ -178,10 +175,12 @@ public class TaskForm {
                 ", taskType=" + taskType +
                 ", points=" + points +
                 ", languages=" + languages +
-                ", programmingTaskForms=" + programmingTaskForms +
+             //   ", programmingTaskForms=" + programmingTaskForms +
                 ", caseSensitivity=" + caseSensitivity +
                 ", wrongReset=" + wrongReset +
                 ", countNotFull=" + countNotFull +
                 '}';
     }
+
+
 }

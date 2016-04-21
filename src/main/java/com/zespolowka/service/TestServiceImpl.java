@@ -13,9 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class TestServiceImpl implements TestService {
@@ -87,6 +85,8 @@ public class TestServiceImpl implements TestService {
                         taskProgrammingDetail.setTestCode(programmingTaskForm.getTestCode());
                         taskProgrammingDetail.setWhiteList(programmingTaskForm.getWhiteList());
                         taskProgrammingDetail.setLanguage(ProgrammingLanguages.valueOf(programmingTaskForm.getLanguage()));
+                        taskProgrammingDetail.setSolutionClassName(programmingTaskForm.getSolutionClassName());
+                        taskProgrammingDetail.setTestClassName(programmingTaskForm.getTestClassName());
                         taskProgramming.addTaskkProgrammingDetail(taskProgrammingDetail);
                     });
                     test.addTaskToTest(taskProgramming);
@@ -95,6 +95,68 @@ public class TestServiceImpl implements TestService {
             }
         }
         return testRepository.save(test);
+    }
+
+    @Override
+    public CreateTestForm createForm(Test test) {
+        CreateTestForm createTestForm = new CreateTestForm();
+        createTestForm.setName(test.getName());
+        createTestForm.setPassword(test.getPassword());
+        createTestForm.setBeginDate(test.getBeginDate().toString());
+        createTestForm.setEndDate(test.getEndDate().toString());
+        createTestForm.setAttempts(test.getAttempts().intValue());
+        createTestForm.setTimePerAttempt(test.getTimePerAttempt());
+        List<TaskForm> taskForms = new ArrayList<>();
+        for (Task task : test.getTasks()) {
+            TaskForm taskForm = new TaskForm();
+            if (task instanceof TaskClosed) {
+                taskForm.setTaskType(TaskForm.CLOSEDTASK);
+                taskForm.setQuestion(task.getQuestion());
+                taskForm.setPoints(task.getMax_points().intValue());
+                if (((TaskClosed) task).getCountingType() == TaskClosed.WRONG_RESET) taskForm.setWrongReset(true);
+                else taskForm.setCountNotFull(true);
+                String answer = "";
+                for (Map.Entry<String, Boolean> stringBooleanEntry : ((TaskClosed) task).getAnswers().entrySet()) {
+                    answer = answer + stringBooleanEntry.getKey() + "\n";
+                }
+                taskForm.setAnswer((answer));
+            } else if (task instanceof TaskOpen) {
+                taskForm.setTaskType(TaskForm.OPENTASK);
+                taskForm.setQuestion(task.getQuestion());
+                taskForm.setAnswer(((TaskOpen) task).getAnswer());
+                taskForm.setPoints(task.getMax_points().intValue());
+                taskForm.setCaseSensitivity(((TaskOpen) task).getCaseSens());
+
+            } else if (task instanceof TaskProgramming) {
+                taskForm.setTaskType(TaskForm.PROGRAMMINGTASK);
+                taskForm.setQuestion(task.getQuestion());
+                taskForm.setPoints(task.getMax_points().intValue());
+                Set<TaskProgrammingDetail> taskProgrammingDetailSet = ((TaskProgramming) task).getProgrammingDetailSet();
+                Set<ProgrammingTaskForm> programmingTaskFormSet = new TreeSet<>();
+                Set<String> languages = new TreeSet<>();
+                for (TaskProgrammingDetail taskProgrammingDetail : taskProgrammingDetailSet) {
+                    ProgrammingTaskForm programmingTaskForm = new ProgrammingTaskForm(taskProgrammingDetail.getLanguage().toString(), true);
+                    programmingTaskForm.setTestCode(taskProgrammingDetail.getTestCode());
+                    programmingTaskForm.setTestClassName(taskProgrammingDetail.getTestClassName());
+                    programmingTaskForm.setSolutionClassName(taskProgrammingDetail.getSolutionClassName());
+                    programmingTaskForm.setWhiteList(taskProgrammingDetail.getWhiteList());
+                    languages.add(taskProgrammingDetail.getLanguage().toString());
+                    programmingTaskFormSet.add(programmingTaskForm);
+                }
+                for (ProgrammingLanguages lang : ProgrammingLanguages.values()) {
+                    if (!languages.contains(lang.name())) {
+                        ProgrammingTaskForm programmingTaskForm = new ProgrammingTaskForm(lang.name(), false);
+                        programmingTaskFormSet.add(programmingTaskForm);
+                    }
+                }
+                taskForm.setLanguages(languages);
+                taskForm.setProgrammingTaskForms(programmingTaskFormSet);
+            }
+            taskForms.add(taskForm);
+            logger.info(taskForm.toString());
+        }
+        createTestForm.setTasks(taskForms);
+        return createTestForm;
     }
 
     @Override
