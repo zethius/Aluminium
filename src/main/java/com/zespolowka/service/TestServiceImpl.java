@@ -30,6 +30,11 @@ public class TestServiceImpl implements TestService {
 
 
     @Override
+    public Collection<Test> getTestByEndDateBefore(LocalDate date) {
+        return testRepository.findByEndDateBefore(date);
+    }
+
+    @Override
     public Test getTestById(final long id) {
         return testRepository.findTestById(id);
     }

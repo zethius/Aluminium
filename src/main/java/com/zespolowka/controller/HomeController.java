@@ -1,5 +1,6 @@
 package com.zespolowka.controller;
 
+import com.zespolowka.entity.createTest.Test;
 import com.zespolowka.service.inteface.SolutionTestService;
 import com.zespolowka.service.inteface.TestService;
 import org.slf4j.Logger;
@@ -8,7 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.time.LocalDate;
 
 
 @Controller
@@ -33,7 +39,7 @@ public class HomeController {
             model.addAttribute("pageMessage", this.pageMessage);
             logger.info(testService.getAllTests().toString());
             model.addAttribute("activeTest", testService.getAllTests());
-            model.addAttribute("archiveTest", solutionTestService.getAllTests());
+            model.addAttribute("archiveTest", testService.getTestByEndDateBefore(LocalDate.now()));
             logger.info(solutionTestService.getAllTests().toString());
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -41,5 +47,6 @@ public class HomeController {
         }
         return "index";
     }
+
 
 }

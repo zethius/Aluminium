@@ -45,6 +45,7 @@ public class TestController {
         this.userService= userService;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "create")
     public String createTest(final Model model) {
         logger.info("Metoda - createTest");
@@ -54,6 +55,7 @@ public class TestController {
         return "tmpCreateTest";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "create/add", method = RequestMethod.POST)
     public String addQuestion(@RequestParam(value = "questionId", defaultValue = "0") int questionId, final CreateTestForm createTestForm, final Model model) {
         testFormService.updateTestFormInSession(createTestForm);
@@ -152,6 +154,7 @@ public class TestController {
         return "tests";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showUserTests(@PathVariable final Long id, final Model model) {
         logger.info("nazwa metody = showUserTests");

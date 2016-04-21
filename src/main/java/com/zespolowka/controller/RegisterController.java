@@ -96,6 +96,7 @@ public class RegisterController {
          */
         if (diff < 0) {
             logger.info(String.format("Token juz jest nieaktulany \n dataDO= %s \n", verificationToken.getExpiryDate()));
+            model.addAttribute("nieaktualny",true);
             return "login";
         } else {
             logger.info("Token jest aktualny - aktywacja konta");

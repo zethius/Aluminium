@@ -9,7 +9,8 @@
     <div th:if="${loginError}" class="alert alert-danger">
         <p th:text="${errorMessage}"></p>
     </div>
-
+    <div th:if="${nieaktualny}" class="alert alert-danger" role="alert" >Token juz jest nieaktulany
+    </div>
     <form th:action="@{/login}" method="post" class="form-signin">
         <h2 class="form-signin-heading" th:text="#{login.login}"></h2>
 
