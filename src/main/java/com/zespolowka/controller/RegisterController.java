@@ -93,12 +93,9 @@ public class RegisterController {
         LocalDateTime localDateTime = LocalDateTime.now();
         long diff = Duration.between(localDateTime, verificationToken.getExpiryDate()).toMinutes();
 
-        /**
-         * TODO
-         * Poprawic to
-         */
         if (diff < 0L) {
             logger.info(String.format("Token juz jest nieaktulany \n dataDO= %s \n", verificationToken.getExpiryDate()));
+            model.addAttribute("nieaktualny", true);
             return "login";
         } else {
             logger.info("Token jest aktualny - aktywacja konta");

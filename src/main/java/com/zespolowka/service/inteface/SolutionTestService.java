@@ -31,4 +31,6 @@ public interface SolutionTestService {
 
     SolutionTest create(SolutionTest solutionTest, SolutionTestForm solutionTestForm) throws IOException, ParseException;
 
+    Collection<SolutionTest> getSolutionTestsByUser(User user);
+
 }

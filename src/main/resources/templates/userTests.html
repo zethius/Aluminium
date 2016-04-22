@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorator="layout">
+<head>
+    <title th:text="#{login.login_page}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="jumbotron" sec:authorize="isAuthenticated()">
+        <div class="container">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#archiwalne" aria-controls="archiwalne" role="tab"
+                                                          data-toggle="tab" th:text="#{mainPage.activeTests}"></a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="archiwalne">...
+                    <table class="grid table" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th th:text="#{mainPage.testName}"></th>
+                            <th th:text="#{mainPage.attempts}"></th>
+                            <th th:text="#{mainPage.startDate}"></th>
+                            <th th:text="#{mainPage.endDate}"></th>
+                            <th th:text="#{mainPage.points}"></th>
+                            <th th:text="#{mainPage.maxPoints}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="test:*{Tests}">
+                            <td th:text="*{test.test.name}"/>
+                            <td th:text="*{test.attempt}"/>
+                            <td th:text="*{test.beginSolution}"/>
+                            <td th:text="*{test.endSolution}"/>
+                            <td th:text="*{test.points}"/>
+                            <td th:text="*{test.test.maxPoints}"/>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+
+</div>
+</body>
+</html>

@@ -92,7 +92,7 @@ public class TestServiceImpl implements TestService {
                     break;
                 }
                 case 3: {
-                    TaskSql taskSql=new TaskSql(taskForm.getQuestion(),(float) taskForm.getPoints());
+                    TaskSql taskSql = new TaskSql(taskForm.getQuestion(), (float) taskForm.getPoints());
                     taskSql.setPreparations(taskForm.getPreparations());
                     taskSql.setSqlAnswer(taskForm.getAnswer());
                     test.addTaskToTest(taskSql);
@@ -158,7 +158,7 @@ public class TestServiceImpl implements TestService {
                 }
                 taskForm.setLanguages(languages);
                 taskForm.setProgrammingTaskForms(programmingTaskFormSet);
-            }else if (task instanceof TaskSql) {
+            } else if (task instanceof TaskSql) {
                 taskForm.setTaskType(TaskForm.SQLTASK);
                 taskForm.setQuestion(task.getQuestion());
                 taskForm.setPoints(task.getMax_points().intValue());
@@ -170,6 +170,11 @@ public class TestServiceImpl implements TestService {
         }
         createTestForm.setTasks(taskForms);
         return createTestForm;
+    }
+
+    @Override
+    public Collection<Test> getTestByEndDateBefore(LocalDate date) {
+        return testRepository.findByEndDateBefore(date);
     }
 
     @Override

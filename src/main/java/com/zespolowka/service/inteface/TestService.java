@@ -3,6 +3,7 @@ package com.zespolowka.service.inteface;
 import com.zespolowka.entity.createTest.Test;
 import com.zespolowka.forms.CreateTestForm;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 /**
@@ -16,4 +17,6 @@ public interface TestService {
     Test create(CreateTestForm form);
 
     CreateTestForm createForm(Test test);
+
+    Collection<Test> getTestByEndDateBefore(LocalDate date);
 }

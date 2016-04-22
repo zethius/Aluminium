@@ -226,13 +226,13 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             TaskSql taskSql = (TaskSql) taskSqlSolution.getTask();
             SolutionConfig solutionConfig = new SolutionConfig();
             JSONObject jsonObject;
-            JSONObject source=new JSONObject();
+            JSONObject source = new JSONObject();
             source.put("task0", taskSqlSolution.getAnswer());
-            JSONObject tests=new JSONObject();
-            JSONArray array=new JSONArray();
+            JSONObject tests = new JSONObject();
+            JSONArray array = new JSONArray();
             array.add("type0");
             array.add(taskSql.getSqlAnswer());
-            tests.put("task0",array);
+            tests.put("task0", array);
             String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getEmail() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
             jsonObject = solutionConfig.createSqlConfig("sources.json", "preparations.txt", "tests.json", "restricted_list_sql");
             FileUtils.writeStringToFile(new File(dir + userDirectory + "tests.json"), tests.toJSONString());
@@ -289,6 +289,11 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 addTaskSolutionToTest(solutionTest, taskSqlSolution);
             }
         return solutionTest;
+    }
+
+    @Override
+    public Collection<SolutionTest> getSolutionTestsByUser(User user) {
+        return solutionTestRepository.findSolutionTestsByUser(user);
     }
 
     public String executeCommand(String command) {

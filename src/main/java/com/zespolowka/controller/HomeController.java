@@ -1,6 +1,5 @@
 package com.zespolowka.controller;
 
-import com.zespolowka.repository.SolutionTestRepository;
 import com.zespolowka.service.inteface.SolutionTestService;
 import com.zespolowka.service.inteface.TestService;
 import org.slf4j.Logger;
@@ -10,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDate;
 
 
 @Controller
@@ -36,7 +37,7 @@ public class HomeController {
         try {
             model.addAttribute("pageMessage", this.pageMessage);
             model.addAttribute("activeTest", testService.getAllTests());
-            model.addAttribute("archiveTest", solutionTestService.getAllTests());
+            model.addAttribute("archiveTest", testService.getTestByEndDateBefore(LocalDate.now()));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             logger.info(model.toString() + ' ' + this.pageMessage);
