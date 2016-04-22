@@ -36,13 +36,21 @@ public class SolutionTestController {
     public SolutionTestController() {
     }
 
-    @RequestMapping(value = "/solutionTest/{id}", method = RequestMethod.GET)
-    public String getSolutionTestPage(@PathVariable final Integer id, final RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "/getSolutionTest", method = RequestMethod.POST)
+    public String getSolutionTestPage(@RequestParam(value = "id", required = true) Integer id,
+                                      @RequestParam(value = "pass", required = false) String password, final RedirectAttributes redirectAttributes) {
         logger.info("getSoltutionTestPage dla testu o id={}", id);
         Test test = testService.getTestById(id);
-        redirectAttributes.addFlashAttribute("Test", test);
-        logger.info(test.toString());
-        return "redirect:/solutionTest";
+        if (test.isOpenTest()) {
+            redirectAttributes.addFlashAttribute("Test", test);
+            return "redirect:/solutionTest";
+        } else if (password != null) {
+            if (password.equals(test.getPassword())) {
+                redirectAttributes.addFlashAttribute("Test", test);
+                return "redirect:/solutionTest";
+            }
+        }
+        return "redirect:/";
     }
 
 
@@ -100,6 +108,7 @@ public class SolutionTestController {
         model.addAttribute("solutionTest", solutionTest);
         return "solutionTestCheckAnswers";
     }
+
     @ResponseBody
     @RequestMapping(value = "/solutionTest/loadEntity/{id}", method = RequestMethod.GET)
     public Test loadEntity(@PathVariable("id") Long id) {

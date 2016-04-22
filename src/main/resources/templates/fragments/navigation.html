@@ -13,13 +13,15 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/" th:text="#{navigation.mainPage}"></a></li>
-                <li><a href="/solutionTest" th:text="#{navigation.beginTest}"></a></li>
                 <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/test/create"
                                                                                            th:text="#{navigation.createTest}"></a>
                 </li>
                 <li><a href="#" th:text="#{navigation.results}" th:href="@{/test/showResults}"></a></li>
                 <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/users"
                                                                                            th:text="#{navigation.users}"></a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/users"
+                                                                                           th:text="#{navigation.tests}"></a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
