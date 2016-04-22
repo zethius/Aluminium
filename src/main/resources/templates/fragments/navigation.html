@@ -20,7 +20,7 @@
                 <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/users"
                                                                                            th:text="#{navigation.users}"></a>
                 </li>
-                <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/users"
+                <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/test/all"
                                                                                            th:text="#{navigation.tests}"></a>
                 </li>
             </ul>
