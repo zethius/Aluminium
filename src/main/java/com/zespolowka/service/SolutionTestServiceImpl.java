@@ -7,7 +7,9 @@ import com.zespolowka.entity.solutionTest.config.SolutionConfig;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.SolutionTaskForm;
 import com.zespolowka.forms.SolutionTestForm;
+import com.zespolowka.repository.CustomSolutionTestRepository;
 import com.zespolowka.repository.SolutionTestRepository;
+import com.zespolowka.repository.SolutionTestRepositoryImpl;
 import com.zespolowka.service.inteface.SolutionTestService;
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
@@ -47,6 +49,10 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     public SolutionTestServiceImpl(SolutionTestRepository solutionTestRepository, HttpSession httpSession) {
         this.solutionTestRepository = solutionTestRepository;
         this.httpSession = httpSession;
+    }
+    @Override
+    public List<SolutionTest> getSolutionsWithTheBestResult(User user){
+        return solutionTestRepository.getSolutionsWithTheBestResult(user);
     }
 
     @Override

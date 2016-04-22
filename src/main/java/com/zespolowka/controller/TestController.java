@@ -2,11 +2,16 @@ package com.zespolowka.controller;
 
 import com.zespolowka.entity.createTest.ProgrammingLanguages;
 import com.zespolowka.entity.createTest.Test;
+import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.user.CurrentUser;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.CreateTestForm;
 import com.zespolowka.forms.ProgrammingTaskForm;
 import com.zespolowka.forms.TaskForm;
+import com.zespolowka.repository.CustomSolutionTestRepository;
+import com.zespolowka.repository.SolutionTestRepository;
+import com.zespolowka.repository.SolutionTestRepositoryImpl;
+import com.zespolowka.repository.UserRepository;
 import com.zespolowka.service.TestFormService;
 import com.zespolowka.service.inteface.SolutionTestService;
 import com.zespolowka.service.inteface.TestService;
@@ -187,7 +192,9 @@ public class TestController {
             final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             final User user = currentUser.getUser();
             logger.info(user + "");
+
             model.addAttribute("Tests", solutionTestService.getSolutionTestsByUser(user));
+            model.addAttribute("BestTest",solutionTestService.getSolutionsWithTheBestResult(user));
         } catch (final Exception e) {
             logger.error(e.getMessage(), e);
         }

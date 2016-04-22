@@ -1,5 +1,6 @@
 package com.zespolowka.repository;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.zespolowka.entity.createTest.Test;
 import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.user.User;
@@ -31,8 +32,13 @@ public class SolutionTestRepositoryImpl implements CustomSolutionTestRepository 
     public List<SolutionTest> getSolutionsWithTheBestResult(User user) {
         String sql = "select s from SolutionTest s where s.points = " +
                 "(select max(g.points) from SolutionTest g where (g.user=:user and g.test=s.test) group by g.test)";
+        System.out.println("HEHEHEHE1");
         Query query = em.createQuery(sql);
+        System.out.println("HEHEHEHE2");
         query.setParameter("user", user);
-        return query.getResultList();
+        System.out.println("HEHEHEHE3");
+        List<SolutionTest> lista = query.getResultList();
+        System.out.println("HEHEHEHE4"+lista.size());
+        return lista;
     }
 }
