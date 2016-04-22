@@ -510,8 +510,8 @@ public class DevDBConfig {
                 "vhangup\n" +
                 "write\n" +
                 "system");
-        taskProgrammingDetail.setTestClassName("testMath.java");
-        taskProgrammingDetail.setSolutionClassName("mathematic.java");
+        taskProgrammingDetail.setTestClassName("testMath.cpp");
+        taskProgrammingDetail.setSolutionClassName("mathematic.cpp");
         taskProgramming.getProgrammingDetailSet().add(taskProgrammingDetail);
         test2.addTaskToTest(taskProgramming);
 

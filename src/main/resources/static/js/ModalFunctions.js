@@ -23,7 +23,6 @@ function populateModal(data) {
     haslo = data.password;
 }
 function checkPassword(pass) {
-    alert(pass);
     if (!isOpen) {
         if (haslo == pass.value) {
             href = href + "&pass=" + pass.value;
@@ -31,7 +30,6 @@ function checkPassword(pass) {
         } else alert("Złe hasło!");
     }
     else {
-        alert(href);
         document.getElementById('form_test').setAttribute("action", href);
     }
 }
