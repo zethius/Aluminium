@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml" lang="pl"
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" lang="pl"
       layout:decorator="layout">
 <head>
     <title>Użytkownicy</title>
@@ -54,50 +55,77 @@
                 </tr>
                 </tbody>
             </table>
+            <!-- modal -->
             <div class="modal fade" id="wynikiA" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Wyniki testu <strong>xyz</strong></h4>
+                            <h4 class="modal-title" id="myModalLabel" th:text="#{userEdit.edit_user}"></h4>
                         </div>
                         <div class="modal-body">
+
+                            <form class="form-register" action="" th:object="${usersEditForm}" method="post" onsubmit="return checkform()">
+
+                                <div th:if="${sukces}" class="alert alert-success" role="alert" th:text="#{userEdit.saved}">Zapisano
+                                    zmiany
+                                </div>
+                                <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
+                                    <p th:each="err:${#fields.allErrors()}" th:text="${err}">...</p>
+                                </div>
+
 
                             <div class="form-group col-md-6">
                                 <label for="InputImie" th:text="#{userEdit.name}"></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="InputImie" name="InputImie"
-                                           value="Aktualne imie" th:placeholder="#{userEdit.name}" field="name"/>
+                                    <input type="text" class="form-control" data-toggle="popover" data-trigger="manual"
+                                           th:attr="data-content=#{userEdit.invalidName}"
+                                           id="InputImie" name="InputImie" value="Aktualne imie" th:placeholder="#{userEdit.name}" th:field="*{name}"/>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="InputNazwisko" th:text="#{userEdit.last_name}"></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="InputNazwisko" name="InputNazwisko"
-                                           value="Aktualne nazwisko" th:placeholder="#{userEdit.last_name}" field="lastName"/>
+                                    <input type="text" class="form-control" data-toggle="popover" data-trigger="manual"
+                                           th:attr="data-content=#{userEdit.invalidLastName}"
+                                           id="InputNazwisko" name="InputNazwisko"
+                                           value="Aktualne nazwisko" th:placeholder="#{userEdit.last_name}" th:field="*{lastName}"/>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="InputEmail" th:text="#{userEdit.email}"></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="InputEmail" name="InputEmail"
-                                           value="Adres email" th:placeholder="#{userEdit.email}" field="email"/>
+                                    <input type="text" data-toggle="popover" data-trigger="manual"
+                                           th:attr="data-content=#{userEdit.invalidEmail}"
+                                           class="form-control" id="InputEmail" name="InputEmail"
+                                           value="Adres email" th:placeholder="#{userEdit.email}" th:field="*{email}"/>
                                 </div>
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label for="InputRola" th:text="#{userEdit.role}"></label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="InputRola" name="InputRola"
-                                           value="Aktualne imie" th:placeholder="#{userEdit.role}" field="role"/>
+                                    <select th:field="*{role}" class="form-control" id="InputRola">
+                                        <option th:value="USER" id="USER">USER</option>
+                                        <option th:value="ADMIN" id="ADMIN">ADMIN</option>
+                                        <option th:value="SUPERADMIN">SUPERADMIN</option>
+                                    </select>
                                 </div>
                             </div>
+
+                            <input type="hidden" class="form-control" id="InputId" name="InputId"
+                                   value="" th:field="*{id}"/>
+                                <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary pull-right"
+                                        th:text="#{userEdit.submit}"/>
+                                <input type="hidden" th:name="${_csrf != null ? _csrf.parameterName : 'testing'}"
+                                                                              th:value="${_csrf != null ? _csrf.token : 'testing'}"/>
+                            </form>
 
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-                            <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary pull-right"
-                                    th:text="#{userEdit.submit}"/>
+
+
                         </div>
                     </div>
                 </div>
@@ -117,6 +145,40 @@
         x = confirm("Czy na pewno chcesz usunąć?") == true;
         return x;
     }
+
+function checkform() {
+    var name = $('#InputImie').val();
+	var lastName = $('#InputNazwisko').val();
+	var email =$('#InputEmail').val();
+    var nameRegex = /.*[a-zA-Z\d]{4}/;
+    emailRegex = /[a-zA-Z\d]+@[a-zA-Z\d]+\.[a-zA-Z]+/;
+	if (!nameRegex.test(name)) {
+		            $('#InputImie').popover('show');
+                    setTimeout(function(){
+                        $('#InputImie').popover('hide');
+                    }, 2000);
+		return false;
+	}
+	if (!nameRegex.test(lastName)) {
+		            $('#InputNazwisko').popover('show');
+                    setTimeout(function(){
+                        $('#InputNazwisko').popover('hide');
+                    }, 2000);
+		return false;
+	}
+		if(!emailRegex.test(email)){
+                    $('#InputEmail').popover('show');
+                    setTimeout(function(){
+                        $('#InputEmail').popover('hide');
+                    }, 2000);
+		return false;
+	}
+}
+
+
+
+
+
     $(document).ready(function(){
         $(".something").click(function(){ // Click to only happen on announce links
             $("#InputId").val($(this).data('id'));
@@ -126,6 +188,14 @@
             $("#InputRola").val($(this).data('role'));
             <!--  $('#wynikiA').modal('show'); -->
         });
+        $(function() {
+    $("#gate").val('Gateway 2');
+});
     });
+
+
+
+
+
 </script>
 </html>
