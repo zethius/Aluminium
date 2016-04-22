@@ -42,6 +42,7 @@ public class SolutionTestController {
         logger.info("getSoltutionTestPage dla testu o id={}", id);
         Test test = testService.getTestById(id);
         if (test.isOpenTest()) {
+            logger.info(test.isOpenTest()+"");
             redirectAttributes.addFlashAttribute("Test", test);
             return "redirect:/solutionTest";
         } else if (password != null) {

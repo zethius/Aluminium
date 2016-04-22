@@ -8,7 +8,7 @@ function showTestModal(index, value) {
     var editUrl = testModalTarget + index;
     if (isOpen) {
         $("#spanTest").remove();
-        $("#haslodostepu").remove();
+        document.getElementById('haslodostepu').style.display = "none";
         $("#labelhaslo").remove();
     }
     loadEntity(editUrl);
@@ -23,13 +23,15 @@ function populateModal(data) {
     haslo = data.password;
 }
 function checkPassword(pass) {
-
+    alert(pass);
     if (!isOpen) {
         if (haslo == pass.value) {
             href = href + "&pass=" + pass.value;
             document.getElementById('form_test').setAttribute("action", href)
         } else alert("Złe hasło!");
     }
-    else document.getElementById('form_test').setAttribute("action", href);
-
+    else {
+        alert(href);
+        document.getElementById('form_test').setAttribute("action", href);
+    }
 }
