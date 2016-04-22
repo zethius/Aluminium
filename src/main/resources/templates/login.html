@@ -6,10 +6,6 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div th:if="${loginError}" class="alert alert-danger">
-        <p th:text="${errorMessage}"></p>
-    </div>
-
     <form th:action="@{/login}" method="post" class="form-signin">
         <h2 class="form-signin-heading" th:text="#{login.login}"></h2>
 

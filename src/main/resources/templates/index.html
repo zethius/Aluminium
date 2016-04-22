@@ -3,14 +3,21 @@
       layout:decorator="layout">
 <head>
     <title th:text="#{login.login_page}"></title>
-    <script th:src="@{/js/ModalFunctions.js}"></script>
+    <script src="/js/ModalFunctions.js"></script>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="jumbotron" sec:authorize="isAuthenticated()">
         <div class="container">
-            <h1 style="float:left" th:text="#{home.welcome}"></h1><span><h1><strong th:text="#{mainPage.user}"></strong>
-        </h1></span>
+            <div th:if="${testPasswordError}" class="alert alert-danger">
+                <p th:text="#{test.wrongPassword}"></p>
+            </div>
+            <h1 style="float:left" th:text="#{home.welcome}"></h1>
+            <span>
+                <h1>
+                    <strong th:text="#{mainPage.user}"></strong>
+                </h1>
+            </span>
 
             <h2 th:text="#{mainPage.greetings}"></h2>
             <ul class="nav nav-tabs" role="tablist">
@@ -34,11 +41,11 @@
                         <tbody>
                         <tr th:each="test:*{activeTest}">
                             <td><a th:text="*{test.name}" data-toggle="modal" data-target="#modalZHaslem"
-                                   th:if="${#strings.length(test.password)&gt;0}"
-                                   th:onclick="'showTestModal(' + ${test.id} + ')'"></a>
-                                <a th:text="*{test.name}" data-toggle="modal" data-target="#modalBezHasla"
-                                   th:if="${#strings.length(test.password)&lt;1}"
-                                   th:onclick="'showTestModal(' + ${test.id} + ')'"></a>
+                                   th:if="${test.isOpenTest()}"
+                                   th:onclick="'showTestModal(' + ${test.id} +','+${test.isOpenTest()}+')'"></a>
+                                <a th:text="*{test.name}" data-toggle="modal" data-target="#modalZHaslem"
+                                   th:if="${!test.isOpenTest()}"
+                                   th:onclick="'showTestModal(' + ${test.id} +','+${test.isOpenTest()}+')'"></a>
                             </td>
                             <td th:text="*{test.attempts}"/>
                             <td th:text="${#lists.size(test.tasks)}"/>
@@ -80,14 +87,14 @@
                                 </h4>
                             </div>
                             <div class="modal-body">
-                                <form id="form_test" class="form-register" action="" method="GET">
+                                <form id="form_test" class="form-register" action="" method="POST">
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label for="nazwaTest">Wpisz hasło dostępu</label>
+                                            <label id="labelhaslo" for="haslodostepu">Wpisz hasło dostępu</label>
                                             <div class="input-group">
                                                 <input type="password" class="form-control" id="haslodostepu"
                                                        name="haslodostepu" placeholder="Hasło"/>
-                                                <span class="input-group-addon"><span
+                                                <span id="spanTest" class="input-group-addon"><span
                                                         class="glyphicon glyphicon-asterisk"></span></span>
                                                 <input type="hidden"
                                                        th:name="${_csrf != null ? _csrf.parameterName : 'testing'}"
@@ -95,39 +102,6 @@
                                                 <input type="submit" name="submit" id="submit" value="Rozpocznij"
                                                        class="btn btn-primary pull-right"
                                                        th:onclick="'checkPassword(' + haslodostepu + ')'"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="modalBezHasla" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Przystępujesz do testu <strong>BEZ
-                                    HASLA</strong>
-                                </h4>
-                            </div>
-                            <div class="modal-body">
-                                <form id="form_test_noPass" class="form-register" action="" method="GET">
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <div class="input-group">
-                                                <input type="hidden"
-                                                       th:name="${_csrf != null ? _csrf.parameterName : 'testing'}"
-                                                       th:value="${_csrf != null ? _csrf.token : 'testing'}"/>
-                                                <input type="submit" name="submit" id="submit" value="Rozpocznij"
-                                                       class="btn btn-primary pull-right"
-                                                       th:onclick="'checkPassword(' + ''+ ')'"
                                                 />
                                             </div>
                                         </div>
@@ -187,4 +161,7 @@
     </div>
 </div>
 </body>
+<script layout:fragment="customScripts">
+
+</script>
 </html>
