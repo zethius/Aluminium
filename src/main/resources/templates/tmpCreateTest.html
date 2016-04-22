@@ -14,9 +14,12 @@
                 <h3 class="panel-title" th:text="#{test.createTestForm}"/>
             </div>
             <div class="panel-body">
+<<<<<<< HEAD
                 <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
                     <p th:each="err:${#fields.allErrors()}" th:text="${err}">...</p>
                 </div>
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                 <div class="row">
                     <div class="form-group col-md-12">
                         <label for="testName" th:text="#{test.testName}"/>
@@ -36,7 +39,11 @@
 
                         <div class="input-group">
                             <input type="number" class="form-control" id="attempts" name="attempts"
+<<<<<<< HEAD
                                    th:field="*{attempts}" th:min="1"
+=======
+                                   th:field="*{attempts}"
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                                    th:placeholder="#{test.testAttemptsPlaceholder}" required="required"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-asterisk"/>
@@ -73,7 +80,11 @@
 
                         <div class="input-group">
                             <input type="number" class="form-control" id="testTimePerAttempt"
+<<<<<<< HEAD
                                    th:field="*{timePerAttempt}" th:min="5"
+=======
+                                   th:field="*{timePerAttempt}"
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                                    th:placeholder="#{test.testAttemptTimePlaceholder}" required="required"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-asterisk"/>
@@ -130,7 +141,11 @@
 
                             <div class="input-group">
                                 <input type="number" class="form-control"
+<<<<<<< HEAD
                                        th:field="*{tasks[__${rowStat.index}__].points}" th:min="1" id="nazwaTest"
+=======
+                                       th:field="*{tasks[__${rowStat.index}__].points}" id="nazwaTest"
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                                        required="required"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-asterisk"/>
@@ -200,9 +215,13 @@
 
                             <div class="input-group">
                                 <input type="number" class="form-control"
+<<<<<<< HEAD
                                        th:field="*{tasks[__${rowStat.index}__].points}"
                                        th:value="*{tasks[__${rowStat.index}__].points}" th:min="1"
                                        id="nazwaTest"
+=======
+                                       th:field="*{tasks[__${rowStat.index}__].points}" id="nazwaTest"
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                                        required="required"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-asterisk"/>
@@ -232,10 +251,17 @@
                         <div class="row">
                             <div class="form-group col-md-10">
                                 <label for="programmingQuestion" th:text="#{test.programmingLanguageChoose}"/>
+<<<<<<< HEAD
                                 <select th:id="'selectedLanguages'+${rowStat.count}"
                                         th:attr="ng-init='setLanguages(\''+*{tasks[__${rowStat.index}__].languages}+'\','+${rowStat.count-1}+')',ng-change='changeLanguages('+${rowStat.count}+')',ng-model='array['+${rowStat.count-1}+']'"
                                         name="languages[]" multiple="true" ng-multiple="true"
                                         class="form-control"
+=======
+                                <select id="selectedLanguages"
+                                        th:attr="ng-init='setLanguages(\''+${session.sprawdzmy}+'\')',ng-change='changeLanguages('+${rowStat.count}+')'"
+                                        name="languages[]" multiple="true" ng-multiple="true"
+                                        ng-model="selectedLanguages" class="form-control"
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                                         th:field="*{tasks[__${rowStat.index}__].languages}">
                                     <option ng-repeat="item in languagesSet"
                                             value="{{item.name}}">
@@ -248,7 +274,11 @@
 
                                 <div class="input-group">
                                     <input type="number" class="form-control"
+<<<<<<< HEAD
                                            th:field="*{tasks[__${rowStat.index}__].points}" th:min="1" id="nazwaTest"
+=======
+                                           th:field="*{tasks[__${rowStat.index}__].points}" id="nazwaTest"
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                                            required="required"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-asterisk"/>
@@ -263,11 +293,19 @@
 
                             <div class="row">
                                 <div class="form-group col-md-12">
+<<<<<<< HEAD
                                     <label for="whitelist"
                                            th:text="#{test.whiteList}+' '+*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].language}"/>
 
                                     <div class="input-group">
                                         <textarea id="whitelist" rows="5" class="form-control"
+=======
+                                    <label for="answer"
+                                           th:text="#{test.whiteList}+' '+*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].language}"/>
+
+                                    <div class="input-group">
+                                        <textarea rows="5" class="form-control"
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                                                   th:field="*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].whiteList}"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-asterisk"/>
@@ -277,11 +315,19 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12">
+<<<<<<< HEAD
                                     <label for="testCode"
                                            th:text="#{test.programmingAnswerLabel}+' '+*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].language}"/>
 
                                     <div class="input-group">
                                 <textarea id="testCode" rows="30" class="form-control"
+=======
+                                    <label for="answer"
+                                           th:text="#{test.programmingAnswerLabel}+' '+*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].language}"/>
+
+                                    <div class="input-group">
+                                <textarea rows="30" class="form-control"
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                                           th:field="*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].testCode}"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-asterisk"/>
@@ -289,6 +335,7 @@
                                     </div>
                                 </div>
                             </div>
+<<<<<<< HEAD
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="testClassName" th:text="#{test.testClassName}"/>
@@ -313,10 +360,13 @@
                                     </div>
                                 </div>
                             </div>
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                         </div>
 
                         <hr/>
                     </div>
+<<<<<<< HEAD
                     <div th:if="*{tasks[__${rowStat.index}__].taskType}==3">
 
                         <div class="row">
@@ -372,6 +422,8 @@
                         </div>
                     </div>
                     <hr/>
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                 </div>
                 <div class="row">
                     <div class="form-group col-md-12">

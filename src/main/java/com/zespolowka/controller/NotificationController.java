@@ -37,7 +37,11 @@ public class NotificationController {
         logger.info("nazwa metody = showNotifications");
         try {
             model.addAttribute("idNotification", notification.getId());
+<<<<<<< HEAD
             logger.info(String.valueOf(notification.getId()));
+=======
+            logger.info(notification.getId() + "");
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 
         } catch (final Exception e) {
             logger.error(e.getMessage(), e);
@@ -75,7 +79,11 @@ public class NotificationController {
             try {
                 notificationService.sendMessage(newMessageForm);
             } catch (final Exception e) {
+<<<<<<< HEAD
                 logger.info("\n" + model + '\n');
+=======
+                logger.info("\n" + model + "\n");
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
             }
             model.addAttribute("newMessageForm", new NewMessageForm());
             return "sendMessage";
@@ -87,6 +95,7 @@ public class NotificationController {
             return "sendMessage";
         }
     }
+<<<<<<< HEAD
 
     @Override
     public String toString() {
@@ -95,4 +104,6 @@ public class NotificationController {
                 ", sendMessageValidator=" + sendMessageValidator +
                 '}';
     }
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 }

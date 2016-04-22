@@ -17,10 +17,14 @@
                 <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/test/create"
                                                                                            th:text="#{navigation.createTest}"></a>
                 </li>
+<<<<<<< HEAD
                 <li><a href="#" th:text="#{navigation.results}" th:href="@{/test/showResults}"></a></li>
                 <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/users"
                                                                                            th:text="#{navigation.users}"></a>
                 </li>
+=======
+                <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/users" th:text="#{navigation.users}"></a></li>
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li sec:authorize="!isAuthenticated()"><a href="/login" th:text="#{login.login}"></a></li>
@@ -28,7 +32,11 @@
                 <li><a th:href="@{?lang=en}"><img src="/images/eng.png" alt="EN"/></a></li>
                 <li sec:authorize="isAuthenticated()" class="dropdown" ng-init="getMsgCount()">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+<<<<<<< HEAD
                        aria-expanded="false">Wiadomości
+=======
+                       aria-expanded="false" th:text="#{messages}">
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                         <span class="badge">{{unreadNotification}}</span>
                     </a>
                     <ul class="dropdown-menu" ng-init="getTop5Notifications()">
@@ -56,6 +64,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/user/edit}" th:text="#{navigation.editUser}"></a></li>
+<<<<<<< HEAD
+=======
+                        <li><a href="#" th:text="#{navigation.achievements}"></a></li>
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                         <li><a th:href="@{/sendMessage}" th:text="#{sendMessage.title}"></a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="javascript:{}" onclick="document.getElementById('my_form').submit();"

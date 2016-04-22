@@ -8,6 +8,7 @@ import java.util.HashMap;
  * Created by Admin on 2016-04-17.
  */
 public class SolutionConfig {
+<<<<<<< HEAD
     public static final String MAIN_FILE = "main_file";
     public static final String RESTRICTED_LIST_PATH = "restricted_list_path";
     public static final String COMPILER = "compiler";
@@ -21,6 +22,21 @@ public class SolutionConfig {
     public static final String TESTER_FILES = "tester_files";
     public static final String PREPARATIONS = "preparations";
     public static final String TESTS = "tests";
+=======
+    public final String MAIN_FILE = "main_file";
+    public final String RESTRICTED_LIST_PATH = "restricted_list_path";
+    public final String COMPILER = "compiler";
+    public final String INTERPRETER = "interpreter";
+    public final String COMPILER_FLAGS = "compiler_flags";
+    public final String INTERPRETER_FLAGS = "interpreter_flags";
+    public final String ULIMIT_FLAGS = "ulimit_flags";
+    public final String MAX_TIME_OF_TESTS = "max_time_of_tests";
+    public final String LANGUAGE = "language";
+    public final String SOURCES = "sources";
+    public final String TESTER_FILES = "tester_files";
+    public final String PREPARATIONS = "preparations";
+    public final String TESTS = "tests";
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 
     private String mainFile;
     private String restricted_list_path;
@@ -28,8 +44,13 @@ public class SolutionConfig {
     private String interpreter;
     private String compiler_flags;
     private String interpreter_flags;
+<<<<<<< HEAD
     private String ulimit_flags = "-t 200";
     private Integer max_time_of_tests = 10;
+=======
+    private String ulimit_flags = "-t 20";
+    private Integer max_time_of_tests = 5;
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     private String language;
     private String sources;
     private String tester_files;
@@ -62,8 +83,11 @@ public class SolutionConfig {
         this.tests = tests;
         this.compiler = "/usr/bin/javac";
         this.interpreter = "/usr/bin/java";
+<<<<<<< HEAD
         this.compiler_flags = "-cp .:/home/pitek/zespolowka/skrypty/JAVA_LIB/junit-4.12.jar";
         this.interpreter_flags = "-cp .:/home/pitek/zespolowka/skrypty/JAVA_LIB/*";
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(LANGUAGE, language);
         jsonObject.put(SOURCES, sources);
@@ -110,7 +134,10 @@ public class SolutionConfig {
         this.sources = sources;
         this.tests = tests;
         this.compiler = "/usr/bin/jython";
+<<<<<<< HEAD
         this.interpreter="/usr/bin/python3";
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(LANGUAGE, language);
         jsonObject.put(SOURCES, sources);
@@ -129,12 +156,19 @@ public class SolutionConfig {
         return jsonObject;
     }
 
+<<<<<<< HEAD
     public JSONObject createSqlConfig(String sources, String preparations,String tests, String restricted_list_path) {
+=======
+    public JSONObject createSqlConfig(String sources, String preparations, String mainFile, String tests, String restricted_list_path) {
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         this.language = "sql";
         this.sources = sources;
         this.tests = tests;
         this.interpreter = "/usr/bin/python3";
+<<<<<<< HEAD
         this.mainFile="sql.py";
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(LANGUAGE, language);
         jsonObject.put(SOURCES, sources);

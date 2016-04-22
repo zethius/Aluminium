@@ -13,13 +13,20 @@ public class SolutionTaskForm {
     public static final int CLOSEDTASK = 0;
     public static final int OPENTASK = 1;
     public static final int PROGRAMMINGTASK = 2;
+<<<<<<< HEAD
     public static final int SQLTASK = 3;
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     private Task task;
     private Map<String, Boolean> answers = new LinkedHashMap<>();
     private String answer = "";
     private String answerCode = "";
     private Set<String> languages = new TreeSet<>();
+<<<<<<< HEAD
     private String language = "";
+=======
+    private String language = new String();
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     private int taskType;
 
     public SolutionTaskForm() {
@@ -46,7 +53,10 @@ public class SolutionTaskForm {
             Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
             languages.addAll(taskProgrammingDetails.stream().map(taskProgrammingDetail -> taskProgrammingDetail.getLanguage().toString()).collect(Collectors.toList()));
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     }
 
     public Task getTask() {

@@ -15,9 +15,12 @@ import java.util.Locale;
  */
 @Configuration
 public class LocaleConfig extends WebMvcConfigurerAdapter {
+<<<<<<< HEAD
     public LocaleConfig() {
     }
 
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     @Bean(name = "localeResolver")
     public LocaleResolver localeResolver() {
         SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();

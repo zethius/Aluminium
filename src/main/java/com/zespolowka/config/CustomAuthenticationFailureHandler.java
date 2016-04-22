@@ -34,9 +34,12 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
     @Autowired
     private UserService userService;
 
+<<<<<<< HEAD
     public CustomAuthenticationFailureHandler() {
     }
 
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
             throws IOException, ServletException {
@@ -79,6 +82,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         }
         request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, errorMessage);
     }
+<<<<<<< HEAD
 
     @Override
     public String toString() {
@@ -88,4 +92,6 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
                 ", userService=" + userService +
                 '}';
     }
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 }

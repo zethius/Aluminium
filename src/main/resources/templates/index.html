@@ -1,6 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
+<<<<<<< HEAD
+=======
+
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 <head>
     <title th:text="#{login.login_page}"></title>
     <script th:src="@{/js/ModalFunctions.js}"></script>
@@ -40,15 +44,26 @@
                                    th:if="${#strings.length(test.password)&lt;1}"
                                    th:onclick="'showTestModal(' + ${test.id} + ')'"></a>
                             </td>
+<<<<<<< HEAD
                             <td th:text="*{test.attempts}"/>
                             <td th:text="${#lists.size(test.tasks)}"/>
                             <td th:text="*{test.maxPoints}"/>
                             <td th:text="*{test.endDate}"/>
+=======
+                            <td th:text="*{test.attempts}"> </td>
+                            <td th:text="${#lists.size(test.tasks)}"> </td>
+                            <td th:text="*{test.maxPoints}"> </td>
+                            <td th:text="*{test.endDate}"> </td>
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                         </tr>
                         </tbody>
                     </table>
                 </div>
+<<<<<<< HEAD
                 <div role="tabpanel" class="tab-pane" id="archiwalne">
+=======
+                <div role="tabpanel" class="tab-pane" id="archiwalne">...
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                     <table class="grid table" cellspacing="0" width="100%">
                         <thead>
                         <tr>
@@ -61,15 +76,27 @@
                         </thead>
                         <tbody>
                         <tr th:each="test:*{archiveTest}">
+<<<<<<< HEAD
                             <td th:text="*{test.name}"></td>
                             <td th:text="*{test.attempts}"></td>
                             <td th:text="*{test.beginDate}"></td>
                             <td th:text="*{test.endDate}"></td>
                             <td th:text="*{test.maxPoints}"></td>
+=======
+                            <td th:text="*{test.name}"> </td>
+                            <td th:text="*{test.attempts}"> </td>
+                            <td th:text="*{test.beginDate}"> </td>
+                            <td th:text="*{test.endDate}"> </td>
+                            <td th:text="*{test.maxPoints}"> </td>
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                         </tr>
                         </tbody>
                     </table>
                 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                 <div class="modal fade" id="modalZHaslem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -113,8 +140,12 @@
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                         aria-hidden="true">&times;</span></button>
+<<<<<<< HEAD
                                 <h4 class="modal-title" id="myModalLabel">Przystępujesz do testu <strong>BEZ
                                     HASLA</strong>
+=======
+                                <h4 class="modal-title" id="myModalLabel">Przystępujesz do testu <strong>BEZ HASLA</strong>
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                                 </h4>
                             </div>
                             <div class="modal-body">
@@ -142,11 +173,15 @@
                 </div>
             </div>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
             <p><a class="btn btn-primary btn-lg" href="#" role="button" th:text="#{more}"></a></p>
         </div>
     </div>
 
+<<<<<<< HEAD
     <div class="container">
         <!-- Example row of columns -->
         <div class="row">
@@ -185,6 +220,47 @@
             <p>&copy; 2015-2016 <strong>Uczestnicy Programowania Zespołowego.</strong></p>
         </footer>
     </div>
+=======
+<p><a class="btn btn-primary btn-lg" href="#" role="button" th:text="#{more}"></a></p>
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Dalej</h2>
+
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                mollis euismod. Donec sed odio dui. </p>
+
+            <p><a class="btn btn-default" href="#" role="button">Krzychu &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>nie wiem</h2>
+
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                mollis euismod. Donec sed odio dui. </p>
+
+            <p><a class="btn btn-default" href="#" role="button">ma problem &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>po co to</h2>
+
+            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
+                porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
+                ut fermentum massa justo sit amet risus.</p>
+
+            <p><a class="btn btn-default" href="#" role="button">z erekcja &raquo;</a></p>
+        </div>
+    </div>
+
+    <hr/>
+
+    <footer>
+        <p>&copy; 2015-2016 <strong>Uczestnicy Programowania Zespołowego.</strong></p>
+    </footer>
+</div>
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 </div>
 </body>
 </html>

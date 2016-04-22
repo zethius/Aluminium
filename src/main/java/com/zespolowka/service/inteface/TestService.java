@@ -16,7 +16,10 @@ public interface TestService {
 
     Test create(CreateTestForm form);
 
+<<<<<<< HEAD
     CreateTestForm createForm(Test test);
 
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     Collection<Test> getTestByEndDateBefore(LocalDate date);
 }

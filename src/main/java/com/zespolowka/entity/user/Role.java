@@ -26,4 +26,8 @@ public enum Role implements GrantedAuthority {
     public String getAuthority() {
         return name();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e

@@ -7,8 +7,11 @@ public class ProgrammingTaskForm implements Comparable<ProgrammingTaskForm> {
     private String language;
     private String whiteList;
     private String testCode;
+<<<<<<< HEAD
     private String testClassName;
     private String solutionClassName;
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     private Boolean hidden = false;
 
     public ProgrammingTaskForm(String language) {
@@ -49,6 +52,7 @@ public class ProgrammingTaskForm implements Comparable<ProgrammingTaskForm> {
         return hidden;
     }
 
+<<<<<<< HEAD
     public String getTestClassName() {
         return testClassName;
     }
@@ -65,6 +69,8 @@ public class ProgrammingTaskForm implements Comparable<ProgrammingTaskForm> {
         this.solutionClassName = solutionClassName;
     }
 
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     public void setHidden(Boolean hidden) {
         this.hidden = hidden;
     }
@@ -74,8 +80,11 @@ public class ProgrammingTaskForm implements Comparable<ProgrammingTaskForm> {
         return "ProgrammingTaskForm{" +
                 "language='" + language + '\'' +
                 ", whiteList='" + whiteList + '\'' +
+<<<<<<< HEAD
                 ", testClassName='" + testClassName + '\'' +
                 ", solutionClassName='" + solutionClassName + '\'' +
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                 ", testCode='" + testCode + '\'' +
                 ", hidden='" + hidden + '\'' +
                 '}';
@@ -84,6 +93,10 @@ public class ProgrammingTaskForm implements Comparable<ProgrammingTaskForm> {
 
     @Override
     public int compareTo(ProgrammingTaskForm o) {
+<<<<<<< HEAD
         return this.language.compareTo(o.language);
+=======
+        return this.language.compareTo(o.getLanguage());
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     }
 }

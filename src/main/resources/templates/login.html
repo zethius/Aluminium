@@ -9,15 +9,23 @@
     <div th:if="${loginError}" class="alert alert-danger">
         <p th:text="${errorMessage}"></p>
     </div>
+<<<<<<< HEAD
 
+=======
+    <div th:if="${nieaktualny}" class="alert alert-danger" role="alert" >Token juz jest nieaktulany
+    </div>
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     <form th:action="@{/login}" method="post" class="form-signin">
         <h2 class="form-signin-heading" th:text="#{login.login}"></h2>
 
         <div th:if="${loginError}" class="alert alert-danger" role="alert">
             <span th:text="${errorMessage}"></span>
         </div>
+<<<<<<< HEAD
         <div th:if="${nieaktualny}" class="alert alert-danger" role="alert">Token juz jest nieaktulany
         </div>
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         <label for="username" th:text="#{login.email}" class="sr-only"/>
         <input type="email" name="username" id="username" class="form-control" th:placeholder="#{login.email}"
                required="autofocus"/>

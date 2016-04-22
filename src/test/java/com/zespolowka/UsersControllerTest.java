@@ -41,7 +41,11 @@ public class UsersControllerTest {
     public void shuldReturnUsersPage() throws Exception {
         userList = Arrays.asList(new UserBuilder("imie", "nazwisko").build(), new UserBuilder("imie2", "nazwisko2").build());
         when(userService.getAllUsers()).thenReturn(userList);
+<<<<<<< HEAD
         //assertEquals("users", usersController.getUsersPage(model));
+=======
+        assertEquals("users", usersController.getUsersPage(model));
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 
         verify(model).addAttribute("Users", userList);
         verifyNoMoreInteractions(model);

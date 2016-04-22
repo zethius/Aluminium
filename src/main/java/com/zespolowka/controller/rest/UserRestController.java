@@ -40,10 +40,13 @@ public class UserRestController {
     }
 
 
+<<<<<<< HEAD
     @Override
     public String toString() {
         return "UserRestController{" +
                 "userService=" + userService +
                 '}';
     }
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 }

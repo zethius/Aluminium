@@ -83,6 +83,7 @@ public class NotificationRestController {
         logger.info("Zaktualizuj wiadomosc o id " + id);
         notificationService.changeStatus(id);
     }
+<<<<<<< HEAD
 
     @Override
     public String toString() {
@@ -92,4 +93,6 @@ public class NotificationRestController {
                 ", user=" + user +
                 '}';
     }
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 }

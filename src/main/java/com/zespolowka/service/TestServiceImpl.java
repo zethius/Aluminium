@@ -13,7 +13,13 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+<<<<<<< HEAD
 import java.util.*;
+=======
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 
 @Service
 public class TestServiceImpl implements TestService {
@@ -28,6 +34,14 @@ public class TestServiceImpl implements TestService {
 
 
     @Override
+<<<<<<< HEAD
+=======
+    public Collection<Test> getTestByEndDateBefore(LocalDate date) {
+        return testRepository.findByEndDateBefore(date);
+    }
+
+    @Override
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     public Test getTestById(final long id) {
         return testRepository.findTestById(id);
     }
@@ -72,6 +86,10 @@ public class TestServiceImpl implements TestService {
                     TaskOpen taskOpen = new TaskOpen(taskForm.getQuestion(), (float) taskForm.getPoints());
                     taskOpen.setAnswer(taskForm.getAnswer());
                     taskOpen.setCaseSens(taskForm.getCaseSensitivity());
+<<<<<<< HEAD
+=======
+                    taskOpen.setMax_points((float) taskForm.getPoints());
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                     test.addTaskToTest(taskOpen);
                     break;
                 }
@@ -79,18 +97,26 @@ public class TestServiceImpl implements TestService {
                     TaskProgramming taskProgramming = new TaskProgramming(taskForm.getQuestion(), (float) taskForm.getPoints());
                     Set<ProgrammingTaskForm> programmingTaskForms = taskForm.getProgrammingTaskForms();
                     programmingTaskForms.stream().filter(ProgrammingTaskForm::getHidden).forEach(programmingTaskForm -> {
+<<<<<<< HEAD
                         logger.info(' ' + programmingTaskForm.toString());
+=======
+                        logger.info(" " + programmingTaskForm.toString());
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                         TaskProgrammingDetail taskProgrammingDetail = new TaskProgrammingDetail();
                         taskProgrammingDetail.setTestCode(programmingTaskForm.getTestCode());
                         taskProgrammingDetail.setWhiteList(programmingTaskForm.getWhiteList());
                         taskProgrammingDetail.setLanguage(ProgrammingLanguages.valueOf(programmingTaskForm.getLanguage()));
+<<<<<<< HEAD
                         taskProgrammingDetail.setSolutionClassName(programmingTaskForm.getSolutionClassName());
                         taskProgrammingDetail.setTestClassName(programmingTaskForm.getTestClassName());
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                         taskProgramming.addTaskkProgrammingDetail(taskProgrammingDetail);
                     });
                     test.addTaskToTest(taskProgramming);
                     break;
                 }
+<<<<<<< HEAD
                 case 3: {
                     TaskSql taskSql = new TaskSql(taskForm.getQuestion(), (float) taskForm.getPoints());
                     taskSql.setPreparations(taskForm.getPreparations());
@@ -99,10 +125,13 @@ public class TestServiceImpl implements TestService {
 
                     break;
                 }
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
             }
         }
         return testRepository.save(test);
     }
+<<<<<<< HEAD
 
     @Override
     public CreateTestForm createForm(Test test) {
@@ -183,4 +212,6 @@ public class TestServiceImpl implements TestService {
                 "testRepository=" + testRepository +
                 '}';
     }
+=======
+>>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 }
