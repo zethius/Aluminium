@@ -3,7 +3,6 @@
       layout:decorator="layout">
 <head>
     <title th:text="#{login.login_page}"></title>
-    <script th:src="@{/js/ModalFunctions.js}"></script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -187,4 +186,31 @@
     </div>
 </div>
 </body>
+<script layout:fragment="customScripts">
+    var url="/solutionTest/";
+    var testModalTarget = url + "loadEntity/";
+    var haslo="";
+    var href="";
+    function showTestModal(index) {
+        var editUrl = testModalTarget + index;
+        loadEntity(editUrl);
+    }
+    function loadEntity(url) {
+        $.getJSON(url, {}, function (data) {
+            populateModal(data);
+        });
+    }
+    function populateModal(data) {
+        href= "/solutionTest/"+data.id;
+        haslo=data.password
+    }
+    function checkPassword(pass){
+        document.getElementById('form_test_noPass').setAttribute("action", href);
+        if(haslo==pass.value){
+            document.getElementById('form_test').setAttribute("action", href);
+        }else{
+            alert("Złe hasło!");
+        }
+    }
+</script>
 </html>
