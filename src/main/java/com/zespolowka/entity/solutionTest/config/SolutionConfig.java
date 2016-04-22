@@ -28,8 +28,8 @@ public class SolutionConfig {
     private String interpreter;
     private String compiler_flags;
     private String interpreter_flags;
-    private String ulimit_flags = "-t 20";
-    private Integer max_time_of_tests = 5;
+    private String ulimit_flags = "-t 200";
+    private Integer max_time_of_tests = 10;
     private String language;
     private String sources;
     private String tester_files;
@@ -110,6 +110,7 @@ public class SolutionConfig {
         this.sources = sources;
         this.tests = tests;
         this.compiler = "/usr/bin/jython";
+        this.interpreter="/usr/bin/python3";
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(LANGUAGE, language);
         jsonObject.put(SOURCES, sources);
@@ -128,11 +129,12 @@ public class SolutionConfig {
         return jsonObject;
     }
 
-    public JSONObject createSqlConfig(String sources, String preparations, String mainFile, String tests, String restricted_list_path) {
+    public JSONObject createSqlConfig(String sources, String preparations,String tests, String restricted_list_path) {
         this.language = "sql";
         this.sources = sources;
         this.tests = tests;
         this.interpreter = "/usr/bin/python3";
+        this.mainFile="sql.py";
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(LANGUAGE, language);
         jsonObject.put(SOURCES, sources);

@@ -13,6 +13,7 @@ public class SolutionTaskForm {
     public static final int CLOSEDTASK = 0;
     public static final int OPENTASK = 1;
     public static final int PROGRAMMINGTASK = 2;
+    public static final int SQLTASK = 3;
     private Task task;
     private Map<String, Boolean> answers = new LinkedHashMap<>();
     private String answer = "";
@@ -45,6 +46,7 @@ public class SolutionTaskForm {
             Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
             languages.addAll(taskProgrammingDetails.stream().map(taskProgrammingDetail -> taskProgrammingDetail.getLanguage().toString()).collect(Collectors.toList()));
         }
+
     }
 
     public Task getTask() {

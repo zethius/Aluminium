@@ -10,8 +10,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 @Repository
-public interface SolutionTestRepository extends JpaRepository<SolutionTest, Long> {
+public interface SolutionTestRepository extends JpaRepository<SolutionTest, Long>, CustomSolutionTestRepository {
     SolutionTest findSolutionTestById(Long id);
 
     Collection<SolutionTest> findSolutionTestsByUserAndTest(User user, Test test);
+
+    Collection<SolutionTest> findSolutionTestsByUser(User user);
 }

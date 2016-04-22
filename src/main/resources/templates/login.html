@@ -16,6 +16,8 @@
         <div th:if="${loginError}" class="alert alert-danger" role="alert">
             <span th:text="${errorMessage}"></span>
         </div>
+        <div th:if="${nieaktualny}" class="alert alert-danger" role="alert">Token juz jest nieaktulany
+        </div>
         <label for="username" th:text="#{login.email}" class="sr-only"/>
         <input type="email" name="username" id="username" class="form-control" th:placeholder="#{login.email}"
                required="autofocus"/>

@@ -11,6 +11,7 @@ public class TaskForm {
     public static final int CLOSEDTASK = 0;
     public static final int OPENTASK = 1;
     public static final int PROGRAMMINGTASK = 2;
+    public static final int SQLTASK = 3;
     private static final Logger logger = LoggerFactory.getLogger(TaskForm.class);
 
     private String question;
@@ -20,6 +21,8 @@ public class TaskForm {
     private int taskType;
 
     private Integer points = 1;
+
+    private String preparations;
 
     private Set<String> languages = new TreeSet<>();
 
@@ -31,13 +34,11 @@ public class TaskForm {
 
     private Boolean countNotFull;
 
-
     public TaskForm() {
         programmingTaskForms = new TreeSet<>();
     }
 
     public TaskForm(int taskType) {
-        logger.info("TaskForm1");
         this.taskType = taskType;
         programmingTaskForms = new TreeSet<>();
         if (taskType == 2) {
@@ -90,11 +91,9 @@ public class TaskForm {
     public void setLanguages(Set<String> languages) {
         logger.info("setLanguages");
         if (languages == null) {
-            logger.info("pusto?");
             this.languages = new TreeSet<>();
         } else this.languages = languages;
         Set<ProgrammingTaskForm> programmingTaskFormSet = new TreeSet<>();
-        logger.info("aaaa" + this.languages.contains(ProgrammingLanguages.JAVA.toString()));
         if (this.languages.contains(ProgrammingLanguages.JAVA.toString())) {
             programmingTaskFormSet.add(new ProgrammingTaskForm(ProgrammingLanguages.JAVA.toString(), true));
         } else {
@@ -170,6 +169,14 @@ public class TaskForm {
         this.countNotFull = countNotFull;
     }
 
+    public String getPreparations() {
+        return preparations;
+    }
+
+    public void setPreparations(String preparations) {
+        this.preparations = preparations;
+    }
+
     @Override
     public String toString() {
         return "TaskForm{" +
@@ -178,10 +185,12 @@ public class TaskForm {
                 ", taskType=" + taskType +
                 ", points=" + points +
                 ", languages=" + languages +
-                ", programmingTaskForms=" + programmingTaskForms +
+             //   ", programmingTaskForms=" + programmingTaskForms +
                 ", caseSensitivity=" + caseSensitivity +
                 ", wrongReset=" + wrongReset +
                 ", countNotFull=" + countNotFull +
                 '}';
     }
+
+
 }

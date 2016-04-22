@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -30,6 +31,8 @@ import java.util.*;
 public class SolutionTestServiceImpl implements SolutionTestService {
     private static final Logger logger = LoggerFactory.getLogger(SolutionTestService.class);
     private static final String TEST_ATTRIBUTE_NAME = "solutionTestSession";
+    private static final String OUTPUT = "output.json";
+    private static final String CONFIG = "config.json";
 
     private final SolutionTestRepository solutionTestRepository;
     private final HttpSession httpSession;
@@ -63,6 +66,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
 
     @Override
     public SolutionTest create(SolutionTest solutionTest) {
+        taskNo = 0;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m:s");
         LocalDateTime dateTime = LocalDateTime.now();
         solutionTest.setEndSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + '/' + dateTime.getDayOfMonth() + ' ' + dateTime.getHour() + ':' + dateTime.getMinute() + ':' + dateTime.getSecond(), dateTimeFormatter));
@@ -97,6 +101,8 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.OPENTASK));
             } else if (task instanceof TaskProgramming) {
                 solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.PROGRAMMINGTASK));
+            } else if (task instanceof TaskSql) {
+                solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.SQLTASK));
             }
         }
         solutionTestForm.setTasks(solutionTaskFormList);
@@ -173,40 +179,86 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             JSONObject jsonObject;
             String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getEmail() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
 
-
             Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
             for (TaskProgrammingDetail taskProgrammingDetail : taskProgrammingDetails) {
                 if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.JAVA)) {
-                    jsonObject = solutionConfig.createJavaConfig("Dodawanie.java", "MyTests.java", "allowed_list_path");
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "Dodawanie.java"), taskSol.getAnswerCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "MyTests.java"), taskProgrammingDetail.getTestCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "allowed_list_java"), taskProgrammingDetail.getWhiteList());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "config.json"), jsonObject.toJSONString());
+                    jsonObject = solutionConfig.createJavaConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_java");
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_java"), taskProgrammingDetail.getWhiteList());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
+                } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.CPP)) {
+                    jsonObject = solutionConfig.createCppConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_cpp", "-w");
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_cpp"), taskProgrammingDetail.getWhiteList());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
+                } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.PYTHON)) {
+                    jsonObject = solutionConfig.createPythonConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_python");
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_python"), taskProgrammingDetail.getWhiteList());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
                 }
             }
-            executeCommand(dir + "skrypt.rb \"" + dir + " \""+userDirectory+"\"");
-            /*Socket socket = new Socket("localhost", 54321);
-            PrintWriter printWriter = new PrintWriter(socket.getOutputStream());
-            printWriter.println("\"" + userDirectory + "\"");
-            printWriter.close();
-            socket.close();
-*/
-            JSONParser parser = new JSONParser();
-            Object result = parser.parse(new FileReader(resultDir + userDirectory + "output.json"));
-            if (result instanceof JSONArray) {
-                JSONArray jsonArray = (JSONArray) result;
-                Long passed = (Long) jsonArray.get(1);
-                Long all = (Long) jsonArray.get(2);
-                BigDecimal wynik = new BigDecimal((float) passed / all).setScale(2);
-                logger.info(wynik.doubleValue() + "");
-            } else {
-                jsonObject = (JSONObject) result;
-                logger.info(jsonObject.toString());
-            }
+            executeCommand("ruby " + dir + "skrypt.rb \"" + dir + "\" \"" + userDirectory + "\"");
 
-            solutionTest.setPoints(solutionTest.getPoints() + taskProgramming.getMax_points());
-            taskSol.setPoints(taskProgramming.getMax_points());
+            JSONParser parser = new JSONParser();
+            Object result = parser.parse(new FileReader(resultDir + userDirectory + OUTPUT));
+            jsonObject = (JSONObject) result;
+            if (jsonObject.get("time") != null) {
+                BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
+                BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
+                BigDecimal time = BigDecimal.valueOf((Double) jsonObject.get("time"));
+                BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(2)); //TODO dodac czas rozwiazania do statystyk
+                BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSol.getTask().getMax_points())).setScale(2);
+                taskSol.setPoints(points.floatValue());
+                solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
+            } else {
+                logger.info("blad kompilacji itp, obrobic to potem");
+                logger.info(jsonObject.toJSONString());
+                taskSol.setPoints(0f);
+            }
             solutionTest.getSolutionTasks().add(taskSol);
+        }
+        if (taskSolution instanceof TaskSqlSolution) {
+            TaskSqlSolution taskSqlSolution = (TaskSqlSolution) taskSolution;
+            TaskSql taskSql = (TaskSql) taskSqlSolution.getTask();
+            SolutionConfig solutionConfig = new SolutionConfig();
+            JSONObject jsonObject;
+            JSONObject source = new JSONObject();
+            source.put("task0", taskSqlSolution.getAnswer());
+            JSONObject tests = new JSONObject();
+            JSONArray array = new JSONArray();
+            array.add("type0");
+            array.add(taskSql.getSqlAnswer());
+            tests.put("task0", array);
+            String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getEmail() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
+            jsonObject = solutionConfig.createSqlConfig("sources.json", "preparations.txt", "tests.json", "restricted_list_sql");
+            FileUtils.writeStringToFile(new File(dir + userDirectory + "tests.json"), tests.toJSONString());
+            FileUtils.writeStringToFile(new File(dir + userDirectory + "sources.json"), source.toJSONString());
+            FileUtils.writeStringToFile(new File(dir + userDirectory + "preparations.txt"), taskSql.getPreparations());
+            FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_sql"), "drop");
+            FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
+            logger.info("ugabuga");
+            executeCommand("ruby " + dir + "skrypt.rb \"" + dir + "\" \"" + userDirectory + "\"");
+
+            JSONParser parser = new JSONParser();
+            Object result = parser.parse(new FileReader(resultDir + userDirectory + OUTPUT));
+            jsonObject = (JSONObject) result;
+            if (jsonObject.get("time") != null) {
+                BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
+                BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
+                BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(2));
+                BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSqlSolution.getTask().getMax_points())).setScale(2);
+                taskSqlSolution.setPoints(points.floatValue());
+                solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
+            } else {
+                logger.info("blad kompilacji itp, obrobic to potem");
+                logger.info(jsonObject.toJSONString());
+                taskSqlSolution.setPoints(0f);
+            }
+            solutionTest.getSolutionTasks().add(taskSqlSolution);
         }
     }
 
@@ -228,14 +280,24 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 logger.info(solutionTaskForm.toString());
                 TaskProgrammingSolution taskProgrammingSolution = new TaskProgrammingSolution(solutionTaskForm.getTask());
                 taskProgrammingSolution.setAnswerCode(solutionTaskForm.getAnswerCode());
-
                 taskProgrammingSolution.setLanguage(solutionTaskForm.getLanguage());
                 addTaskSolutionToTest(solutionTest, taskProgrammingSolution);
+            } else if (solutionTaskForm.getTaskType() == SolutionTaskForm.SQLTASK) {
+                logger.info(solutionTaskForm.toString());
+                TaskSqlSolution taskSqlSolution = new TaskSqlSolution(solutionTaskForm.getTask());
+                taskSqlSolution.setAnswer(solutionTaskForm.getAnswerCode());
+                addTaskSolutionToTest(solutionTest, taskSqlSolution);
             }
         return solutionTest;
     }
 
+    @Override
+    public Collection<SolutionTest> getSolutionTestsByUser(User user) {
+        return solutionTestRepository.findSolutionTestsByUser(user);
+    }
+
     public String executeCommand(String command) {
+        logger.info(command);
         StringBuilder output = new StringBuilder();
         Process p;
         try {
@@ -260,7 +322,6 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     public String toString() {
         return "SolutionTestServiceImpl{" +
                 "solutionTestRepository=" + solutionTestRepository +
-                ", httpSession=" + httpSession +
                 ", taskNo=" + taskNo +
                 ", dir='" + dir + '\'' +
                 ", resultDir='" + resultDir + '\'' +

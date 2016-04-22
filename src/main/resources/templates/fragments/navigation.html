@@ -17,17 +17,9 @@
                 <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/test/create"
                                                                                            th:text="#{navigation.createTest}"></a>
                 </li>
-                <li><a href="#" th:text="#{navigation.results}"></a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false" th:text="#{navigation.tasks}"><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" th:text="#{month.date.march}+' 2015'"></a></li>
-                        <li><a href="#" th:text="#{month.date.april}+' 2016'"></a></li>
-                        <li><a href="#" th:text="#{month.date.june} +' 1337'"></a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">undy grundig</a></li>
-                    </ul>
+                <li><a href="#" th:text="#{navigation.results}" th:href="@{/test/showResults}"></a></li>
+                <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/users"
+                                                                                           th:text="#{navigation.users}"></a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -36,7 +28,7 @@
                 <li><a th:href="@{?lang=en}"><img src="/images/eng.png" alt="EN"/></a></li>
                 <li sec:authorize="isAuthenticated()" class="dropdown" ng-init="getMsgCount()">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false" th:text="#{messages}">
+                       aria-expanded="false">Wiadomości
                         <span class="badge">{{unreadNotification}}</span>
                     </a>
                     <ul class="dropdown-menu" ng-init="getTop5Notifications()">

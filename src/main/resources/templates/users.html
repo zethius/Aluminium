@@ -23,12 +23,12 @@
             <table class="table table-striped table-bordered grid" cellspacing="0" width="100%">
                 <thead>
                 <tr>
-                    <th>Login</th>
-                    <th>Imię i nazwisko</th>
-                    <th>Stan konta</th>
-                    <th>Rozwiązane testy</th>
-                    <th>Rola</th>
-                    <th>Opcje</th>
+                    <th th:text="#{usersView.email}">Login</th>
+                    <th th:text="#{usersView.nameAndLastName}">Imię i nazwisko</th>
+                    <th th:text="#{usersView.stanKonta}">Stan konta</th>
+                    <th th:text="#{usersView.solvedTests}">Rozwiązane testy</th>
+                    <th th:text="#{usersView.role}">Rola</th>
+                    <th th:text="#{usersView.options}">Opcje</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -38,9 +38,12 @@
                     <td th:if="!${user.accountNonLocked}" th:text="#{users.blocked}"></td>
                     <td th:if="!${user.enabled} and ${user.accountNonLocked}" th:text="#{users.nonActive}"></td>
                     <td th:if="${user.accountNonLocked} and ${user.enabled}" th:text="#{users.active}"></td>
-                    <td><a href="#">otwórz</a></td>
+                    <td><a th:href="${'/test/' + user.id}">otwórz</a></td>
                     <td th:text="${user.role}"></td>
                     <td>
+                        <a href="#my_modal" class="glyphicon glyphicon-list-alt something" aria-hidden="true" title="wyniki"
+                                                      th:attr="data-email=${user.email}, data-name=${user.name}, data-lastname=${user.lastName}, data-role=${user.role}, data-id=${user.id}"
+                                                      data-toggle="modal" data-target="#wynikiA"></a>
                         <a th:href="${'/user/delete/' + user.id}" onclick="return confirmDelete()">
                             <i class="glyphicon glyphicon-remove" aria-hidden="true"
                                th:title="#{users.removeUser}"></i>
@@ -51,6 +54,56 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="modal fade" id="wynikiA" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Wyniki testu <strong>xyz</strong></h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group col-md-6">
+                                <label for="InputImie" th:text="#{userEdit.name}"></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="InputImie" name="InputImie"
+                                           value="Aktualne imie" th:placeholder="#{userEdit.name}" field="name"/>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="InputNazwisko" th:text="#{userEdit.last_name}"></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="InputNazwisko" name="InputNazwisko"
+                                           value="Aktualne nazwisko" th:placeholder="#{userEdit.last_name}" field="lastName"/>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="InputEmail" th:text="#{userEdit.email}"></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="InputEmail" name="InputEmail"
+                                           value="Adres email" th:placeholder="#{userEdit.email}" field="email"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="InputRola" th:text="#{userEdit.role}"></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="InputRola" name="InputRola"
+                                           value="Aktualne imie" th:placeholder="#{userEdit.role}" field="role"/>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                            <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary pull-right"
+                                    th:text="#{userEdit.submit}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
     <footer>
@@ -64,5 +117,15 @@
         x = confirm("Czy na pewno chcesz usunąć?") == true;
         return x;
     }
+    $(document).ready(function(){
+        $(".something").click(function(){ // Click to only happen on announce links
+            $("#InputId").val($(this).data('id'));
+            $("#InputImie").val($(this).data('name'));
+            $("#InputNazwisko").val($(this).data('lastname'));
+            $("#InputEmail").val($(this).data('email'));
+            $("#InputRola").val($(this).data('role'));
+            <!--  $('#wynikiA').modal('show'); -->
+        });
+    });
 </script>
 </html>

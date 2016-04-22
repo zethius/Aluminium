@@ -78,9 +78,16 @@ public class CreateTestValidator implements Validator {
         }
 
         List<TaskForm> taskForms = createTestForm.getTasks();
+        questionNull = false;
+        questionWithoutAnswer = false;
         closedTaskWithoutCorrectAnswer = false;
+        closedTaskWithoutCountingPointOption = false;
+        taskWithoutPoints = false;
+        programmingTaskWithoutChoosenLanguage = false;
+        programingDetailTaskWhiteListNull = false;
+        programingDetailTaskTestCodeNull = false;
         if (createTestForm.getTasks().size() > 0) {
-            logger.info(closedTaskWithoutCorrectAnswer + "");
+            logger.info(closedTaskWithoutCorrectAnswer + ""+ questionNull);
             for (TaskForm taskForm : taskForms) {
                 if (!questionNull && (taskForm.getQuestion() == null || taskForm.getQuestion().length() < 5)) {
                     questionNull = true;

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
+
 
 @Controller
 public class HomeController {
@@ -34,10 +36,8 @@ public class HomeController {
         logger.info("nazwa metody = homePage");
         try {
             model.addAttribute("pageMessage", this.pageMessage);
-            logger.info(testService.getAllTests().toString());
             model.addAttribute("activeTest", testService.getAllTests());
-            model.addAttribute("archiveTest", solutionTestService.getAllTests());
-            logger.info(solutionTestService.getAllTests().toString());
+            model.addAttribute("archiveTest", testService.getTestByEndDateBefore(LocalDate.now()));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             logger.info(model.toString() + ' ' + this.pageMessage);
