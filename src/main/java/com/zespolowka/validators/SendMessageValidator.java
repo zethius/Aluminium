@@ -50,11 +50,13 @@ public class SendMessageValidator implements Validator {
                 if (s.contains("@")) {
                     Optional<User> usr = userService.getUserByEmail(st);
                     if (!usr.isPresent()) {
+                        logger.info("chuj");
                         errors.rejectValue("receivers", "notification.receiver_invalid");
                     }
                 } else {
                     String st2 = st.toUpperCase();
                     if (!st2.equals(Role.ADMIN.name()) || !st2.equals(Role.SUPERADMIN.name()) || !st2.equals(Role.USER.name())) {
+                        logger.info("chuj2");
                         errors.rejectValue("receivers", "notification.role_invalid");
                     }
                 }

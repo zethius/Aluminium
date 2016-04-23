@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,7 +66,7 @@ public class NotificationController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/sendMessage", method = RequestMethod.POST)
-    public String sendMessage(final Model model, @ModelAttribute final NewMessageForm newMessageForm, final Errors errors) {
+    public String sendMessage(final Model model, @ModelAttribute final NewMessageForm newMessageForm, BindingResult errors) {
         logger.info("nazwa metody = sendMessage");
         sendMessageValidator.validate(newMessageForm, errors);
         if (errors.hasErrors()) {
@@ -77,7 +78,6 @@ public class NotificationController {
             } catch (final Exception e) {
                 logger.info("\n" + model + '\n');
             }
-            model.addAttribute("newMessageForm", new NewMessageForm());
             return "sendMessage";
         } else {
             notificationService.sendMessage(newMessageForm);
