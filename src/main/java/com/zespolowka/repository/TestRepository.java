@@ -10,5 +10,6 @@ import java.util.Collection;
 @Repository
 public interface TestRepository extends JpaRepository<Test, Long> {
     Test findTestById(Long id);
+
     Collection<Test> findByEndDateBefore(LocalDate date);
 }

@@ -50,7 +50,7 @@ angular.module('ngApp', [])
             var element = document.getElementById('testform');
             element.submit();
         };
-        $scope.setLanguages = function (languages,taskId) {
+        $scope.setLanguages = function (languages, taskId) {
             languages = languages.replace("[", "");
             languages = languages.replace("]", "");
             var array = languages.split(", ");
@@ -59,11 +59,11 @@ angular.module('ngApp', [])
                     $scope.selectedLanguages.push($scope.languagesSet[i].name);
                 }
             }
-            $scope.array[taskId]=$scope.selectedLanguages;
-            $scope.selectedLanguages=[];
+            $scope.array[taskId] = $scope.selectedLanguages;
+            $scope.selectedLanguages = [];
         };
         $scope.changeLanguages = function (taskId) {
-            var element = document.getElementById('selectedLanguages'+taskId);
+            var element = document.getElementById('selectedLanguages' + taskId);
             var selected1 = [];
             for (var i = 0; i < element.length; i++) {
                 if (element.options[i].selected)

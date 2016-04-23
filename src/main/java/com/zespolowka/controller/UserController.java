@@ -172,6 +172,43 @@ public class UserController {
         }
         return "redirect:/users";
     }
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
+    @RequestMapping(value = "/changeBlock/{id}", method = RequestMethod.GET)
+    public String unblockUser(@PathVariable final Integer id) {
+        logger.debug("nazwa metody = unblockUser");
+        try {
+            User user=userService.getUserById(id)
+                    .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
+            if(user.isAccountNonLocked()){
+                user.setAccountNonLocked(false);
+            }else{
+                user.setAccountNonLocked(true);
+            }
+            userService.update(user);
+        } catch (final Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "redirect:/users";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
+    @RequestMapping(value = "/changeActive/{id}", method = RequestMethod.GET)
+    public String activateUser(@PathVariable final Integer id) {
+        logger.debug("nazwa metody = activateUser");
+        try {
+            User user=userService.getUserById(id)
+                    .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
+            if(user.isEnabled()){
+                user.setEnabled(false);
+            }else{
+                user.setEnabled(true);
+            }
+            userService.update(user);
+        } catch (final Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "redirect:/users";
+    }
 
     @Override
     public String toString() {

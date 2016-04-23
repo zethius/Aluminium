@@ -2,10 +2,10 @@ package com.zespolowka.config;
 
 import org.springframework.context.annotation.Configuration;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.sql.Date;
+import java.time.LocalDate;
 
 @Configuration
 @Converter(autoApply = true)

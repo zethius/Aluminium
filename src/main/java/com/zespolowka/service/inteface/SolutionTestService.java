@@ -4,7 +4,6 @@ import com.zespolowka.entity.createTest.Test;
 import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.solutionTest.TaskSolution;
 import com.zespolowka.entity.user.User;
-import com.zespolowka.forms.CreateTestForm;
 import com.zespolowka.forms.SolutionTestForm;
 import org.json.simple.parser.ParseException;
 
@@ -35,5 +34,7 @@ public interface SolutionTestService {
     Collection<SolutionTest> getSolutionTestsByUser(User user);
 
     List<SolutionTest> getSolutionsWithTheBestResult(User user);
+
+    Collection<SolutionTest> getSolutionTestsByTest(Test test);
 
 }
