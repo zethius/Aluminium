@@ -6,6 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="f90f67c8-feda-4406-8ffd-53636fddb08d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/Notification.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/Notification.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/VerificationToken.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/VerificationToken.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserDetailsService.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserDetailsService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/NotificationServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/NotificationServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/SendMailServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/SendMailServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/UserServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/UserServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/VerificationTokenServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/VerificationTokenServiceImpl.java" />
     </list>
     <ignored path="Alluminium0.0.1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="213" column="31" selection-start-line="213" selection-start-column="31" selection-end-line="213" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.38317758">
+              <caret line="206" column="29" selection-start-line="206" selection-start-column="29" selection-end-line="206" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -65,10 +73,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UsersController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UsersController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UsersController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.52024925">
+            <state vertical-scroll-proportion="0.0">
               <caret line="55" column="6" selection-start-line="55" selection-start-column="6" selection-end-line="55" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -1548,7 +1556,7 @@
       <workItem from="1461335133560" duration="3374000" />
       <workItem from="1461339217535" duration="6665000" />
       <workItem from="1461352712685" duration="9175000" />
-      <workItem from="1461406372503" duration="11054000" />
+      <workItem from="1461406372503" duration="11082000" />
     </task>
     <task id="LOCAL-00001" summary="Aktualizacja 18 kwietnia">
       <created>1461008655087</created>
@@ -1568,7 +1576,13 @@
       <option name="project" value="LOCAL" />
       <updated>1461418265665</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Block i Activate dla /users i modal w /test/all">
+      <created>1461418314407</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1461418314407</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1580,7 +1594,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="343642000" />
+    <option name="totallyTimeSpent" value="343670000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2057,14 +2071,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="213" column="31" selection-start-line="213" selection-start-column="31" selection-end-line="213" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/HomeController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2075,11 +2081,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UsersController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52024925">
+        <state vertical-scroll-proportion="0.0">
           <caret line="55" column="6" selection-start-line="55" selection-start-column="6" selection-end-line="55" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38317758">
+          <caret line="206" column="29" selection-start-line="206" selection-start-column="29" selection-end-line="206" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
