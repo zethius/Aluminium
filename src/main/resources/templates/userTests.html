@@ -9,18 +9,18 @@
     <div class="jumbotron" sec:authorize="isAuthenticated()">
         <div class="container">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#archiwalne" aria-controls="archiwalne" role="tab"
-                                                          data-toggle="tab" th:text="#{mainPage.activeTests}"></a></li>
-                <li role="presentation"><a href="#aktywne" aria-controls="aktywne" role="tab"
-                                           data-toggle="tab" th:text="#{mainPage.archivalTests}"></a></li>
+                <li role="presentation" class="active"><a href="#aktywne" aria-controls="aktywne" role="tab"
+                                                          data-toggle="tab" th:text="#{showResults.solvedTests}"></a></li>
+                <li role="presentation"><a href="#najlepszeTesty" aria-controls="najlepszeTesty" role="tab"
+                                           data-toggle="tab" th:text="#{showResults.bestTests}"></a></li>
             </ul>
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="archiwalne">...
+                <div role="tabpanel" class="tab-pane active" id="aktywne">...
                     <table class="grid table" cellspacing="0" width="100%">
                         <thead>
                         <tr>
                             <th th:text="#{mainPage.testName}"></th>
-                            <th th:text="#{mainPage.attempts}"></th>
+                            <th th:text="#{showResults.attempts}"></th>
                             <th th:text="#{mainPage.startDate}"></th>
                             <th th:text="#{mainPage.endDate}"></th>
                             <th th:text="#{mainPage.points}"></th>
@@ -30,7 +30,7 @@
                         <tbody>
                         <tr th:each="test:*{Tests}">
                             <td th:text="*{test.test.name}"/>
-                            <td th:text="*{test.attempt}"/>
+                            <td th:text="#{showResults.attempt}"/>
                             <td th:text="*{test.beginSolution}"/>
                             <td th:text="*{test.endSolution}"/>
                             <td th:text="*{test.points}"/>
@@ -39,15 +39,15 @@
                         </tbody>
                     </table>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="aktywne">...
+                <div role="tabpanel" class="tab-pane" id="najlepszeTesty">...
                     <table class="grid table" cellspacing="0" width="100%">
                         <thead>
                         <tr>
                             <th th:text="#{mainPage.testName}"></th>
-                            <th th:text="#{mainPage.attempts}"></th>
+                            <th th:text="#{showResults.attempt}"></th>
                             <th th:text="#{mainPage.startDate}"></th>
                             <th th:text="#{mainPage.endDate}"></th>
-                            <th th:text="#{mainPage.maxPoints}"></th>
+                            <th th:text="#{mainPage.points}"></th>
                         </tr>
                         </thead>
                         <tbody>
