@@ -42,9 +42,10 @@
                     <td><a th:href="${'/test/' + user.id}">otwórz</a></td>
                     <td th:text="${user.role}"></td>
                     <td>
-                        <a href="#my_modal" class="glyphicon glyphicon-list-alt something" aria-hidden="true" title="wyniki"
-                                                      th:attr="data-email=${user.email}, data-name=${user.name}, data-lastname=${user.lastName}, data-role=${user.role}, data-id=${user.id}"
-                                                      data-toggle="modal" data-target="#wynikiA"></a>
+                        <a href="#my_modal" class="glyphicon glyphicon-list-alt something" aria-hidden="true"
+                           title="wyniki"
+                           th:attr="data-email=${user.email}, data-name=${user.name}, data-lastname=${user.lastName}, data-role=${user.role}, data-id=${user.id}"
+                           data-toggle="modal" data-target="#wynikiA"></a>
                         <a th:href="${'/user/delete/' + user.id}" onclick="return confirmDelete()">
                             <i class="glyphicon glyphicon-remove" aria-hidden="true"
                                th:title="#{users.removeUser}"></i>
@@ -60,8 +61,14 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
+<<<<<<< 82569db0c595345ce85a12e37b642fb467cc3614
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title" id="myModalLabel" th:text="#{userEdit.edit_user}"></h4>
+=======
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Wyniki testu <strong>xyz</strong></h4>
+>>>>>>> male zmiany
                         </div>
                         <div class="modal-body">
 
@@ -86,10 +93,16 @@
                             <div class="form-group col-md-6">
                                 <label for="InputNazwisko" th:text="#{userEdit.last_name}"></label>
                                 <div class="input-group">
+<<<<<<< 82569db0c595345ce85a12e37b642fb467cc3614
                                     <input type="text" class="form-control" data-toggle="popover" data-trigger="manual"
                                            th:attr="data-content=#{userEdit.invalidLastName}"
                                            id="InputNazwisko" name="InputNazwisko"
                                            value="Aktualne nazwisko" th:placeholder="#{userEdit.last_name}" th:field="*{lastName}"/>
+=======
+                                    <input type="text" class="form-control" id="InputNazwisko" name="InputNazwisko"
+                                           value="Aktualne nazwisko" th:placeholder="#{userEdit.last_name}"
+                                           field="lastName"/>
+>>>>>>> male zmiany
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
@@ -124,8 +137,14 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+<<<<<<< 82569db0c595345ce85a12e37b642fb467cc3614
 
 
+=======
+                            <button type="submit" name="submit" id="submit" value="Submit"
+                                    class="btn btn-primary pull-right"
+                                    th:text="#{userEdit.submit}"/>
+>>>>>>> male zmiany
                         </div>
                     </div>
                 </div>
@@ -145,6 +164,7 @@
         x = confirm("Czy na pewno chcesz usunąć?") == true;
         return x;
     }
+<<<<<<< 82569db0c595345ce85a12e37b642fb467cc3614
 
 function checkform() {
     var name = $('#InputImie').val();
@@ -181,6 +201,10 @@ function checkform() {
 
     $(document).ready(function(){
         $(".something").click(function(){ // Click to only happen on announce links
+=======
+    $(document).ready(function () {
+        $(".something").click(function () { // Click to only happen on announce links
+>>>>>>> male zmiany
             $("#InputId").val($(this).data('id'));
             $("#InputImie").val($(this).data('name'));
             $("#InputNazwisko").val($(this).data('lastname'));

@@ -184,7 +184,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             SolutionConfig solutionConfig = new SolutionConfig();
             JSONObject jsonObject;
             String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getEmail() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
-            userDirectory=userDirectory.replaceAll(" ","");
+            userDirectory = userDirectory.replaceAll(" ", "");
             Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
             for (TaskProgrammingDetail taskProgrammingDetail : taskProgrammingDetails) {
                 if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.JAVA)) {
@@ -216,7 +216,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
                 BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
                 BigDecimal time = BigDecimal.valueOf((Double) jsonObject.get("time"));
-                BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(2)); //TODO dodac czas rozwiazania do statystyk
+                BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, BigDecimal.ROUND_HALF_UP)); //TODO dodac czas rozwiazania do statystyk
                 BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSol.getTask().getMax_points())).setScale(2);
                 taskSol.setPoints(points.floatValue());
                 solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
@@ -240,7 +240,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             array.add(taskSql.getSqlAnswer());
             tests.put("task0", array);
             String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getEmail() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
-            userDirectory=userDirectory.replaceAll(" ","");
+            userDirectory = userDirectory.replaceAll(" ", "");
             jsonObject = solutionConfig.createSqlConfig("sources.json", "preparations.txt", "tests.json", "restricted_list_sql");
             FileUtils.writeStringToFile(new File(dir + userDirectory + "tests.json"), tests.toJSONString());
             FileUtils.writeStringToFile(new File(dir + userDirectory + "sources.json"), source.toJSONString());
@@ -256,7 +256,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             if (jsonObject.get("time") != null) {
                 BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
                 BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
-                BigDecimal resultTest = (passed.divide(all,MathContext.DECIMAL128).setScale(4,BigDecimal.ROUND_HALF_UP));
+                BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, BigDecimal.ROUND_HALF_UP));
                 BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSqlSolution.getTask().getMax_points())).setScale(2);
                 taskSqlSolution.setPoints(points.floatValue());
                 solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
@@ -301,6 +301,11 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     @Override
     public Collection<SolutionTest> getSolutionTestsByUser(User user) {
         return solutionTestRepository.findSolutionTestsByUser(user);
+    }
+
+    @Override
+    public Collection<SolutionTest> getSolutionTestsByTest(Test test) {
+        return solutionTestRepository.findSolutionTestsByTest(test);
     }
 
     public String executeCommand(String command) {

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:layout="http://www.w3.org/1999/xhtml"
-      layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      lang="pl" layout:decorator="layout">
 <head>
     <title>Testy admina</title>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
@@ -28,11 +28,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr  th:each="test : ${Tests}">
-                    <td  th:text="${test.name}"></td>
+                <tr th:each="test : ${Tests}">
+                    <td th:text="${test.name}"></td>
                     <td th:text="${test.attempts}"></td>
-                    <td  th:text="${test.beginDate}"></td>
-                    <td  th:text="${test.endDate}"></td>
+                    <td th:text="${test.beginDate}"></td>
+                    <td th:text="${test.endDate}"></td>
                     <td>
                         <a href="#"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" title="wyniki"
                                           data-toggle="modal" data-target="#wynikiA"></span></a>

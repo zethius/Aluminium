@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 
 @Controller
@@ -42,7 +43,7 @@ public class SolutionTestController {
         logger.info("getSoltutionTestPage dla testu o id={}", id);
         Test test = testService.getTestById(id);
         if (test.isOpenTest()) {
-            logger.info(test.isOpenTest()+"");
+            logger.info(test.isOpenTest() + "");
             redirectAttributes.addFlashAttribute("Test", test);
             return "redirect:/solutionTest";
         } else if (password != null) {
@@ -115,6 +116,14 @@ public class SolutionTestController {
     public Test loadEntity(@PathVariable("id") Long id) {
         return testService.getTestById(id);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/solutionTest/loadResultEntity/{id}", method = RequestMethod.GET)
+    public List<SolutionTest> loadResultEntity(@PathVariable("id") Long id) {
+        logger.info("metoda=SolutionTestController.loadResultEntity");
+        return (List<SolutionTest>) solutionTestService.getSolutionTestsByTest(testService.getTestById(id));
+    }
+
 
     @Override
     public String toString() {

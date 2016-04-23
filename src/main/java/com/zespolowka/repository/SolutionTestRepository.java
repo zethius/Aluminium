@@ -16,4 +16,6 @@ public interface SolutionTestRepository extends JpaRepository<SolutionTest, Long
     Collection<SolutionTest> findSolutionTestsByUserAndTest(User user, Test test);
 
     Collection<SolutionTest> findSolutionTestsByUser(User user);
+
+    Collection<SolutionTest> findSolutionTestsByTest(Test test);
 }
