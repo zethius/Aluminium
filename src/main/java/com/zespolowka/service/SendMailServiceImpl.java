@@ -71,7 +71,7 @@ public class SendMailServiceImpl implements SendMailService {
             message.setTo(to);
             message.setSubject(subject);
             message.setText("<html><body>" +
-                    "<h4>Witaj, " + user.getName() + " " + user.getLastName() + "</h4>" +
+                    "<h4>Witaj, " + user.getName() + ' ' + user.getLastName() + "</h4>" +
                     "<i>" + body + "</i>" +
                     "</body></html>", true);
             mailSender.send(mimeMessage);
@@ -87,7 +87,7 @@ public class SendMailServiceImpl implements SendMailService {
             message.setTo(user.getEmail());
             message.setSubject("Confirm Registration");
             message.setText("<html><body>" +
-                    "<h4>Witaj, " + user.getName() + " " + user.getLastName() + "</h4>" +
+                    "<h4>Witaj, " + user.getName() + ' ' + user.getLastName() + "</h4>" +
                     "<i>" + url + "</i>" +
                     "</body></html>", true);
             mailSender.send(mimeMessage);
@@ -117,5 +117,14 @@ public class SendMailServiceImpl implements SendMailService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "SendMailServiceImpl{" +
+                "mailSender=" + mailSender +
+                ", mimeMessage=" + mimeMessage +
+                ", message=" + message +
+                '}';
     }
 }

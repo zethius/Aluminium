@@ -13,14 +13,11 @@ public class TaskProgrammingDetail {
     private String whiteList;
     @Enumerated(EnumType.STRING)
     private ProgrammingLanguages language;
-<<<<<<< HEAD
     private String testClassName;
     private String solutionClassName;
 
     public TaskProgrammingDetail() {
     }
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 
     public Long getId() {
         return id;
@@ -54,7 +51,6 @@ public class TaskProgrammingDetail {
         this.language = language;
     }
 
-<<<<<<< HEAD
     public String getTestClassName() {
         return testClassName;
     }
@@ -71,18 +67,13 @@ public class TaskProgrammingDetail {
         this.solutionClassName = solutionClassName;
     }
 
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     @Override
     public String toString() {
         return "TaskProgrammingDetail{" +
                 "testCode='" + testCode + '\'' +
                 ", whiteList='" + whiteList + '\'' +
-<<<<<<< HEAD
                 ", solutionClassName='" + solutionClassName + '\'' +
                 ", testClassName='" + testClassName + '\'' +
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                 ", language=" + language +
                 '}';
     }

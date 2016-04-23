@@ -6,12 +6,9 @@ public class NewMessageForm {
     private String topic;
     private String receivers;
 
-<<<<<<< HEAD
     public NewMessageForm() {
     }
 
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     public String getMessage() {
         return message;
     }

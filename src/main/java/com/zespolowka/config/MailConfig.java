@@ -11,12 +11,9 @@ import java.util.Properties;
  */
 @Configuration
 public class MailConfig {
-<<<<<<< HEAD
     public MailConfig() {
     }
 
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     @Bean
     public JavaMailSenderImpl javaMailSenderImpl() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();

@@ -4,10 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-<<<<<<< HEAD
 import javax.validation.Valid;
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,34 +26,20 @@ public class CreateTestForm {
     private String beginDate = LocalDate.now().toString();
 
     @NotNull
-<<<<<<< HEAD
     private String endDate = LocalDate.now().plusWeeks(1L).toString();
 
     @Min(5)
     private int timePerAttempt = 5;
-=======
-    private String endDate = LocalDate.now().plusWeeks(1).toString();
-
-    @Min(1)
-    private int timePerAttempt = 1;
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 
     private String password = "";
 
     @NotEmpty
-<<<<<<< HEAD
     @Valid
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     private List<TaskForm> tasks;
 
     public CreateTestForm() {
         this.attempts = 1;
-<<<<<<< HEAD
         this.timePerAttempt = 5;
-=======
-        this.timePerAttempt = 1;
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         this.tasks = new ArrayList<>();
     }
 

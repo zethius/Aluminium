@@ -26,13 +26,10 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
         return user.getRole();
     }
 
-<<<<<<< HEAD
     @Override
     public String toString() {
         return "CurrentUser{" +
                 "user=" + user +
                 '}';
     }
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 }

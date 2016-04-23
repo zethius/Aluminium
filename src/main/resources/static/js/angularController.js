@@ -37,10 +37,7 @@ angular.module('ngApp', [])
             {id: '3', name: 'PYTHON'}
         ];
         $scope.selectedLanguages = [];
-<<<<<<< HEAD
         $scope.array = [];
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 
 
         $scope.setQuestionType = function (selectedValue) {
@@ -53,31 +50,20 @@ angular.module('ngApp', [])
             var element = document.getElementById('testform');
             element.submit();
         };
-<<<<<<< HEAD
         $scope.setLanguages = function (languages,taskId) {
             languages = languages.replace("[", "");
             languages = languages.replace("]", "");
             var array = languages.split(", ");
-=======
-        $scope.setLanguages = function (languages) {
-            var array = languages.split(",");
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
             for (var i = 0; i < $scope.languagesSet.length; i++) {
                 if (array.indexOf($scope.languagesSet[i].name) > -1) {
                     $scope.selectedLanguages.push($scope.languagesSet[i].name);
                 }
             }
-<<<<<<< HEAD
             $scope.array[taskId]=$scope.selectedLanguages;
             $scope.selectedLanguages=[];
         };
         $scope.changeLanguages = function (taskId) {
             var element = document.getElementById('selectedLanguages'+taskId);
-=======
-        };
-        $scope.changeLanguages = function (taskId) {
-            var element = document.getElementById('selectedLanguages');
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
             var selected1 = [];
             for (var i = 0; i < element.length; i++) {
                 if (element.options[i].selected)
@@ -88,10 +74,6 @@ angular.module('ngApp', [])
 
         };
         $scope.removeQuestion = function (taskId) {
-<<<<<<< HEAD
-=======
-            alert("CHUJ" + taskId);
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
             document.getElementById('testform').setAttribute("action", "/test/create/remove?taskId=" + taskId);
             document.getElementById('testform').submit();
         }

@@ -33,25 +33,30 @@ public class SolutionTestController {
     @Autowired
     private TestService testService;
 
-<<<<<<< HEAD
     public SolutionTestController() {
     }
 
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
-    @RequestMapping(value = "/solutionTest/{id}", method = RequestMethod.GET)
-    public String getSolutionTestPage(@PathVariable final Integer id, final RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "/getSolutionTest", method = RequestMethod.POST)
+    public String getSolutionTestPage(@RequestParam(value = "id", required = true) Integer id,
+                                      @RequestParam(value = "pass", required = false) String password, final RedirectAttributes redirectAttributes) {
         logger.info("getSoltutionTestPage dla testu o id={}", id);
         Test test = testService.getTestById(id);
-        redirectAttributes.addFlashAttribute("Test", test);
-        logger.info(test.toString());
-        return "redirect:/solutionTest";
+        if (test.isOpenTest()) {
+            logger.info(test.isOpenTest()+"");
+            redirectAttributes.addFlashAttribute("Test", test);
+            return "redirect:/solutionTest";
+        } else if (password != null) {
+            if (password.equals(test.getPassword())) {
+                redirectAttributes.addFlashAttribute("Test", test);
+                return "redirect:/solutionTest";
+            }
+        }
+        return "redirect:/";
     }
 
 
     @RequestMapping(value = "/solutionTest")
     public String solutionTestPage(Model model, @ModelAttribute("Test") Test test2) {
-<<<<<<< HEAD
         SolutionTest solutionTest = (SolutionTest) this.httpSession.getAttribute(TEST_ATTRIBUTE_NAME);
         if (solutionTest != null) {
             SolutionTestForm solutionTestForm = solutionTestService.createForm(solutionTest.getTest(), solutionTest.getUser());
@@ -80,29 +85,6 @@ public class SolutionTestController {
                 logger.info(solutionTestForm.toString());
                 return "testSolution";
             }
-=======
-        CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = currentUser.getUser();
-        logger.info(test2.toString());
-        Long id;
-        if (test2 == null) {
-            id = 1L;
-        } else id = test2.getId();
-        Test test = testService.getTestById(id);
-        Integer attemptForUser = solutionTestService.getSolutionTestsByUserAndTest(user, test).size();
-        logger.info(attemptForUser + "");
-        logger.info(test.getAttempts() + "");
-        if (test.getAttempts().intValue() <= attemptForUser) {
-            model.addAttribute("testSolutionError", true);
-            logger.info("ni chuja");
-            return "testSolution";
-        } else {
-            logger.info(test + "");
-            SolutionTestForm solutionTestForm = solutionTestService.createForm(test, user);
-            model.addAttribute("solutionTest", solutionTestForm);
-            logger.info(solutionTestForm.toString());
-            return "testSolution";
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         }
     }
 
@@ -113,11 +95,7 @@ public class SolutionTestController {
         this.httpSession.removeAttribute(TEST_ATTRIBUTE_NAME);
         logger.info(solutionTest.toString());
         logger.info(solutionTestForm.toString());
-<<<<<<< HEAD
         solutionTest = solutionTestService.create(solutionTest, solutionTestForm);
-=======
-        solutionTest.create(solutionTestForm);
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         solutionTestService.create(solutionTest);
         model.addAttribute("solutionTest", solutionTest);
         redirectAttributes.addFlashAttribute("sendModel", solutionTest);
@@ -127,25 +105,24 @@ public class SolutionTestController {
     @RequestMapping(value = "/solutionTestCheckAnswers")
     public String checkSolutionTestPage(@ModelAttribute("sendModel") final SolutionTest solutionTest, Model model) {
         model.addAttribute(new TaskTypeChecker());
-<<<<<<< HEAD
         logger.info(String.valueOf(solutionTest));
         model.addAttribute("solutionTest", solutionTest);
         return "solutionTestCheckAnswers";
     }
-=======
-        logger.info(solutionTest + "");
-        model.addAttribute("solutionTest", solutionTest);
-        return "solutionTestCheckAnswers";
-    }
 
-    //DO MODALA
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     @ResponseBody
     @RequestMapping(value = "/solutionTest/loadEntity/{id}", method = RequestMethod.GET)
     public Test loadEntity(@PathVariable("id") Long id) {
         return testService.getTestById(id);
     }
-<<<<<<< HEAD
+
+    @ResponseBody
+    @RequestMapping(value = "/solutionTest/loadResultEntity/{id}", method = RequestMethod.GET)
+    public Object[] loadResultEntity(@PathVariable("id") Long id) {
+        logger.info("metoda=SolutionTestController.loadResultEntity");
+        return solutionTestService.getSolutionTestsByTest(testService.getTestById(id)).toArray();
+    }
+
 
     @Override
     public String toString() {
@@ -155,6 +132,4 @@ public class SolutionTestController {
                 ", testService=" + testService +
                 '}';
     }
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 }

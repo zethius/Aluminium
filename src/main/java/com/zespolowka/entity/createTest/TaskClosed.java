@@ -10,15 +10,9 @@ import java.util.TreeMap;
 public class TaskClosed extends Task {
 
     @Transient
-<<<<<<< HEAD
     public static final int WRONG_RESET = 0;
     @Transient
     public static final int COUNT_NOT_FULL = 1;
-=======
-    public final int WRONG_RESET = 0;
-    @Transient
-    public final int COUNT_NOT_FULL = 1;
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     @ElementCollection
     private Map<String, Boolean> answers = new TreeMap<>();
     private int countingType;

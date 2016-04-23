@@ -51,7 +51,6 @@ public class EmailController {
     public void sendMessage() {
         notificationService.createNotification(new Notification("GRUPOWA", "Temat", new Date(), Role.ADMIN));
     }
-<<<<<<< HEAD
 
     @Override
     public String toString() {
@@ -60,6 +59,4 @@ public class EmailController {
                 ", notificationService=" + notificationService +
                 '}';
     }
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 }

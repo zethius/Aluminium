@@ -10,11 +10,9 @@
         <div class="container">
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#archiwalne" aria-controls="archiwalne" role="tab"
-<<<<<<< HEAD
                                                           data-toggle="tab" th:text="#{mainPage.activeTests}"></a></li>
-=======
-                                           data-toggle="tab" th:text="#{mainPage.activeTests}"></a></li>
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
+                <li role="presentation"><a href="#aktywne" aria-controls="aktywne" role="tab"
+                                           data-toggle="tab" th:text="#{mainPage.archivalTests}"></a></li>
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="archiwalne">...
@@ -37,6 +35,28 @@
                             <td th:text="*{test.endSolution}"/>
                             <td th:text="*{test.points}"/>
                             <td th:text="*{test.test.maxPoints}"/>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="aktywne">...
+                    <table class="grid table" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th th:text="#{mainPage.testName}"></th>
+                            <th th:text="#{mainPage.attempts}"></th>
+                            <th th:text="#{mainPage.startDate}"></th>
+                            <th th:text="#{mainPage.endDate}"></th>
+                            <th th:text="#{mainPage.maxPoints}"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="test:*{BestTest}">
+                            <td th:text="*{test.test.name}"/>
+                            <td th:text="*{test.attempt}"/>
+                            <td th:text="*{test.beginSolution}"/>
+                            <td th:text="*{test.endSolution}"/>
+                            <td th:text="*{test.points}"/>
                         </tr>
                         </tbody>
                     </table>

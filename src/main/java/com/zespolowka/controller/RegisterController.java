@@ -48,12 +48,9 @@ public class RegisterController {
     @Autowired
     private SendMailService sendMailService;
 
-<<<<<<< HEAD
     public RegisterController() {
     }
 
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registerPage(Model model) {
@@ -96,19 +93,9 @@ public class RegisterController {
         LocalDateTime localDateTime = LocalDateTime.now();
         long diff = Duration.between(localDateTime, verificationToken.getExpiryDate()).toMinutes();
 
-<<<<<<< HEAD
         if (diff < 0L) {
             logger.info(String.format("Token juz jest nieaktulany \n dataDO= %s \n", verificationToken.getExpiryDate()));
             model.addAttribute("nieaktualny", true);
-=======
-        /**
-         * TODO
-         * Poprawic to
-         */
-        if (diff < 0) {
-            logger.info(String.format("Token juz jest nieaktulany \n dataDO= %s \n", verificationToken.getExpiryDate()));
-            model.addAttribute("nieaktualny",true);
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
             return "login";
         } else {
             logger.info("Token jest aktualny - aktywacja konta");
@@ -118,7 +105,6 @@ public class RegisterController {
         }
     }
 
-<<<<<<< HEAD
     @Override
     public String toString() {
         return "RegisterController{" +
@@ -128,6 +114,4 @@ public class RegisterController {
                 ", sendMailService=" + sendMailService +
                 '}';
     }
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 }

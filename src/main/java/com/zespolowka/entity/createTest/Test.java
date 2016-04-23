@@ -25,11 +25,7 @@ public class Test {
 
     public Test() {
         this.tasks = new ArrayList<>();
-<<<<<<< HEAD
         this.maxPoints = 0.0f;
-=======
-        this.maxPoints = 0f;
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         this.password = "";
     }
 
@@ -39,16 +35,18 @@ public class Test {
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.tasks = tasks;
-<<<<<<< HEAD
         this.maxPoints = 0.0f;
-=======
-        this.maxPoints = 0f;
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     }
 
     public void addTaskToTest(final Task task) {
         tasks.add(task);
         updateMaxPoints(task.getMax_points());
+    }
+
+    public Boolean isOpenTest(){
+        if (password.length()>0){
+            return false;
+        }else return true;
     }
 
     public void updateMaxPoints(Float points) {

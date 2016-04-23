@@ -43,11 +43,7 @@ public class SendMessageValidator implements Validator {
             else receivers = form.getReceivers();
 
             String result[] = receivers.split(",");
-<<<<<<< HEAD
             logger.info(receivers);
-=======
-            logger.info(receivers.toString());
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
             logger.info(Arrays.toString(result));
             for (String s : result) {
                 String st = s.replaceAll("\\s+", "");
@@ -65,7 +61,6 @@ public class SendMessageValidator implements Validator {
             }
         }
     }
-<<<<<<< HEAD
 
     @Override
     public String toString() {
@@ -73,6 +68,4 @@ public class SendMessageValidator implements Validator {
                 "userService=" + userService +
                 '}';
     }
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 }

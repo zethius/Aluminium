@@ -1,10 +1,7 @@
 package com.zespolowka.service;
 
 
-<<<<<<< HEAD
 import com.zespolowka.entity.createTest.Task;
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 import com.zespolowka.forms.CreateTestForm;
 import com.zespolowka.forms.TaskForm;
 import org.slf4j.Logger;
@@ -52,7 +49,6 @@ public class TestFormService {
         updateTestFormInSession(createTestForm);
     }
 
-<<<<<<< HEAD
 
     @Override
     public String toString() {
@@ -60,6 +56,4 @@ public class TestFormService {
                 "httpSession=" + httpSession +
                 '}';
     }
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 }

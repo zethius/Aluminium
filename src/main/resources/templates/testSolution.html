@@ -83,7 +83,6 @@
                         </div>
 
                     </div>
-<<<<<<< HEAD
                     <div th:if="*{tasks[__${rowStat.index}__].taskType}==3" class="form-group col-md-12">
                         <h4 th:text="${rowStat.count}+'. '+*{tasks[__${rowStat.index}__].task.question}"/>
                         <div class="input-group">
@@ -95,8 +94,6 @@
                         </div>
 
                     </div>
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
                 </div>
                 <input type="hidden" th:name="${_csrf != null ? _csrf.parameterName : 'testing'}"
                        th:value="${_csrf != null ? _csrf.token : 'testing'}"/>

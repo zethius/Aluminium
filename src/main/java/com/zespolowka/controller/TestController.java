@@ -2,19 +2,21 @@ package com.zespolowka.controller;
 
 import com.zespolowka.entity.createTest.ProgrammingLanguages;
 import com.zespolowka.entity.createTest.Test;
+import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.user.CurrentUser;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.CreateTestForm;
 import com.zespolowka.forms.ProgrammingTaskForm;
 import com.zespolowka.forms.TaskForm;
+import com.zespolowka.repository.CustomSolutionTestRepository;
+import com.zespolowka.repository.SolutionTestRepository;
+import com.zespolowka.repository.SolutionTestRepositoryImpl;
+import com.zespolowka.repository.UserRepository;
 import com.zespolowka.service.TestFormService;
 import com.zespolowka.service.inteface.SolutionTestService;
 import com.zespolowka.service.inteface.TestService;
 import com.zespolowka.service.inteface.UserService;
-<<<<<<< HEAD
 import com.zespolowka.validators.CreateTestValidator;
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,6 @@ import java.util.*;
 @RequestMapping("/test")
 public class TestController {
     private static final Logger logger = LoggerFactory.getLogger(TestController.class);
-<<<<<<< HEAD
     private final TestFormService testFormService;
     private final TestService testService;
     private final CreateTestValidator createTestValidator;
@@ -50,20 +51,6 @@ public class TestController {
         this.createTestValidator = createTestValidator;
         this.solutionTestService = solutionTestService;
         this.userService = userService;
-=======
-    private TestFormService testFormService;
-    private TestService testService;
-    private CreateTestForm createTestForm;
-    private final SolutionTestService solutionTestService;
-    private final UserService userService;
-
-    @Autowired
-    public TestController(final TestFormService testFormService, TestService testService,SolutionTestService solutionTestService, UserService userService) {
-        this.testFormService = testFormService;
-        this.testService = testService;
-        this.solutionTestService=solutionTestService;
-        this.userService= userService;
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     }
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
@@ -95,13 +82,10 @@ public class TestController {
                 testFormService.addTaskFormToTestForm(new TaskForm(TaskForm.PROGRAMMINGTASK));
                 break;
             }
-<<<<<<< HEAD
             case 3: {
                 testFormService.addTaskFormToTestForm(new TaskForm(TaskForm.SQLTASK));
                 break;
             }
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         }
         logger.info(createTestForm.toString());
 
@@ -109,14 +93,9 @@ public class TestController {
         return "redirect:/test/create";
     }
 
-<<<<<<< HEAD
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "create/change", method = RequestMethod.POST)
     public String changeLanguages(@RequestParam(value = "taskId", defaultValue = "0") Integer taskId, @RequestParam(value = "selected", defaultValue = "java") String selected, final CreateTestForm createTestForm, final Model model) {
-=======
-    @RequestMapping(value = "create/change", method = RequestMethod.POST)
-    public String changeLanguages(@RequestParam(value = "taskId", defaultValue = "0") int taskId, @RequestParam(value = "selected", defaultValue = "") String selected, final CreateTestForm createTestForm, final Model model) {
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         logger.info("Metoda - changeLanguages");
         taskId -= 1;
         testFormService.updateSelectedLanguagesInSession(selected);  ///TODO zmienic by to w sesji jak pizdy nie było
@@ -150,35 +129,22 @@ public class TestController {
         return "redirect:/test/create";
     }
 
-<<<<<<< HEAD
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "create/remove", method = RequestMethod.POST)
     public String removeQuestion(@RequestParam(value = "taskId") int taskId, final CreateTestForm createTestForm, final Model model) {
         logger.info("removeQuestion");
         logger.info(String.valueOf(createTestForm));
-=======
-    @RequestMapping(value = "create/remove", method = RequestMethod.POST)
-    public String removeQuestion(@RequestParam(value = "taskId") int taskId, final CreateTestForm createTestForm, final Model model) {
-        logger.info("removeQuestion");
-        logger.info(createTestForm + "");
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         createTestForm.getTasks().remove(taskId);
         testFormService.updateTestFormInSession(createTestForm);
         model.addAttribute("createTestForm", testFormService.getTestFromSession());
         return "redirect:/test/create";
     }
 
-<<<<<<< HEAD
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public String save(final @Valid CreateTestForm createTestForm, final BindingResult result) {
         logger.info("Metoda - save");
         createTestValidator.validate(createTestForm, result);
-=======
-    @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String save(final @Valid CreateTestForm createTestForm, final BindingResult result) {
-        logger.info("Metoda - save");
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         if (result.hasErrors()) {
             logger.info(result.getAllErrors().toString());
             return "tmpCreateTest";
@@ -188,21 +154,13 @@ public class TestController {
         Test test = testService.create(createTestForm);
         logger.info(test.toString());
         testFormService.updateTestFormInSession(new CreateTestForm());
-<<<<<<< HEAD
         testFormService.updateSelectedLanguagesInSession("");
-=======
-        testFormService.updateSelectedLanguagesInSession(new String());
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         return "redirect:/test/create";
     }
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping("/all")
-<<<<<<< HEAD
     public String showAll(Model model) {
-=======
-    public String showAll(Model model){
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         logger.info("metoda - showAll");
         try {
             model.addAttribute("Tests", testService.getAllTests());
@@ -212,55 +170,37 @@ public class TestController {
         return "tests";
     }
 
-<<<<<<< HEAD
-=======
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showUserTests(@PathVariable final Long id, final Model model) {
         logger.info("nazwa metody = showUserTests");
         try {
-<<<<<<< HEAD
             User user = userService.getUserById(id)
                     .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
             model.addAttribute("Tests", solutionTestService.getSolutionTestsByUser(user));
             logger.info(user + "");
-=======
-            User user=userService.getUserById(id)
-                    .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
-           model.addAttribute("Tests",solutionTestService.getSolutionTestsByUser(user));
-            logger.info(user+"");
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         } catch (final Exception e) {
             logger.error(e.getMessage(), e);
             logger.info(id.toString() + "\n" + model);
         }
         return "userTests";
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     @RequestMapping(value = "/showResults", method = RequestMethod.GET)
     public String showCurrentUserTests(final Model model) {
         logger.info("nazwa metody = showCurrentUserTests");
         try {
             final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             final User user = currentUser.getUser();
-<<<<<<< HEAD
             logger.info(user + "");
+
             model.addAttribute("Tests", solutionTestService.getSolutionTestsByUser(user));
-=======
-            logger.info(user+"");
-            model.addAttribute("Tests",solutionTestService.getSolutionTestsByUser(user));
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
+            model.addAttribute("BestTest",solutionTestService.getSolutionsWithTheBestResult(user));
         } catch (final Exception e) {
             logger.error(e.getMessage(), e);
         }
         return "userTests";
     }
 
-<<<<<<< HEAD
 
     @Override
     public String toString() {
@@ -271,6 +211,4 @@ public class TestController {
                 ", createTestForm=" + createTestForm +
                 '}';
     }
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 }

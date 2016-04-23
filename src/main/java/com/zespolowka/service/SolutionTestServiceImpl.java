@@ -2,86 +2,67 @@ package com.zespolowka.service;
 
 
 import com.zespolowka.entity.createTest.*;
-<<<<<<< HEAD
 import com.zespolowka.entity.solutionTest.*;
 import com.zespolowka.entity.solutionTest.config.SolutionConfig;
-=======
-import com.zespolowka.entity.solutionTest.SolutionTest;
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.SolutionTaskForm;
 import com.zespolowka.forms.SolutionTestForm;
+import com.zespolowka.repository.CustomSolutionTestRepository;
 import com.zespolowka.repository.SolutionTestRepository;
+import com.zespolowka.repository.SolutionTestRepositoryImpl;
 import com.zespolowka.service.inteface.SolutionTestService;
-<<<<<<< HEAD
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-<<<<<<< HEAD
 import java.io.*;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-=======
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 
 @Service
 public class SolutionTestServiceImpl implements SolutionTestService {
     private static final Logger logger = LoggerFactory.getLogger(SolutionTestService.class);
     private static final String TEST_ATTRIBUTE_NAME = "solutionTestSession";
-<<<<<<< HEAD
     private static final String OUTPUT = "output.json";
     private static final String CONFIG = "config.json";
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 
     private final SolutionTestRepository solutionTestRepository;
     private final HttpSession httpSession;
 
-<<<<<<< HEAD
     private int taskNo = 0;
 
     private String dir = "/home/pitek/zespolowka/skrypty/";
 
     private String resultDir = "/tmp/";
 
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     @Autowired
     public SolutionTestServiceImpl(SolutionTestRepository solutionTestRepository, HttpSession httpSession) {
         this.solutionTestRepository = solutionTestRepository;
         this.httpSession = httpSession;
+    }
+    @Override
+    public List<SolutionTest> getSolutionsWithTheBestResult(User user){
+        return solutionTestRepository.getSolutionsWithTheBestResult(user);
     }
 
     @Override
     public Collection<SolutionTest> getSolutionTestsByUserAndTest(User user, Test test) {
         return solutionTestRepository.findSolutionTestsByUserAndTest(user, test);
     }
-<<<<<<< HEAD
-=======
     @Override
-    public Collection<SolutionTest> getSolutionTestsByUser(User user){
-        return solutionTestRepository.findSolutionTestsByUser(user);
+    public Collection<SolutionTest> getSolutionTestsByTest(Test test) {
+        return solutionTestRepository.findSolutionTestsByTest(test);
     }
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 
     @Override
     public SolutionTest getSolutionTestById(long id) {
@@ -95,7 +76,6 @@ public class SolutionTestServiceImpl implements SolutionTestService {
 
     @Override
     public SolutionTest create(SolutionTest solutionTest) {
-<<<<<<< HEAD
         taskNo = 0;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m:s");
         LocalDateTime dateTime = LocalDateTime.now();
@@ -103,15 +83,6 @@ public class SolutionTestServiceImpl implements SolutionTestService {
         return solutionTestRepository.save(solutionTest);
     }
 
-=======
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m:s");
-        LocalDateTime dateTime = LocalDateTime.now();
-        solutionTest.setEndSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + "/" + dateTime.getDayOfMonth() + " " + dateTime.getHour() + ":" + dateTime.getMinute() + ":" + dateTime.getSecond(), dateTimeFormatter));
-        return solutionTestRepository.save(solutionTest);
-    }
-
-
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     @Override
     public SolutionTestForm createForm(Test test, User user) {
         SolutionTest solutionTest = (SolutionTest) this.httpSession.getAttribute(TEST_ATTRIBUTE_NAME);
@@ -120,16 +91,10 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             solutionTest = new SolutionTest(test, user);
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m:s");
             LocalDateTime dateTime = LocalDateTime.now();
-<<<<<<< HEAD
             solutionTest.setBeginSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + '/' + dateTime.getDayOfMonth() + ' ' + dateTime.getHour() + ':' + dateTime.getMinute() + ':' + dateTime.getSecond(), dateTimeFormatter));
             solutionTest.setAttempt(getSolutionTestsByUserAndTest(user, test).size() + 1);
             this.httpSession.setAttribute(TEST_ATTRIBUTE_NAME, solutionTest);
             this.taskNo = 0;
-=======
-            solutionTest.setBeginSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + "/" + dateTime.getDayOfMonth() + " " + dateTime.getHour() + ":" + dateTime.getMinute() + ":" + dateTime.getSecond(), dateTimeFormatter));
-            solutionTest.setAttempt(getSolutionTestsByUserAndTest(user, test).size() + 1);
-            this.httpSession.setAttribute(TEST_ATTRIBUTE_NAME, solutionTest);
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         }
         SolutionTestForm solutionTestForm = new SolutionTestForm();
         solutionTestForm.setName(test.getName());
@@ -138,10 +103,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
         List<Task> tasks = test.getTasks();
         Collections.shuffle(tasks);
         test.setTasks(tasks);
-<<<<<<< HEAD
         solutionTest.setTest(test);
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
         for (Task task : test.getTasks()) {
             if (task instanceof TaskClosed) {
                 solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.CLOSEDTASK));
@@ -149,7 +111,6 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.OPENTASK));
             } else if (task instanceof TaskProgramming) {
                 solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.PROGRAMMINGTASK));
-<<<<<<< HEAD
             } else if (task instanceof TaskSql) {
                 solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.SQLTASK));
             }
@@ -227,7 +188,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             SolutionConfig solutionConfig = new SolutionConfig();
             JSONObject jsonObject;
             String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getEmail() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
-
+            userDirectory=userDirectory.replaceAll(" ","");
             Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
             for (TaskProgrammingDetail taskProgrammingDetail : taskProgrammingDetails) {
                 if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.JAVA)) {
@@ -283,6 +244,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             array.add(taskSql.getSqlAnswer());
             tests.put("task0", array);
             String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getEmail() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
+            userDirectory=userDirectory.replaceAll(" ","");
             jsonObject = solutionConfig.createSqlConfig("sources.json", "preparations.txt", "tests.json", "restricted_list_sql");
             FileUtils.writeStringToFile(new File(dir + userDirectory + "tests.json"), tests.toJSONString());
             FileUtils.writeStringToFile(new File(dir + userDirectory + "sources.json"), source.toJSONString());
@@ -298,7 +260,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             if (jsonObject.get("time") != null) {
                 BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
                 BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
-                BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(2));
+                BigDecimal resultTest = (passed.divide(all,MathContext.DECIMAL128).setScale(4,BigDecimal.ROUND_HALF_UP));
                 BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSqlSolution.getTask().getMax_points())).setScale(2);
                 taskSqlSolution.setPoints(points.floatValue());
                 solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
@@ -375,13 +337,5 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 ", dir='" + dir + '\'' +
                 ", resultDir='" + resultDir + '\'' +
                 '}';
-=======
-            }
-        }
-        solutionTestForm.setTasks(solutionTaskFormList);
-
-        return solutionTestForm;
-
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     }
 }

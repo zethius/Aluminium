@@ -23,12 +23,9 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     @Autowired
     private UserService userService;
 
-<<<<<<< HEAD
     public CustomAuthenticationSuccessHandler() {
     }
 
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         super.onAuthenticationSuccess(httpServletRequest, httpServletResponse, authentication);
@@ -42,13 +39,10 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     }
 
 
-<<<<<<< HEAD
     @Override
     public String toString() {
         return "CustomAuthenticationSuccessHandler{" +
                 "userService=" + userService +
                 '}';
     }
-=======
->>>>>>> addf63146eadb4865c3e88fc9502c025b3871c1e
 }
