@@ -50,8 +50,10 @@ public class UsersController {
 
         logger.info("nazwa metody = saveUser");
         if (errors.hasErrors()) {
-            return "users";
+            logger.info("dupa blada@@@@@@@@@@@");
+            return "redirect:/users";
         } else {
+            logger.info("duasddddddddddddddpa blada@@@@@@@@@@@2");
             final User user = userService.editUser(usersEditForm);
             return "redirect:/users";
         }

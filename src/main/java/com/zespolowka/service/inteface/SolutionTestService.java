@@ -10,6 +10,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Admin on 2016-04-03.
@@ -32,5 +33,7 @@ public interface SolutionTestService {
     SolutionTest create(SolutionTest solutionTest, SolutionTestForm solutionTestForm) throws IOException, ParseException;
 
     Collection<SolutionTest> getSolutionTestsByUser(User user);
+
+    List<SolutionTest> getSolutionsWithTheBestResult(User user);
 
 }
