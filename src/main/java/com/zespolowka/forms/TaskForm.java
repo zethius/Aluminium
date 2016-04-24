@@ -185,7 +185,7 @@ public class TaskForm {
                 ", taskType=" + taskType +
                 ", points=" + points +
                 ", languages=" + languages +
-             //   ", programmingTaskForms=" + programmingTaskForms +
+                //   ", programmingTaskForms=" + programmingTaskForms +
                 ", caseSensitivity=" + caseSensitivity +
                 ", wrongReset=" + wrongReset +
                 ", countNotFull=" + countNotFull +

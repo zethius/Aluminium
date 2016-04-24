@@ -49,6 +49,10 @@ public class ProgrammingTaskForm implements Comparable<ProgrammingTaskForm> {
         return hidden;
     }
 
+    public void setHidden(Boolean hidden) {
+        this.hidden = hidden;
+    }
+
     public String getTestClassName() {
         return testClassName;
     }
@@ -63,10 +67,6 @@ public class ProgrammingTaskForm implements Comparable<ProgrammingTaskForm> {
 
     public void setSolutionClassName(String solutionClassName) {
         this.solutionClassName = solutionClassName;
-    }
-
-    public void setHidden(Boolean hidden) {
-        this.hidden = hidden;
     }
 
     @Override

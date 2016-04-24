@@ -50,6 +50,13 @@ public class CreateTestFormValidationTest {
         taskForm.getProgrammingTaskForms().add(programmingTaskForm);
         createTestForm.getTasks().add(taskForm);
 
+        taskForm=new TaskForm();
+        taskForm.setTaskType(TaskForm.SQLTASK);
+        taskForm.setQuestion("Sql pytanie");
+        taskForm.setAnswer("aaaaaaaaaaaa");
+        taskForm.setPreparations("aaaaaaaaaaaaaaaaaa");
+        createTestForm.getTasks().add(taskForm);
+
     }
 
     @Test
@@ -187,6 +194,17 @@ public class CreateTestFormValidationTest {
         logger.info(errors.getAllErrors().toString());
 
     }
+
+    @Test
+    public void checkValidatorWithSqlTaskWithoutPreparations() throws Exception {
+        createTestForm.getTasks().get(2).setPreparations("");
+        errors = new BindException(createTestForm, "createTestForm");
+        ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
+        assertEquals(errors.getErrorCount(), 1);
+        logger.info(errors.getAllErrors().toString());
+    }
+
+
 
 
 }

@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 
 @Entity
 public class TaskSql extends Task {
-    @Column(length = 10000)
+    @Column(length = 1000)
     private String sqlAnswer;
 
     @Column(length = 10000)

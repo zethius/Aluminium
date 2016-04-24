@@ -172,16 +172,6 @@ public class UserController {
         }
         return "redirect:/users";
     }
-
-    @Override
-    public String toString() {
-        return "UserController{" +
-                "userService=" + userService +
-                ", notificationService=" + notificationService +
-                ", changePasswordValidator=" + changePasswordValidator +
-                '}';
-    }
-
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/changeBlock/{id}", method = RequestMethod.GET)
     public String unblockUser(@PathVariable final Integer id) {
@@ -220,5 +210,13 @@ public class UserController {
         return "redirect:/users";
     }
 
+    @Override
+    public String toString() {
+        return "UserController{" +
+                "userService=" + userService +
+                ", notificationService=" + notificationService +
+                ", changePasswordValidator=" + changePasswordValidator +
+                '}';
+    }
 }
 

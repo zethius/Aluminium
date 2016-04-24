@@ -12,14 +12,15 @@
                 <h3 class="panel-title" th:text="#{sendMessage.newMessage}">Nowa wiadomosc</h3>
             </div>
             <div class="panel-body">
-                <div th:if="${sukces}" class="alert alert-success" role="alert" th:text="#{notification.send_success}">Wiadomosc wyslana
+                <div th:if="${sukces}" class="alert alert-success" role="alert" th:text="#{notification.send_success}">
+                    Wiadomosc wyslana
                 </div>
                 <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
                     <p th:each="err:${#fields.allErrors()}" th:text="${err}">...</p>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <h4 th:text="#{sendMessage.messageReceiver}">Login uzytkownika lub nazwa grupy:</h4>
+                        <h4 th:text="#{sendMessage.messageReceiver}"></h4>
 
                         <div class="input-group">
                             <input type="text" class="form-control" id="receivers" name="receivers"
@@ -30,7 +31,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <h4 th:text="#{sendMessage.topic}">Temat</h4>
+                        <h4 th:text="#{sendMessage.topic}"></h4>
 
                         <div class="input-group">
                             <input type="text" class="form-control" id="topic" name="topic" th:field="*{topic}"/>
@@ -40,7 +41,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <h4 th:text="#{sendMessage.message}+':'">Wiadomosc.</h4>
+                        <h4 th:text="#{sendMessage.message}"></h4>
 
                         <div class="input-group">
                             <textarea rows="30" class="form-control" name="message" th:field="*{message}"></textarea>

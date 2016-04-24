@@ -2,8 +2,6 @@ package com.zespolowka.config;
 
 import com.zespolowka.entity.Notification;
 import com.zespolowka.entity.createTest.*;
-import com.zespolowka.entity.solutionTest.SolutionTest;
-import com.zespolowka.entity.solutionTest.TaskClosedSolution;
 import com.zespolowka.entity.user.Role;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.repository.NotificationRepository;
@@ -20,13 +18,10 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.TreeMap;
 import java.util.UUID;
 
@@ -547,14 +542,14 @@ public class DevDBConfig {
     }
 
     public void createFakeUsers() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 50; i++) {
             user = new User("Imie" + i, "Nazwisko" + i, "przykladowyEmail" + i + "@o2.pl", new BCryptPasswordEncoder().encode("password"));
             repository.save(user);
         }
     }
 
     public void createFakeNotEnabledUsers() {
-        for (int i = 1000; i < 20; i++) {
+        for (int i = 50; i < 100; i++) {
             user = new User("Imie" + i, "Nazwisko" + i, "przykladowyEmail" + i + "@o2.pl", new BCryptPasswordEncoder().encode("password"));
             user.setEnabled(false);
             user = repository.save(user);
@@ -565,7 +560,7 @@ public class DevDBConfig {
     }
 
     public void createFakeLockedUsers() {
-        for (int i = 2000; i < 30; i++) {
+        for (int i = 100; i < 150; i++) {
             user = new User("Imie" + i, "Nazwisko" + i, "przykladowyEmail" + i + "@o2.pl", new BCryptPasswordEncoder().encode("password"));
             user.setAccountNonLocked(false);
             repository.save(user);
@@ -573,7 +568,7 @@ public class DevDBConfig {
     }
 
     public void createFakeNotifications() {
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 50; i++) {
             try {
                 notificationRepository.save(new Notification("WiadomoscPrzykladowaTresc" + i, "PrzykladowyTematWiadomosci" + i, this.sdf.parse("31-08-2005 10:20:56"), i));
             } catch (ParseException e) {
@@ -601,30 +596,6 @@ public class DevDBConfig {
             taskClosed.setAnswers(answer);
             test.addTaskToTest(taskClosed);
             testRepository.save(test);
-            Random random = new Random();
-            for (int j = 0; j < 5; j++) {
-                SolutionTest solutionTest = new SolutionTest(test, repository.findOne((long) (random.nextDouble() * (10))));
-                solutionTest.setAttempt(1);
-                solutionTest.setBeginSolution(LocalDateTime.now());
-                solutionTest.setEndSolution(LocalDateTime.now().plusDays(1));
-                TaskClosedSolution taskClosedSolution = new TaskClosedSolution(taskClosed);
-                answer = new TreeMap<>();
-                answer.put("1", true);
-                answer.put("2", true);
-                answer.put("3", true);
-                answer.put("4", true);
-                answer.put("5", false);
-                taskClosedSolution.setAnswers(answer);
-                solutionTestService.create(solutionTest);
-                try {
-                    solutionTestService.addTaskSolutionToTest(solutionTest, taskClosedSolution);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (org.json.simple.parser.ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-
         }
     }
 

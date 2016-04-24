@@ -83,14 +83,14 @@
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                         aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Przystępujesz do testu <strong id="nazwaTestu">xyz</strong>
+                                <h4 class="modal-title" id="myModalLabel"><span th:text="#{mainPage.startTest}+' '"></span><strong id="nazwaTestu"></strong>
                                 </h4>
                             </div>
                             <div class="modal-body">
                                 <form id="form_test" class="form-register" action="" method="POST">
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label id="labelhaslo" for="haslodostepu">Wpisz hasło dostępu</label>
+                                            <label id="labelhaslo" for="haslodostepu" th:text="#{mainPage.enterPassword}"></label>
                                             <div class="input-group">
                                                 <input type="password" class="form-control" id="haslodostepu"
                                                        name="haslodostepu" placeholder="Hasło"/>
@@ -99,7 +99,7 @@
                                                 <input type="hidden"
                                                        th:name="${_csrf != null ? _csrf.parameterName : 'testing'}"
                                                        th:value="${_csrf != null ? _csrf.token : 'testing'}"/>
-                                                <input type="submit" name="submit" id="submit" value="Rozpocznij"
+                                                <input type="submit" name="submit" id="submit" th:value="#{mainPage.submit}"
                                                        class="btn btn-primary pull-right"
                                                        th:onclick="'checkPassword(' + haslodostepu + ')'"
                                                 />
@@ -109,7 +109,7 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{close}"></button>
                             </div>
                         </div>
                     </div>

@@ -43,10 +43,10 @@ public class Test {
         updateMaxPoints(task.getMax_points());
     }
 
-    public Boolean isOpenTest(){
-        if (password.length()>0){
+    public Boolean isOpenTest() {
+        if (password.length() > 0) {
             return false;
-        }else return true;
+        } else return true;
     }
 
     public void updateMaxPoints(Float points) {
