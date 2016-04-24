@@ -220,7 +220,15 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 taskSol.setPoints(points.floatValue());
                 solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
             } else {
-                logger.info("blad kompilacji itp, obrobic to potem");
+                CompilationError compilationError = new CompilationError();
+
+                for (CompilationErrorTypes type : CompilationErrorTypes.values()) {
+                    if (jsonObject.get(type.name()) != null) {
+                        compilationError.setType(type.name());
+                        compilationError.setError(jsonObject.get(type.name()).toString());
+                    }
+                }
+                taskSol.setCompilationError(compilationError);
                 taskSol.setPoints(0f);
             }
             solutionTest.getSolutionTasks().add(taskSol);
@@ -231,7 +239,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             SolutionConfig solutionConfig = new SolutionConfig();
             JSONObject jsonObject;
             JSONObject source = new JSONObject();
-            source.put("task0", taskSqlSolution.getAnswer());
+            source.put("task0", taskSqlSolution.getSqlAnswer());
             JSONObject tests = new JSONObject();
             JSONArray array = new JSONArray();
             array.add("type0");
@@ -259,7 +267,14 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 taskSqlSolution.setPoints(points.floatValue());
                 solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
             } else {
-                logger.info("blad kompilacji itp, obrobic to potem");
+                CompilationError compilationError = new CompilationError();
+
+                for (CompilationErrorTypes type : CompilationErrorTypes.values()) {
+                    if (jsonObject.get(type.name()) != null) {
+                        compilationError.setType(type.name());
+                        compilationError.setError(jsonObject.get(type.name()).toString());
+                    }
+                }
                 taskSqlSolution.setPoints(0f);
             }
             solutionTest.getSolutionTasks().add(taskSqlSolution);
@@ -288,7 +303,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             } else if (solutionTaskForm.getTaskType() == SolutionTaskForm.SQLTASK) {
                 logger.info(solutionTaskForm.toString());
                 TaskSqlSolution taskSqlSolution = new TaskSqlSolution(solutionTaskForm.getTask());
-                taskSqlSolution.setAnswer(solutionTaskForm.getAnswerCode());
+                taskSqlSolution.setSqlAnswer(solutionTaskForm.getAnswerCode());
                 addTaskSolutionToTest(solutionTest, taskSqlSolution);
             }
         return solutionTest;
