@@ -7,9 +7,7 @@ import com.zespolowka.entity.solutionTest.config.SolutionConfig;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.SolutionTaskForm;
 import com.zespolowka.forms.SolutionTestForm;
-import com.zespolowka.repository.CustomSolutionTestRepository;
 import com.zespolowka.repository.SolutionTestRepository;
-import com.zespolowka.repository.SolutionTestRepositoryImpl;
 import com.zespolowka.service.inteface.SolutionTestService;
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
@@ -25,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -50,8 +49,9 @@ public class SolutionTestServiceImpl implements SolutionTestService {
         this.solutionTestRepository = solutionTestRepository;
         this.httpSession = httpSession;
     }
+
     @Override
-    public List<SolutionTest> getSolutionsWithTheBestResult(User user){
+    public List<SolutionTest> getSolutionsWithTheBestResult(User user) {
         return solutionTestRepository.getSolutionsWithTheBestResult(user);
     }
 
@@ -82,7 +82,6 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     @Override
     public SolutionTestForm createForm(Test test, User user) {
         SolutionTest solutionTest = (SolutionTest) this.httpSession.getAttribute(TEST_ATTRIBUTE_NAME);
-        logger.info(test.toString());
         if (solutionTest == null) {
             solutionTest = new SolutionTest(test, user);
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m:s");
@@ -118,7 +117,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
 
     }
 
-    public void addTaskSolutionToTest(SolutionTest solutionTest, TaskSolution taskSolution) throws IOException, ParseException {
+    public void addTaskSolutionToTest(SolutionTest solutionTest, TaskSolution taskSolution) throws IOException, ParseException, FileNotFoundException {
         taskSolution.setTask(solutionTest.getTest().getTasks().get(taskNo++));
         if (taskSolution instanceof TaskClosedSolution) {
             TaskClosedSolution taskSol = (TaskClosedSolution) taskSolution;
@@ -216,13 +215,12 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
                 BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
                 BigDecimal time = BigDecimal.valueOf((Double) jsonObject.get("time"));
-                BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, BigDecimal.ROUND_HALF_UP)); //TODO dodac czas rozwiazania do statystyk
+                BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP)); //TODO dodac czas rozwiazania do statystyk
                 BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSol.getTask().getMax_points())).setScale(2);
                 taskSol.setPoints(points.floatValue());
                 solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
             } else {
                 logger.info("blad kompilacji itp, obrobic to potem");
-                logger.info(jsonObject.toJSONString());
                 taskSol.setPoints(0f);
             }
             solutionTest.getSolutionTasks().add(taskSol);
@@ -256,13 +254,12 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             if (jsonObject.get("time") != null) {
                 BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
                 BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
-                BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, BigDecimal.ROUND_HALF_UP));
+                BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP));
                 BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSqlSolution.getTask().getMax_points())).setScale(2);
                 taskSqlSolution.setPoints(points.floatValue());
                 solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
             } else {
                 logger.info("blad kompilacji itp, obrobic to potem");
-                logger.info(jsonObject.toJSONString());
                 taskSqlSolution.setPoints(0f);
             }
             solutionTest.getSolutionTasks().add(taskSqlSolution);
@@ -284,7 +281,6 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 taskOpenSolution.setAnswer(solutionTaskForm.getAnswer());
                 addTaskSolutionToTest(solutionTest, taskOpenSolution);
             } else if (solutionTaskForm.getTaskType() == SolutionTaskForm.PROGRAMMINGTASK) {
-                logger.info(solutionTaskForm.toString());
                 TaskProgrammingSolution taskProgrammingSolution = new TaskProgrammingSolution(solutionTaskForm.getTask());
                 taskProgrammingSolution.setAnswerCode(solutionTaskForm.getAnswerCode());
                 taskProgrammingSolution.setLanguage(solutionTaskForm.getLanguage());
@@ -323,6 +319,8 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 output.append(line).append('\n');
             }
 
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

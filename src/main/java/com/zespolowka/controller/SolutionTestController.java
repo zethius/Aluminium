@@ -62,7 +62,6 @@ public class SolutionTestController {
         if (solutionTest != null) {
             SolutionTestForm solutionTestForm = solutionTestService.createForm(solutionTest.getTest(), solutionTest.getUser());
             model.addAttribute("solutionTest", solutionTestForm);
-            logger.info(solutionTestForm.toString());
             return "testSolution";
         } else {
             CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -74,8 +73,6 @@ public class SolutionTestController {
             } else id = test2.getId();
             Test test = testService.getTestById(id);
             Integer attemptForUser = solutionTestService.getSolutionTestsByUserAndTest(user, test).size();
-            logger.info(String.valueOf(attemptForUser));
-            logger.info(String.valueOf(test.getAttempts()));
             if (test.getAttempts().intValue() <= attemptForUser) {
                 model.addAttribute("testSolutionError", true);
                 return "testSolution";
@@ -83,7 +80,6 @@ public class SolutionTestController {
                 logger.info(String.valueOf(test));
                 SolutionTestForm solutionTestForm = solutionTestService.createForm(test, user);
                 model.addAttribute("solutionTest", solutionTestForm);
-                logger.info(solutionTestForm.toString());
                 return "testSolution";
             }
         }
@@ -94,8 +90,6 @@ public class SolutionTestController {
         logger.info("Metoda - saveSolutionTest");
         SolutionTest solutionTest = (SolutionTest) this.httpSession.getAttribute(TEST_ATTRIBUTE_NAME);
         this.httpSession.removeAttribute(TEST_ATTRIBUTE_NAME);
-        logger.info(solutionTest.toString());
-        logger.info(solutionTestForm.toString());
         solutionTest = solutionTestService.create(solutionTest, solutionTestForm);
         solutionTestService.create(solutionTest);
         model.addAttribute("solutionTest", solutionTest);
@@ -106,7 +100,6 @@ public class SolutionTestController {
     @RequestMapping(value = "/solutionTestCheckAnswers")
     public String checkSolutionTestPage(@ModelAttribute("sendModel") final SolutionTest solutionTest, Model model) {
         model.addAttribute(new TaskTypeChecker());
-        logger.info(String.valueOf(solutionTest));
         model.addAttribute("solutionTest", solutionTest);
         return "solutionTestCheckAnswers";
     }

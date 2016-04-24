@@ -16,7 +16,8 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title"> <span th:text="#{testSolution.solvingTest}+' '"></span><strong th:text="*{name}"></strong></h3>
+                <h3 class="panel-title"><span th:text="#{testSolution.solvingTest}+' '"></span><strong
+                        th:text="*{name}"></strong></h3>
             </div>
             <div class="panel-body">
                 <div class="popover bottom" style="" ng-controller="TimerController">
@@ -29,7 +30,7 @@
                     </div>
                 </div>
                 <div th:if="${Error}" class="alert alert-success" role="alert">
-                    <strong>ok!</strong > <span th:text="#{testSolution.saved}"></span>
+                    <strong>ok!</strong> <span th:text="#{testSolution.saved}"></span>
                 </div>
                 <div th:if="${Error}" class="alert alert-danger" role="alert">
                     <strong th:text="#{testSolution.timeUp}"></strong> <span th:text="#{testSolution.autoSend}"></span>
@@ -42,7 +43,8 @@
 
                         <div class="input-group">
                             <input type="text" class="form-control" id="answerOpenTask" name="answerOpenTask"
-                                   th:placeholder="#{testSolution.textAnswer}" th:field="*{tasks[__${rowStat.index}__].answer}"
+                                   th:placeholder="#{testSolution.textAnswer}"
+                                   th:field="*{tasks[__${rowStat.index}__].answer}"
                                    required="required"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-asterisk"/>

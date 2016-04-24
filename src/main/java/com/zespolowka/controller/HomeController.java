@@ -38,7 +38,7 @@ public class HomeController {
             model.addAttribute("pageMessage", this.pageMessage);
             model.addAttribute("activeTest", testService.getAllTests());
             model.addAttribute("archiveTest", testService.getTestByEndDateBefore(LocalDate.now()));
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             logger.error(e.getMessage(), e);
             logger.info(model.toString() + ' ' + this.pageMessage);
         }

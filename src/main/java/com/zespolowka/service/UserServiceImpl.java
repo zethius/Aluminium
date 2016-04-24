@@ -72,12 +72,10 @@ public class UserServiceImpl implements UserService {
         user.setLastName(userEditForm.getLastName());
         user.setEmail(userEditForm.getEmail());
         user.setRole(userEditForm.getRole());
-        logger.info(userEditForm.getPassword());
-        if(userEditForm.getPassword()==null)
+        if (userEditForm.getPassword() == null)
             userEditForm.setPassword("");
         if (!userEditForm.getPassword().isEmpty()) {
             user.setPasswordHash(new BCryptPasswordEncoder().encode(userEditForm.getPassword()));
-            logger.info("Password=" + userEditForm.getPassword());
         }
         logger.info("Edytowano uzytkownika");
         return userRepository.save(user);
