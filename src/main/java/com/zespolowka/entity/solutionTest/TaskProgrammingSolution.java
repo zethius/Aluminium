@@ -3,10 +3,7 @@ package com.zespolowka.entity.solutionTest;
 
 import com.zespolowka.entity.createTest.Task;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class TaskProgrammingSolution extends TaskSolution {
@@ -15,7 +12,7 @@ public class TaskProgrammingSolution extends TaskSolution {
 
     private String language;
 
-    @OneToOne(targetEntity = CompilationError.class,fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = CompilationError.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private CompilationError compilationError;
 
 

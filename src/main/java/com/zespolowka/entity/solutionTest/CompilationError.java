@@ -1,15 +1,14 @@
 package com.zespolowka.entity.solutionTest;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class CompilationError {
     @Id
     @GeneratedValue
     private Long id;
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private CompilationErrorTypes type;
     private String Error;
 
 
@@ -24,11 +23,11 @@ public class CompilationError {
         this.id = id;
     }
 
-    public String getType() {
+    public CompilationErrorTypes getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(CompilationErrorTypes type) {
         this.type = type;
     }
 

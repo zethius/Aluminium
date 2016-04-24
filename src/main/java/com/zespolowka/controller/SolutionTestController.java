@@ -43,7 +43,6 @@ public class SolutionTestController {
         logger.info("getSoltutionTestPage dla testu o id={}", id);
         Test test = testService.getTestById(id);
         if (test.isOpenTest()) {
-            logger.info(test.isOpenTest() + "");
             redirectAttributes.addFlashAttribute("Test", test);
             return "redirect:/solutionTest";
         } else if (password != null) {
@@ -66,7 +65,6 @@ public class SolutionTestController {
         } else {
             CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = currentUser.getUser();
-            logger.info(test2.toString());
             Long id;
             if (test2 == null) {
                 id = 1L;
@@ -77,7 +75,6 @@ public class SolutionTestController {
                 model.addAttribute("testSolutionError", true);
                 return "testSolution";
             } else {
-                logger.info(String.valueOf(test));
                 SolutionTestForm solutionTestForm = solutionTestService.createForm(test, user);
                 model.addAttribute("solutionTest", solutionTestForm);
                 return "testSolution";

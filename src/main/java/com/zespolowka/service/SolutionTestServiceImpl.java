@@ -223,9 +223,9 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 CompilationError compilationError = new CompilationError();
 
                 for (CompilationErrorTypes type : CompilationErrorTypes.values()) {
-                    if (jsonObject.get(type.name()) != null) {
-                        compilationError.setType(type.name());
-                        compilationError.setError(jsonObject.get(type.name()).toString());
+                    if (jsonObject.get(type.getValue()) != null) {
+                        compilationError.setType(type);
+                        compilationError.setError(jsonObject.get(type.getValue()).toString());
                     }
                 }
                 taskSol.setCompilationError(compilationError);
@@ -270,11 +270,12 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 CompilationError compilationError = new CompilationError();
 
                 for (CompilationErrorTypes type : CompilationErrorTypes.values()) {
-                    if (jsonObject.get(type.name()) != null) {
-                        compilationError.setType(type.name());
-                        compilationError.setError(jsonObject.get(type.name()).toString());
+                    if (jsonObject.get(type.getValue()) != null) {
+                        compilationError.setType(type);
+                        compilationError.setError(jsonObject.get(type.getValue()).toString());
                     }
                 }
+                taskSqlSolution.setCompilationError(compilationError);
                 taskSqlSolution.setPoints(0f);
             }
             solutionTest.getSolutionTasks().add(taskSqlSolution);
