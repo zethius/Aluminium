@@ -5,6 +5,8 @@ import com.zespolowka.entity.createTest.Task;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 
 @Entity
 public class TaskProgrammingSolution extends TaskSolution {
@@ -12,6 +14,9 @@ public class TaskProgrammingSolution extends TaskSolution {
     private String answerCode;
 
     private String language;
+
+    @OneToOne(targetEntity = CompilationError.class,fetch = FetchType.EAGER)
+    private CompilationError compilationError;
 
 
     public TaskProgrammingSolution() {
@@ -25,6 +30,11 @@ public class TaskProgrammingSolution extends TaskSolution {
     public TaskProgrammingSolution(Task task, String answerCode) {
         super(task);
         this.answerCode = answerCode;
+    }
+
+    public Boolean haveError(){
+        if (compilationError!=null) return true;
+        else return false;
     }
 
     public String getAnswerCode() {
@@ -41,6 +51,14 @@ public class TaskProgrammingSolution extends TaskSolution {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public CompilationError getCompilationError() {
+        return compilationError;
+    }
+
+    public void setCompilationError(CompilationError compilationError) {
+        this.compilationError = compilationError;
     }
 
     @Override

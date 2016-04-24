@@ -4,11 +4,16 @@ import com.zespolowka.entity.createTest.Task;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 
 @Entity
 public class TaskSqlSolution extends TaskSolution {
     @Column(length = 1000)
     private String sqlAnswer;
+
+    @OneToOne(targetEntity = CompilationError.class, fetch = FetchType.EAGER)
+    private CompilationError compilationError;
 
     public TaskSqlSolution() {
     }
@@ -22,13 +27,25 @@ public class TaskSqlSolution extends TaskSolution {
         super(task);
         this.sqlAnswer = "";
     }
+    public Boolean haveError(){
+        if (compilationError!=null) return true;
+        else return false;
+    }
 
-    public String getAnswer() {
+    public String getSqlAnswer() {
         return sqlAnswer;
     }
 
-    public void setAnswer(String answer) {
-        this.sqlAnswer = answer;
+    public void setSqlAnswer(String sqlAnswer) {
+        this.sqlAnswer = sqlAnswer;
+    }
+
+    public CompilationError getCompilationError() {
+        return compilationError;
+    }
+
+    public void setCompilationError(CompilationError compilationError) {
+        this.compilationError = compilationError;
     }
 
     @Override
