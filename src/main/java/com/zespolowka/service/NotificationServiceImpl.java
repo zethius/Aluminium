@@ -119,8 +119,6 @@ public class NotificationServiceImpl implements NotificationService {
                 wyslane.add(st);
             } else {
                 String st2 = st.toUpperCase();
-                logger.info(st2);
-                logger.info("role:" + Role.valueOf(st.toUpperCase()).name());
                 if (st2.equals(Role.ADMIN.name()) || st2.equals(Role.SUPERADMIN.name()) || st2.equals(Role.USER.name())) {
                     notif = new Notification(form.getMessage(), form.getTopic(), new Date(), Role.valueOf(st2));
                     logger.info("Grupowa wiadomosc do: " + st);

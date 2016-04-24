@@ -57,7 +57,8 @@
                             <li><a th:if="!${user.enabled}" th:href=" ${'/user/changeActive/' + user.id}">Aktywacja<span
                                     class="glyphicon glyphicon-ok pull-right"></span></a></li>
                             <li><a th:if="${user.enabled}" th:href=" ${'/user/changeActive/' +
-                                user.id}">Dezaktywacja<span class="glyphicon glyphicon-remove pull-right"></span></a></li>
+                                user.id}">Dezaktywacja<span class="glyphicon glyphicon-remove pull-right"></span></a>
+                            </li>
                             <li class="divider"></li>
                             <li><a th:if="${user.accountNonLocked}" th:href="${'/user/changeBlock/' + user.id}">Zablokuj<span
                                     class="glyphicon glyphicon-off pull-right"></span></a></li>

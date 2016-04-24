@@ -47,8 +47,8 @@ function loadResultEntity(url) {
     $.getJSON(url, {}, function (data) {
         for (var i in data) {
             $('#nazwaTestu').text(data[i].test.name);
-            var osoba=data[i].user.name+" "+data[i].user.lastName;
-            $('#tabela').append('<tr><td>'+osoba+'</td><td>'+data[i].points+'</td><td>'+data[i].test.maxPoints+'</td></tr>');
+            var osoba = data[i].user.name + " " + data[i].user.lastName;
+            $('#tabela').append('<tr><td>' + osoba + '</td><td>' + data[i].points + '</td><td>' + data[i].test.maxPoints + '</td></tr>');
         }
 
     });

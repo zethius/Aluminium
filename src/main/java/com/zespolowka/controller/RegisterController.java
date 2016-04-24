@@ -57,7 +57,7 @@ public class RegisterController {
         logger.info("nazwa metody = registerPage");
         try {
             model.addAttribute("userCreateForm", new UserCreateForm());
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             logger.error(e.getMessage(), e);
             logger.info(model.toString());
         }

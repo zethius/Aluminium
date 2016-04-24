@@ -71,12 +71,10 @@ public class UserController {
         logger.info("nazwa metody = showCurrentUserDetail");
         try {
             final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            logger.info(currentUser.toString());
             final User user = currentUser.getUser();
-            logger.info(user.toString());
             model.addAttribute(user);
             model.addAttribute("Notifications", notificationService.findTop5ByUserIdOrUserRoleOrderByDateDesc(user.getId(), user.getRole()));
-        } catch (final Exception e) {
+        } catch (final RuntimeException e) {
             logger.error(e.getMessage(), e);
         }
         return "userDetail";
@@ -90,7 +88,7 @@ public class UserController {
             final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             final User user = currentUser.getUser();
             model.addAttribute("userEditForm", new UserEditForm(user));
-        } catch (final Exception e) {
+        } catch (final RuntimeException e) {
             logger.error(e.getMessage(), e);
         }
         return "userEdit";
@@ -103,15 +101,12 @@ public class UserController {
         if (errors.hasErrors()) {
             String err = errors.getAllErrors().get(0).toString();
             logger.info("err:" + err);
-            logger.info(userEditForm.toString());
             return "userEdit";
         } else {
             final User user = userService.editUser(userEditForm);
             CurrentUser currentUser = new CurrentUser(user);
             Authentication authentication = new UsernamePasswordAuthenticationToken(currentUser, currentUser.getPassword(), currentUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            logger.info(user.toString());
-            logger.info(userEditForm.toString());
             model.addAttribute("sukces", true);
             return "userEdit";
         }
@@ -172,16 +167,17 @@ public class UserController {
         }
         return "redirect:/users";
     }
+
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/changeBlock/{id}", method = RequestMethod.GET)
     public String unblockUser(@PathVariable final Integer id) {
         logger.debug("nazwa metody = unblockUser");
         try {
-            User user=userService.getUserById(id)
+            User user = userService.getUserById(id)
                     .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
-            if(user.isAccountNonLocked()){
+            if (user.isAccountNonLocked()) {
                 user.setAccountNonLocked(false);
-            }else{
+            } else {
                 user.setAccountNonLocked(true);
             }
             userService.update(user);
@@ -196,11 +192,11 @@ public class UserController {
     public String activateUser(@PathVariable final Integer id) {
         logger.debug("nazwa metody = activateUser");
         try {
-            User user=userService.getUserById(id)
+            User user = userService.getUserById(id)
                     .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
-            if(user.isEnabled()){
+            if (user.isEnabled()) {
                 user.setEnabled(false);
-            }else{
+            } else {
                 user.setEnabled(true);
             }
             userService.update(user);
