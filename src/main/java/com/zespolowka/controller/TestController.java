@@ -2,16 +2,11 @@ package com.zespolowka.controller;
 
 import com.zespolowka.entity.createTest.ProgrammingLanguages;
 import com.zespolowka.entity.createTest.Test;
-import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.user.CurrentUser;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.CreateTestForm;
 import com.zespolowka.forms.ProgrammingTaskForm;
 import com.zespolowka.forms.TaskForm;
-import com.zespolowka.repository.CustomSolutionTestRepository;
-import com.zespolowka.repository.SolutionTestRepository;
-import com.zespolowka.repository.SolutionTestRepositoryImpl;
-import com.zespolowka.repository.UserRepository;
 import com.zespolowka.service.TestFormService;
 import com.zespolowka.service.inteface.SolutionTestService;
 import com.zespolowka.service.inteface.TestService;
@@ -58,7 +53,6 @@ public class TestController {
     public String createTest(final Model model) {
         logger.info("Metoda - createTest");
         createTestForm = this.testFormService.getTestFromSession();
-        logger.info(createTestForm.toString());
         model.addAttribute("createTestForm", createTestForm);
         return "tmpCreateTest";
     }
@@ -67,7 +61,6 @@ public class TestController {
     @RequestMapping(value = "create/add", method = RequestMethod.POST)
     public String addQuestion(@RequestParam(value = "questionId", defaultValue = "0") int questionId, final CreateTestForm createTestForm, final Model model) {
         testFormService.updateTestFormInSession(createTestForm);
-        logger.info(testFormService.getTestFromSession().toString());
         logger.info("Metoda - addQuestion");
         switch (questionId) {
             case 0: {
@@ -87,8 +80,6 @@ public class TestController {
                 break;
             }
         }
-        logger.info(createTestForm.toString());
-
         model.addAttribute("createTestForm", testFormService.getTestFromSession());
         return "redirect:/test/create";
     }
@@ -133,7 +124,6 @@ public class TestController {
     @RequestMapping(value = "create/remove", method = RequestMethod.POST)
     public String removeQuestion(@RequestParam(value = "taskId") int taskId, final CreateTestForm createTestForm, final Model model) {
         logger.info("removeQuestion");
-        logger.info(String.valueOf(createTestForm));
         createTestForm.getTasks().remove(taskId);
         testFormService.updateTestFormInSession(createTestForm);
         model.addAttribute("createTestForm", testFormService.getTestFromSession());
@@ -149,7 +139,6 @@ public class TestController {
             logger.info(result.getAllErrors().toString());
             return "tmpCreateTest";
         }
-        logger.info(createTestForm.toString());
         testFormService.updateTestFormInSession(createTestForm);
         Test test = testService.create(createTestForm);
         logger.info(test.toString());
@@ -164,7 +153,7 @@ public class TestController {
         logger.info("metoda - showAll");
         try {
             model.addAttribute("Tests", testService.getAllTests());
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             logger.error(e.getMessage(), e);
         }
         return "tests";
@@ -177,7 +166,6 @@ public class TestController {
             User user = userService.getUserById(id)
                     .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
             model.addAttribute("Tests", solutionTestService.getSolutionTestsByUser(user));
-            logger.info(user + "");
         } catch (final Exception e) {
             logger.error(e.getMessage(), e);
             logger.info(id.toString() + "\n" + model);
@@ -191,11 +179,9 @@ public class TestController {
         try {
             final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             final User user = currentUser.getUser();
-            logger.info(user + "");
-
             model.addAttribute("Tests", solutionTestService.getSolutionTestsByUser(user));
-            model.addAttribute("BestTest",solutionTestService.getSolutionsWithTheBestResult(user));
-        } catch (final Exception e) {
+            model.addAttribute("BestTest", solutionTestService.getSolutionsWithTheBestResult(user));
+        } catch (final RuntimeException e) {
             logger.error(e.getMessage(), e);
         }
         return "userTests";

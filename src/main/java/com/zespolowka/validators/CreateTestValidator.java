@@ -68,12 +68,12 @@ public class CreateTestValidator implements Validator {
 
         try {
             LocalDate.parse(createTestForm.getBeginDate(), dateTimeFormatter);
-        } catch (DateTimeParseException exception) {
+        } catch (DateTimeParseException ignored) {
             invalidBeginDate = true;
         }
         try {
             LocalDate.parse(createTestForm.getEndDate(), dateTimeFormatter);
-        } catch (DateTimeParseException exception) {
+        } catch (DateTimeParseException ignored) {
             invalidEndDate = true;
         }
 

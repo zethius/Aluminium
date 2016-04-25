@@ -11,6 +11,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.security.SecureRandom;
 
@@ -41,6 +42,8 @@ public class SendMailServiceImpl implements SendMailService {
             message.setText(body);
             mailSender.send(mimeMessage);
             logger.info("Wysylam prostego maila");
+        } catch (MessagingException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -57,6 +60,8 @@ public class SendMailServiceImpl implements SendMailService {
             message.addAttachment(file.getFilename(), file);
             mailSender.send(mimeMessage);
 
+        } catch (MessagingException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -75,6 +80,8 @@ public class SendMailServiceImpl implements SendMailService {
                     "<i>" + body + "</i>" +
                     "</body></html>", true);
             mailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -91,6 +98,8 @@ public class SendMailServiceImpl implements SendMailService {
                     "<i>" + url + "</i>" +
                     "</body></html>", true);
             mailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -114,6 +123,8 @@ public class SendMailServiceImpl implements SendMailService {
             message.setText("<html><body><h4>Witaj " + user.getName() + "!</h4><p>Twoje nowe hasło to: " + newPassword + "</p></body></html>", true);
             mailSender.send(mimeMessage);
             logger.info("Reminder sent", newPassword);
+        } catch (MessagingException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }

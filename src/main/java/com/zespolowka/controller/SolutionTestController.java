@@ -43,7 +43,6 @@ public class SolutionTestController {
         logger.info("getSoltutionTestPage dla testu o id={}", id);
         Test test = testService.getTestById(id);
         if (test.isOpenTest()) {
-            logger.info(test.isOpenTest() + "");
             redirectAttributes.addFlashAttribute("Test", test);
             return "redirect:/solutionTest";
         } else if (password != null) {
@@ -62,28 +61,22 @@ public class SolutionTestController {
         if (solutionTest != null) {
             SolutionTestForm solutionTestForm = solutionTestService.createForm(solutionTest.getTest(), solutionTest.getUser());
             model.addAttribute("solutionTest", solutionTestForm);
-            logger.info(solutionTestForm.toString());
             return "testSolution";
         } else {
             CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = currentUser.getUser();
-            logger.info(test2.toString());
             Long id;
             if (test2 == null) {
                 id = 1L;
             } else id = test2.getId();
             Test test = testService.getTestById(id);
             Integer attemptForUser = solutionTestService.getSolutionTestsByUserAndTest(user, test).size();
-            logger.info(String.valueOf(attemptForUser));
-            logger.info(String.valueOf(test.getAttempts()));
             if (test.getAttempts().intValue() <= attemptForUser) {
                 model.addAttribute("testSolutionError", true);
                 return "testSolution";
             } else {
-                logger.info(String.valueOf(test));
                 SolutionTestForm solutionTestForm = solutionTestService.createForm(test, user);
                 model.addAttribute("solutionTest", solutionTestForm);
-                logger.info(solutionTestForm.toString());
                 return "testSolution";
             }
         }
@@ -94,8 +87,6 @@ public class SolutionTestController {
         logger.info("Metoda - saveSolutionTest");
         SolutionTest solutionTest = (SolutionTest) this.httpSession.getAttribute(TEST_ATTRIBUTE_NAME);
         this.httpSession.removeAttribute(TEST_ATTRIBUTE_NAME);
-        logger.info(solutionTest.toString());
-        logger.info(solutionTestForm.toString());
         solutionTest = solutionTestService.create(solutionTest, solutionTestForm);
         solutionTestService.create(solutionTest);
         model.addAttribute("solutionTest", solutionTest);
@@ -106,7 +97,6 @@ public class SolutionTestController {
     @RequestMapping(value = "/solutionTestCheckAnswers")
     public String checkSolutionTestPage(@ModelAttribute("sendModel") final SolutionTest solutionTest, Model model) {
         model.addAttribute(new TaskTypeChecker());
-        logger.info(String.valueOf(solutionTest));
         model.addAttribute("solutionTest", solutionTest);
         return "solutionTestCheckAnswers";
     }

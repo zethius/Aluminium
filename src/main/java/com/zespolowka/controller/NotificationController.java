@@ -11,7 +11,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,9 +37,7 @@ public class NotificationController {
         logger.info("nazwa metody = showNotifications");
         try {
             model.addAttribute("idNotification", notification.getId());
-            logger.info(String.valueOf(notification.getId()));
-
-        } catch (final Exception e) {
+        } catch (final RuntimeException e) {
             logger.error(e.getMessage(), e);
         }
         return "messages";
@@ -64,7 +61,6 @@ public class NotificationController {
         return "sendMessage";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/sendMessage", method = RequestMethod.POST)
     public String sendMessage(final Model model, @ModelAttribute final NewMessageForm newMessageForm, BindingResult errors) {
         logger.info("nazwa metody = sendMessage");
@@ -72,10 +68,9 @@ public class NotificationController {
         if (errors.hasErrors()) {
             String err = errors.getAllErrors().get(0).toString();
             logger.info("err:" + err);
-            logger.info(newMessageForm.toString());
             try {
                 notificationService.sendMessage(newMessageForm);
-            } catch (final Exception e) {
+            } catch (final RuntimeException e) {
                 logger.info("\n" + model + '\n');
             }
             return "sendMessage";

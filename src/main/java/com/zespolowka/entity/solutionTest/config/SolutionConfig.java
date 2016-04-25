@@ -62,8 +62,8 @@ public class SolutionConfig {
         this.tests = tests;
         this.compiler = "/usr/bin/javac";
         this.interpreter = "/usr/bin/java";
-        this.compiler_flags = "-cp .:/home/pitek/zespolowka/skrypty/JAVA_LIB/junit-4.12.jar";
-        this.interpreter_flags = "-cp .:/home/pitek/zespolowka/skrypty/JAVA_LIB/*";
+        this.compiler_flags = "-cp .:/home/pitek/zespolowka/skrypty/JAVA_LIB/*";
+        this.interpreter_flags = "-D/usr/lib/jvm/java-8-oracle/jre/lib/security/java.policy -Djava.security.policy=.java.policy -cp .:/home/pitek/zespolowka/skrypty/JAVA_LIB/*";
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(LANGUAGE, language);
         jsonObject.put(SOURCES, sources);

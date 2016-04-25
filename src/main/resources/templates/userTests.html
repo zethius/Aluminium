@@ -10,7 +10,8 @@
         <div class="container">
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#aktywne" aria-controls="aktywne" role="tab"
-                                                          data-toggle="tab" th:text="#{showResults.solvedTests}"></a></li>
+                                                          data-toggle="tab" th:text="#{showResults.solvedTests}"></a>
+                </li>
                 <li role="presentation"><a href="#najlepszeTesty" aria-controls="najlepszeTesty" role="tab"
                                            data-toggle="tab" th:text="#{showResults.bestTests}"></a></li>
             </ul>
@@ -20,7 +21,7 @@
                         <thead>
                         <tr>
                             <th th:text="#{mainPage.testName}"></th>
-                            <th th:text="#{showResults.attempts}"></th>
+                            <th th:text="#{showResults.attempt}"></th>
                             <th th:text="#{mainPage.startDate}"></th>
                             <th th:text="#{mainPage.endDate}"></th>
                             <th th:text="#{mainPage.points}"></th>

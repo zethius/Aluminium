@@ -83,14 +83,16 @@
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                         aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel"><span th:text="#{mainPage.startTest}+' '"></span><strong id="nazwaTestu"></strong>
+                                <h4 class="modal-title" id="myModalLabel"><span
+                                        th:text="#{mainPage.startTest}+' '"></span><strong id="nazwaTestu"></strong>
                                 </h4>
                             </div>
                             <div class="modal-body">
                                 <form id="form_test" class="form-register" action="" method="POST">
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label id="labelhaslo" for="haslodostepu" th:text="#{mainPage.enterPassword}"></label>
+                                            <label id="labelhaslo" for="haslodostepu"
+                                                   th:text="#{mainPage.enterPassword}"></label>
                                             <div class="input-group">
                                                 <input type="password" class="form-control" id="haslodostepu"
                                                        name="haslodostepu" placeholder="Hasło"/>
@@ -99,7 +101,8 @@
                                                 <input type="hidden"
                                                        th:name="${_csrf != null ? _csrf.parameterName : 'testing'}"
                                                        th:value="${_csrf != null ? _csrf.token : 'testing'}"/>
-                                                <input type="submit" name="submit" id="submit" th:value="#{mainPage.submit}"
+                                                <input type="submit" name="submit" id="submit"
+                                                       th:value="#{mainPage.submit}"
                                                        class="btn btn-primary pull-right"
                                                        th:onclick="'checkPassword(' + haslodostepu + ')'"
                                                 />
@@ -109,7 +112,8 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" th:text="#{close}"></button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"
+                                        th:text="#{close}"></button>
                             </div>
                         </div>
                     </div>
@@ -121,44 +125,6 @@
         </div>
     </div>
 
-    <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-            <div class="col-md-4">
-                <h2>Dalej</h2>
-
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                    mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-                    mollis euismod. Donec sed odio dui. </p>
-
-                <p><a class="btn btn-default" href="#" role="button">Krzychu &raquo;</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>nie wiem</h2>
-
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                    mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-                    mollis euismod. Donec sed odio dui. </p>
-
-                <p><a class="btn btn-default" href="#" role="button">ma problem &raquo;</a></p>
-            </div>
-            <div class="col-md-4">
-                <h2>po co to</h2>
-
-                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
-                    porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-                    ut fermentum massa justo sit amet risus.</p>
-
-                <p><a class="btn btn-default" href="#" role="button">z erekcja &raquo;</a></p>
-            </div>
-        </div>
-
-        <hr/>
-
-        <footer>
-            <p>&copy; 2015-2016 <strong>Uczestnicy Programowania Zespołowego.</strong></p>
-        </footer>
-    </div>
 </div>
 </body>
 <script layout:fragment="customScripts">

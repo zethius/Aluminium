@@ -35,7 +35,7 @@ public class UsersController {
             model.addAttribute("Users", userService.getAllUsers());
 
             model.addAttribute("usersEditForm", new UserEditForm(new User()));
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             logger.error(e.getMessage(), e);
             logger.info(model.toString() + "\n" + userService.getAllUsers().toString());
         }
