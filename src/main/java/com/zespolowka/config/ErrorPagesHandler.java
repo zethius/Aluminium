@@ -17,8 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 
-@Profile("prod")
-@Component
+
 @ControllerAdvice
 public class ErrorPagesHandler extends RuntimeException {
 

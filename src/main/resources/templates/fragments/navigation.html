@@ -12,11 +12,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/" th:text="#{navigation.mainPage}"></a></li>
                 <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/test/create"
                                                                                            th:text="#{navigation.createTest}"></a>
                 </li>
-                <li><a href="#" th:text="#{navigation.results}" th:href="@{/test/showResults}"></a></li>
+                <li sec:authorize="isAuthenticated()"><a href="#" th:text="#{navigation.results}" th:href="@{/test/showResults}"></a></li>
                 <li sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/users"
                                                                                            th:text="#{navigation.users}"></a>
                 </li>
@@ -48,6 +47,8 @@
                         </li>
                         <li role="separator" class="divider"></li>
                         <li><a th:href="@{/messages}" th:text="#{navigation.showAll}"></a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a th:href="@{/sendMessage}" th:text="#{sendMessage.title}"></a></li>
                     </ul>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="dropdown">
@@ -58,7 +59,6 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/user/edit}" th:text="#{navigation.editUser}"></a></li>
-                        <li><a th:href="@{/sendMessage}" th:text="#{sendMessage.title}"></a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="javascript:{}" onclick="document.getElementById('my_form').submit();"
                                th:text="#{logout}"></a>
