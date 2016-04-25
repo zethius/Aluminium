@@ -20,7 +20,7 @@ public class ProdDBConfig {
     public BasicDataSource dataSource() throws URISyntaxException {
         String username = "zespolowka";
         String password = "CjTjBXNbHJCjar5p";
-        String path = "46.238.244.222";
+        String path = "192.168.1.20";
         String database = "/zespolowka";
         int port = 1500;
         String dbUrl = "jdbc:mysql://" + path + ':' + port + database;
