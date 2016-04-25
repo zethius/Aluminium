@@ -6,7 +6,6 @@
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/dataTables.bootstrap.min.css" rel="stylesheet"/>
     <link href="css/signin.css" rel="stylesheet"/>
-    <script src="/js/ModalFunctions.js"></script>
 </head>
 
 <body>
@@ -80,16 +79,17 @@
             </div>
         </div>
     </div>
-    <footer>
-        <p>&copy; 2015-2016 <strong>Uczestnicy Programowania Zespo�owego.</strong></p>
-    </footer>
 </div> <!-- /container -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.dataTables.min.js"></script>
 <script src="js/dataTables.bootstrap.min.js"></script>
+<script src="/js/ModalFunctions.js"></script>
 <script>$(document).ready(function () {
     $('.grid').DataTable();
 });</script>
+<script layout:fragment="customScripts">
+    document.getElementById("testsTab").className="active";
+</script>
 </body>
 </html>
