@@ -3,6 +3,7 @@ package com.zespolowka.service.inteface;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.UserCreateForm;
 import com.zespolowka.forms.UserEditForm;
+import com.zespolowka.entity.user.Role;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -25,6 +26,7 @@ public interface UserService {
     User editUser(UserEditForm userEditForm);
 
     User update(User user);
+
 
     void delete(long id);
 }

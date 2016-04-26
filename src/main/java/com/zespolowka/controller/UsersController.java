@@ -1,18 +1,23 @@
 package com.zespolowka.controller;
 
+import com.zespolowka.entity.user.CurrentUser;
+import com.zespolowka.entity.user.Role;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.UserEditForm;
 import com.zespolowka.service.inteface.UserService;
+import com.zespolowka.validators.UsersEditValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -21,10 +26,13 @@ public class UsersController {
     private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
 
     private final UserService userService;
+    private final UsersEditValidator usersEditValidator;
 
     @Autowired
-    public UsersController(UserService userService) {
+    public UsersController(UserService userService, UsersEditValidator usersEditValidator) {
         this.userService = userService;
+        this.usersEditValidator = usersEditValidator;
+
     }
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
@@ -39,9 +47,9 @@ public class UsersController {
             logger.error(e.getMessage(), e);
             logger.info(model.toString() + "\n" + userService.getAllUsers().toString());
         }
+
         return "users";
     }
-
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.POST)
@@ -49,11 +57,10 @@ public class UsersController {
                                  final Errors errors) {
 
         logger.info("nazwa metody = saveUser");
+        usersEditValidator.validate(usersEditForm, errors);
         if (errors.hasErrors()) {
-            logger.info("dupa blada@@@@@@@@@@@");
             return "redirect:/users";
         } else {
-            logger.info("duasddddddddddddddpa blada@@@@@@@@@@@2");
             final User user = userService.editUser(usersEditForm);
             return "redirect:/users";
         }
