@@ -43,24 +43,26 @@ public class SendMessageValidator implements Validator {
             else receivers = form.getReceivers();
 
             String result[] = receivers.split(",");
-            logger.info(receivers);
-            logger.info(Arrays.toString(result));
             for (String s : result) {
                 String st = s.replaceAll("\\s+", "");
                 if (s.contains("@")) {
                     Optional<User> usr = userService.getUserByEmail(st);
                     if (!usr.isPresent()) {
-                        logger.info("chuj");
                         errors.rejectValue("receivers", "notification.receiver_invalid");
                     }
                 } else {
                     String st2 = st.toUpperCase();
-                    if (!st2.equals(Role.ADMIN.name()) || !st2.equals(Role.SUPERADMIN.name()) || !st2.equals(Role.USER.name())) {
-                        logger.info("chuj2");
+                    if (!Arrays.asList(Role.ADMIN.name(), Role.SUPERADMIN.name(), Role.USER.name()).contains(st2)){
                         errors.rejectValue("receivers", "notification.role_invalid");
                     }
                 }
             }
+        }
+        if(form.getMessage().length()>10000){
+            errors.rejectValue("message", "notification.message_tooLong");
+        }
+        if(form.getTopic().length()>254){
+            errors.rejectValue("topic", "notification.topic_tooLong");
         }
     }
 

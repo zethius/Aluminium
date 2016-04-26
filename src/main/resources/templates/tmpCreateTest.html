@@ -13,6 +13,8 @@
                 <h3 class="panel-title" th:text="#{test.createTestForm}"/>
             </div>
             <div class="panel-body">
+                <div th:if="${sukces}" class="alert alert-success" role="alert" th:text="#{test_created.message}">Utworzono test
+                </div>
                 <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
                     <p th:each="err:${#fields.allErrors()}" th:text="${err}">...</p>
                 </div>

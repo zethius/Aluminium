@@ -6,7 +6,6 @@ var href = "";
 function showTestModal(index, value) {
     isOpen = value;
     var editUrl = testModalTarget + index;
-
     if (isOpen) {
         $("#spanTest").remove();
         document.getElementById('haslodostepu').style.display = "none";

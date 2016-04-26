@@ -113,15 +113,15 @@ public class NotificationServiceImpl implements NotificationService {
             if (st.contains("@")) {
                 User usr = userRepository.findUserByEmail(st)
                         .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o emailu =%s nie istnieje", st)));
-                notif = new Notification(form.getMessage(), form.getTopic(), new Date(), usr.getId());
+                notif = new Notification(form.getMessage(), form.getTopic(), usr.getId());
                 logger.info("Wiadomosc wyslana do: " + st);
                 notificationRepository.save(notif);
                 wyslane.add(st);
             } else {
                 String st2 = st.toUpperCase();
                 if (st2.equals(Role.ADMIN.name()) || st2.equals(Role.SUPERADMIN.name()) || st2.equals(Role.USER.name())) {
-                    notif = new Notification(form.getMessage(), form.getTopic(), new Date(), Role.valueOf(st2));
-                    logger.info("Grupowa wiadomosc do: " + st);
+                    notif = new Notification(form.getMessage(), form.getTopic(), Role.valueOf(st2));
+                    logger.info("Grupowa wiadomosc do: " + st2);
                     notificationRepository.save(notif);
                     wyslane.add(st);
                 }
