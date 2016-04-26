@@ -50,7 +50,7 @@ public class DevDBConfig {
 
     private User user;
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
 
     public DevDBConfig() {
     }

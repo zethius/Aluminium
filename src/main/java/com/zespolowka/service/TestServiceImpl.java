@@ -1,14 +1,18 @@
 package com.zespolowka.service;
 
 import com.zespolowka.entity.createTest.*;
+import com.zespolowka.entity.user.Role;
 import com.zespolowka.forms.CreateTestForm;
+import com.zespolowka.forms.NewMessageForm;
 import com.zespolowka.forms.ProgrammingTaskForm;
 import com.zespolowka.forms.TaskForm;
 import com.zespolowka.repository.TestRepository;
+import com.zespolowka.service.inteface.NotificationService;
 import com.zespolowka.service.inteface.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -21,9 +25,12 @@ public class TestServiceImpl implements TestService {
 
     private final TestRepository testRepository;
 
+    private final NotificationService notificationService;
+
     @Autowired
-    public TestServiceImpl(final TestRepository testRepository) {
+    public TestServiceImpl(final TestRepository testRepository, NotificationService notificationService) {
         this.testRepository = testRepository;
+        this.notificationService = notificationService;
     }
 
 
@@ -101,6 +108,13 @@ public class TestServiceImpl implements TestService {
                 }
             }
         }
+
+        ResourceBundle messages = ResourceBundle.getBundle("messages", LocaleContextHolder.getLocale());
+        NewMessageForm newMessageForm = new NewMessageForm();
+        newMessageForm.setReceivers(Role.USER.name());
+        newMessageForm.setTopic(messages.getString("test_created.topic") + " " + test.getName());
+        newMessageForm.setMessage(messages.getString("test_created.message"));
+        notificationService.sendMessage(newMessageForm);
         return testRepository.save(test);
     }
 

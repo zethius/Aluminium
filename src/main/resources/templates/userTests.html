@@ -16,7 +16,7 @@
                                            data-toggle="tab" th:text="#{showResults.bestTests}"></a></li>
             </ul>
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="aktywne">...
+                <div role="tabpanel" class="tab-pane active" id="aktywne">
                     <table class="grid table" cellspacing="0" width="100%">
                         <thead>
                         <tr>
@@ -69,4 +69,7 @@
 
 </div>
 </body>
+<script layout:fragment="customScripts">
+       document.getElementById("showResultsTab").className="active";
+</script>
 </html>

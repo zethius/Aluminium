@@ -37,19 +37,21 @@ function checkPassword(pass) {
 }
 
 //======== NIZEJ DO /test/all
-function showAttemptsModal(index) {
+function showAttemptsModal(index,name) {
     var editUrl = "/solutionTest/loadResultEntity/" + index;
-    loadResultEntity(editUrl);
-}
-
-function loadResultEntity(url) {
-    $("#tabela tbody tr").remove();
-    $.getJSON(url, {}, function (data) {
+    $('#nazwaTestu').text(name);
+    $('#tabelaaa').dataTable().fnClearTable();
+    $.getJSON(editUrl, {}, function (data) {
         for (var i in data) {
-            $('#nazwaTestu').text(data[i].test.name);
-            var osoba = data[i].user.name + " " + data[i].user.lastName;
-            $('#tabela').append('<tr><td>' + osoba + '</td><td>' + data[i].points + '</td><td>' + data[i].test.maxPoints + '</td></tr>');
+            $('#tabelaaa').dataTable()
+                .fnAddData([
+                    data[i].user.name + " " + data[i].user.lastName,
+                    data[i].points,
+                    data[i].test.maxPoints]);
         }
-
+        $('#wynikiA').modal('show');
     });
+
+
 }
+

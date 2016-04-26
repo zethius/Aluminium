@@ -5,9 +5,11 @@ import com.zespolowka.entity.createTest.*;
 import com.zespolowka.entity.solutionTest.*;
 import com.zespolowka.entity.solutionTest.config.SolutionConfig;
 import com.zespolowka.entity.user.User;
+import com.zespolowka.forms.NewMessageForm;
 import com.zespolowka.forms.SolutionTaskForm;
 import com.zespolowka.forms.SolutionTestForm;
 import com.zespolowka.repository.SolutionTestRepository;
+import com.zespolowka.service.inteface.NotificationService;
 import com.zespolowka.service.inteface.SolutionTestService;
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
@@ -17,6 +19,7 @@ import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -37,6 +40,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
 
     private final SolutionTestRepository solutionTestRepository;
     private final HttpSession httpSession;
+    private final NotificationService notificationService;
 
     private int taskNo = 0;
 
@@ -45,9 +49,10 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     private String resultDir = "/tmp/";
 
     @Autowired
-    public SolutionTestServiceImpl(SolutionTestRepository solutionTestRepository, HttpSession httpSession) {
+    public SolutionTestServiceImpl(SolutionTestRepository solutionTestRepository, HttpSession httpSession, NotificationService notificationService) {
         this.solutionTestRepository = solutionTestRepository;
         this.httpSession = httpSession;
+        this.notificationService = notificationService;
     }
 
     @Override
@@ -307,6 +312,12 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 taskSqlSolution.setSqlAnswer(solutionTaskForm.getAnswerCode());
                 addTaskSolutionToTest(solutionTest, taskSqlSolution);
             }
+        ResourceBundle messages = ResourceBundle.getBundle("messages", LocaleContextHolder.getLocale());
+        NewMessageForm newMessageForm = new NewMessageForm();
+        newMessageForm.setReceivers(solutionTest.getUser().getEmail());
+        newMessageForm.setTopic(messages.getString("results.topic") + " " + solutionTest.getTest().getName());
+        newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
+        notificationService.sendMessage(newMessageForm);
         return solutionTest;
     }
 

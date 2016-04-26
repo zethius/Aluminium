@@ -4,9 +4,6 @@
       layout:decorator="layout">
 <head>
     <title>Użytkownicy</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/dataTables.bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/signin.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -163,12 +160,11 @@
 
         </div>
     </div>
-    <footer>
-        <p>&copy; 2015-2016 <strong>Uczestnicy Programowania Zespołowego.</strong></p>
-    </footer>
 </div> <!-- /container -->
 </body>
 <script layout:fragment="customScripts">
+    document.getElementById("usersTab").className="active";
+
     function confirmDelete() {
         var x;
         x = confirm("Czy na pewno chcesz usunąć?") == true;
@@ -216,7 +212,6 @@
             <!--  $('#wynikiA').modal('show'); -->
         });
     });
-
 
 </script>
 </html>
