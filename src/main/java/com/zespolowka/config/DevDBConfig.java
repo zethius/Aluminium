@@ -50,7 +50,7 @@ public class DevDBConfig {
 
     private User user;
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
 
     public DevDBConfig() {
     }
@@ -87,7 +87,7 @@ public class DevDBConfig {
 
         createTests();
         logger.info("Testy stworzone");
-        /*createFakeUsers();
+        createFakeUsers();
         logger.info("Userzy stworzeni");
         createFakeNotEnabledUsers();
         logger.info("Userzy nieaktywni stworzeni");
@@ -95,12 +95,10 @@ public class DevDBConfig {
         logger.info("Userzy zablokowani stworzeni");
         createFakeNotifications();
         logger.info("Wiadomosci stworzone");
-        createFakeTestsAndSolutionTestsWithClosedTask();
-        logger.info("Testy z rozwiazaniami stworzone");*/
     }
 
     public void createTests() {
-        Test test = new Test("TestBHP", 3L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>());
+        Test test = new Test("Przykładowy test bez hasła", 3L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>());
         test.setTimePerAttempt(90);
         test.setPassword("");
         TaskClosed taskClosed = new TaskClosed("Ile to jest 2+2*2", 6.0f);
@@ -145,12 +143,63 @@ public class DevDBConfig {
         taskOpen.setCaseSens(false);
         taskOpen.setAnswer("Adam");
         test.addTaskToTest(taskOpen);
-
         taskOpen = new TaskOpen("Podaj pierwsze 5 malych liter alfabetu polskiego", 10.0f);
         taskOpen.setCaseSens(true);
         taskOpen.setAnswer("abcde");
         test.addTaskToTest(taskOpen);
         test = testRepository.save(test);
+
+        test = new Test("Przykładowy test z hasłem", 3L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>());
+        test.setTimePerAttempt(90);
+        test.setPassword("");
+        taskClosed = new TaskClosed("Ile to jest 2+2*2", 6.0f);
+        answer = new TreeMap<>();
+        answer.put("8", false);
+        answer.put("6", true);
+        answer.put("3*2", true);
+        taskClosed.setAnswers(answer);
+        test.addTaskToTest(taskClosed);
+        taskClosed = new TaskClosed("Ile to jest 2+2+2", 6.0f);
+        answer = new TreeMap<>();
+        answer.put("8", false);
+        answer.put("6", true);
+        answer.put("4", false);
+        taskClosed.setAnswers(answer);
+        test.addTaskToTest(taskClosed);
+        taskClosed = new TaskClosed("Ile to jest 3*3*3", 6.0f);
+        answer = new TreeMap<>();
+        answer.put("27", true);
+        answer.put("9", false);
+        answer.put("aaa", false);
+        taskClosed.setAnswers(answer);
+        test.addTaskToTest(taskClosed);
+        taskClosed = new TaskClosed("Zaznacz wszystko", 6.0f);
+        taskClosed.setCountingType(taskClosed.COUNT_NOT_FULL);
+        answer = new TreeMap<>();
+        answer.put("1", true);
+        answer.put("2", true);
+        answer.put("3", true);
+        answer.put("4", true);
+        answer.put("5", true);
+        taskClosed.setAnswers(answer);
+        test.addTaskToTest(taskClosed);
+        taskClosed = new TaskClosed("Zaznacz imie rozpoczynajace sie na M ", 6.0f);
+        answer = new TreeMap<>();
+        answer.put("Adam", false);
+        answer.put("Ewa", false);
+        answer.put("Michal", true);
+        taskClosed.setAnswers(answer);
+        test.addTaskToTest(taskClosed);
+        taskOpen = new TaskOpen("Napisz jak ma na imie Adam Małysz", 10.0f);
+        taskOpen.setCaseSens(false);
+        taskOpen.setAnswer("Adam");
+        test.addTaskToTest(taskOpen);
+        taskOpen = new TaskOpen("Podaj pierwsze 5 malych liter alfabetu polskiego", 10.0f);
+        taskOpen.setCaseSens(true);
+        taskOpen.setAnswer("abcde");
+        test.addTaskToTest(taskOpen);
+        test = testRepository.save(test);
+
         Test test2 = new Test("KurzeTesty", 10L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>());
         TaskProgramming taskProgramming = new TaskProgramming("Zadanie z Javy", 100.0f);
         TaskProgrammingDetail taskProgrammingDetail = new TaskProgrammingDetail();
@@ -542,14 +591,14 @@ public class DevDBConfig {
     }
 
     public void createFakeUsers() {
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 10; i++) {
             user = new User("Imie" + i, "Nazwisko" + i, "przykladowyEmail" + i + "@o2.pl", new BCryptPasswordEncoder().encode("password"));
             repository.save(user);
         }
     }
 
     public void createFakeNotEnabledUsers() {
-        for (int i = 50; i < 100; i++) {
+        for (int i = 10; i < 20; i++) {
             user = new User("Imie" + i, "Nazwisko" + i, "przykladowyEmail" + i + "@o2.pl", new BCryptPasswordEncoder().encode("password"));
             user.setEnabled(false);
             user = repository.save(user);
@@ -560,7 +609,7 @@ public class DevDBConfig {
     }
 
     public void createFakeLockedUsers() {
-        for (int i = 100; i < 150; i++) {
+        for (int i = 20; i < 30; i++) {
             user = new User("Imie" + i, "Nazwisko" + i, "przykladowyEmail" + i + "@o2.pl", new BCryptPasswordEncoder().encode("password"));
             user.setAccountNonLocked(false);
             repository.save(user);
@@ -568,7 +617,7 @@ public class DevDBConfig {
     }
 
     public void createFakeNotifications() {
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 20; i++) {
             try {
                 notificationRepository.save(new Notification("WiadomoscPrzykladowaTresc" + i, "PrzykladowyTematWiadomosci" + i, this.sdf.parse("31-08-2005 10:20:56"), i));
             } catch (ParseException e) {

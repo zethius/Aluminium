@@ -58,9 +58,6 @@
                         <div th:if="*{solutionTasks[__${rowStat.index}__].haveError()}" class="input-group">
                             <textarea rows="5" class="form-control"
                                       th:field="*{solutionTasks[__${rowStat.index}__].compilationError.error}"/>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-asterisk"/>
-                            </span>
                         </div>
                         <h2 th:text="*{solutionTasks[__${rowStat.index}__].points}+'/'+*{solutionTasks[__${rowStat.index}__].task.max_points}"/>
                     </div>

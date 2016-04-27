@@ -6,7 +6,36 @@
 <script src="https://code.jquery.com/ui/1.9.1/jquery-ui.js"/>
 <script src="/js/angularController.js"/>
 
-<script>$(document).ready(function () {
-    $('.grid').DataTable();
-});
+<script>
+    $(document).ready(function(){
+        $('.grid').DataTable( {
+            destroy: true,
+            "pageLength": 10,
+            "language": {
+                "sProcessing":   "Przetwarzanie...",
+                "sLengthMenu":   "Pokaż _MENU_ pozycji",
+                "sZeroRecords":  "Nie znaleziono pasujących pozycji",
+                "sInfoThousands":  " ",
+                "sInfo":         "Pozycje od _START_ do _END_ z _TOTAL_ łącznie",
+                "sInfoEmpty":    "Pozycji 0 z 0 dostępnych",
+                "sInfoFiltered": "(filtrowanie spośród _MAX_ dostęnych pozycji)",
+                "sInfoPostFix":  "",
+                "sSearch":       "Szukaj:",
+                "sUrl":          "",
+                "oPaginate": {
+                    "sFirst":    "Pierwsza",
+                    "sPrevious": "Poprzednia",
+                    "sNext":     "Następna",
+                    "sLast":     "Ostatnia"
+                },
+                "sEmptyTable":     "Brak danych",
+                "sLoadingRecords": "Wczytywanie...",
+                "oAria": {
+                    "sSortAscending":  ": aktywuj, by posortować kolumnę rosnąco",
+                    "sSortDescending": ": aktywuj, by posortować kolumnę malejąco"
+                }
+            }
+        });
+    });
+
 </script>

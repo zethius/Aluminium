@@ -13,9 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-/**
- * Created by kukol on 2016-04-26.
- */
+
 @Component
 public class UserEditValidator implements Validator {
     private static final Logger logger = LoggerFactory.getLogger(UserCreateValidator.class);

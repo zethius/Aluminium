@@ -3,6 +3,8 @@ package com.zespolowka.entity;
 import com.zespolowka.entity.user.Role;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -14,6 +16,8 @@ public class Notification {
 
     @Column(length = 10000)
     private String message;
+
+
     private String topic;
     private Date date;
     private boolean unread;
@@ -25,6 +29,35 @@ public class Notification {
     public Notification() {
     }
 
+    public Notification(String message, String topic, long userId) { //data auto
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
+        String now=sdf.format(new Date());
+        try {
+            this.date=sdf.parse(now);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        this.message = message;
+        this.topic = topic;
+        this.userId = userId;
+        this.unread = true;
+        this.userRole = null;
+    }
+    public Notification(String message, String topic, Role userRole) { //data auto dla grup
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
+        String now=sdf.format(new Date());
+        try {
+            this.date=sdf.parse(now);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.message = message;
+        this.topic = topic;
+        this.userRole = userRole;
+        this.unread = true;
+        this.userId = -1L;
+    }
     public Notification(String message, String topic, Date date, long userId) {
         this.message = message;
         this.topic = topic;
