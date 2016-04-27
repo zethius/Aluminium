@@ -1,14 +1,17 @@
 package com.zespolowka.controller;
 
 import com.zespolowka.entity.user.CurrentUser;
+import com.zespolowka.entity.user.Role;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.UserEditForm;
 import com.zespolowka.service.inteface.NotificationService;
 import com.zespolowka.service.inteface.UserService;
 import com.zespolowka.validators.ChangePasswordValidator;
+import com.zespolowka.validators.UserEditValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -43,12 +46,17 @@ public class UserController {
     @Autowired
     private final ChangePasswordValidator changePasswordValidator;
 
+    private final UserEditValidator userEditValidator;
+
+
+
 
     @Autowired
-    public UserController(final UserService userService, NotificationService notificationService, ChangePasswordValidator changePasswordValidator) {
+    public UserController(final UserService userService, NotificationService notificationService, ChangePasswordValidator changePasswordValidator, UserEditValidator userEditValidator) {
         this.userService = userService;
         this.notificationService = notificationService;
         this.changePasswordValidator = changePasswordValidator;
+        this.userEditValidator = userEditValidator;
     }
 
     @PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
@@ -98,6 +106,7 @@ public class UserController {
     public String saveCurrentUser(@ModelAttribute @Valid final UserEditForm userEditForm, final Errors errors, final Model model) {
         logger.info("nazwa metody = saveCurrentUser");
         changePasswordValidator.validate(userEditForm, errors);
+        userEditValidator.validate(userEditForm, errors);
         if (errors.hasErrors()) {
             String err = errors.getAllErrors().get(0).toString();
             logger.info("err:" + err);
@@ -170,15 +179,44 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/changeBlock/{id}", method = RequestMethod.GET)
-    public String unblockUser(@PathVariable final Integer id) {
+    public String unblockUser(@PathVariable final Integer id, RedirectAttributes redirectAttributes) {
         logger.debug("nazwa metody = unblockUser");
+        final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final User doer = currentUser.getUser();
         try {
             User user = userService.getUserById(id)
                     .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
-            if (user.isAccountNonLocked()) {
-                user.setAccountNonLocked(false);
-            } else {
-                user.setAccountNonLocked(true);
+
+            if(doer.getRole().equals(Role.SUPERADMIN)) {
+                if (user.isAccountNonLocked()) {
+                    user.setAccountNonLocked(false);
+                    String unlock = "Zablokowano uzytkownika " + user.getEmail();
+                    redirectAttributes.addFlashAttribute("sukces", true);
+                    redirectAttributes.addFlashAttribute("message", unlock);
+                } else {
+                    user.setAccountNonLocked(true);
+                    String lock = "Odblokowano uzytkownika " + user.getEmail();
+                    redirectAttributes.addFlashAttribute("sukces", true);
+                    redirectAttributes.addFlashAttribute("message", lock);
+                }
+            }else if(doer.getRole().equals(Role.ADMIN)){
+                if(user.getRole().equals(Role.USER)) {
+                    if (user.isAccountNonLocked()) {
+                        user.setAccountNonLocked(false);
+                        String unlock = "Zablokowano uzytkownika " + user.getEmail();
+                        redirectAttributes.addFlashAttribute("sukces", true);
+                        redirectAttributes.addFlashAttribute("message", unlock);
+                    } else {
+                        user.setAccountNonLocked(true);
+                        String lock = "Odblokowano uzytkownika " + user.getEmail();
+                        redirectAttributes.addFlashAttribute("sukces", true);
+                        redirectAttributes.addFlashAttribute("message", lock);
+                    }
+                }else{
+                    String  permissionDenied = "Nie masz uprawnień";
+                    redirectAttributes.addFlashAttribute("blad", true);
+                    redirectAttributes.addFlashAttribute("message",  permissionDenied);
+                }
             }
             userService.update(user);
         } catch (final Exception e) {
@@ -189,16 +227,47 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/changeActive/{id}", method = RequestMethod.GET)
-    public String activateUser(@PathVariable final Integer id) {
+    public String activateUser(@PathVariable final Integer id, RedirectAttributes redirectAttributes) {
         logger.debug("nazwa metody = activateUser");
         try {
+            final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            final User doer = currentUser.getUser();
             User user = userService.getUserById(id)
                     .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
-            if (user.isEnabled()) {
-                user.setEnabled(false);
-            } else {
-                user.setEnabled(true);
+
+            if(doer.getRole().equals(Role.SUPERADMIN)) {
+                if (user.isEnabled()) {
+                    user.setEnabled(false);
+                    String enable = "Deaktywowano uzytkownika " + user.getEmail();
+                    redirectAttributes.addFlashAttribute("sukces", true);
+                    redirectAttributes.addFlashAttribute("message", enable);
+                } else {
+                    user.setEnabled(true);
+                    String disable = "Aktywowano uzytkownika " + user.getEmail();
+                    redirectAttributes.addFlashAttribute("sukces", true);
+                    redirectAttributes.addFlashAttribute("message", disable);
+                }
+            }else if(doer.getRole().equals(Role.ADMIN)){
+                if(user.getRole().equals(Role.USER)) {
+                    if (user.isEnabled()) {
+                        user.setEnabled(false);
+                        String enable = "Deaktywowano uzytkownika " + user.getEmail();
+                        redirectAttributes.addFlashAttribute("sukces", true);
+                        redirectAttributes.addFlashAttribute("message", enable);
+
+                    } else {
+                        user.setEnabled(true);
+                        String disable = "Aktywowano uzytkownika " + user.getEmail();
+                        redirectAttributes.addFlashAttribute("sukces", true);
+                        redirectAttributes.addFlashAttribute("message", disable);
+                    }
+                }else{
+                    String permissionDenied = "Nie masz uprawnień";
+                    redirectAttributes.addFlashAttribute("blad", true);
+                    redirectAttributes.addFlashAttribute("message",  permissionDenied);
+                }
             }
+
             userService.update(user);
         } catch (final Exception e) {
             logger.error(e.getMessage(), e);
