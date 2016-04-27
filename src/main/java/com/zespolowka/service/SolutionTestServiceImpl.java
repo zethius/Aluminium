@@ -1,7 +1,6 @@
 package com.zespolowka.service;
 
 
-import com.zespolowka.entity.Notification;
 import com.zespolowka.entity.createTest.*;
 import com.zespolowka.entity.solutionTest.*;
 import com.zespolowka.entity.solutionTest.config.SolutionConfig;
@@ -53,7 +52,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     public SolutionTestServiceImpl(SolutionTestRepository solutionTestRepository, HttpSession httpSession, NotificationService notificationService) {
         this.solutionTestRepository = solutionTestRepository;
         this.httpSession = httpSession;
-        this.notificationService=notificationService;
+        this.notificationService = notificationService;
     }
 
     @Override
@@ -313,12 +312,11 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 taskSqlSolution.setSqlAnswer(solutionTaskForm.getAnswerCode());
                 addTaskSolutionToTest(solutionTest, taskSqlSolution);
             }
-        //wiadomosc o wynikach
-        ResourceBundle messages = ResourceBundle.getBundle("messages",LocaleContextHolder.getLocale());
-        NewMessageForm newMessageForm=new NewMessageForm();
+        ResourceBundle messages = ResourceBundle.getBundle("messages", LocaleContextHolder.getLocale());
+        NewMessageForm newMessageForm = new NewMessageForm();
         newMessageForm.setReceivers(solutionTest.getUser().getEmail());
-        newMessageForm.setTopic(messages.getString("results.topic")+" "+solutionTest.getTest().getName());
-        newMessageForm.setMessage(messages.getString("results.message")+" "+solutionTest.getPoints()+" / "+solutionTest.getTest().getMaxPoints());
+        newMessageForm.setTopic(messages.getString("results.topic") + " " + solutionTest.getTest().getName());
+        newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
         notificationService.sendMessage(newMessageForm);
         return solutionTest;
     }

@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.*;
@@ -133,7 +132,7 @@ public class TestController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String save(final @Valid CreateTestForm createTestForm, final BindingResult result,RedirectAttributes redirectAttributes) {
+    public String save(final @Valid CreateTestForm createTestForm, final BindingResult result) {
         logger.info("Metoda - save");
         createTestValidator.validate(createTestForm, result);
         if (result.hasErrors()) {
@@ -145,7 +144,6 @@ public class TestController {
         logger.info(test.toString());
         testFormService.updateTestFormInSession(new CreateTestForm());
         testFormService.updateSelectedLanguagesInSession("");
-        redirectAttributes.addFlashAttribute("sukces", true);
         return "redirect:/test/create";
     }
 

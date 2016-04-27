@@ -1,7 +1,7 @@
 package com.zespolowka.service;
 
 import com.zespolowka.entity.createTest.*;
-import com.zespolowka.entity.user.CurrentUser;
+import com.zespolowka.entity.user.Role;
 import com.zespolowka.forms.CreateTestForm;
 import com.zespolowka.forms.NewMessageForm;
 import com.zespolowka.forms.ProgrammingTaskForm;
@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,12 +24,13 @@ public class TestServiceImpl implements TestService {
     private static final Logger logger = LoggerFactory.getLogger(TestService.class);
 
     private final TestRepository testRepository;
+
     private final NotificationService notificationService;
 
     @Autowired
     public TestServiceImpl(final TestRepository testRepository, NotificationService notificationService) {
         this.testRepository = testRepository;
-        this.notificationService=notificationService;
+        this.notificationService = notificationService;
     }
 
 
@@ -108,14 +108,11 @@ public class TestServiceImpl implements TestService {
                 }
             }
         }
-        //wiadomosc o utworzeniu testu
 
-        ResourceBundle messages = ResourceBundle.getBundle("messages",LocaleContextHolder.getLocale());
-
-        CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        NewMessageForm newMessageForm=new NewMessageForm();
-        newMessageForm.setReceivers(currentUser.getUser().getEmail());
-        newMessageForm.setTopic(messages.getString("test_created.topic")+" "+test.getName());
+        ResourceBundle messages = ResourceBundle.getBundle("messages", LocaleContextHolder.getLocale());
+        NewMessageForm newMessageForm = new NewMessageForm();
+        newMessageForm.setReceivers(Role.USER.name());
+        newMessageForm.setTopic(messages.getString("test_created.topic") + " " + test.getName());
         newMessageForm.setMessage(messages.getString("test_created.message"));
         notificationService.sendMessage(newMessageForm);
         return testRepository.save(test);

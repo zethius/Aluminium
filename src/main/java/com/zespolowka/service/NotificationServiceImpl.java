@@ -17,7 +17,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 
@@ -121,7 +124,7 @@ public class NotificationServiceImpl implements NotificationService {
                 String st2 = st.toUpperCase();
                 if (st2.equals(Role.ADMIN.name()) || st2.equals(Role.SUPERADMIN.name()) || st2.equals(Role.USER.name())) {
                     notif = new Notification(form.getMessage(), form.getTopic(), Role.valueOf(st2));
-                    logger.info("Grupowa wiadomosc do: " + st2);
+                    logger.info("Grupowa wiadomosc do: " + st);
                     notificationRepository.save(notif);
                     wyslane.add(st);
                 }

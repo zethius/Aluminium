@@ -3,6 +3,7 @@
       layout:decorator="layout">
 <head>
     <title th:text="#{test.createTestForm}"/>
+
 </head>
 <body>
 <div layout:fragment="content" ng-controller="CreateTestController">
@@ -13,7 +14,8 @@
                 <h3 class="panel-title" th:text="#{test.createTestForm}"/>
             </div>
             <div class="panel-body">
-                <div th:if="${sukces}" class="alert alert-success" role="alert" th:text="#{test_created.message}">Utworzono test
+                <div th:if="${sukces}" class="alert alert-success" role="alert" th:text="#{test_created.message}">
+                    Utworzono test
                 </div>
                 <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger">
                     <p th:each="err:${#fields.allErrors()}" th:text="${err}">...</p>
@@ -398,6 +400,8 @@
 </div>
 </body>
 <script layout:fragment="customScripts">
+    document.getElementById("createTestTab").className = "active";
+
     function changeValue(id) {
         var baseCheckbox = id.substr(0, id.length - 1);
         var appendCheckbox = id.substr(id.length - 1, id.length);
@@ -414,6 +418,5 @@
             }
         }
     }
-    document.getElementById("createTestTab").className="active";
 </script>
 </html>

@@ -1,6 +1,7 @@
 package com.zespolowka.repository;
 
 import com.zespolowka.entity.user.User;
+import com.zespolowka.entity.user.Role;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
@@ -13,4 +14,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findUserByEmail(String email);
 
     Collection<User> findEmailByEmailIgnoreCaseContainingOrNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(String email, String name, String lastname);
+
 }
