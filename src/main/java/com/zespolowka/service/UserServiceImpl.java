@@ -1,5 +1,6 @@
 package com.zespolowka.service;
 
+import com.zespolowka.entity.user.Role;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.UserCreateForm;
 import com.zespolowka.forms.UserEditForm;
