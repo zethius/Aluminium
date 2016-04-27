@@ -46,6 +46,12 @@ public class VerificationTokenServiceImpl implements VerificationTokenService {
     }
 
     @Override
+    public void deleteVerificationTokenByUser(User user) {
+        logger.info("deleteVerificationTokenByUser");
+        verificationTokenRepository.deleteVerificationTokenByUser(user);
+    }
+
+    @Override
     public String toString() {
         return "VerificationTokenServiceImpl{" +
                 "verificationTokenRepository=" + verificationTokenRepository +

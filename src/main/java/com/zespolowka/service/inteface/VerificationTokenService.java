@@ -14,4 +14,6 @@ public interface VerificationTokenService {
     Collection<VerificationToken> getAllVerificationTokens();
 
     VerificationToken create(User user, String token);
+
+    void deleteVerificationTokenByUser(User user);
 }
