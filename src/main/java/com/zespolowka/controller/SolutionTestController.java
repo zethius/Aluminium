@@ -94,6 +94,14 @@ public class SolutionTestController {
         return "redirect:/solutionTestCheckAnswers";
     }
 
+    @RequestMapping(value = "/solutionTest/{id}", method = RequestMethod.GET)
+    public String solutionTestPage(@PathVariable("id") Long id,Model model) {
+        model.addAttribute(new TaskTypeChecker());
+        model.addAttribute("solutionTest", solutionTestService.getSolutionTestById(id));
+        return "solutionTestCheckAnswers";
+    }
+
+
     @RequestMapping(value = "/solutionTestCheckAnswers")
     public String checkSolutionTestPage(@ModelAttribute("sendModel") final SolutionTest solutionTest, Model model) {
         model.addAttribute(new TaskTypeChecker());

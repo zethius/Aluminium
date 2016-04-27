@@ -31,9 +31,9 @@
                         <tbody>
                         <tr th:each="test:*{Tests}">
                             <td th:text="*{test.test.name}"/>
-                            <td th:text="#{showResults.attempt}"/>
-                            <td th:text="*{test.beginSolution}"/>
-                            <td th:text="*{test.endSolution}"/>
+                            <td th:text="*{test.attempt}"/>
+                            <td th:text="${#temporals.format(test.beginSolution, 'dd/MM/yyyy HH:mm:ss')}"/>
+                            <td th:text="${#temporals.format(test.endSolution, 'dd/MM/yyyy HH:mm:ss')}"/>
                             <td th:text="*{test.points}"/>
                             <td th:text="*{test.test.maxPoints}"/>
                         </tr>
@@ -55,8 +55,8 @@
                         <tr th:each="test:*{BestTest}">
                             <td th:text="*{test.test.name}"/>
                             <td th:text="*{test.attempt}"/>
-                            <td th:text="*{test.beginSolution}"/>
-                            <td th:text="*{test.endSolution}"/>
+                            <td th:text="${#temporals.format(test.beginSolution, 'dd/MM/yyyy HH:mm:ss')}"/>
+                            <td th:text="${#temporals.format(test.endSolution, 'dd/MM/yyyy HH:mm:ss')}"/>
                             <td th:text="*{test.points}"/>
                         </tr>
                         </tbody>
@@ -70,6 +70,6 @@
 </div>
 </body>
 <script layout:fragment="customScripts">
-       document.getElementById("showResultsTab").className="active";
+    document.getElementById("showResultsTab").className = "active";
 </script>
 </html>

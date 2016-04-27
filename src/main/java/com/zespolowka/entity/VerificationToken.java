@@ -17,7 +17,7 @@ public class VerificationToken {
 
     private String token;
 
-    @OneToOne(targetEntity = User.class, optional = false,orphanRemoval = true)
+    @OneToOne(targetEntity = User.class, optional = false,orphanRemoval = false)
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 

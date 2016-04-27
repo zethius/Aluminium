@@ -32,13 +32,13 @@
                     <td th:text="${test.beginDate}"></td>
                     <td th:text="${test.endDate}"></td>
                     <td>
-                        <a  class="glyphicon glyphicon-list-alt" aria-hidden="true" title="wyniki"
+                        <a class="glyphicon glyphicon-list-alt" aria-hidden="true" title="wyniki"
                            th:onclick="'showAttemptsModal(' + ${test.id} +',\''+${test.name} +'\')'">
                         </a>
                         <a href="#"><span class="glyphicon glyphicon-retweet" aria-hidden="true"
                                           title="włącz ponownie"></span></a>
-                        <a href="#"><span class="glyphicon glyphicon-pencil" aria-hidden="true"
-                                          title="edytuj"></span></a>
+                        <a th:href="${'/test/edit/' + test.id}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"
+                                         title="edytuj"></span></a>
                     </td>
                 </tr>
                 </tbody>
@@ -58,9 +58,10 @@
                                    id="tabelaaa">
                                 <thead>
                                 <tr>
+                                    <th th:text="#{tests.position}"></th>
                                     <th th:text="#{tests.person}"></th>
                                     <th th:text="#{tests.testResult}"></th>
-                                    <th th:text="#{tests.maxPoints}"></th>
+                                    <th th:text="#{tests.solution}"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -78,7 +79,7 @@
     </div>
 </div> <!-- /container -->
 <script layout:fragment="customScripts">
-    document.getElementById("testsTab").className="active";
+    document.getElementById("testsTab").className = "active";
 </script>
 </body>
 </html>

@@ -155,6 +155,7 @@ public class UserController {
     public String deleteUser(@PathVariable final Long id, RedirectAttributes redirectAttributes) {
         final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         logger.info("nazwa metody = deleteUser");
+        logger.info("userDelete"+id);
         if (Objects.equals(currentUser.getId(), id)) {
             logger.info("Nie mozesz usunac siebie");
             redirectAttributes.addFlashAttribute("blad", true);

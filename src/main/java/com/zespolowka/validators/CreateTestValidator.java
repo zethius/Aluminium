@@ -141,7 +141,7 @@ public class CreateTestValidator implements Validator {
                                 programingDetailTaskTestCodeNull = true;
                                 invalidTask = taskForms.indexOf(taskForm);
                             }
-                            if (programmingTaskForm.getHidden() && !programingDetailTaskWhiteListNull && (programmingTaskForm.getWhiteList() == null || programmingTaskForm.getWhiteList().length() < 10)) {
+                            if (programmingTaskForm.getHidden() && !programingDetailTaskWhiteListNull && (programmingTaskForm.getWhiteList() == null || programmingTaskForm.getWhiteList().length() < 4)) {
                                 programingDetailTaskWhiteListNull = true;
                                 invalidTask = taskForms.indexOf(taskForm);
                             }

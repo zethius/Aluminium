@@ -4,6 +4,7 @@ import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.UserCreateForm;
 import com.zespolowka.forms.UserEditForm;
 import com.zespolowka.entity.user.Role;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -27,6 +28,6 @@ public interface UserService {
 
     User update(User user);
 
-
+    @Transactional
     void delete(long id);
 }

@@ -1,11 +1,11 @@
 package com.zespolowka.service;
 
-import com.zespolowka.entity.user.Role;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.UserCreateForm;
 import com.zespolowka.forms.UserEditForm;
 import com.zespolowka.repository.UserRepository;
 import com.zespolowka.service.inteface.UserService;
+import com.zespolowka.service.inteface.VerificationTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    private final VerificationTokenService verificationTokenService;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, VerificationTokenService verificationTokenService) {
         this.userRepository = userRepository;
+        this.verificationTokenService = verificationTokenService;
     }
 
     @Override
@@ -88,7 +91,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(long id) {
-        logger.info("UserService - delete");
+        verificationTokenService.deleteVerificationTokenByUser(userRepository.findOne(id));
         userRepository.delete(id);
     }
 
