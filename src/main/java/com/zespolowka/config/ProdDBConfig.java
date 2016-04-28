@@ -26,7 +26,7 @@ public class ProdDBConfig {
         String dbUrl = "jdbc:mysql://" + path + ':' + port + database;
 
         BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl(dbUrl);
+        basicDataSource.setUrl(dbUrl+"?useUnicode=true&characterEncoding=utf-8");
         basicDataSource.setUsername(username);
         basicDataSource.setPassword(password);
         basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");

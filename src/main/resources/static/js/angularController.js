@@ -18,7 +18,7 @@ angular.module('ngApp', [])
                 $scope.counter--;
                 $scope.minutes = parseInt($scope.counter / 60, 10);
                 $scope.seconds = parseInt($scope.counter % 60, 10);
-                if ($scope.counter == 0) alert("test");
+                if ($scope.counter == 0) alert("Tu powinno wyslac formularz");
                 else mytimeout = $timeout($scope.onTimeout, 1000);
             };
             var mytimeout = $timeout($scope.onTimeout, 1000);

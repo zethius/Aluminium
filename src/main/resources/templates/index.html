@@ -12,12 +12,9 @@
             <div th:if="${testPasswordError}" class="alert alert-danger">
                 <p th:text="#{test.wrongPassword}"></p>
             </div>
-            <h1 style="float:left" th:text="#{home.welcome}"></h1>
-            <span>
-                <h1>
-                    <strong th:text="#{mainPage.user}"></strong>
-                </h1>
-            </span>
+            <h1 th:utext="''+#{home.welcome}+' &lt;strong&gt;'+#{mainPage.user}+'&lt;/strong&gt;'">
+
+            </h1>
 
             <h2 th:text="#{mainPage.greetings}"></h2>
             <ul class="nav nav-tabs" role="tablist">
@@ -27,8 +24,8 @@
                                            data-toggle="tab" th:text="#{mainPage.archivalTests}"></a></li>
             </ul>
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="aktywne">.
-                    <table class="grid table" cellspacing="0" width="100%">
+                <div role="tabpanel" class="tab-pane active" id="aktywne">
+                    <table class="table table-striped table-bordered grid" cellspacing="0" width="100%">
                         <thead>
                         <tr>
                             <th th:text="#{mainPage.testName}"></th>
@@ -56,7 +53,7 @@
                     </table>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="archiwalne">
-                    <table class="grid table" cellspacing="0" width="100%">
+                    <table class="table table-striped table-bordered grid" cellspacing="0" width="100%">
                         <thead>
                         <tr>
                             <th th:text="#{mainPage.testName}"></th>
@@ -120,8 +117,6 @@
                 </div>
             </div>
 
-
-            <p><a class="btn btn-primary btn-lg" href="#" role="button" th:text="#{more}"></a></p>
         </div>
     </div>
 
@@ -129,31 +124,26 @@
         <!-- Example row of columns -->
         <div class="row">
             <div class="col-md-4">
-                <h2>Dalej</h2>
+                <h2>O projekcie</h2>
 
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                    mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-                    mollis euismod. Donec sed odio dui. </p>
-
-                <p><a class="btn btn-default" href="#" role="button">Krzychu &raquo;</a></p>
+                <p>Alluminium powstał w ramach uczelnianego przedmiotu Programowanie Zespołowe na zlecenie firmy Nokia.
+                    Jest to rozbudowana, webowa platforma testowania wiedzy pracowników i kandydatów na różne
+                    stanowiska. </p>
             </div>
             <div class="col-md-4">
-                <h2>nie wiem</h2>
+                <h2>Testy programistyczne</h2>
 
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
-                    mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-                    mollis euismod. Donec sed odio dui. </p>
-
-                <p><a class="btn btn-default" href="#" role="button">ma problem &raquo;</a></p>
+                <p>Aplikacja pozwala na tworzenie testów online sprawdzających wiedzę programistów w takich językach jak
+                    Python, C++, Java. Ponadto istnieje możliwość tworzenia testów SQL. Prawidłowe rozwiązania zadań
+                    sprawdzane są według wzorca wprowadzonego przez administratora testu, a nie jedynie kompilowane.</p>
             </div>
             <div class="col-md-4">
-                <h2>po co to</h2>
+                <h2>Tworzenie formularzy</h2>
 
-                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
-                    porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
-                    ut fermentum massa justo sit amet risus.</p>
-
-                <p><a class="btn btn-default" href="#" role="button">z erekcja &raquo;</a></p>
+                <p>Platforma może również z powodzeniem służyć jako system tworzenia formularzy na potrzeby rekrutacji
+                    osób do firmy. Zamiast pytań czysto sprawdzających wiedzę, możemy prosić użytkownika o wypełnienie
+                    formularza w celu podania określonych danych. Wewnątrz firmy, aplikacji może posłużyć również jako
+                    np. sposób zbierania raportów od użytkowników.</p>
             </div>
         </div>
 

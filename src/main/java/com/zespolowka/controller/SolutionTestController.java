@@ -88,10 +88,7 @@ public class SolutionTestController {
         SolutionTest solutionTest = (SolutionTest) this.httpSession.getAttribute(TEST_ATTRIBUTE_NAME);
         this.httpSession.removeAttribute(TEST_ATTRIBUTE_NAME);
         solutionTest = solutionTestService.create(solutionTest, solutionTestForm);
-        solutionTestService.create(solutionTest);
-        model.addAttribute("solutionTest", solutionTest);
-        redirectAttributes.addFlashAttribute("sendModel", solutionTest);
-        return "redirect:/solutionTestCheckAnswers";
+        return "redirect:/test/showResults";
     }
 
     @RequestMapping(value = "/solutionTest/{id}", method = RequestMethod.GET)
