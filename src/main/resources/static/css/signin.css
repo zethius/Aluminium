@@ -122,3 +122,74 @@ body {
     -moz-border-radius: 0;
     background-image: none;
 }
+
+.jumbotron h1 {
+    font-size: 28px;
+    border-bottom: 1px dashed #ddd;
+    margin: -20px 0 30px 0;
+    text-align: center;
+}
+
+.jumbotron h2 {
+    font-size: 24px;
+}
+
+.popover {
+    display: block;
+    position: fixed;
+    right: 20px;
+    left: auto;
+}
+
+.input-group {
+    display: block;
+}
+
+.input-group-addon {
+    display: none;
+}
+
+.dataTables_wrapper {
+    padding-top: 20px;
+}
+
+a, .table .glyphicon {
+    cursor: pointer !important;
+}
+
+textarea {
+    resize: none !important;
+}
+
+.container {
+    padding: 0 !important;
+}
+
+.stronalogin footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+.modal-footer button {
+    margin-right: 20px;
+}
+.jumbotron h1 {font-size: 28px; border-bottom: 1px dashed #ddd; margin: -20px 0 30px 0; text-align: center; }
+.jumbotron h2 {font-size: 24px;}
+
+.popover {
+    display: block;
+    position: fixed;
+    right: 20px;
+    left: auto;
+}
+
+.input-group {display: block;}
+.input-group-addon {display: none;}
+.dataTables_wrapper {padding-top: 20px;}

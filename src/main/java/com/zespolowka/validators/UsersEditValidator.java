@@ -42,13 +42,6 @@ public class UsersEditValidator implements Validator {
         UserEditForm form = (UserEditForm) target;
         logger.info("Walidacja edycji{}", target);
 
-        if (form.getPassword() == null || form.getConfirmPassword() == null) {
-            form.setPassword("");form.setConfirmPassword("");
-        }
-        if (!form.getPassword().equals(form.getConfirmPassword())) {
-            errors.rejectValue("password", "password_error");
-        }
-
         User usr1 = userService.getUserByEmail(form.getEmail()).orElse(new User());
         User usr2 = userService.getUserById(form.getId()).orElse(new User());
         if(!usr1.equals(usr2)){

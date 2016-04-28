@@ -187,7 +187,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
 
             SolutionConfig solutionConfig = new SolutionConfig();
             JSONObject jsonObject;
-            String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getEmail() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
+            String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getId() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
             userDirectory = userDirectory.replaceAll(" ", "");
             Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
             for (TaskProgrammingDetail taskProgrammingDetail : taskProgrammingDetails) {
@@ -250,7 +250,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             array.add("type0");
             array.add(taskSql.getSqlAnswer());
             tests.put("task0", array);
-            String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getEmail() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
+            String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getId() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
             userDirectory = userDirectory.replaceAll(" ", "");
             jsonObject = solutionConfig.createSqlConfig("sources.json", "preparations.txt", "tests.json", "restricted_list_sql");
             FileUtils.writeStringToFile(new File(dir + userDirectory + "tests.json"), tests.toJSONString());
