@@ -146,6 +146,27 @@ public class TestController {
         testFormService.updateSelectedLanguagesInSession("");
         return "redirect:/test/create";
     }
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
+    @RequestMapping(value = "/edit/{id}")
+    public String editTest(@PathVariable("id") Long id,final Model model) {
+        logger.info("Metoda - editTest");
+        createTestForm = testService.createForm(testService.getTestById(id));
+        model.addAttribute("createTestForm", createTestForm);
+        testFormService.setEditTestIdInSession(id);
+        return "editTest";
+    }
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String saveEdit(final @Valid CreateTestForm createTestForm, final BindingResult result) {
+        logger.info("Metoda - save");
+        createTestValidator.validate(createTestForm, result);
+        if (result.hasErrors()) {
+            logger.info(result.getAllErrors().toString());
+            return "editTest";
+        }
+        logger.info(testFormService.getEditTestIdFromSession()+"");
+        return "redirect:/test/all";
+    }
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping("/all")

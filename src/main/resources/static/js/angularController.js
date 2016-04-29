@@ -18,7 +18,7 @@ angular.module('ngApp', [])
                 $scope.counter--;
                 $scope.minutes = parseInt($scope.counter / 60, 10);
                 $scope.seconds = parseInt($scope.counter % 60, 10);
-                if ($scope.counter == 0) alert("test");
+                if ($scope.counter == 0) alert("Tu powinno wyslac formularz");
                 else mytimeout = $timeout($scope.onTimeout, 1000);
             };
             var mytimeout = $timeout($scope.onTimeout, 1000);
@@ -75,6 +75,58 @@ angular.module('ngApp', [])
         };
         $scope.removeQuestion = function (taskId) {
             document.getElementById('testform').setAttribute("action", "/test/create/remove?taskId=" + taskId);
+            document.getElementById('testform').submit();
+        }
+    })
+    .controller('EditTestController', function ($scope, $http) {
+        $scope.integerval = /^\d*$/;
+        $scope.questionNumber = null;
+        $scope.selectedValue = null;
+        $scope.id;
+        $scope.languagesSet = [
+            {id: '1', name: 'CPP'},
+            {id: '2', name: 'JAVA'},
+            {id: '3', name: 'PYTHON'}
+        ];
+        $scope.selectedLanguages = [];
+        $scope.array = [];
+
+
+        $scope.setQuestionType = function (selectedValue) {
+            var element = document.getElementById('selectQuestion');
+            element.value = '0';
+            $scope.addQuestion(selectedValue);
+        };
+        $scope.addQuestion = function (questionId) {
+            document.getElementById('testform').setAttribute("action", "/test/edit/add?questionId=" + questionId);
+            var element = document.getElementById('testform');
+            element.submit();
+        };
+        $scope.setLanguages = function (languages, taskId) {
+            languages = languages.replace("[", "");
+            languages = languages.replace("]", "");
+            var array = languages.split(", ");
+            for (var i = 0; i < $scope.languagesSet.length; i++) {
+                if (array.indexOf($scope.languagesSet[i].name) > -1) {
+                    $scope.selectedLanguages.push($scope.languagesSet[i].name);
+                }
+            }
+            $scope.array[taskId] = $scope.selectedLanguages;
+            $scope.selectedLanguages = [];
+        };
+        $scope.changeLanguages = function (taskId) {
+            var element = document.getElementById('selectedLanguages' + taskId);
+            var selected1 = [];
+            for (var i = 0; i < element.length; i++) {
+                if (element.options[i].selected)
+                    selected1.push(element.options[i].value);
+            }
+            document.getElementById('testform').setAttribute("action", "/test/edit/change?taskId=" + taskId + "&selected=" + selected1);
+            document.getElementById('testform').submit();
+
+        };
+        $scope.removeQuestion = function (taskId) {
+            document.getElementById('testform').setAttribute("action", "/test/edit/remove?taskId=" + taskId);
             document.getElementById('testform').submit();
         }
     })

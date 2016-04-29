@@ -89,10 +89,16 @@ public class SolutionTestController {
         this.httpSession.removeAttribute(TEST_ATTRIBUTE_NAME);
         solutionTest = solutionTestService.create(solutionTest, solutionTestForm);
         solutionTestService.create(solutionTest);
-        model.addAttribute("solutionTest", solutionTest);
-        redirectAttributes.addFlashAttribute("sendModel", solutionTest);
-        return "redirect:/solutionTestCheckAnswers";
+        return "redirect:/test/showResults";
     }
+
+    @RequestMapping(value = "/solutionTest/{id}", method = RequestMethod.GET)
+    public String solutionTestPage(@PathVariable("id") Long id,Model model) {
+        model.addAttribute(new TaskTypeChecker());
+        model.addAttribute("solutionTest", solutionTestService.getSolutionTestById(id));
+        return "solutionTestCheckAnswers";
+    }
+
 
     @RequestMapping(value = "/solutionTestCheckAnswers")
     public String checkSolutionTestPage(@ModelAttribute("sendModel") final SolutionTest solutionTest, Model model) {

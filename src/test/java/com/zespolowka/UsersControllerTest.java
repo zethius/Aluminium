@@ -34,11 +34,11 @@ public class UsersControllerTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        usersController = new UsersController(userService);
+      //  usersController = new UsersController(userService);
     }
 
     @Test
-    public void shuldReturnUsersPage() throws Exception {
+    public void shouldReturnUsersPage() throws Exception {
         userList = Arrays.asList(new UserBuilder("imie", "nazwisko").build(), new UserBuilder("imie2", "nazwisko2").build());
         when(userService.getAllUsers()).thenReturn(userList);
         //assertEquals("users", usersController.getUsersPage(model));

@@ -21,6 +21,7 @@ public class UserCreateForm {
 
     @NotBlank
     @Pattern(regexp = "^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")
+    @Size(max = 50)
     private String email;
 
     @NotBlank

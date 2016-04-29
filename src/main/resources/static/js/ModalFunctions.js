@@ -37,18 +37,27 @@ function checkPassword(pass) {
 }
 
 //======== NIZEJ DO /test/all
-function showAttemptsModal(index,name) {
+function showAttemptsModal(index, name) {
     var editUrl = "/solutionTest/loadResultEntity/" + index;
     $('#nazwaTestu').text(name);
-    $('#tabelaaa').dataTable().fnClearTable();
+    var table = $('#tabelaaa').dataTable();
+    table.fnClearTable();
+    var counter=0;
+    var lastPoints=-1;
     $.getJSON(editUrl, {}, function (data) {
         for (var i in data) {
-            $('#tabelaaa').dataTable()
-                .fnAddData([
-                    data[i].user.name + " " + data[i].user.lastName,
-                    data[i].points,
-                    data[i].test.maxPoints]);
+            if(data[i].points!=lastPoints) {
+                lastPoints=data[i].points;
+                counter++;
+            }
+            table.fnAddData([
+                counter,
+                data[i].user.name + " " + data[i].user.lastName,
+                data[i].points,
+                '<a href="/solutionTest/' + data[i].id + '">Zobacz</a>'
+                ]);
         }
+        table.fnSort([[1, 'desc']]);
         $('#wynikiA').modal('show');
     });
 

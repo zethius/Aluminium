@@ -1,10 +1,12 @@
 package com.zespolowka;
 
 import com.zespolowka.builders.UserBuilder;
+import com.zespolowka.entity.VerificationToken;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.repository.UserRepository;
 import com.zespolowka.service.UserServiceImpl;
 import com.zespolowka.service.inteface.UserService;
+import com.zespolowka.service.inteface.VerificationTokenService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -27,12 +29,15 @@ public class UserServiceTest {
     @Mock
     UserRepository userRepository;
 
+    @Mock
+    VerificationTokenService verificationToken;
+
     private UserService userService;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        userService = new UserServiceImpl(userRepository);
+        userService = new UserServiceImpl(userRepository, verificationToken);
     }
 
     @Test

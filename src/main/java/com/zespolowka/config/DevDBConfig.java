@@ -26,7 +26,7 @@ import java.util.TreeMap;
 import java.util.UUID;
 
 @Configuration
-@Profile("!prod")
+@Profile("dev")
 public class DevDBConfig {
     private static final Logger logger = LoggerFactory.getLogger(DevDBConfig.class);
 
@@ -151,7 +151,7 @@ public class DevDBConfig {
 
         test = new Test("Przykładowy test z hasłem", 3L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>());
         test.setTimePerAttempt(90);
-        test.setPassword("");
+        test.setPassword("haslo");
         taskClosed = new TaskClosed("Ile to jest 2+2*2", 6.0f);
         answer = new TreeMap<>();
         answer.put("8", false);
