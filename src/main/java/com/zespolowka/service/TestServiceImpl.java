@@ -2,6 +2,7 @@ package com.zespolowka.service;
 
 import com.zespolowka.entity.createTest.*;
 import com.zespolowka.entity.user.Role;
+import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.CreateTestForm;
 import com.zespolowka.forms.NewMessageForm;
 import com.zespolowka.forms.ProgrammingTaskForm;
@@ -9,10 +10,12 @@ import com.zespolowka.forms.TaskForm;
 import com.zespolowka.repository.TestRepository;
 import com.zespolowka.service.inteface.NotificationService;
 import com.zespolowka.service.inteface.TestService;
+import com.zespolowka.service.inteface.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,11 +29,12 @@ public class TestServiceImpl implements TestService {
     private final TestRepository testRepository;
 
     private final NotificationService notificationService;
-
+    private final UserService userService;
     @Autowired
-    public TestServiceImpl(final TestRepository testRepository, NotificationService notificationService) {
+    public TestServiceImpl(final TestRepository testRepository, NotificationService notificationService, UserService userService) {
         this.testRepository = testRepository;
         this.notificationService = notificationService;
+        this.userService=userService;
     }
 
 
@@ -114,6 +118,10 @@ public class TestServiceImpl implements TestService {
         newMessageForm.setReceivers(Role.USER.name());
         newMessageForm.setTopic(messages.getString("test_created.topic") + " " + test.getName());
         newMessageForm.setMessage(messages.getString("test_created.message"));
+        User system = userService.getUserById(1)
+                .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje",1)));
+        logger.info("SYS:"+system);
+        newMessageForm.setSender(system);
         notificationService.sendMessage(newMessageForm);
         return testRepository.save(test);
     }

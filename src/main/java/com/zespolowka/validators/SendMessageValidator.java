@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 @Component
@@ -51,7 +52,7 @@ public class SendMessageValidator implements Validator {
                     }
                 } else {
                     String st2 = st.toUpperCase();
-                    if (!st2.equals(Role.ADMIN.name()) || !st2.equals(Role.SUPERADMIN.name()) || !st2.equals(Role.USER.name())) {
+                    if (!Arrays.asList(Role.ADMIN.name(), Role.SUPERADMIN.name(), Role.USER.name()).contains(st2)){
                         errors.rejectValue("receivers", "notification.role_invalid");
                     }
                 }

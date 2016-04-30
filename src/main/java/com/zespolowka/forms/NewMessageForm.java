@@ -1,12 +1,22 @@
 package com.zespolowka.forms;
 
+import com.zespolowka.entity.user.User;
+
 public class NewMessageForm {
 
     private String message;
     private String topic;
     private String receivers;
-
+    private User sender;
     public NewMessageForm() {
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 
     public String getMessage() {

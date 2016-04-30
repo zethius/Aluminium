@@ -3,6 +3,7 @@ package com.zespolowka.controller;
 import com.zespolowka.entity.Notification;
 import com.zespolowka.entity.user.CurrentUser;
 import com.zespolowka.entity.user.Role;
+import com.zespolowka.entity.user.User;
 import com.zespolowka.service.inteface.NotificationService;
 import com.zespolowka.service.inteface.SendMailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,9 @@ public class EmailController {
 
     @RequestMapping("/sendMessage")
     public void sendMessage() {
-        notificationService.createNotification(new Notification("GRUPOWA", "Temat", new Date(), Role.ADMIN));
+        CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User sender=currentUser.getUser();
+        notificationService.createNotification(new Notification("GRUPOWA", "Temat", new Date(), Role.ADMIN,sender));
     }
 
     @Override

@@ -11,6 +11,7 @@ import com.zespolowka.forms.SolutionTestForm;
 import com.zespolowka.repository.SolutionTestRepository;
 import com.zespolowka.service.inteface.NotificationService;
 import com.zespolowka.service.inteface.SolutionTestService;
+import com.zespolowka.service.inteface.UserService;
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -41,7 +43,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     private final SolutionTestRepository solutionTestRepository;
     private final HttpSession httpSession;
     private final NotificationService notificationService;
-
+    private final UserService userService;
     private int taskNo = 0;
 
     private String dir = "/home/pitek/zespolowka/skrypty/";
@@ -49,10 +51,11 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     private String resultDir = "/tmp/";
 
     @Autowired
-    public SolutionTestServiceImpl(SolutionTestRepository solutionTestRepository, HttpSession httpSession, NotificationService notificationService) {
+    public SolutionTestServiceImpl(SolutionTestRepository solutionTestRepository, HttpSession httpSession, NotificationService notificationService, UserService userService) {
         this.solutionTestRepository = solutionTestRepository;
         this.httpSession = httpSession;
         this.notificationService = notificationService;
+        this.userService=userService;
     }
 
     @Override
@@ -317,6 +320,10 @@ public class SolutionTestServiceImpl implements SolutionTestService {
         newMessageForm.setReceivers(solutionTest.getUser().getEmail());
         newMessageForm.setTopic(messages.getString("results.topic") + " " + solutionTest.getTest().getName());
         newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
+        User system = userService.getUserById(1)
+                .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje",1)));
+        logger.info("SYS:"+system);
+        newMessageForm.setSender(system);
         notificationService.sendMessage(newMessageForm);
         return solutionTest;
     }
