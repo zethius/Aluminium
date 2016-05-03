@@ -2,7 +2,6 @@ package com.zespolowka.entity;
 
 import com.zespolowka.entity.user.Role;
 import com.zespolowka.entity.user.User;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import java.text.ParseException;
@@ -23,7 +22,7 @@ public class Notification {
     private Date date;
     private boolean unread;
 
-    @OneToOne(targetEntity = User.class,orphanRemoval = false)
+    @OneToOne(targetEntity = User.class, orphanRemoval = false)
     private User sender;
     private long userId;
     @Column
@@ -36,9 +35,9 @@ public class Notification {
     //======DO /SENDMESSAGE==========
     public Notification(String message, String topic, long userId, User sender) { //data auto + nadawca
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
-        String now=sdf.format(new Date());
+        String now = sdf.format(new Date());
         try {
-            this.date=sdf.parse(now);
+            this.date = sdf.parse(now);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -47,14 +46,14 @@ public class Notification {
         this.userId = userId;
         this.unread = true;
         this.userRole = null;
-        this.sender =sender;
+        this.sender = sender;
     }
 
     public Notification(String message, String topic, Role userRole, User sender) { //data auto dla grup + nadawca
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
-        String now=sdf.format(new Date());
+        String now = sdf.format(new Date());
         try {
-            this.date=sdf.parse(now);
+            this.date = sdf.parse(now);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -63,7 +62,7 @@ public class Notification {
         this.userRole = userRole;
         this.unread = true;
         this.userId = -1L;
-        this.sender=sender;
+        this.sender = sender;
     }
     //======KONIEC SENDMESSAGE======
 
@@ -75,7 +74,7 @@ public class Notification {
         this.userId = userId;
         this.unread = true;
         this.userRole = null;
-        this.sender=sender;
+        this.sender = sender;
     }
 
 
@@ -86,8 +85,9 @@ public class Notification {
         this.userRole = userRole;
         this.unread = true;
         this.userId = -1L;
-        this.sender =sender;
+        this.sender = sender;
     }
+
     //====================
     public Notification(Notification notification) {
 

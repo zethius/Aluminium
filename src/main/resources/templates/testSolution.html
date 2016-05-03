@@ -25,6 +25,7 @@
 
                     <div class="popover-content" th:attr="ng-init='Timer('+*{timeToEnd}+')'">
                         <span th:text="#{time}+': '"></span><span><strong>{{minutes}}</strong>min <strong>{{seconds}}</strong>s!</span>
+
                         <p></p>
                         <input type="submit" name="submitSave" id="submitSave" value="Zapisz" class="btn btn-primary"/>
                     </div>
@@ -87,6 +88,7 @@
                     </div>
                     <div th:if="*{tasks[__${rowStat.index}__].taskType}==3" class="form-group col-md-12">
                         <h4 th:text="${rowStat.count}+'. '+*{tasks[__${rowStat.index}__].task.question}"/>
+
                         <div class="input-group">
                             <textarea rows="5" class="form-control"
                                       th:field="*{tasks[__${rowStat.index}__].answerCode}"/>

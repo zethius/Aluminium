@@ -21,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -55,7 +54,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
         this.solutionTestRepository = solutionTestRepository;
         this.httpSession = httpSession;
         this.notificationService = notificationService;
-        this.userService=userService;
+        this.userService = userService;
     }
 
     @Override
@@ -321,8 +320,8 @@ public class SolutionTestServiceImpl implements SolutionTestService {
         newMessageForm.setTopic(messages.getString("results.topic") + " " + solutionTest.getTest().getName());
         newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
         User system = userService.getUserById(1)
-                .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje",1)));
-        logger.info("SYS:"+system);
+                .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
+        logger.info("SYS:" + system);
         newMessageForm.setSender(system);
         notificationService.sendMessage(newMessageForm);
         return solutionTest;

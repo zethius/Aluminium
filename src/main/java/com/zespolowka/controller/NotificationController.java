@@ -2,14 +2,12 @@ package com.zespolowka.controller;
 
 import com.zespolowka.entity.Notification;
 import com.zespolowka.entity.user.CurrentUser;
-import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.NewMessageForm;
 import com.zespolowka.service.inteface.NotificationService;
 import com.zespolowka.validators.SendMessageValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,7 +65,7 @@ public class NotificationController {
     public String sendMessage(final Model model, @ModelAttribute NewMessageForm newMessageForm, BindingResult errors) {
         logger.info("nazwa metody = sendMessage");
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        logger.info("Curr:"+currentUser.getUser());
+        logger.info("Curr:" + currentUser.getUser());
         newMessageForm.setSender(currentUser.getUser());
         sendMessageValidator.validate(newMessageForm, errors);
         if (errors.hasErrors()) {

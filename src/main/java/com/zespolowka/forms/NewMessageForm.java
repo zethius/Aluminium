@@ -8,6 +8,7 @@ public class NewMessageForm {
     private String topic;
     private String receivers;
     private User sender;
+
     public NewMessageForm() {
     }
 

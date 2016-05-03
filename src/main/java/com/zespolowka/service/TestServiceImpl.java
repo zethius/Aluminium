@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,11 +29,12 @@ public class TestServiceImpl implements TestService {
 
     private final NotificationService notificationService;
     private final UserService userService;
+
     @Autowired
     public TestServiceImpl(final TestRepository testRepository, NotificationService notificationService, UserService userService) {
         this.testRepository = testRepository;
         this.notificationService = notificationService;
-        this.userService=userService;
+        this.userService = userService;
     }
 
 
@@ -119,8 +119,8 @@ public class TestServiceImpl implements TestService {
         newMessageForm.setTopic(messages.getString("test_created.topic") + " " + test.getName());
         newMessageForm.setMessage(messages.getString("test_created.message"));
         User system = userService.getUserById(1)
-                .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje",1)));
-        logger.info("SYS:"+system);
+                .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
+        logger.info("SYS:" + system);
         newMessageForm.setSender(system);
         notificationService.sendMessage(newMessageForm);
         return testRepository.save(test);
@@ -192,6 +192,10 @@ public class TestServiceImpl implements TestService {
         }
         createTestForm.setTasks(taskForms);
         return createTestForm;
+    }
+
+    public Test update(Test test) {
+        return testRepository.save(test);
     }
 
     @Override

@@ -20,6 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -52,6 +54,30 @@ public class SolutionTestController {
             }
         }
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/setTestDate", method = RequestMethod.POST)
+    public String changeTestDate(@RequestParam(value = "id", required = true) Integer id,
+                                 @RequestParam(value = "date", required = true) String date,
+                                 final RedirectAttributes redirectAttributes) {
+        logger.info("setTestDate dla testu o id={}; date={}", id, date);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date2 = LocalDate.parse(date, formatter);
+
+        Test test = testService.getTestById(id);
+        if (test.getEndDate().isAfter(LocalDate.now())) {
+            redirectAttributes.addFlashAttribute("testOtwarty", true);
+        } else {
+            if (date2.isBefore(test.getBeginDate()) || date2.isBefore(test.getEndDate())) {
+                redirectAttributes.addFlashAttribute("dataStarsza", true);
+            } else {
+                redirectAttributes.addFlashAttribute("sukces", true);
+                test.setEndDate(date2);
+                testService.update(test);
+            }
+        }
+        return "redirect:/test/all";
     }
 
 
@@ -93,7 +119,7 @@ public class SolutionTestController {
     }
 
     @RequestMapping(value = "/solutionTest/{id}", method = RequestMethod.GET)
-    public String solutionTestPage(@PathVariable("id") Long id,Model model) {
+    public String solutionTestPage(@PathVariable("id") Long id, Model model) {
         model.addAttribute(new TaskTypeChecker());
         model.addAttribute("solutionTest", solutionTestService.getSolutionTestById(id));
         return "solutionTestCheckAnswers";
@@ -120,6 +146,19 @@ public class SolutionTestController {
         return (List<SolutionTest>) solutionTestService.getSolutionTestsByTest(testService.getTestById(id));
     }
 
+    @RequestMapping(value = "/showResults", method = RequestMethod.GET)
+    public String showCurrentUserTests(final Model model) {
+        logger.info("nazwa metody = showCurrentUserTests");
+        try {
+            final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            final User user = currentUser.getUser();
+            model.addAttribute("Tests", solutionTestService.getSolutionTestsByUser(user));
+            model.addAttribute("BestTest", solutionTestService.getSolutionsWithTheBestResult(user));
+        } catch (final RuntimeException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "userTests";
+    }
 
     @Override
     public String toString() {

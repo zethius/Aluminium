@@ -146,15 +146,17 @@ public class TestController {
         testFormService.updateSelectedLanguagesInSession("");
         return "redirect:/test/create";
     }
+
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/edit/{id}")
-    public String editTest(@PathVariable("id") Long id,final Model model) {
+    public String editTest(@PathVariable("id") Long id, final Model model) {
         logger.info("Metoda - editTest");
         createTestForm = testService.createForm(testService.getTestById(id));
         model.addAttribute("createTestForm", createTestForm);
         testFormService.setEditTestIdInSession(id);
         return "editTest";
     }
+
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String saveEdit(final @Valid CreateTestForm createTestForm, final BindingResult result) {
@@ -164,7 +166,7 @@ public class TestController {
             logger.info(result.getAllErrors().toString());
             return "editTest";
         }
-        logger.info(testFormService.getEditTestIdFromSession()+"");
+        logger.info(testFormService.getEditTestIdFromSession() + "");
         return "redirect:/test/all";
     }
 
@@ -190,20 +192,6 @@ public class TestController {
         } catch (final Exception e) {
             logger.error(e.getMessage(), e);
             logger.info(id.toString() + "\n" + model);
-        }
-        return "userTests";
-    }
-
-    @RequestMapping(value = "/showResults", method = RequestMethod.GET)
-    public String showCurrentUserTests(final Model model) {
-        logger.info("nazwa metody = showCurrentUserTests");
-        try {
-            final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            final User user = currentUser.getUser();
-            model.addAttribute("Tests", solutionTestService.getSolutionTestsByUser(user));
-            model.addAttribute("BestTest", solutionTestService.getSolutionsWithTheBestResult(user));
-        } catch (final RuntimeException e) {
-            logger.error(e.getMessage(), e);
         }
         return "userTests";
     }

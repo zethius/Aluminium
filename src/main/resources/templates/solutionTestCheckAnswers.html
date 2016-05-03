@@ -52,6 +52,7 @@
                         </div>
                         <h4 th:if="*{solutionTasks[__${rowStat.index}__].haveError()}"
                             th:text="*{solutionTasks[__${rowStat.index}__].compilationError.type}"/>
+
                         <div th:if="*{solutionTasks[__${rowStat.index}__].haveError()}" class="input-group col-md-12">
                             <textarea rows="5" class="form-control"
                                       th:field="*{solutionTasks[__${rowStat.index}__].compilationError.error}"/>
@@ -60,6 +61,7 @@
                     </div>
                     <div th:if="${taskTypeChecker.isTaskSqlSolution(task)}" class="form-group col-md-12">
                         <h4 th:text="${rowStat.count}+'. '+*{solutionTasks[__${rowStat.index}__].task.question}"/>
+
                         <div class="input-group">
                             <textarea rows="5" class="form-control"
                                       th:field="*{solutionTasks[__${rowStat.index}__].sqlAnswer}"/>
@@ -69,6 +71,7 @@
                         </div>
                         <h4 th:if="*{solutionTasks[__${rowStat.index}__].haveError()}"
                             th:text="*{solutionTasks[__${rowStat.index}__].compilationError.type}"/>
+
                         <div th:if="*{solutionTasks[__${rowStat.index}__].haveError()}" class="input-group col-md-12">
                             <textarea rows="5" class="form-control"
                                       th:field="*{solutionTasks[__${rowStat.index}__].compilationError.error}"/>

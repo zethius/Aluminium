@@ -84,6 +84,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="InputImie" th:text="#{userEdit.name}"></label>
+
                                     <div class="input-group">
                                         <input type="text" class="form-control" data-toggle="popover"
                                                data-trigger="manual"
@@ -94,6 +95,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="InputNazwisko" th:text="#{userEdit.last_name}"></label>
+
                                     <div class="input-group">
                                         <input type="text" class="form-control" data-toggle="popover"
                                                data-trigger="manual"
@@ -105,6 +107,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="InputEmail" th:text="#{userEdit.email}"></label>
+
                                     <div class="input-group">
                                         <input type="text" data-toggle="popover" data-trigger="manual"
                                                th:attr="data-content=#{userEdit.invalidEmail}"
@@ -116,6 +119,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="InputRola" th:text="#{userEdit.role}"></label>
+
                                     <div class="input-group">
                                         <select class="form-control" th:field="*{role}" id="InputRola"
                                                 th:if="${#strings.equals(#authentication.principal.role,'SUPERADMIN')}">
@@ -155,7 +159,7 @@
 </div> <!-- /container -->
 </body>
 <script layout:fragment="customScripts">
-    document.getElementById("usersTab").className="active";
+    document.getElementById("usersTab").className = "active";
 
     function confirmDelete() {
         var x;

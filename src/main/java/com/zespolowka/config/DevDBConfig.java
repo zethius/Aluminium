@@ -50,7 +50,7 @@ public class DevDBConfig {
 
     private User user;
 
-    private User nadawca=new User("Jurek", "Owsiak", "owsik@woodstock.pl", new BCryptPasswordEncoder().encode("wood"));
+    private User nadawca = new User("Jurek", "Owsiak", "owsik@woodstock.pl", new BCryptPasswordEncoder().encode("wood"));
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
 
     public DevDBConfig() {
@@ -73,19 +73,19 @@ public class DevDBConfig {
         repository.save(user);
         repository.save(nadawca);
 
-        notificationRepository.save(new Notification("Wiadomosc testowa", "topic", sdf.parse("31-08-1983 10:20:56"), 1L,nadawca));
-        notificationRepository.save(new Notification("Wiad2", "topic2", sdf.parse("31-08-1984 10:20:56"), 1L,nadawca));
-        notificationRepository.save(new Notification("GRUPOWAADMIN", "topic3", sdf.parse("31-08-1985 10:20:56"), Role.ADMIN,nadawca));
+        notificationRepository.save(new Notification("Wiadomosc testowa", "topic", sdf.parse("31-08-1983 10:20:56"), 1L, nadawca));
+        notificationRepository.save(new Notification("Wiad2", "topic2", sdf.parse("31-08-1984 10:20:56"), 1L, nadawca));
+        notificationRepository.save(new Notification("GRUPOWAADMIN", "topic3", sdf.parse("31-08-1985 10:20:56"), Role.ADMIN, nadawca));
         notificationRepository.save(new Notification("GRUPOWASUPERADMIN", "topic3", sdf.parse("31-08-1985 10:20:56"), Role.SUPERADMIN, nadawca));
-        notificationRepository.save(new Notification("GRUPOWAUSER", "topic3", sdf.parse("31-08-1985 10:20:56"), Role.USER,nadawca));
-        notificationRepository.save(new Notification("Dla:aaa2 topic4", "topic4", sdf.parse("31-08-1986 10:20:56"), 2L,nadawca));
-        notificationRepository.save(new Notification("aaa2", "topic5", sdf.parse("31-08-1987 10:20:56"), 2L,nadawca));
-        notificationRepository.save(new Notification("Wiadomosc3", "topic6", sdf.parse("31-08-1988 10:20:56"), 1L,nadawca));
-        notificationRepository.save(new Notification("Wiadomosc4", "topic7", sdf.parse("31-08-1989 10:20:56"), 1L,nadawca));
-        notificationRepository.save(new Notification("Morbi elit ex, tristique vestibulum laoreet id, lobortis non enim. Sed purus elit, fringilla eu vehicula at, egestas sit amet dolor. Morbi tortor nisl, sodales nec luctus vitae, ullamcorper vitae orci. Sed ut dignissim ex", "Dluga wiadomosc", sdf.parse("31-08-2015 10:20:56"), 2,nadawca));
-        notificationRepository.save(new Notification("Wiadomosc5", "topic8", sdf.parse("31-08-1910 10:20:56"), 1L,nadawca));
-        notificationRepository.save(new Notification("Wiadaaa2", "topic9", sdf.parse("31-08-1911 10:20:56"), 2L,nadawca));
-        notificationRepository.save(new Notification("Wiadomosc7", "topic10", sdf.parse("31-08-1912 10:20:56"), 2L,nadawca));
+        notificationRepository.save(new Notification("GRUPOWAUSER", "topic3", sdf.parse("31-08-1985 10:20:56"), Role.USER, nadawca));
+        notificationRepository.save(new Notification("Dla:aaa2 topic4", "topic4", sdf.parse("31-08-1986 10:20:56"), 2L, nadawca));
+        notificationRepository.save(new Notification("aaa2", "topic5", sdf.parse("31-08-1987 10:20:56"), 2L, nadawca));
+        notificationRepository.save(new Notification("Wiadomosc3", "topic6", sdf.parse("31-08-1988 10:20:56"), 1L, nadawca));
+        notificationRepository.save(new Notification("Wiadomosc4", "topic7", sdf.parse("31-08-1989 10:20:56"), 1L, nadawca));
+        notificationRepository.save(new Notification("Morbi elit ex, tristique vestibulum laoreet id, lobortis non enim. Sed purus elit, fringilla eu vehicula at, egestas sit amet dolor. Morbi tortor nisl, sodales nec luctus vitae, ullamcorper vitae orci. Sed ut dignissim ex", "Dluga wiadomosc", sdf.parse("31-08-2015 10:20:56"), 2, nadawca));
+        notificationRepository.save(new Notification("Wiadomosc5", "topic8", sdf.parse("31-08-1910 10:20:56"), 1L, nadawca));
+        notificationRepository.save(new Notification("Wiadaaa2", "topic9", sdf.parse("31-08-1911 10:20:56"), 2L, nadawca));
+        notificationRepository.save(new Notification("Wiadomosc7", "topic10", sdf.parse("31-08-1912 10:20:56"), 2L, nadawca));
 
         createTests();
         logger.info("Testy stworzone");
@@ -202,7 +202,7 @@ public class DevDBConfig {
         test.addTaskToTest(taskOpen);
         test = testRepository.save(test);
 
-        Test test2 = new Test("KurzeTesty", 10L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>());
+        Test test2 = new Test("KurzeTesty", 10L, LocalDate.now().minusWeeks(2L), LocalDate.now().minusWeeks(1L), new ArrayList<>());
         TaskProgramming taskProgramming = new TaskProgramming("Zadanie z Javy", 100.0f);
         TaskProgrammingDetail taskProgrammingDetail = new TaskProgrammingDetail();
         taskProgrammingDetail.setLanguage(ProgrammingLanguages.JAVA);
@@ -623,7 +623,7 @@ public class DevDBConfig {
 
         for (int i = 0; i < 20; i++) {
             try {
-                notificationRepository.save(new Notification("WiadomoscPrzykladowaTresc" + i, "PrzykladowyTematWiadomosci" + i, this.sdf.parse("31-08-2005 10:20:56"), i,nadawca ));
+                notificationRepository.save(new Notification("WiadomoscPrzykladowaTresc" + i, "PrzykladowyTematWiadomosci" + i, this.sdf.parse("31-08-2005 10:20:56"), i, nadawca));
             } catch (ParseException e) {
                 e.printStackTrace();
             }

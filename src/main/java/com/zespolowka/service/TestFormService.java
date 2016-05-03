@@ -47,10 +47,12 @@ public class TestFormService {
         createTestForm.addTask(taskForm);
         updateTestFormInSession(createTestForm);
     }
-    public void setEditTestIdInSession(final Long id){
+
+    public void setEditTestIdInSession(final Long id) {
         this.httpSession.setAttribute("EditTestId", id);
     }
-    public Long getEditTestIdFromSession(){
+
+    public Long getEditTestIdFromSession() {
         return (Long) this.httpSession.getAttribute("EditTestId");
     }
 

@@ -10,7 +10,7 @@ public enum CompilationErrorTypes {
     private String value;
 
     CompilationErrorTypes(String displayName) {
-        this.value=displayName;
+        this.value = displayName;
     }
 
     public String getValue() {

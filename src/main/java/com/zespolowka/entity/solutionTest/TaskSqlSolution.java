@@ -9,7 +9,7 @@ public class TaskSqlSolution extends TaskSolution {
     @Column(length = 1000)
     private String sqlAnswer;
 
-    @OneToOne(targetEntity = CompilationError.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = CompilationError.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private CompilationError compilationError;
 
     public TaskSqlSolution() {
@@ -24,8 +24,9 @@ public class TaskSqlSolution extends TaskSolution {
         super(task);
         this.sqlAnswer = "";
     }
-    public Boolean haveError(){
-        if (compilationError!=null) return true;
+
+    public Boolean haveError() {
+        if (compilationError != null) return true;
         else return false;
     }
 

@@ -180,8 +180,17 @@ textarea {
 .modal-footer button {
     margin-right: 20px;
 }
-.jumbotron h1 {font-size: 28px; border-bottom: 1px dashed #ddd; margin: -20px 0 30px 0; text-align: center; }
-.jumbotron h2 {font-size: 24px;}
+
+.jumbotron h1 {
+    font-size: 28px;
+    border-bottom: 1px dashed #ddd;
+    margin: -20px 0 30px 0;
+    text-align: center;
+}
+
+.jumbotron h2 {
+    font-size: 24px;
+}
 
 .popover {
     display: block;
@@ -190,6 +199,14 @@ textarea {
     left: auto;
 }
 
-.input-group {display: block;}
-.input-group-addon {display: none;}
-.dataTables_wrapper {padding-top: 20px;}
+.input-group {
+    display: block;
+}
+
+.input-group-addon {
+    display: none;
+}
+
+.dataTables_wrapper {
+    padding-top: 20px;
+}
