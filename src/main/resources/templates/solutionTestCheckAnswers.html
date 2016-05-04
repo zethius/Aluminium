@@ -24,7 +24,7 @@
                                    th:field="*{solutionTasks[__${rowStat.index}__].answer}"
                                    required="required"/>
                         </div>
-                        <h2 th:text="*{solutionTasks[__${rowStat.index}__].points}+'/'+*{solutionTasks[__${rowStat.index}__].task.max_points}"/>
+                        <h2 th:text="*{solutionTasks[__${rowStat.index}__].points}%1==0 ? *{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].points, 0)}+' / '+*{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].task.max_points, 0)} : *{#numbers.formatDecimal(solutionTasks[__${rowStat.index}__].points, 0, 2,'POINT')}+' / '+*{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].task.max_points, 0)}"/>
                     </div>
                     <div th:if="${taskTypeChecker.isTaskClosedSolution(task)}" class="form-group col-md-12">
                         <h4 th:text="${rowStat.count}+'. '+*{solutionTasks[__${rowStat.index}__].task.question}"/>
@@ -34,13 +34,17 @@
                                 <label>
                                     <input type="checkbox"
                                            th:value="${entry.value}" th:checked="${entry.value}"/>
-                                    <span th:text="${entry.key}"/>
+                                    <span th:if="*{solutionTasks[__${rowStat.index}__].task.answers[__${entry.key}__]}==true"
+                                          class="trueClass" th:text="${entry.key}"/>
+                                    <span th:if="*{solutionTasks[__${rowStat.index}__].task.answers[__${entry.key}__]}==false"
+                                          th:class="${entry.value}==true ? falseClass"
+                                          th:text="${entry.key}"/>
                                 </label>
                             </div>
-                            <h2 th:text="*{solutionTasks[__${rowStat.index}__].points}+'/'+*{solutionTasks[__${rowStat.index}__].task.max_points}"/>
+                            <h2 th:text="*{solutionTasks[__${rowStat.index}__].points}%1==0 ? *{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].points, 0)}+' / '+*{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].task.max_points, 0)} : *{#numbers.formatDecimal(solutionTasks[__${rowStat.index}__].points, 0, 2,'POINT')}+' / '+*{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].task.max_points, 0)}"/>
                         </div>
                     </div>
-                    <div th:if="${taskTypeChecker.isTaskProgrammingSolution(task)}" class="form-group col-md-12">
+                    <div th:if=" ${taskTypeChecker.isTaskProgrammingSolution(task)}" class="form-group col-md-12">
                         <h4 th:text="${rowStat.count}+'. '+*{solutionTasks[__${rowStat.index}__].task.question}"/>
 
                         <div class="input-group">
@@ -52,11 +56,12 @@
                         </div>
                         <h4 th:if="*{solutionTasks[__${rowStat.index}__].haveError()}"
                             th:text="*{solutionTasks[__${rowStat.index}__].compilationError.type}"/>
-                        <div th:if="*{solutionTasks[__${rowStat.index}__].haveError()}" class="input-group col-md-12">
+                        <div th:if="*{solutionTasks[__${rowStat.index}__].haveError()}"
+                             class="input-group col-md-12">
                             <textarea rows="5" class="form-control"
                                       th:field="*{solutionTasks[__${rowStat.index}__].compilationError.error}"/>
                         </div>
-                        <h2 th:text="*{solutionTasks[__${rowStat.index}__].points}+'/'+*{solutionTasks[__${rowStat.index}__].task.max_points}"/>
+                        <h2 th:text="*{solutionTasks[__${rowStat.index}__].points}%1==0 ? *{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].points, 0)}+' / '+*{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].task.max_points, 0)} : *{#numbers.formatDecimal(solutionTasks[__${rowStat.index}__].points, 0, 2,'POINT')}+' / '+*{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].task.max_points, 0)}"/>
                     </div>
                     <div th:if="${taskTypeChecker.isTaskSqlSolution(task)}" class="form-group col-md-12">
                         <h4 th:text="${rowStat.count}+'. '+*{solutionTasks[__${rowStat.index}__].task.question}"/>
@@ -69,7 +74,8 @@
                         </div>
                         <h4 th:if="*{solutionTasks[__${rowStat.index}__].haveError()}"
                             th:text="*{solutionTasks[__${rowStat.index}__].compilationError.type}"/>
-                        <div th:if="*{solutionTasks[__${rowStat.index}__].haveError()}" class="input-group col-md-12">
+                        <div th:if="*{solutionTasks[__${rowStat.index}__].haveError()}"
+                             class="input-group col-md-12">
                             <textarea rows="5" class="form-control"
                                       th:field="*{solutionTasks[__${rowStat.index}__].compilationError.error}"/>
                             <span class="input-group-addon">
@@ -77,7 +83,7 @@
                             </span>
                         </div>
 
-                        <h2 th:text="*{solutionTasks[__${rowStat.index}__].points}+'/'+*{solutionTasks[__${rowStat.index}__].task.max_points}"/>
+                        <h2 th:text="*{solutionTasks[__${rowStat.index}__].points}%1==0 ? *{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].points, 0)}+' / '+*{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].task.max_points, 0)} : *{#numbers.formatDecimal(solutionTasks[__${rowStat.index}__].points, 0, 2,'POINT')}+' / '+*{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].task.max_points, 0)}"/>
                     </div>
                 </div>
             </div>

@@ -1,15 +1,15 @@
 package com.zespolowka.entity.solutionTest;
 
 
-public enum CompilationErrorTypes {
-    TERMINATED("Terminated"),
+public enum SolutionStatus {
+    OPEN("Open"),
     ERROR("Error"),
-    RESTRICTED_WORDS("Restricted words"),
-    COMPILATION_ERROR("Compilation Error");
+    DURING("During"),
+    FINISHED("Finished");
 
     private String value;
 
-    CompilationErrorTypes(String displayName) {
+    SolutionStatus(String displayName) {
         this.value = displayName;
     }
 

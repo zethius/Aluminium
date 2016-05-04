@@ -49,7 +49,7 @@ public class UserEditValidator implements Validator {
         if (!user.getId().equals(form.getId())) {
             errors.rejectValue("id", "id_error");
         }
-        if (!form.getRole().equals(user.getRole())){
+        if (!form.getRole().equals(user.getRole())) {
             if (!user.getRole().equals(Role.SUPERADMIN)) {
                 errors.rejectValue("role", "role_error");
             }

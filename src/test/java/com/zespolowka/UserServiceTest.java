@@ -1,7 +1,6 @@
 package com.zespolowka;
 
 import com.zespolowka.builders.UserBuilder;
-import com.zespolowka.entity.VerificationToken;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.repository.UserRepository;
 import com.zespolowka.service.UserServiceImpl;

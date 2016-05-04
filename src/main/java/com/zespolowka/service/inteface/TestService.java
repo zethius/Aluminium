@@ -16,6 +16,12 @@ public interface TestService {
 
     Test create(CreateTestForm form);
 
+    Test update(CreateTestForm form, Long id);
+
+    void delete(Long id);
+
+    Test update(Test test);
+
     CreateTestForm createForm(Test test);
 
     Collection<Test> getTestByEndDateBefore(LocalDate date);

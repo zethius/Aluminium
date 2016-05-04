@@ -19,6 +19,28 @@ function loadEntity(url) {
         populateModal(data);
     });
 }
+function showReopen(index, name) {
+    $('#nazwaTestu2').text(name);
+    id=index;
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10) {
+        dd='0'+dd
+    }
+    if(mm<10) {
+        mm='0'+mm
+    }
+    today = yyyy+'-'+mm+'-'+dd;
+    document.getElementById("dataZamkniecia").value =today;
+    $('#Reopen').modal('show');
+}
+function changeDate(date){
+    href="/setTestDate?id="+id+"&date="+date.value;
+
+    document.getElementById('form_reopen').setAttribute("action", href);
+}
 function populateModal(data) {
     $('#nazwaTestu').text(data.name);
     href = "/getSolutionTest?id=" + data.id;
@@ -42,12 +64,12 @@ function showAttemptsModal(index, name) {
     $('#nazwaTestu').text(name);
     var table = $('#tabelaaa').dataTable();
     table.fnClearTable();
-    var counter=0;
-    var lastPoints=-1;
+    var counter = 0;
+    var lastPoints = -1;
     $.getJSON(editUrl, {}, function (data) {
         for (var i in data) {
-            if(data[i].points!=lastPoints) {
-                lastPoints=data[i].points;
+            if (data[i].points != lastPoints) {
+                lastPoints = data[i].points;
                 counter++;
             }
             var year=data[i].endSolution.year;
@@ -76,7 +98,7 @@ function showAttemptsModal(index, name) {
                 day+'/'+month+'/'+year+' '+hours+':'+minutes+':'+seconds,
                 '<a href="/solutionTest/' + data[i].id + '">Zobacz</a>']);
         }
-        table.fnSort([[1, 'desc']]);
+        table.fnSort([[0, 'asc']]);
         $('#wynikiA').modal('show');
     });
 

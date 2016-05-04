@@ -117,7 +117,6 @@ public class CreateTestValidator implements Validator {
                         String[] answers = taskForm.getAnswer().split("[\\r\\n]+");
                         Boolean haveCorrectAnswer = false;
                         for (String answer : answers) {
-                            logger.info(answer);
                             if (answer.startsWith("<*>")) {
                                 haveCorrectAnswer = true;
                                 break;

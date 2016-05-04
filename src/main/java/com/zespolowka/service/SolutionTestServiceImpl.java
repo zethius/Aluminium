@@ -30,6 +30,7 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SolutionTestServiceImpl implements SolutionTestService {
@@ -57,12 +58,17 @@ public class SolutionTestServiceImpl implements SolutionTestService {
 
     @Override
     public List<SolutionTest> getSolutionsWithTheBestResult(User user) {
-        return solutionTestRepository.getSolutionsWithTheBestResult(user);
+        return solutionTestRepository.getSolutionsWithTheBestResult(user, SolutionStatus.FINISHED);
     }
 
     @Override
     public Collection<SolutionTest> getSolutionTestsByUserAndTest(User user, Test test) {
-        return solutionTestRepository.findSolutionTestsByUserAndTest(user, test);
+        return solutionTestRepository.findSolutionTestsByUserAndTestAndSolutionStatus(user, test, SolutionStatus.FINISHED);
+    }
+
+    @Override
+    public Integer countSolutionTestsByUserAndTest(User user, Test test) {
+        return solutionTestRepository.countSolutionTestsByUserAndTestAndSolutionStatus(user, test, SolutionStatus.FINISHED);
     }
 
     @Override
@@ -76,29 +82,34 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     }
 
     @Override
-    public SolutionTest create(SolutionTest solutionTest) {
+    public SolutionTest create(SolutionTest solutionTest, SolutionStatus solutionStatus) {
         taskNo = 0;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m:s");
         LocalDateTime dateTime = LocalDateTime.now();
         solutionTest.setEndSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + '/' + dateTime.getDayOfMonth() + ' ' + dateTime.getHour() + ':' + dateTime.getMinute() + ':' + dateTime.getSecond(), dateTimeFormatter));
+        solutionTest.setSolutionStatus(solutionStatus);
+        logger.info(solutionTest.getBeginSolution() + " " + solutionTest.getEndSolution());
         return solutionTestRepository.save(solutionTest);
     }
 
     @Override
     public SolutionTestForm createForm(Test test, User user) {
-        SolutionTest solutionTest = (SolutionTest) this.httpSession.getAttribute(TEST_ATTRIBUTE_NAME);
-        if (solutionTest == null) {
+        SolutionTest solutionTest;
+        Optional<SolutionTest> solutionTest2 = findSolutionTestByTestAndUserAndSolutionStatus(test, user, SolutionStatus.OPEN);
+        logger.info(solutionTest2.isPresent() + "test");
+        if (!solutionTest2.isPresent()) {
             solutionTest = new SolutionTest(test, user);
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m:s");
             LocalDateTime dateTime = LocalDateTime.now();
             solutionTest.setBeginSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + '/' + dateTime.getDayOfMonth() + ' ' + dateTime.getHour() + ':' + dateTime.getMinute() + ':' + dateTime.getSecond(), dateTimeFormatter));
-            solutionTest.setAttempt(getSolutionTestsByUserAndTest(user, test).size() + 1);
-            this.httpSession.setAttribute(TEST_ATTRIBUTE_NAME, solutionTest);
-            this.taskNo = 0;
-        }
+            solutionTest.setAttempt(countSolutionTestsByUserAndTest(user, test) + 1);
+            solutionTest.setSolutionStatus(SolutionStatus.OPEN);
+            solutionTestRepository.save(solutionTest);
+        } else solutionTest = solutionTest2.get();
+        this.taskNo = 0;
         SolutionTestForm solutionTestForm = new SolutionTestForm();
         solutionTestForm.setName(test.getName());
-        solutionTestForm.setTimeToEnd(solutionTest.secondsToEnd());
+        solutionTestForm.setSolutionId(solutionTest.getId());
         List<SolutionTaskForm> solutionTaskFormList = new ArrayList<>();
         List<Task> tasks = test.getTasks();
         Collections.shuffle(tasks);
@@ -116,10 +127,9 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             }
         }
         solutionTestForm.setTasks(solutionTaskFormList);
-        this.httpSession.setAttribute(TEST_ATTRIBUTE_NAME, solutionTest);
+        solutionTestRepository.save(solutionTest);
         this.taskNo = 0;
         return solutionTestForm;
-
     }
 
     public void addTaskSolutionToTest(SolutionTest solutionTest, TaskSolution taskSolution) throws IOException, ParseException, FileNotFoundException {
@@ -132,12 +142,13 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             if (taskClo.getCountingType() == taskClo.WRONG_RESET) {
                 Boolean theSame = true;
                 for (Map.Entry<String, Boolean> stringBooleanEntry : userAnswers.entrySet()) {
+                    if (stringBooleanEntry.getValue() == null) {
+                        userAnswers.put(stringBooleanEntry.getKey(), false);
+                    }
                     if ((stringBooleanEntry.getValue() != null && stringBooleanEntry.getValue()) && (!correctAnswers.get(stringBooleanEntry.getKey()))) {
                         theSame = false;
-                        break;
                     } else if ((stringBooleanEntry.getValue() == null || !stringBooleanEntry.getValue()) && (correctAnswers.get(stringBooleanEntry.getKey()))) {
                         theSame = false;
-                        break;
                     }
                 }
                 if (theSame) {
@@ -258,7 +269,6 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             FileUtils.writeStringToFile(new File(dir + userDirectory + "preparations.txt"), taskSql.getPreparations());
             FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_sql"), "drop");
             FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
-            logger.info("ugabuga");
             executeCommand("ruby " + dir + "skrypt.rb \"" + dir + "\" \"" + userDirectory + "\"");
 
             JSONParser parser = new JSONParser();
@@ -289,6 +299,9 @@ public class SolutionTestServiceImpl implements SolutionTestService {
 
     public SolutionTest create(SolutionTest solutionTest, SolutionTestForm solutionTestForm) throws IOException, ParseException {
         List<SolutionTaskForm> solutionTaskForms = solutionTestForm.getTasks();
+        logger.info(String.valueOf(solutionTaskForms.size()) + " create");
+        solutionTest.setSolutionTasks(new ArrayList<>());
+        solutionTest.setPoints(0f);
         this.taskNo = 0;
         for (SolutionTaskForm solutionTaskForm : solutionTaskForms)
             if (solutionTaskForm.getTaskType() == SolutionTaskForm.CLOSEDTASK) {
@@ -307,28 +320,48 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 taskProgrammingSolution.setLanguage(solutionTaskForm.getLanguage());
                 addTaskSolutionToTest(solutionTest, taskProgrammingSolution);
             } else if (solutionTaskForm.getTaskType() == SolutionTaskForm.SQLTASK) {
-                logger.info(solutionTaskForm.toString());
                 TaskSqlSolution taskSqlSolution = new TaskSqlSolution(solutionTaskForm.getTask());
                 taskSqlSolution.setSqlAnswer(solutionTaskForm.getAnswerCode());
                 addTaskSolutionToTest(solutionTest, taskSqlSolution);
             }
-        ResourceBundle messages = ResourceBundle.getBundle("messages", LocaleContextHolder.getLocale());
-        NewMessageForm newMessageForm = new NewMessageForm();
-        newMessageForm.setReceivers(solutionTest.getUser().getEmail());
-        newMessageForm.setTopic(messages.getString("results.topic") + " " + solutionTest.getTest().getName());
-        newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
-        notificationService.sendMessage(newMessageForm);
+        if (solutionTest.getSolutionStatus() == SolutionStatus.FINISHED) {
+            ResourceBundle messages = ResourceBundle.getBundle("messages", LocaleContextHolder.getLocale());
+            NewMessageForm newMessageForm = new NewMessageForm();
+            newMessageForm.setReceivers(solutionTest.getUser().getEmail());
+            newMessageForm.setTopic(messages.getString("results.topic") + " " + solutionTest.getTest().getName());
+            newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
+            notificationService.sendMessage(newMessageForm);
+        }
         return solutionTest;
     }
 
     @Override
     public Collection<SolutionTest> getSolutionTestsByUser(User user) {
-        return solutionTestRepository.findSolutionTestsByUser(user);
+        return solutionTestRepository.findSolutionTestsByUserAndSolutionStatus(user, SolutionStatus.FINISHED);
     }
 
     @Override
     public Collection<SolutionTest> getSolutionTestsByTest(Test test) {
-        return solutionTestRepository.findSolutionTestsByTest(test);
+        return solutionTestRepository.findSolutionTestsByTestAndSolutionStatusOrderByPointsDesc(test, SolutionStatus.FINISHED);
+    }
+
+    @Override
+    public Optional<SolutionTest> findSolutionTestByTestAndUserAndSolutionStatus(Test test, User user, SolutionStatus solutionStatus) {
+        return solutionTestRepository.findSolutionTestByTestAndUserAndSolutionStatus(test, user, solutionStatus);
+    }
+
+    @Override
+    public SolutionTestForm createFormWithExistingSolution(SolutionTest solutionTest) {
+        this.taskNo = 0;
+        logger.info(solutionTest.getSolutionTasks().size() + "size SolutionTasks");
+        SolutionTestForm solutionTestForm = new SolutionTestForm();
+        solutionTestForm.setName(solutionTest.getTest().getName());
+        solutionTestForm.setSolutionId(solutionTest.getId());
+        List<SolutionTaskForm> solutionTaskFormList = solutionTest.getSolutionTasks().stream().map(SolutionTaskForm::new).collect(Collectors.toList());
+        solutionTestForm.setTasks(solutionTaskFormList);
+        logger.info(solutionTestForm.getTasks().size() + "");
+        this.taskNo = 0;
+        return solutionTestForm;
     }
 
     public String executeCommand(String command) {
@@ -346,8 +379,6 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 output.append(line).append('\n');
             }
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

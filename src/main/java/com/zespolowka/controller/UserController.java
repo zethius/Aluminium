@@ -11,7 +11,6 @@ import com.zespolowka.validators.UserEditValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -47,8 +46,6 @@ public class UserController {
     private final ChangePasswordValidator changePasswordValidator;
 
     private final UserEditValidator userEditValidator;
-
-
 
 
     @Autowired
@@ -155,7 +152,7 @@ public class UserController {
     public String deleteUser(@PathVariable final Long id, RedirectAttributes redirectAttributes) {
         final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         logger.info("nazwa metody = deleteUser");
-        logger.info("userDelete"+id);
+        logger.info("userDelete" + id);
         if (Objects.equals(currentUser.getId(), id)) {
             logger.info("Nie mozesz usunac siebie");
             redirectAttributes.addFlashAttribute("blad", true);
@@ -188,7 +185,7 @@ public class UserController {
             User user = userService.getUserById(id)
                     .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
 
-            if(doer.getRole().equals(Role.SUPERADMIN)) {
+            if (doer.getRole().equals(Role.SUPERADMIN)) {
                 if (user.isAccountNonLocked()) {
                     user.setAccountNonLocked(false);
                     String unlock = "Zablokowano uzytkownika " + user.getEmail();
@@ -200,8 +197,8 @@ public class UserController {
                     redirectAttributes.addFlashAttribute("sukces", true);
                     redirectAttributes.addFlashAttribute("message", lock);
                 }
-            }else if(doer.getRole().equals(Role.ADMIN)){
-                if(user.getRole().equals(Role.USER)) {
+            } else if (doer.getRole().equals(Role.ADMIN)) {
+                if (user.getRole().equals(Role.USER)) {
                     if (user.isAccountNonLocked()) {
                         user.setAccountNonLocked(false);
                         String unlock = "Zablokowano uzytkownika " + user.getEmail();
@@ -213,10 +210,10 @@ public class UserController {
                         redirectAttributes.addFlashAttribute("sukces", true);
                         redirectAttributes.addFlashAttribute("message", lock);
                     }
-                }else{
-                    String  permissionDenied = "Nie masz uprawnień";
+                } else {
+                    String permissionDenied = "Nie masz uprawnień";
                     redirectAttributes.addFlashAttribute("blad", true);
-                    redirectAttributes.addFlashAttribute("message",  permissionDenied);
+                    redirectAttributes.addFlashAttribute("message", permissionDenied);
                 }
             }
             userService.update(user);
@@ -236,7 +233,7 @@ public class UserController {
             User user = userService.getUserById(id)
                     .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)));
 
-            if(doer.getRole().equals(Role.SUPERADMIN)) {
+            if (doer.getRole().equals(Role.SUPERADMIN)) {
                 if (user.isEnabled()) {
                     user.setEnabled(false);
                     String enable = "Deaktywowano uzytkownika " + user.getEmail();
@@ -248,8 +245,8 @@ public class UserController {
                     redirectAttributes.addFlashAttribute("sukces", true);
                     redirectAttributes.addFlashAttribute("message", disable);
                 }
-            }else if(doer.getRole().equals(Role.ADMIN)){
-                if(user.getRole().equals(Role.USER)) {
+            } else if (doer.getRole().equals(Role.ADMIN)) {
+                if (user.getRole().equals(Role.USER)) {
                     if (user.isEnabled()) {
                         user.setEnabled(false);
                         String enable = "Deaktywowano uzytkownika " + user.getEmail();
@@ -262,10 +259,10 @@ public class UserController {
                         redirectAttributes.addFlashAttribute("sukces", true);
                         redirectAttributes.addFlashAttribute("message", disable);
                     }
-                }else{
+                } else {
                     String permissionDenied = "Nie masz uprawnień";
                     redirectAttributes.addFlashAttribute("blad", true);
-                    redirectAttributes.addFlashAttribute("message",  permissionDenied);
+                    redirectAttributes.addFlashAttribute("message", permissionDenied);
                 }
             }
 

@@ -5,6 +5,7 @@ import com.zespolowka.entity.createTest.Task;
 import com.zespolowka.entity.createTest.TaskClosed;
 import com.zespolowka.entity.createTest.TaskProgramming;
 import com.zespolowka.entity.createTest.TaskProgrammingDetail;
+import com.zespolowka.entity.solutionTest.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,6 +29,30 @@ public class SolutionTaskForm {
 
     public SolutionTaskForm(int taskType) {
         this.taskType = taskType;
+    }
+
+    public SolutionTaskForm(TaskSolution taskSolution) {
+        this.task = taskSolution.getTask();
+        if (taskSolution instanceof TaskClosedSolution) {
+            this.taskType = CLOSEDTASK;
+            this.answers = ((TaskClosedSolution) taskSolution).getAnswers();
+
+        } else if (taskSolution instanceof TaskOpenSolution) {
+            this.taskType = OPENTASK;
+            this.answer = ((TaskOpenSolution) taskSolution).getAnswer();
+
+        } else if (taskSolution instanceof TaskProgrammingSolution) {
+            this.taskType = PROGRAMMINGTASK;
+            this.language = ((TaskProgrammingSolution) taskSolution).getLanguage();
+            this.answerCode = ((TaskProgrammingSolution) taskSolution).getAnswerCode();
+            TaskProgramming taskProgramming = (TaskProgramming) task;
+            Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
+            this.languages.addAll(taskProgrammingDetails.stream().map(taskProgrammingDetail -> taskProgrammingDetail.getLanguage().toString()).collect(Collectors.toList()));
+
+        } else if (taskSolution instanceof TaskSqlSolution) {
+            this.taskType = SQLTASK;
+            this.answerCode = ((TaskSqlSolution) taskSolution).getSqlAnswer();
+        }
     }
 
     public SolutionTaskForm(Task task, int taskType) {

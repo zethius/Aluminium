@@ -1,6 +1,7 @@
 package com.zespolowka.entity;
 
 import com.zespolowka.entity.user.Role;
+import com.zespolowka.entity.user.User;
 
 import javax.persistence.*;
 import java.text.ParseException;
@@ -16,12 +17,13 @@ public class Notification {
 
     @Column(length = 10000)
     private String message;
-
-
     private String topic;
     private Date date;
     private boolean unread;
+    @OneToOne(targetEntity = User.class, orphanRemoval = false)
+    private User sender;
     private long userId;
+
     @Column
     @Enumerated(EnumType.STRING)
     private Role userRole;
@@ -29,11 +31,11 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(String message, String topic, long userId) { //data auto
+    public Notification(String message, String topic, long userId, User sender) { //data auto
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
-        String now=sdf.format(new Date());
+        String now = sdf.format(new Date());
         try {
-            this.date=sdf.parse(now);
+            this.date = sdf.parse(now);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -43,12 +45,14 @@ public class Notification {
         this.userId = userId;
         this.unread = true;
         this.userRole = null;
+        this.sender = sender;
     }
-    public Notification(String message, String topic, Role userRole) { //data auto dla grup
+
+    public Notification(String message, String topic, Role userRole, User sender) { //data auto dla grup
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
-        String now=sdf.format(new Date());
+        String now = sdf.format(new Date());
         try {
-            this.date=sdf.parse(now);
+            this.date = sdf.parse(now);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -57,23 +61,27 @@ public class Notification {
         this.userRole = userRole;
         this.unread = true;
         this.userId = -1L;
+        this.sender = sender;
     }
-    public Notification(String message, String topic, Date date, long userId) {
+
+    public Notification(String message, String topic, Date date, long userId, User sender) {
         this.message = message;
         this.topic = topic;
         this.date = date;
         this.userId = userId;
         this.unread = true;
         this.userRole = null;
+        this.sender = sender;
     }
 
-    public Notification(String message, String topic, Date date, Role userRole) {
+    public Notification(String message, String topic, Date date, Role userRole, User sender) {
         this.message = message;
         this.topic = topic;
         this.date = date;
         this.userRole = userRole;
         this.unread = true;
         this.userId = -1L;
+        this.sender = sender;
     }
 
     public Notification(Notification notification) {
@@ -134,6 +142,14 @@ public class Notification {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 
     @Override
