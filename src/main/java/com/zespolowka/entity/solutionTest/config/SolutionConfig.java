@@ -62,8 +62,8 @@ public class SolutionConfig {
         this.tests = tests;
         this.compiler = "/usr/bin/javac";
         this.interpreter = "/usr/bin/java";
-        this.compiler_flags = "-cp .:/home/pitek/zespolowka/skrypty/JAVA_LIB/*";
-        this.interpreter_flags = "-D/usr/lib/jvm/java-8-oracle/jre/lib/security/java.policy -Djava.security.policy=.java.policy -cp .:/home/pitek/zespolowka/skrypty/JAVA_LIB/*";
+        this.compiler_flags = "-cp .:/var/www/Aluminium/Team_Programming_Rewritten/JAVA_LIB/*";
+        this.interpreter_flags = "-D/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/java.policy -Djava.security.policy=.java.policy -cp .:/var/www/Aluminium/Team_Programming_Rewritten/JAVA_LIB/*";
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(LANGUAGE, language);
         jsonObject.put(SOURCES, sources);
@@ -104,6 +104,7 @@ public class SolutionConfig {
         jsonObject.put(MAX_TIME_OF_TESTS, max_time_of_tests);
         return jsonObject;
     }
+
 
     public JSONObject createPythonConfig(String sources, String tests, String restricted_list_path) {
         this.language = "python";
