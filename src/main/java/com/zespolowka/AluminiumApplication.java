@@ -4,9 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 @SpringBootApplication
@@ -18,13 +20,14 @@ public class AluminiumApplication {
     public AluminiumApplication() {
     }
 
+    public static void main(String... args) {
+        SpringApplication.run(AluminiumApplication.class, args);
+        logger.info("Aplikacja uruchomiona");
+    }
+
     @Bean
     public Java8TimeDialect java8TimeDialect() {
         return new Java8TimeDialect();
     }
 
-    public static void main(String... args) {
-        SpringApplication.run(AluminiumApplication.class, args);
-        logger.info("Aplikacja uruchomiona");
-    }
 }

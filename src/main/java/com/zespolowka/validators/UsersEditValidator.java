@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import java.util.Collection;
 import java.util.NoSuchElementException;
 
 /**
@@ -44,21 +43,21 @@ public class UsersEditValidator implements Validator {
 
         User usr1 = userService.getUserByEmail(form.getEmail()).orElse(new User());
         User usr2 = userService.getUserById(form.getId()).orElse(new User());
-        if(!usr1.equals(usr2)){
+        if (!usr1.equals(usr2)) {
             if (userService.getUserByEmail(form.getEmail()).isPresent()) {
                 errors.rejectValue("email", "email_error");
             }
         }
         try {
             User tempUser = userService.getUserById(form.getId()).get();
-            if(!user.getRole().equals(Role.SUPERADMIN) && !(tempUser.getRole().equals(form.getRole()))   ){
+            if (!user.getRole().equals(Role.SUPERADMIN) && !(tempUser.getRole().equals(form.getRole()))) {
                 errors.rejectValue("role", "permission_denied");
             }
 
-            if(!user.getRole().equals(Role.SUPERADMIN) && tempUser.getRole().equals(Role.SUPERADMIN)) {
+            if (!user.getRole().equals(Role.SUPERADMIN) && tempUser.getRole().equals(Role.SUPERADMIN)) {
                 errors.rejectValue("role", "permission_denied");
             }
-        }catch(NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             errors.rejectValue("id", "id_error2");
         }
     }

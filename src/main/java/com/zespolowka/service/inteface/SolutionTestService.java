@@ -1,6 +1,7 @@
 package com.zespolowka.service.inteface;
 
 import com.zespolowka.entity.createTest.Test;
+import com.zespolowka.entity.solutionTest.SolutionStatus;
 import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.solutionTest.TaskSolution;
 import com.zespolowka.entity.user.User;
@@ -10,6 +11,7 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Admin on 2016-04-03.
@@ -17,11 +19,13 @@ import java.util.List;
 public interface SolutionTestService {
     Collection<SolutionTest> getSolutionTestsByUserAndTest(User user, Test test);
 
+    Integer countSolutionTestsByUserAndTest(User user, Test test);
+
     SolutionTest getSolutionTestById(long id);
 
     Collection<SolutionTest> getAllTests();
 
-    SolutionTest create(SolutionTest solutionTest);
+    SolutionTest create(SolutionTest solutionTest, SolutionStatus solutionStatus);
 
     SolutionTestForm createForm(Test test, User user);
 
@@ -37,4 +41,7 @@ public interface SolutionTestService {
 
     Collection<SolutionTest> getSolutionTestsByTest(Test test);
 
+    Optional<SolutionTest> findSolutionTestByTestAndUserAndSolutionStatus(Test test, User user, SolutionStatus solutionStatus);
+
+    SolutionTestForm createFormWithExistingSolution(SolutionTest solutionTest);
 }

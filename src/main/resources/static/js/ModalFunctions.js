@@ -42,12 +42,12 @@ function showAttemptsModal(index, name) {
     $('#nazwaTestu').text(name);
     var table = $('#tabelaaa').dataTable();
     table.fnClearTable();
-    var counter=0;
-    var lastPoints=-1;
+    var counter = 0;
+    var lastPoints = -1;
     $.getJSON(editUrl, {}, function (data) {
         for (var i in data) {
-            if(data[i].points!=lastPoints) {
-                lastPoints=data[i].points;
+            if (data[i].points != lastPoints) {
+                lastPoints = data[i].points;
                 counter++;
             }
             table.fnAddData([
@@ -55,9 +55,9 @@ function showAttemptsModal(index, name) {
                 data[i].user.name + " " + data[i].user.lastName,
                 data[i].points,
                 '<a href="/solutionTest/' + data[i].id + '">Zobacz</a>'
-                ]);
+            ]);
         }
-        table.fnSort([[1, 'desc']]);
+        table.fnSort([[0, 'asc']]);
         $('#wynikiA').modal('show');
     });
 

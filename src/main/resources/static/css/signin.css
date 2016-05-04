@@ -116,11 +116,10 @@ body {
 .ui-state-hover, .ui-state-active {
     color: #ffffff;
     text-decoration: none;
-    background-color: #0088cc;
     border-radius: 0;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
-    background-image: none;
+    background: #0088cc none;
 }
 
 .jumbotron h1 {
@@ -173,6 +172,16 @@ textarea {
     text-align: center;
 }
 
+span.trueClass {
+    color: green;
+    font-weight: bold;
+}
+
+span.falseClass {
+    color: red;
+    font-weight: bold;
+}
+
 .modal-footer {
     border-top: none;
 }
@@ -180,8 +189,17 @@ textarea {
 .modal-footer button {
     margin-right: 20px;
 }
-.jumbotron h1 {font-size: 28px; border-bottom: 1px dashed #ddd; margin: -20px 0 30px 0; text-align: center; }
-.jumbotron h2 {font-size: 24px;}
+
+.jumbotron h1 {
+    font-size: 28px;
+    border-bottom: 1px dashed #ddd;
+    margin: -20px 0 30px 0;
+    text-align: center;
+}
+
+.jumbotron h2 {
+    font-size: 24px;
+}
 
 .popover {
     display: block;
@@ -190,6 +208,14 @@ textarea {
     left: auto;
 }
 
-.input-group {display: block;}
-.input-group-addon {display: none;}
-.dataTables_wrapper {padding-top: 20px;}
+.input-group {
+    display: block;
+}
+
+.input-group-addon {
+    display: none;
+}
+
+.dataTables_wrapper {
+    padding-top: 20px;
+}
