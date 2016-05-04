@@ -17,14 +17,13 @@ public class Notification {
 
     @Column(length = 10000)
     private String message;
-
     private String topic;
     private Date date;
     private boolean unread;
-
     @OneToOne(targetEntity = User.class, orphanRemoval = false)
     private User sender;
     private long userId;
+
     @Column
     @Enumerated(EnumType.STRING)
     private Role userRole;
@@ -32,8 +31,7 @@ public class Notification {
     public Notification() {
     }
 
-    //======DO /SENDMESSAGE==========
-    public Notification(String message, String topic, long userId, User sender) { //data auto + nadawca
+    public Notification(String message, String topic, long userId, User sender) { //data auto
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
         String now = sdf.format(new Date());
         try {
@@ -41,6 +39,7 @@ public class Notification {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         this.message = message;
         this.topic = topic;
         this.userId = userId;
@@ -49,7 +48,7 @@ public class Notification {
         this.sender = sender;
     }
 
-    public Notification(String message, String topic, Role userRole, User sender) { //data auto dla grup + nadawca
+    public Notification(String message, String topic, Role userRole, User sender) { //data auto dla grup
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy HH:mm:ss");
         String now = sdf.format(new Date());
         try {
@@ -64,10 +63,8 @@ public class Notification {
         this.userId = -1L;
         this.sender = sender;
     }
-    //======KONIEC SENDMESSAGE======
 
-    //======DO ZAPELNIENIA BAZY=====
-    public Notification(String message, String topic, Date date, long userId, User sender) { //z data + nadawca
+    public Notification(String message, String topic, Date date, long userId, User sender) {
         this.message = message;
         this.topic = topic;
         this.date = date;
@@ -77,8 +74,7 @@ public class Notification {
         this.sender = sender;
     }
 
-
-    public Notification(String message, String topic, Date date, Role userRole, User sender) { //grupowa z data + nadawca
+    public Notification(String message, String topic, Date date, Role userRole, User sender) {
         this.message = message;
         this.topic = topic;
         this.date = date;
@@ -88,7 +84,6 @@ public class Notification {
         this.sender = sender;
     }
 
-    //====================
     public Notification(Notification notification) {
 
     }

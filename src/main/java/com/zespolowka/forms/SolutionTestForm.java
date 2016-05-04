@@ -6,7 +6,7 @@ import java.util.List;
 public class SolutionTestForm {
     private String name;
 
-    private Long timeToEnd;
+    private Long solutionId;
 
     private List<SolutionTaskForm> tasks;
 
@@ -33,12 +33,12 @@ public class SolutionTestForm {
         this.name = name;
     }
 
-    public Long getTimeToEnd() {
-        return timeToEnd;
+    public Long getSolutionId() {
+        return solutionId;
     }
 
-    public void setTimeToEnd(Long timeToEnd) {
-        this.timeToEnd = timeToEnd;
+    public void setSolutionId(Long solutionId) {
+        this.solutionId = solutionId;
     }
 
     @Override

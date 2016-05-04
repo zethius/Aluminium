@@ -28,16 +28,21 @@ public class SolutionTest {
     @ManyToOne
     private User user;
 
+    @Enumerated(EnumType.STRING)
+    private SolutionStatus solutionStatus;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<TaskSolution> solutionTasks;
 
     public SolutionTest() {
         this.solutionTasks = new ArrayList<>();
+        this.solutionStatus = SolutionStatus.OPEN;
         this.points = 0.0f;
     }
 
     public SolutionTest(Test test, User user) {
         this.solutionTasks = new ArrayList<>();
+        this.solutionStatus = SolutionStatus.OPEN;
         this.test = test;
         this.points = 0.0f;
         this.user = user;
@@ -45,6 +50,7 @@ public class SolutionTest {
 
     public SolutionTest(Test test, Integer attempt, LocalDateTime beginSolution, LocalDateTime endSolution, Float points) {
         this.solutionTasks = new ArrayList<>();
+        this.solutionStatus = SolutionStatus.OPEN;
         this.test = test;
         this.attempt = attempt;
         this.beginSolution = beginSolution;
@@ -121,6 +127,14 @@ public class SolutionTest {
 
     public void setSolutionTasks(List<TaskSolution> solutionTasks) {
         this.solutionTasks = solutionTasks;
+    }
+
+    public SolutionStatus getSolutionStatus() {
+        return solutionStatus;
+    }
+
+    public void setSolutionStatus(SolutionStatus solutionStatus) {
+        this.solutionStatus = solutionStatus;
     }
 
     @Override

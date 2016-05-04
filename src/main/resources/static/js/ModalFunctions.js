@@ -3,7 +3,6 @@ var testModalTarget = url + "loadEntity/";
 var haslo = "";
 var isOpen;
 var href = "";
-var id="";
 function showTestModal(index, value) {
     isOpen = value;
     var editUrl = testModalTarget + index;
@@ -19,24 +18,6 @@ function loadEntity(url) {
     $.getJSON(url, {}, function (data) {
         populateModal(data);
     });
-}
-function populateModal(data) {
-    $('#nazwaTestu').text(data.name);
-    href = "/getSolutionTest?id=" + data.id;
-    haslo = data.password;
-}
-function checkPassword(pass) {
-    if (!isOpen) {
-        if (haslo == pass.value) {
-            href = href + "&pass=" + pass.value;
-            document.getElementById('form_test').setAttribute("action", href);
-        } else {
-            alert("Złe hasło!");
-        }
-    }
-    else {
-        document.getElementById('form_test').setAttribute("action", href);
-    }
 }
 function showReopen(index, name) {
     $('#nazwaTestu2').text(name);
@@ -60,10 +41,26 @@ function changeDate(date){
 
     document.getElementById('form_reopen').setAttribute("action", href);
 }
+function populateModal(data) {
+    $('#nazwaTestu').text(data.name);
+    href = "/getSolutionTest?id=" + data.id;
+    haslo = data.password;
+}
+function checkPassword(pass) {
+    if (!isOpen) {
+        if (haslo == pass.value) {
+            href = href + "&pass=" + pass.value;
+            document.getElementById('form_test').setAttribute("action", href)
+        } else alert("Złe hasło!");
+    }
+    else {
+        document.getElementById('form_test').setAttribute("action", href);
+    }
+}
+
 //======== NIZEJ DO /test/all
 function showAttemptsModal(index, name) {
-
-
+    var editUrl = "/solutionTest/loadResultEntity/" + index;
     $('#nazwaTestu').text(name);
     var table = $('#tabelaaa').dataTable();
     table.fnClearTable();
@@ -75,17 +72,36 @@ function showAttemptsModal(index, name) {
                 lastPoints = data[i].points;
                 counter++;
             }
+            var year=data[i].endSolution.year;
+            var day=data[i].endSolution.dayOfMonth;
+            var month=data[i].endSolution.monthValue;
+            var hours=data[i].endSolution.hour;
+            var minutes=data[i].endSolution.minute;
+            var seconds=data[i].endSolution.second;
+
+            if(day < 10)
+                day = '0'+day;
+            if(month < 10)
+                month = '0'+month;
+            if(hours < 10)
+                hours= '0'+hours;
+            if(minutes < 10)
+                minutes = '0'+minutes;
+            if(seconds < 10)
+                seconds = '0'+seconds;
+
             table.fnAddData([
                 counter,
                 data[i].user.name + " " + data[i].user.lastName,
-                data[i].points,
-                '<a href="/solutionTest/' + data[i].id + '">Zobacz</a>'
-            ]);
+                data[i].points+"/"+data[i].test.maxPoints,
+                parseFloat(data[i].points/data[i].test.maxPoints*100),
+                day+'/'+month+'/'+year+' '+hours+':'+minutes+':'+seconds,
+                '<a href="/solutionTest/' + data[i].id + '">Zobacz</a>']);
         }
-        table.fnSort([[1, 'desc']]);
+        table.fnSort([[0, 'asc']]);
         $('#wynikiA').modal('show');
     });
+
+
 }
-
-
 

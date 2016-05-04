@@ -12,7 +12,7 @@ public class TaskProgrammingSolution extends TaskSolution {
 
     private String language;
 
-    @OneToOne(targetEntity = CompilationError.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = CompilationError.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
     private CompilationError compilationError;
 
 
@@ -30,8 +30,7 @@ public class TaskProgrammingSolution extends TaskSolution {
     }
 
     public Boolean haveError() {
-        if (compilationError != null) return true;
-        else return false;
+        return compilationError != null;
     }
 
     public String getAnswerCode() {

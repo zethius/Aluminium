@@ -12,14 +12,6 @@ public class NewMessageForm {
     public NewMessageForm() {
     }
 
-    public User getSender() {
-        return sender;
-    }
-
-    public void setSender(User sender) {
-        this.sender = sender;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -44,12 +36,21 @@ public class NewMessageForm {
         this.receivers = receivers;
     }
 
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
     @Override
     public String toString() {
         return "NewMessageForm{" +
                 "message='" + message + '\'' +
                 ", topic='" + topic + '\'' +
                 ", receivers='" + receivers + '\'' +
+                ", sender=" + sender.getEmail() +
                 '}';
     }
 }

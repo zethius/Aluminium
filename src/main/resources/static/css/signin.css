@@ -116,11 +116,14 @@ body {
 .ui-state-hover, .ui-state-active {
     color: #ffffff;
     text-decoration: none;
-    background-color: #0088cc;
     border-radius: 0;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
-    background-image: none;
+    background: #0088cc none;
+}
+
+.modal.fade.wyniki .modal-dialog {
+    width: 60%;
 }
 
 .jumbotron h1 {
@@ -171,6 +174,16 @@ textarea {
     left: 0;
     width: 100%;
     text-align: center;
+}
+
+span.trueClass {
+    color: green;
+    font-weight: bold;
+}
+
+span.falseClass {
+    color: red;
+    font-weight: bold;
 }
 
 .modal-footer {

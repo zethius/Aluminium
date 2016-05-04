@@ -26,8 +26,7 @@ public class TaskSqlSolution extends TaskSolution {
     }
 
     public Boolean haveError() {
-        if (compilationError != null) return true;
-        else return false;
+        return compilationError != null;
     }
 
     public String getSqlAnswer() {

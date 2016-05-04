@@ -20,6 +20,7 @@
             </div>
             <div th:if="${sukces}" class="alert alert-success" role="alert">Ponownie otwarto test
             </div>
+
             <table class="table table-striped table-bordered grid" cellspacing="0" width="100%">
                 <thead>
                 <tr>
@@ -46,43 +47,14 @@
                         <a th:href="${'/test/edit/' + test.id}"><span class="glyphicon glyphicon-pencil"
                                                                       aria-hidden="true"
                                                                       title="edytuj"></span></a>
+                        <a th:href="${'/test/delete/' + test.id}" onclick="return confirmDelete()">
+                            <i class="glyphicon glyphicon-remove" aria-hidden="true"
+                               th:title="#{tests.removeTest}"></i>
+                        </a>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <!-- Modal -->
-            <div class="modal fade" id="wynikiA" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel"><strong
-                                    id="nazwaTestu">xyz</strong></h4>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table table-striped table-bordered grid" cellspacing="0" width="100%"
-                                   id="tabelaaa">
-                                <thead>
-                                <tr>
-                                    <th th:text="#{tests.position}"></th>
-                                    <th th:text="#{tests.person}"></th>
-                                    <th th:text="#{tests.testResult}"></th>
-                                    <th th:text="#{tests.solution}"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"
-                                    th:text="#{close}"></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Modal Reopen -->
             <div class="modal fade" id="Reopen" tabindex="-1" role="dialog" aria-labelledby="ReopenLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -107,7 +79,7 @@
                                                    th:name="${_csrf != null ? _csrf.parameterName : 'testing'}"
                                                    th:value="${_csrf != null ? _csrf.token : 'testing'}"/>
                                             <input type="submit" name="submit" id="submit"
-                                                   th:value="#{mainPage.submit}"
+                                                   th:value="#{test.submit}"
                                                    class="btn btn-primary pull-right"
                                                    th:onclick="'changeDate(' + dataZamkniecia + ')'"
                                             />
@@ -123,11 +95,50 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal -->
+            <div class="modal fade wyniki" id="wynikiA" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel"><strong
+                                    id="nazwaTestu">xyz</strong></h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-striped table-bordered grid" cellspacing="0" width="100%"
+                                   id="tabelaaa">
+                                <thead>
+                                <tr>
+                                    <th th:text="#{tests.position}"></th>
+                                    <th th:text="#{tests.person}"></th>
+                                    <th th:text="#{tests.testResult}"></th>
+                                    <th th:text="#{tests.percent}"></th>
+                                    <th th:text="#{tests.solutionTestDateEnd}"></th>
+                                    <th th:text="#{tests.solution}"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"
+                                    th:text="#{close}"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div> <!-- /container -->
 <script layout:fragment="customScripts">
     document.getElementById("testsTab").className = "active";
+    function confirmDelete() {
+        var x;
+        x = confirm("Czy na pewno chcesz usunąć?") == true;
+        return x;
+    }
 </script>
 </body>
 </html>

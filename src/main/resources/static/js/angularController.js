@@ -8,9 +8,11 @@ angular.module('ngApp', [])
             return input;
         };
     })
-    .controller('TimerController', ['$scope', '$timeout', function ($scope, $timeout) {
+    .controller('TimerController', ['$scope', '$timeout', '$http', function ($scope, $timeout, $http) {
         $scope.Timer = function (value) {
-            $scope.counter = value;
+            $http.get('/api/getTime/solutionTest/get/+' + value).success(function (data2) {
+                $scope.counter = data2;
+            });
             $scope.minutes = parseInt($scope.counter / 60, 10);
             $scope.seconds = parseInt($scope.counter % 60, 10);
 
@@ -18,7 +20,11 @@ angular.module('ngApp', [])
                 $scope.counter--;
                 $scope.minutes = parseInt($scope.counter / 60, 10);
                 $scope.seconds = parseInt($scope.counter % 60, 10);
-                if ($scope.counter == 0) alert("Tu powinno wyslac formularz");
+                if ($scope.counter <= 0) {
+                    document.getElementById('solutionForm').setAttribute("action", "/solutionTestAfterTime");
+                    var element = document.getElementById('solutionForm');
+                    element.submit();
+                }
                 else mytimeout = $timeout($scope.onTimeout, 1000);
             };
             var mytimeout = $timeout($scope.onTimeout, 1000);

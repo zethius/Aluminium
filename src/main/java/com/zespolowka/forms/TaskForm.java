@@ -71,7 +71,6 @@ public class TaskForm {
     }
 
     public void setQuestion(String question) {
-        logger.info("setQuestion");
         this.question = question;
     }
 
@@ -80,7 +79,6 @@ public class TaskForm {
     }
 
     public void setAnswer(String answer) {
-        logger.info("setAnswer");
         this.answer = answer;
     }
 
@@ -89,7 +87,7 @@ public class TaskForm {
     }
 
     public void setLanguages(Set<String> languages) {
-        logger.info("setLanguages");
+
         if (languages == null) {
             this.languages = new TreeSet<>();
         } else this.languages = languages;
@@ -122,7 +120,7 @@ public class TaskForm {
     }
 
     public void setProgrammingTaskForms(Set<ProgrammingTaskForm> programmingTaskForms) {
-        logger.info("setProgrammingTaskForms");
+
         if (programmingTaskForms == null) {
             this.programmingTaskForms = new TreeSet<>();
         } else this.programmingTaskForms = programmingTaskForms;
@@ -133,7 +131,6 @@ public class TaskForm {
     }
 
     public void setTaskType(int taskType) {
-        logger.info("setTaskType");
         this.taskType = taskType;
     }
 

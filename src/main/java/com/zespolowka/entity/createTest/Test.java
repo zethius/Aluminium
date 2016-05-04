@@ -44,9 +44,7 @@ public class Test {
     }
 
     public Boolean isOpenTest() {
-        if (password.length() > 0) {
-            return false;
-        } else return true;
+        return password.length() <= 0;
     }
 
     public void updateMaxPoints(Float points) {

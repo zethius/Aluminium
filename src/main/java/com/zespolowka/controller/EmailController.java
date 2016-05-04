@@ -51,8 +51,8 @@ public class EmailController {
     @RequestMapping("/sendMessage")
     public void sendMessage() {
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User sender = currentUser.getUser();
-        notificationService.createNotification(new Notification("GRUPOWA", "Temat", new Date(), Role.ADMIN, sender));
+                User sender=currentUser.getUser();
+               notificationService.createNotification(new Notification("GRUPOWA", "Temat", new Date(), Role.ADMIN,sender));
     }
 
     @Override

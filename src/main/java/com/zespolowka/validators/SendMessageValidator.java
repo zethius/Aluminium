@@ -52,7 +52,7 @@ public class SendMessageValidator implements Validator {
                     }
                 } else {
                     String st2 = st.toUpperCase();
-                    if (!Arrays.asList(Role.ADMIN.name(), Role.SUPERADMIN.name(), Role.USER.name()).contains(st2)) {
+                    if (!Arrays.asList(Role.ADMIN.name(), Role.SUPERADMIN.name(), Role.USER.name()).contains(st2)){
                         errors.rejectValue("receivers", "notification.role_invalid");
                     }
                 }

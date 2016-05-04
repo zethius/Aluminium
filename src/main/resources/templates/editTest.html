@@ -326,7 +326,6 @@
                             <a href="" th:attr="ng-click='removeQuestion(\''+${rowStat.index}+'\')'"><i
                                     class="glyphicon glyphicon-remove-circle usunPytanie"
                                     th:title="#{test.removeQuestion}"></i></a>
-
                             <div class="form-group col-md-10">
                                 <label for="sqlQuestion" th:text="${rowStat.count}+'. '+#{test.sqlQuestion}"/>
                                 <input type="text" class="form-control" id="sqlQuestion"
@@ -334,7 +333,6 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="nazwaTest" th:text="#{test.points}"/>
-
                                 <div class="input-group">
                                     <input type="number" class="form-control"
                                            th:field="*{tasks[__${rowStat.index}__].points}" th:min="1" id="nazwaTest"
@@ -353,7 +351,6 @@
                             <div class="form-group col-md-6">
                                 <label for="preparationsCode"
                                        th:text="#{test.preparationsCode}"/>
-
                                 <div class="input-group">
                                         <textarea id="preparationsCode" rows="5" class="form-control"
                                                   th:field="*{tasks[__${rowStat.index}__].preparations}"/>
@@ -367,7 +364,6 @@
                             <div class="form-group col-md-12">
                                 <label for="answerCode"
                                        th:text="#{test.answerSQL}"/>
-
                                 <div class="input-group">
                                         <textarea id="answerCode" rows="5" class="form-control"
                                                   th:field="*{tasks[__${rowStat.index}__].answer}"/>
@@ -414,7 +410,6 @@
             document.getElementById(baseCheckbox + '' + anotherCheckbox).checked = false;
         }
         if (document.getElementById(id).checked == false) {
-            alert(baseCheckbox + anotherCheckbox);
             if (document.getElementById(baseCheckbox + anotherCheckbox).checked == false) {
                 document.getElementById(baseCheckbox + '1').checked = true;
             }

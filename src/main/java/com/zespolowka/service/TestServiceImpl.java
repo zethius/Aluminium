@@ -2,11 +2,11 @@ package com.zespolowka.service;
 
 import com.zespolowka.entity.createTest.*;
 import com.zespolowka.entity.user.Role;
-import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.CreateTestForm;
 import com.zespolowka.forms.NewMessageForm;
 import com.zespolowka.forms.ProgrammingTaskForm;
 import com.zespolowka.forms.TaskForm;
+import com.zespolowka.repository.SolutionTestRepository;
 import com.zespolowka.repository.TestRepository;
 import com.zespolowka.service.inteface.NotificationService;
 import com.zespolowka.service.inteface.TestService;
@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,12 +28,16 @@ public class TestServiceImpl implements TestService {
 
     private final TestRepository testRepository;
 
+    private final SolutionTestRepository solutionTestRepository;
+
     private final NotificationService notificationService;
+
     private final UserService userService;
 
     @Autowired
-    public TestServiceImpl(final TestRepository testRepository, NotificationService notificationService, UserService userService) {
+    public TestServiceImpl(final TestRepository testRepository, SolutionTestRepository solutionTestRepository, NotificationService notificationService, UserService userService) {
         this.testRepository = testRepository;
+        this.solutionTestRepository = solutionTestRepository;
         this.notificationService = notificationService;
         this.userService = userService;
     }
@@ -50,79 +55,40 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public Test create(final CreateTestForm form) {
-        Test test = new Test();
-        List<TaskForm> taskFormList = form.getTasks();
-        test.setAttempts(Long.valueOf(form.getAttempts()));
-        test.setPassword(form.getPassword());
-        test.setTimePerAttempt(form.getTimePerAttempt());
-        test.setBeginDate(LocalDate.parse(form.getBeginDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        test.setEndDate(LocalDate.parse(form.getEndDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        test.setName(form.getName());
-        for (TaskForm taskForm : taskFormList) {
-            switch (taskForm.getTaskType()) {
-                case 0: {
-                    TaskClosed taskClosed = new TaskClosed(taskForm.getQuestion(), (float) taskForm.getPoints());
-                    String answerList = taskForm.getAnswer();
-                    String[] answers = answerList.split("[\\r\\n]+");
-                    for (String answer : answers) {
-                        if (answer.startsWith("<*>")) {
-                            taskClosed.getAnswers().put(answer.substring(3, answer.length()), true);
-                        } else {
-                            taskClosed.getAnswers().put(answer, false);
-                        }
-                    }
-                    if (taskForm.getWrongReset()) {
-                        taskClosed.setCountingType(taskClosed.WRONG_RESET);
-                    } else {
-                        taskClosed.setCountingType(taskClosed.COUNT_NOT_FULL);
-                    }
-                    test.addTaskToTest(taskClosed);
-                    break;
-                }
-                case 1: {
-                    TaskOpen taskOpen = new TaskOpen(taskForm.getQuestion(), (float) taskForm.getPoints());
-                    taskOpen.setAnswer(taskForm.getAnswer());
-                    taskOpen.setCaseSens(taskForm.getCaseSensitivity());
-                    test.addTaskToTest(taskOpen);
-                    break;
-                }
-                case 2: {
-                    TaskProgramming taskProgramming = new TaskProgramming(taskForm.getQuestion(), (float) taskForm.getPoints());
-                    Set<ProgrammingTaskForm> programmingTaskForms = taskForm.getProgrammingTaskForms();
-                    programmingTaskForms.stream().filter(ProgrammingTaskForm::getHidden).forEach(programmingTaskForm -> {
-                        logger.info(' ' + programmingTaskForm.toString());
-                        TaskProgrammingDetail taskProgrammingDetail = new TaskProgrammingDetail();
-                        taskProgrammingDetail.setTestCode(programmingTaskForm.getTestCode());
-                        taskProgrammingDetail.setWhiteList(programmingTaskForm.getWhiteList());
-                        taskProgrammingDetail.setLanguage(ProgrammingLanguages.valueOf(programmingTaskForm.getLanguage()));
-                        taskProgrammingDetail.setSolutionClassName(programmingTaskForm.getSolutionClassName());
-                        taskProgrammingDetail.setTestClassName(programmingTaskForm.getTestClassName());
-                        taskProgramming.addTaskkProgrammingDetail(taskProgrammingDetail);
-                    });
-                    test.addTaskToTest(taskProgramming);
-                    break;
-                }
-                case 3: {
-                    TaskSql taskSql = new TaskSql(taskForm.getQuestion(), (float) taskForm.getPoints());
-                    taskSql.setPreparations(taskForm.getPreparations());
-                    taskSql.setSqlAnswer(taskForm.getAnswer());
-                    test.addTaskToTest(taskSql);
-
-                    break;
-                }
-            }
-        }
-
+        Test test = createTestFromForm(form);
         ResourceBundle messages = ResourceBundle.getBundle("messages", LocaleContextHolder.getLocale());
         NewMessageForm newMessageForm = new NewMessageForm();
         newMessageForm.setReceivers(Role.USER.name());
         newMessageForm.setTopic(messages.getString("test_created.topic") + " " + test.getName());
         newMessageForm.setMessage(messages.getString("test_created.message"));
-        User system = userService.getUserById(1)
-                .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
-        logger.info("SYS:" + system);
-        newMessageForm.setSender(system);
         notificationService.sendMessage(newMessageForm);
+        return testRepository.save(test);
+    }
+
+    @Override
+    public Test update(CreateTestForm form, Long id) {
+        Test test = createTestFromForm(form);
+        Test test1 = testRepository.findTestById(id);
+        test1.setTimePerAttempt(test.getTimePerAttempt());
+        test1.setPassword(test.getPassword());
+        test1.setTasks(test.getTasks());
+        test1.setAttempts(test.getAttempts());
+        test1.setBeginDate(test.getBeginDate());
+        test1.setEndDate(test.getEndDate());
+        test1.setMaxPoints(test.getMaxPoints());
+        test1.setName(test.getName());
+        return testRepository.save(test1);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        solutionTestRepository.deleteSolutionTestsByTest(testRepository.findTestById(id));
+        testRepository.delete(id);
+    }
+
+    @Transactional
+    public Test update(Test test) {
         return testRepository.save(test);
     }
 
@@ -142,11 +108,18 @@ public class TestServiceImpl implements TestService {
                 taskForm.setTaskType(TaskForm.CLOSEDTASK);
                 taskForm.setQuestion(task.getQuestion());
                 taskForm.setPoints(task.getMax_points().intValue());
-                if (((TaskClosed) task).getCountingType() == TaskClosed.WRONG_RESET) taskForm.setWrongReset(true);
-                else taskForm.setCountNotFull(true);
+                if (((TaskClosed) task).getCountingType() == TaskClosed.WRONG_RESET) {
+                    taskForm.setWrongReset(true);
+                    taskForm.setCountNotFull(false);
+                } else {
+                    taskForm.setCountNotFull(true);
+                    taskForm.setWrongReset(false);
+                }
                 String answer = "";
                 for (Map.Entry<String, Boolean> stringBooleanEntry : ((TaskClosed) task).getAnswers().entrySet()) {
-                    answer = answer + stringBooleanEntry.getKey() + "\n";
+                    if (stringBooleanEntry.getValue()) {
+                        answer = answer + "<*>" + stringBooleanEntry.getKey() + "\n";
+                    } else answer = answer + stringBooleanEntry.getKey() + "\n";
                 }
                 taskForm.setAnswer((answer));
             } else if (task instanceof TaskOpen) {
@@ -188,14 +161,74 @@ public class TestServiceImpl implements TestService {
                 taskForm.setAnswer(((TaskSql) task).getSqlAnswer());
             }
             taskForms.add(taskForm);
-            logger.info(taskForm.toString());
         }
         createTestForm.setTasks(taskForms);
         return createTestForm;
     }
 
-    public Test update(Test test) {
-        return testRepository.save(test);
+    Test createTestFromForm(CreateTestForm form) {
+        Test test = new Test();
+        List<TaskForm> taskFormList = form.getTasks();
+        test.setAttempts(Long.valueOf(form.getAttempts()));
+        test.setPassword(form.getPassword());
+        test.setTimePerAttempt(form.getTimePerAttempt());
+        test.setBeginDate(LocalDate.parse(form.getBeginDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        test.setEndDate(LocalDate.parse(form.getEndDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        test.setName(form.getName());
+        for (TaskForm taskForm : taskFormList) {
+            switch (taskForm.getTaskType()) {
+                case 0: {
+                    TaskClosed taskClosed = new TaskClosed(taskForm.getQuestion(), (float) taskForm.getPoints());
+                    String answerList = taskForm.getAnswer();
+                    String[] answers = answerList.split("[\\r\\n]+");
+                    for (String answer : answers) {
+                        if (answer.startsWith("<*>")) {
+                            taskClosed.getAnswers().put(answer.substring(3, answer.length()), true);
+                        } else {
+                            taskClosed.getAnswers().put(answer, false);
+                        }
+                    }
+                    if (taskForm.getWrongReset()) {
+                        taskClosed.setCountingType(taskClosed.WRONG_RESET);
+                    } else {
+                        taskClosed.setCountingType(taskClosed.COUNT_NOT_FULL);
+                    }
+                    test.addTaskToTest(taskClosed);
+                    break;
+                }
+                case 1: {
+                    TaskOpen taskOpen = new TaskOpen(taskForm.getQuestion(), (float) taskForm.getPoints());
+                    taskOpen.setAnswer(taskForm.getAnswer());
+                    taskOpen.setCaseSens(taskForm.getCaseSensitivity());
+                    test.addTaskToTest(taskOpen);
+                    break;
+                }
+                case 2: {
+                    TaskProgramming taskProgramming = new TaskProgramming(taskForm.getQuestion(), (float) taskForm.getPoints());
+                    Set<ProgrammingTaskForm> programmingTaskForms = taskForm.getProgrammingTaskForms();
+                    programmingTaskForms.stream().filter(ProgrammingTaskForm::getHidden).forEach(programmingTaskForm -> {
+                        TaskProgrammingDetail taskProgrammingDetail = new TaskProgrammingDetail();
+                        taskProgrammingDetail.setTestCode(programmingTaskForm.getTestCode());
+                        taskProgrammingDetail.setWhiteList(programmingTaskForm.getWhiteList());
+                        taskProgrammingDetail.setLanguage(ProgrammingLanguages.valueOf(programmingTaskForm.getLanguage()));
+                        taskProgrammingDetail.setSolutionClassName(programmingTaskForm.getSolutionClassName());
+                        taskProgrammingDetail.setTestClassName(programmingTaskForm.getTestClassName());
+                        taskProgramming.addTaskkProgrammingDetail(taskProgrammingDetail);
+                    });
+                    test.addTaskToTest(taskProgramming);
+                    break;
+                }
+                case 3: {
+                    TaskSql taskSql = new TaskSql(taskForm.getQuestion(), (float) taskForm.getPoints());
+                    taskSql.setPreparations(taskForm.getPreparations());
+                    taskSql.setSqlAnswer(taskForm.getAnswer());
+                    test.addTaskToTest(taskSql);
+
+                    break;
+                }
+            }
+        }
+        return test;
     }
 
     @Override

@@ -16,8 +16,9 @@
                         href="/test/create"
                         th:text="#{navigation.createTest}"></a>
                 </li>
-                <li id="showResultsTab" sec:authorize="isAuthenticated()"><a href="#" th:text="#{navigation.results}"
-                                                                             th:href="@{/showResults}"></a></li>
+
+                <li id="showResultsTab" sec:authorize="isAuthenticated()"><a href="#" th:text="#{navigation.results}" th:href="@{/showResults}"></a></li>
+
                 <li id="usersTab" sec:authorize="hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')"><a href="/users"
                                                                                                          th:text="#{navigation.users}"></a>
                 </li>
