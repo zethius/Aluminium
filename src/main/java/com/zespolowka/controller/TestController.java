@@ -1,6 +1,14 @@
 package com.zespolowka.controller;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.zespolowka.entity.createTest.Test;
+import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.user.CurrentUser;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.CreateTestForm;
@@ -25,10 +33,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.awt.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.*;
 
 @Controller
 @RequestMapping("/test")
@@ -255,9 +263,75 @@ public class TestController {
         }
         return "userTests";
     }
+    public void createPDF(String header[], String body[][]){
+        logger.info("createSamplePDF");
+        Document documento = new Document();
+        //Create new File
+        File file = new File("D:/raport.pdf");
+        try {
+            file.createNewFile();
+            FileOutputStream fop = new FileOutputStream(file);
+            PdfWriter.getInstance(documento, fop);
+            documento.open();
+            //Fonts
+            Font fontHeader = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+            Font fontBody = new Font(Font.FontFamily.COURIER, 12, Font.NORMAL);
+            //Table for header
+            PdfPTable cabetabla = new PdfPTable(header.length);
+            for (int j = 0; j < header.length; j++) {
+                Phrase frase = new Phrase(header[j], fontHeader);
+                PdfPCell cell = new PdfPCell(frase);
+                cell.setBackgroundColor(new BaseColor(Color.lightGray.getRGB()));
+                cabetabla.addCell(cell);
+            }
+            documento.add(cabetabla);
+            //Table for body
+            PdfPTable tabla = new PdfPTable(header.length);
+            for (int i = 0; i < body.length; i++) {
+                for (int j = 0; j < body[i].length; j++) {
+                    tabla.addCell(new Phrase(body[i][j], fontBody));
+                }
+            }
+            documento.add(tabla);
+            documento.close();
+            fop.flush();
+            fop.close();
+        } catch (Exception e) {
+            logger.info("PDF BLAD");
+        }
+    }
 
 
 
+
+    @RequestMapping("/pdf/{id}")
+    public String PDF(@PathVariable final Long id, final Model model){
+        String[] header=new String[4];
+        header[0]="Pozycja";
+        header[1]="Osoba";
+        header[2]="Pkt";
+        header[3]="Data";
+
+        Collection<SolutionTest> tests=solutionTestService.getSolutionTestsByTest(testService.getTestById(id));
+        String[][] body=new String[2][4];
+        int i=0;
+        logger.info("PDF SIZE:"+tests.size());
+        for (SolutionTest test : tests) {
+            body[i][0]=""+test.getId();
+            body[i][1]=""+test.getUser().getName()+" "+test.getUser().getLastName();
+            body[i][2]=""+test.getPoints();
+            body[i][3]=""+test.getEndSolution();
+            i++;
+        }
+
+        for(int j=0; j<tests.size(); j++){
+            for( i=0; i<4; i++){
+                logger.info(body[j][i]);
+            }
+        }
+        createPDF(header,body);
+        return "redirect:/test/all";
+    }
 
     @Override
     public String toString() {

@@ -25,7 +25,7 @@
                             <th th:text="#{mainPage.startDate}"></th>
                             <th th:text="#{mainPage.endDate}"></th>
                             <th th:text="#{mainPage.points}"></th>
-                            <th th:text="#{mainPage.maxPoints}"></th>
+                            <th th:text="#{userTests.percent}"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -34,8 +34,8 @@
                             <td th:text="*{test.attempt}"/>
                             <td th:text="${#temporals.format(test.beginSolution, 'dd/MM/yyyy HH:mm:ss')}"/>
                             <td th:text="${#temporals.format(test.endSolution, 'dd/MM/yyyy HH:mm:ss')}"/>
-                            <td th:text="*{test.points}"/>
-                            <td th:text="*{test.test.maxPoints}"/>
+                            <td th:text="*{test.points}+'/'+*{test.test.maxPoints}"/>
+                            <td th:text="*{test.points}/*{test.test.maxPoints}*100+'%'"/>
                         </tr>
                         </tbody>
                     </table>
@@ -49,6 +49,7 @@
                             <th th:text="#{mainPage.startDate}"></th>
                             <th th:text="#{mainPage.endDate}"></th>
                             <th th:text="#{mainPage.points}"></th>
+                            <th th:text="#{userTests.percent}"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -57,7 +58,8 @@
                             <td th:text="*{test.attempt}"/>
                             <td th:text="${#temporals.format(test.beginSolution, 'dd/MM/yyyy HH:mm:ss')}"/>
                             <td th:text="${#temporals.format(test.endSolution, 'dd/MM/yyyy HH:mm:ss')}"/>
-                            <td th:text="*{test.points}"/>
+                            <td th:text="*{test.points}+'/'+*{test.test.maxPoints}"/>
+                            <td th:text="*{test.points}/*{test.test.maxPoints}*100+'%'"/>
                         </tr>
                         </tbody>
                     </table>
@@ -71,5 +73,9 @@
 </body>
 <script layout:fragment="customScripts">
     document.getElementById("showResultsTab").className = "active";
+    function myFunction(p1, p2) {
+    alert(p1/p2*100);
+    return p1/p2*100;
+    }
 </script>
 </html>

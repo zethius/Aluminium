@@ -19,6 +19,28 @@ function loadEntity(url) {
         populateModal(data);
     });
 }
+function showReopen(index, name) {
+    $('#nazwaTestu2').text(name);
+    id=index;
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+    if(dd<10) {
+        dd='0'+dd
+    }
+    if(mm<10) {
+        mm='0'+mm
+    }
+    today = yyyy+'-'+mm+'-'+dd;
+    document.getElementById("dataZamkniecia").value =today;
+    $('#Reopen').modal('show');
+}
+function changeDate(date){
+    href="/setTestDate?id="+id+"&date="+date.value;
+
+    document.getElementById('form_reopen').setAttribute("action", href);
+}
 function populateModal(data) {
     $('#nazwaTestu').text(data.name);
     href = "/getSolutionTest?id=" + data.id;
@@ -50,12 +72,31 @@ function showAttemptsModal(index, name) {
                 lastPoints = data[i].points;
                 counter++;
             }
+            var year=data[i].endSolution.year;
+            var day=data[i].endSolution.dayOfMonth;
+            var month=data[i].endSolution.monthValue;
+            var hours=data[i].endSolution.hour;
+            var minutes=data[i].endSolution.minute;
+            var seconds=data[i].endSolution.second;
+
+            if(day < 10)
+                day = '0'+day;
+            if(month < 10)
+                month = '0'+month;
+            if(hours < 10)
+                hours= '0'+hours;
+            if(minutes < 10)
+                minutes = '0'+minutes;
+            if(seconds < 10)
+                seconds = '0'+seconds;
+
             table.fnAddData([
                 counter,
                 data[i].user.name + " " + data[i].user.lastName,
-                data[i].points,
-                '<a href="/solutionTest/' + data[i].id + '">Zobacz</a>'
-            ]);
+                data[i].points+"/"+data[i].test.maxPoints,
+                parseFloat(data[i].points/data[i].test.maxPoints*100),
+                day+'/'+month+'/'+year+' '+hours+':'+minutes+':'+seconds,
+                '<a href="/solutionTest/' + data[i].id + '">Zobacz</a>']);
         }
         table.fnSort([[0, 'asc']]);
         $('#wynikiA').modal('show');

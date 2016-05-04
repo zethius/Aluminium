@@ -214,6 +214,7 @@ public class SolutionTestController {
         return "redirect:/test/all";
     }
 
+
     @RequestMapping(value = "/showResults", method = RequestMethod.GET)
     public String showCurrentUserTests(final Model model) {
         logger.info("nazwa metody = showCurrentUserTests");

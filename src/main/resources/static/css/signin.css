@@ -122,6 +122,10 @@ body {
     background: #0088cc none;
 }
 
+.modal.fade.wyniki .modal-dialog {
+    width: 60%;
+}
+
 .jumbotron h1 {
     font-size: 28px;
     border-bottom: 1px dashed #ddd;
