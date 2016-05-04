@@ -10,7 +10,7 @@
         <th:block th:text="#{testSolutionError}"></th:block>
     </div>
     <form th:if="!${testSolutionError}" class="form-register" action="/solutionTest" enctype="multipart/form-data"
-          method="post"
+          method="post" id="form"
           th:object="${solutionTest}">
 
 
@@ -99,12 +99,35 @@
                 </div>
                 <input type="hidden" th:name="${_csrf != null ? _csrf.parameterName : 'testing'}"
                        th:value="${_csrf != null ? _csrf.token : 'testing'}"/>
-                <input type="submit" name="submit" id="submit" th:value="#{testSolution.finishApproach}"
-                       class="btn btn-primary pull-right"/>
-
+                <input type="button" data-toggle="modal" data-target="#myModal" th:value="#{testSolution.finishApproach}"
+                       class="btn btn-primary pull-right"  />
             </div>
         </div>
 
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="background: #347AB6; color: white">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" th:text="#{testSolution.warning}"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <p th:text="#{testSolution.confirmText}"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" name="submit1" id="submit" th:value="#{testSolution.buttonConfirm}"
+                               class="btn btn-primary pull-right" />
+                        <input type="button" class="btn btn-default" data-dismiss="modal" th:value="#{testSolution.buttonClose}"></input>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- End of modal -->
     </form>
 
 </div>
