@@ -45,7 +45,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
 
     private int taskNo = 0;
 
-    private String dir = "/home/pitek/zespolowka/skrypty/";
+    private String dir = "/var/www/Aluminium/Team_Programming_Rewritten/";
 
     private String resultDir = "/tmp/";
 
