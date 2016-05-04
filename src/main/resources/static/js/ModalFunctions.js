@@ -50,12 +50,31 @@ function showAttemptsModal(index, name) {
                 lastPoints=data[i].points;
                 counter++;
             }
+            var year=data[i].endSolution.year;
+            var day=data[i].endSolution.dayOfMonth;
+            var month=data[i].endSolution.monthValue;
+            var hours=data[i].endSolution.hour;
+            var minutes=data[i].endSolution.minute;
+            var seconds=data[i].endSolution.second;
+
+            if(day < 10)
+                day = '0'+day;
+            if(month < 10)
+                month = '0'+month;
+            if(hours < 10)
+                hours= '0'+hours;
+            if(minutes < 10)
+                minutes = '0'+minutes;
+            if(seconds < 10)
+                seconds = '0'+seconds;
+
             table.fnAddData([
                 counter,
                 data[i].user.name + " " + data[i].user.lastName,
-                data[i].points,
-                '<a href="/solutionTest/' + data[i].id + '">Zobacz</a>'
-                ]);
+                data[i].points+"/"+data[i].test.maxPoints,
+                parseFloat(data[i].points/data[i].test.maxPoints*100),
+                day+'/'+month+'/'+year+' '+hours+':'+minutes+':'+seconds,
+                '<a href="/solutionTest/' + data[i].id + '">Zobacz</a>']);
         }
         table.fnSort([[1, 'desc']]);
         $('#wynikiA').modal('show');

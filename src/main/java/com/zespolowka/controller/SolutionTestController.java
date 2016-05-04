@@ -120,6 +120,20 @@ public class SolutionTestController {
         return (List<SolutionTest>) solutionTestService.getSolutionTestsByTest(testService.getTestById(id));
     }
 
+    @RequestMapping(value = "/showResults", method = RequestMethod.GET)
+    public String showCurrentUserTests(final Model model) {
+        logger.info("nazwa metody = showCurrentUserTests");
+        try {
+            final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            final User user = currentUser.getUser();
+            model.addAttribute("Tests", solutionTestService.getSolutionTestsByUser(user));
+            model.addAttribute("BestTest", solutionTestService.getSolutionsWithTheBestResult(user));
+        } catch (final RuntimeException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "userTests";
+    }
+
 
     @Override
     public String toString() {
