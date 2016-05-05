@@ -14,11 +14,11 @@
             <h3 class="panel-title" th:text="#{tests.testsManagement}"></h3>
         </div>
         <div class="panel-body">
-            <div th:if="${dataStarsza}" class="alert alert-danger" role="alert">Data starsza
+            <div th:if="${dataStarsza}" class="alert alert-danger" role="alert" th:text="#{test.dateOld}">Data starsza
             </div>
-            <div th:if="${testOtwarty}" class="alert alert-danger" role="alert">Test jest wciaz otwarty
+            <div th:if="${testOtwarty}" class="alert alert-danger" role="alert" th:text="#{test.testStillActive}">Test jest wciaz otwarty
             </div>
-            <div th:if="${sukces}" class="alert alert-success" role="alert">Ponownie otwarto test
+            <div th:if="${sukces}" class="alert alert-success" role="alert" th:text="#{test.dateChanged}">Ponownie otwarto test
             </div>
 
             <table class="table table-striped table-bordered grid" cellspacing="0" width="100%">
@@ -50,6 +50,9 @@
                         <a th:href="${'/test/delete/' + test.id}" onclick="return confirmDelete()">
                             <i class="glyphicon glyphicon-remove" aria-hidden="true"
                                th:title="#{tests.removeTest}"></i>
+                        </a>
+                        <a th:href="${'/test/pdf/' + test.id}" title="save PDF">
+                            <i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i>
                         </a>
                     </td>
                 </tr>

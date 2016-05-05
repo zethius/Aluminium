@@ -53,7 +53,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/remindPassword", method = RequestMethod.POST)
-    public String sendRemindPassword(HttpServletRequest request) {
+    public String sendRemindPassword(HttpServletRequest request, Model model) {
         logger.info("nazwa metody = sendRemindPassword");
         String email = request.getParameter("username");
         try {
@@ -61,6 +61,7 @@ public class LoginController {
                     .orElseThrow(() -> new UsernameNotFoundException(String.format("Uzytkownik z mailem=%s nie istnieje", email)));
             sendMailService.sendReminderMail(user);
             logger.info("Email:", email);
+            model.addAttribute("sukces",true);
         } catch (Exception ex) {
             logger.info(ex.getMessage());
         }
