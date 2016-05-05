@@ -1,12 +1,5 @@
 package com.zespolowka.controller;
 
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 import com.zespolowka.entity.createTest.Test;
 import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.user.CurrentUser;
@@ -32,10 +25,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.awt.*;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
@@ -263,74 +261,81 @@ public class TestController {
         }
         return "userTests";
     }
-    public void createPDF(String header[], String body[][]){
-        logger.info("createSamplePDF");
-        Document documento = new Document();
-        //Create new File
-        File file = new File("D:/raport.pdf");
-        try {
-            file.createNewFile();
-            FileOutputStream fop = new FileOutputStream(file);
-            PdfWriter.getInstance(documento, fop);
-            documento.open();
-            //Fonts
-            Font fontHeader = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
-            Font fontBody = new Font(Font.FontFamily.COURIER, 12, Font.NORMAL);
-            //Table for header
-            PdfPTable cabetabla = new PdfPTable(header.length);
-            for (int j = 0; j < header.length; j++) {
-                Phrase frase = new Phrase(header[j], fontHeader);
-                PdfPCell cell = new PdfPCell(frase);
-                cell.setBackgroundColor(new BaseColor(Color.lightGray.getRGB()));
-                cabetabla.addCell(cell);
-            }
-            documento.add(cabetabla);
-            //Table for body
-            PdfPTable tabla = new PdfPTable(header.length);
-            for (int i = 0; i < body.length; i++) {
-                for (int j = 0; j < body[i].length; j++) {
-                    tabla.addCell(new Phrase(body[i][j], fontBody));
-                }
-            }
-            documento.add(tabla);
-            documento.close();
-            fop.flush();
-            fop.close();
-        } catch (Exception e) {
-            logger.info("PDF BLAD");
-        }
-    }
-
-
-
 
     @RequestMapping("/pdf/{id}")
-    public String PDF(@PathVariable final Long id, final Model model){
-        String[] header=new String[4];
-        header[0]="Pozycja";
-        header[1]="Osoba";
-        header[2]="Pkt";
-        header[3]="Data";
+    public void getPDF(@PathVariable final Long id, HttpServletRequest request,
+                       HttpServletResponse response) {
 
-        Collection<SolutionTest> tests=solutionTestService.getSolutionTestsByTest(testService.getTestById(id));
-        String[][] body=new String[2][4];
-        int i=0;
-        logger.info("PDF SIZE:"+tests.size());
-        for (SolutionTest test : tests) {
-            body[i][0]=""+test.getId();
-            body[i][1]=""+test.getUser().getName()+" "+test.getUser().getLastName();
-            body[i][2]=""+test.getPoints();
-            body[i][3]=""+test.getEndSolution();
-            i++;
-        }
+        Collection<SolutionTest> tests = solutionTestService.getSolutionTestsByTest(testService.getTestById(id));
+        final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        for(int j=0; j<tests.size(); j++){
-            for( i=0; i<4; i++){
-                logger.info(body[j][i]);
+        String[] header = new String[5];
+        header[0] = "Lp";
+        header[1] = "Osoba";
+        header[2] = "Wynik testu";
+        header[3] = "%";
+        header[4] = "Data rozwiazania testu";
+
+        String[][] body = new String[tests.size()][5];
+        int i = 0;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        if (tests.size() > 0) {
+            String title = "Raport z dnia: " + LocalDate.now() + "\nDla: " + tests.iterator().next().getTest().getName() + "\n\n";
+            for (SolutionTest test : tests) {
+                body[i][0] = "" + (i + 1);
+                body[i][1] = "" + test.getUser().getName() + " " + test.getUser().getLastName() + ", " + test.getUser().getEmail();
+                body[i][2] = "" + test.getPoints() + " / " + test.getTest().getMaxPoints();
+                float procent = (test.getPoints() / test.getTest().getMaxPoints()) * 100;
+                body[i][3] = "" + procent + " %";
+                body[i][4] = "" + formatter.format(test.getEndSolution());
+                i++;
+            }
+
+            String filePath = "RaportDla" + currentUser.getUser().getId() + ".pdf";
+            ServletContext context = request.getServletContext();
+            String appPath = context.getRealPath("");
+            String fullPath = appPath + filePath.replaceAll(" ","");
+            logger.info("PDF utworzony w: " + fullPath);
+            File file = new File(fullPath.replaceAll(" ",""));
+            testService.createPDF(file, title, header, body);
+
+            try {
+                FileInputStream inputStream = new FileInputStream(file);
+                response.setContentType("application/pdf");
+                org.apache.commons.io.IOUtils.copy(inputStream, response.getOutputStream());
+                response.flushBuffer();
+
+                //METODA POBRANIA PDF
+                /*
+                String mimeType = context.getMimeType(fullPath);
+                if (mimeType == null) {
+                    // set to binary type if MIME mapping not found
+                    mimeType = "application/octet-stream";
+                }
+                // set content attributes for the response
+                response.setContentType(mimeType);
+                response.setContentLength((int) file.length());
+                // set headers for the response
+                String headerKey = "Content-Disposition";
+                String headerValue = String.format("attachment; filename=\"%s\"",
+                        file.getName());
+                response.setHeader(headerKey, headerValue);
+                // get output stream of the response
+                OutputStream outStream = response.getOutputStream();
+                byte[] buffer = new byte[4096];
+                int bytesRead = -1;
+                // write bytes read from the input stream into the output stream
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outStream.write(buffer, 0, bytesRead);
+                }
+                outStream.close();
+                */
+                inputStream.close();
+                Files.delete(file.toPath());
+            } catch (Exception ex) {
+                logger.info("FILE NOT FOUND: " + ex.getMessage());
             }
         }
-        createPDF(header,body);
-        return "redirect:/test/all";
     }
 
     @Override

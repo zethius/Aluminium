@@ -1,5 +1,11 @@
 package com.zespolowka.service;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.zespolowka.entity.createTest.*;
 import com.zespolowka.entity.user.Role;
 import com.zespolowka.forms.CreateTestForm;
@@ -18,9 +24,13 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.*;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.List;
 
 @Service
 public class TestServiceImpl implements TestService {
@@ -234,6 +244,50 @@ public class TestServiceImpl implements TestService {
     @Override
     public Collection<Test> getTestByEndDateBefore(LocalDate date) {
         return testRepository.findByEndDateBefore(date);
+    }
+
+    @Override
+    public void createPDF(File file, String title, String header[], String body[][]) {
+
+        logger.info("createPDF");
+        Document documento = new Document();
+        float[] columnWidths = new float[]{15f, 30f, 30f, 15f, 40f};
+        try {
+            file.createNewFile();
+            FileOutputStream fop = new FileOutputStream(file);
+            PdfWriter.getInstance(documento, fop);
+            documento.open();
+            documento.add(new Paragraph(title, FontFactory.getFont(FontFactory.defaultEncoding, 20, Font.BOLD, BaseColor.BLACK)));
+            //Fonts
+            Font fontHeader = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+            Font fontBody = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+            //Table for header
+            PdfPTable cabetabla = new PdfPTable(header.length);
+            for (int j = 0; j < header.length; j++) {
+                Phrase frase = new Phrase(header[j], fontHeader);
+                PdfPCell cell = new PdfPCell(frase);
+                cell.setBackgroundColor(new BaseColor(Color.lightGray.getRGB()));
+                cabetabla.addCell(cell);
+            }
+
+            cabetabla.setWidths(columnWidths);
+            documento.add(cabetabla);
+            //Table for body
+            PdfPTable tabla = new PdfPTable(header.length);
+            for (int i = 0; i < body.length; i++) {
+                for (int j = 0; j < body[i].length; j++) {
+                    tabla.addCell(new Phrase(body[i][j], fontBody));
+                }
+            }
+            tabla.setWidths(columnWidths);
+            documento.add(tabla);
+
+            documento.close();
+            fop.flush();
+            fop.close();
+        } catch (Exception e) {
+            logger.info("PDF BLAD" + e.getMessage());
+        }
     }
 
     @Override

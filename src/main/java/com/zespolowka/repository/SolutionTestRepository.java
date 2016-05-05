@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface SolutionTestRepository extends JpaRepository<SolutionTest, Long>, CustomSolutionTestRepository {
+    @Transactional
     SolutionTest findSolutionTestById(Long id);
 
     Collection<SolutionTest> findSolutionTestsByUserAndTestAndSolutionStatus(User user, Test test, SolutionStatus solutionStatus);
@@ -24,6 +25,7 @@ public interface SolutionTestRepository extends JpaRepository<SolutionTest, Long
 
     Collection<SolutionTest> findSolutionTestsByTestAndSolutionStatusOrderByPointsDesc(Test test, SolutionStatus solutionStatus);
 
+    @Transactional
     Optional<SolutionTest> findSolutionTestByTestAndUserAndSolutionStatus(Test test, User user, SolutionStatus solutionStatus);
 
     @Transactional
