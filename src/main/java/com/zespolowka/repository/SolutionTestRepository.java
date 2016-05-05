@@ -20,6 +20,8 @@ public interface SolutionTestRepository extends JpaRepository<SolutionTest, Long
 
     Integer countSolutionTestsByUserAndTestAndSolutionStatus(User user, Test test, SolutionStatus solutionStatus);
 
+    Integer countSolutionTestsByTestAndSolutionStatus(Test test, SolutionStatus solutionStatus);
+
     Collection<SolutionTest> findSolutionTestsByUserAndSolutionStatus(User user, SolutionStatus solutionStatus);
 
     Collection<SolutionTest> findSolutionTestsByTestAndSolutionStatusOrderByPointsDesc(Test test, SolutionStatus solutionStatus);

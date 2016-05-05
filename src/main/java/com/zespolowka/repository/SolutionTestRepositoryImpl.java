@@ -52,5 +52,18 @@ public class SolutionTestRepositoryImpl implements CustomSolutionTestRepository 
         return query.getResultList();
     }
 
+    @Override
+    public List<Integer> getNumberOfAttempts(Test test) {
+        String sql =
+                "SELECT test, SUM(attempts)" +
+                        "FROM SolutionTest" +
+                        "where ";
+        Query query = em.createQuery(sql);
+        query.setParameter("test", test);
+        List<Integer> numberOfAttempts = query.getResultList();
+
+        return numberOfAttempts;
+    }
+
 }
 

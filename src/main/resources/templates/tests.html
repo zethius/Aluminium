@@ -28,26 +28,28 @@
                     <th th:text="#{test.testAttempts}"></th>
                     <th th:text="#{test.testDateBegin}"></th>
                     <th th:text="#{test.testDateEnd}"></th>
+                    <th th:text="#{tests.attemptValue}"></th>
                     <th th:text="#{test.options}"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="test : ${Tests}">
-                    <td th:text="${test.name}"></td>
-                    <td th:text="${test.attempts}"></td>
-                    <td th:text="${test.beginDate}"></td>
-                    <td th:text="${test.endDate}"></td>
+                    <td th:text="${test.key.name}"></td>
+                    <td th:text="${test.key.attempts}"></td>
+                    <td th:text="${test.key.beginDate}"></td>
+                    <td th:text="${test.key.endDate}"></td>
+                    <td th:text="${test.value}"></td>
                     <td>
                         <a class="glyphicon glyphicon-list-alt" aria-hidden="true" title="wyniki"
-                           th:onclick="'showAttemptsModal(' + ${test.id} +',\''+${test.name} +'\')'">
+                           th:onclick="'showAttemptsModal(' + ${test.key.id} +',\''+${test.key.name} +'\')'">
                         </a>
                         <a class="glyphicon glyphicon-retweet" aria-hidden="true" title="reopen"
-                           th:onclick="'showReopen(' + ${test.id} +',\''+${test.name} +'\')'">
+                           th:onclick="'showReopen(' + ${test.key.id} +',\''+${test.key.name} +'\')'">
                         </a>
-                        <a th:href="${'/test/edit/' + test.id}"><span class="glyphicon glyphicon-pencil"
+                        <a th:href="${'/test/edit/' + test.key.id}"><span class="glyphicon glyphicon-pencil"
                                                                       aria-hidden="true"
                                                                       title="edytuj"></span></a>
-                        <a th:href="${'/test/delete/' + test.id}" onclick="return confirmDelete()">
+                        <a th:href="${'/test/delete/' + test.key.id}" onclick="return confirmDelete()">
                             <i class="glyphicon glyphicon-remove" aria-hidden="true"
                                th:title="#{tests.removeTest}"></i>
                         </a>

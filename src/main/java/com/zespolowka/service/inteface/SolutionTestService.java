@@ -44,4 +44,6 @@ public interface SolutionTestService {
     Optional<SolutionTest> findSolutionTestByTestAndUserAndSolutionStatus(Test test, User user, SolutionStatus solutionStatus);
 
     SolutionTestForm createFormWithExistingSolution(SolutionTest solutionTest);
+
+    Integer countSolutionTestsByTestAndSolutionStatus(Test test, SolutionStatus solutionStatus);
 }

@@ -78,6 +78,7 @@ function showAttemptsModal(index, name) {
             var hours=data[i].endSolution.hour;
             var minutes=data[i].endSolution.minute;
             var seconds=data[i].endSolution.second;
+            var percent = parseFloat(data[i].points/data[i].test.maxPoints*100);
 
             if(day < 10)
                 day = '0'+day;
@@ -94,7 +95,7 @@ function showAttemptsModal(index, name) {
                 counter,
                 data[i].user.name + " " + data[i].user.lastName,
                 data[i].points+"/"+data[i].test.maxPoints,
-                parseFloat(data[i].points/data[i].test.maxPoints*100),
+                percent.toPrecision(4)+'%',
                 day+'/'+month+'/'+year+' '+hours+':'+minutes+':'+seconds,
                 '<a href="/solutionTest/' + data[i].id + '">Zobacz</a>']);
         }

@@ -43,7 +43,7 @@
                         <a href="#my_modal" class="glyphicon glyphicon-list-alt something" aria-hidden="true"
                            title="wyniki"
                            th:attr="data-email=${user.email}, data-name=${user.name}, data-lastname=${user.lastName}, data-role=${user.role}, data-id=${user.id}"
-                           data-toggle="modal" data-target="#wynikiA"></a>
+                           data-toggle="modal" data-target="#wynikiA" ></a>
                         <a th:href="${'/user/delete/' + user.id}" onclick="return confirmDelete()">
                             <i class="glyphicon glyphicon-remove" aria-hidden="true"
                                th:title="#{users.removeUser}"></i>
@@ -192,8 +192,6 @@
         }
     }
 
-
-    $(document).ready(function () {
         $(".something").click(function () { // Click to only happen on announce links
             $("#InputId").val($(this).data('id'));
             $("#InputImie").val($(this).data('name'));
@@ -203,7 +201,6 @@
             $("#InputRola2").val($(this).data('role'));
             <!--  $('#wynikiA').modal('show'); -->
         });
-    });
 
 </script>
 </html>

@@ -11,4 +11,5 @@ public interface CustomSolutionTestRepository {
     SolutionTest getSolutionWithTheBestResult(Test test, User user);
 
     List<SolutionTest> getSolutionsWithTheBestResult(User user, SolutionStatus solutionStatus);
+    List<Integer> getNumberOfAttempts(Test test);
 }

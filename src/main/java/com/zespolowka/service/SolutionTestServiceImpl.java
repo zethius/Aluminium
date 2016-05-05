@@ -56,6 +56,10 @@ public class SolutionTestServiceImpl implements SolutionTestService {
         this.notificationService = notificationService;
     }
 
+    public Integer countSolutionTestsByTestAndSolutionStatus(Test test, SolutionStatus solutionStatus){
+        return solutionTestRepository.countSolutionTestsByTestAndSolutionStatus(test, solutionStatus);
+    }
+
     @Override
     public List<SolutionTest> getSolutionsWithTheBestResult(User user) {
         return solutionTestRepository.getSolutionsWithTheBestResult(user, SolutionStatus.FINISHED);
