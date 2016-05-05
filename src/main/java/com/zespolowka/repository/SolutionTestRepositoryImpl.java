@@ -1,6 +1,5 @@
 package com.zespolowka.repository;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.zespolowka.entity.createTest.Test;
 import com.zespolowka.entity.solutionTest.SolutionStatus;
 import com.zespolowka.entity.solutionTest.SolutionTest;

@@ -1,10 +1,5 @@
 package com.zespolowka.controller;
 
-import com.itextpdf.text.*;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 import com.zespolowka.entity.createTest.Test;
 import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.user.CurrentUser;
@@ -20,7 +15,6 @@ import com.zespolowka.validators.CreateTestValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -35,8 +29,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.awt.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -280,7 +274,7 @@ public class TestController {
         header[1]="Osoba";
         header[2]="Wynik testu";
         header[3]="%";
-        header[4]="Data rozwiazania testu";
+        header[4]="Data rozwiązania testu";
 
         String[][] body=new String[tests.size()][5];
         int i=0;
