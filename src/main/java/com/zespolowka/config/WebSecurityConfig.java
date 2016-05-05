@@ -2,8 +2,12 @@ package com.zespolowka.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.boot.autoconfigure.web.HttpEncodingProperties;
+import org.springframework.boot.context.web.OrderedCharacterEncodingFilter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -18,6 +22,7 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.WebUtils;
 
@@ -47,11 +52,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler = new CustomAuthenticationSuccessHandler();
 
+    @Autowired
+    private HttpEncodingProperties httpEncodingProperties;
+
     public WebSecurityConfig() {
     }
 
+    @Bean
+    public OrderedCharacterEncodingFilter characterEncodingFilter() {
+        OrderedCharacterEncodingFilter filter = new OrderedCharacterEncodingFilter();
+        filter.setEncoding(this.httpEncodingProperties.getCharset().name());
+        filter.setForceEncoding(this.httpEncodingProperties.isForce());
+        filter.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return filter;
+    }
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
         http
                 .authorizeRequests()
                 .antMatchers("/register", "/login**", "/registrationConfirm**", "/remindPassword")
@@ -72,7 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .rememberMe()
-                .and()
+                .and().addFilterBefore(filter,CsrfFilter.class )
                 .csrf().csrfTokenRepository(csrfTokenRepository()).and()
                 .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
 

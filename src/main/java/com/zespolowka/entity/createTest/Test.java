@@ -19,7 +19,7 @@ public class Test {
     private Float maxPoints;
     private String password = "";
     private Integer timePerAttempt;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
     private List<Task> tasks;
 
 

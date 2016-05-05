@@ -1,10 +1,10 @@
 package com.zespolowka.repository;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.zespolowka.entity.createTest.Test;
 import com.zespolowka.entity.solutionTest.SolutionStatus;
 import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.user.User;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -50,6 +50,16 @@ public class SolutionTestRepositoryImpl implements CustomSolutionTestRepository 
         query.setParameter("user", user);
         query.setParameter("solutionStatus", solutionStatus);
         return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public SolutionTest update(SolutionTest solutionTest, Test test) {
+        System.out.println("chujow100"+solutionTest.getTest().getTasks().toString());
+        solutionTest.setTest(test);
+        em.merge(solutionTest);
+        System.out.println("chujow100"+solutionTest.getTest().getTasks().toString());
+        return solutionTest;
     }
 
 }
