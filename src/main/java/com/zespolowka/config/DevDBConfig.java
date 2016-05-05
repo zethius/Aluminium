@@ -100,7 +100,7 @@ public class DevDBConfig {
     }
 
     public void createTests() {
-        Test test = new Test("Przykładowy test bez hasła", 3L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>());
+        Test test = new Test("Przykładowy test bez hasła", 3L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>(),"TO JEST PRZYKLADOWY FAQ TESTU TRALALALALALALLALALALA");
         test.setTimePerAttempt(90);
         test.setPassword("");
         TaskClosed taskClosed = new TaskClosed("Ile to jest 2+2*2", 6.0f);
@@ -151,7 +151,7 @@ public class DevDBConfig {
         test.addTaskToTest(taskOpen);
         test = testRepository.save(test);
 
-        test = new Test("Przykładowy test z hasłem", 3L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>());
+        test = new Test("Przykładowy test z hasłem", 3L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>(),"TO JEST PRZYKLADOWY FAQ TESTU TRALALALALALALLALALALA");
         test.setTimePerAttempt(90);
         test.setPassword("haslo");
         taskClosed = new TaskClosed("Ile to jest 2+2*2", 6.0f);
@@ -202,7 +202,7 @@ public class DevDBConfig {
         test.addTaskToTest(taskOpen);
         test = testRepository.save(test);
 
-        Test test2 = new Test("KurzeTesty", 10L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>());
+        Test test2 = new Test("KurzeTesty", 10L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>(),"TO JEST PRZYKLADOWY FAQ TESTU TRALALALALALALLALALALA");
         TaskProgramming taskProgramming = new TaskProgramming("Zadanie z Javy", 100.0f);
         TaskProgrammingDetail taskProgrammingDetail = new TaskProgrammingDetail();
         taskProgrammingDetail.setLanguage(ProgrammingLanguages.JAVA);
@@ -630,7 +630,7 @@ public class DevDBConfig {
 
     public void createFakeTestsAndSolutionTestsWithClosedTask() {
         for (int i = 0; i < 10; i++) {
-            Test test = new Test("PrzykladowyTest" + i, 3L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>());
+            Test test = new Test("PrzykladowyTest" + i, 3L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>(), "TO JEST PRZYKLADOWY FAQ TESTU TRALALALALALALLALALALA");
             test.setTimePerAttempt(i);
             if (i % 3 == 0) test.setPassword("password");
             else test.setPassword("");

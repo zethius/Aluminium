@@ -29,6 +29,7 @@
                     <th th:text="#{test.testDateBegin}"></th>
                     <th th:text="#{test.testDateEnd}"></th>
                     <th th:text="#{tests.attemptValue}"></th>
+                    <th th:text="#{tests.attemptValue}"></th>
                     <th th:text="#{test.options}"></th>
                 </tr>
                 </thead>
@@ -39,6 +40,7 @@
                     <td th:text="${test.key.beginDate}"></td>
                     <td th:text="${test.key.endDate}"></td>
                     <td th:text="${test.value}"></td>
+                    <td th:text="${test.key.messageFAQ}"></td>
                     <td>
                         <a class="glyphicon glyphicon-list-alt" aria-hidden="true" title="wyniki"
                            th:onclick="'showAttemptsModal(' + ${test.key.id} +',\''+${test.key.name} +'\')'">
@@ -85,6 +87,7 @@
                                                    class="btn btn-primary pull-right"
                                                    th:onclick="'changeDate(' + dataZamkniecia + ')'"
                                             />
+
                                         </div>
                                     </div>
                                 </div>

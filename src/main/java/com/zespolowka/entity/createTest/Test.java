@@ -13,13 +13,14 @@ public class Test {
     @Column(name = "idTest")
     private Long id;
     private String name;
+    private String messageFAQ="";
     private Long attempts;
     private LocalDate beginDate;
     private LocalDate endDate;
     private Float maxPoints;
     private String password = "";
     private Integer timePerAttempt;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
     private List<Task> tasks;
 
 
@@ -29,13 +30,14 @@ public class Test {
         this.password = "";
     }
 
-    public Test(final String name, final Long attempts, final LocalDate beginDate, final LocalDate endDate, final List<Task> tasks) {
+    public Test(final String name, final Long attempts, final LocalDate beginDate, final LocalDate endDate, final List<Task> tasks, final String messageFAQ) {
         this.name = name;
         this.attempts = attempts;
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.tasks = tasks;
         this.maxPoints = 0.0f;
+        this.messageFAQ = messageFAQ;
     }
 
     public void addTaskToTest(final Task task) {
@@ -65,6 +67,14 @@ public class Test {
 
     public void setName(final String name) {
         this.name = name;
+    }
+
+    public String getMessageFAQ() {
+        return messageFAQ;
+    }
+
+    public void setMessageFAQ(final String messageFAQ) {
+        this.messageFAQ = messageFAQ;
     }
 
     public Long getAttempts() {

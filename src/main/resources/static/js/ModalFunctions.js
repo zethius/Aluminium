@@ -3,6 +3,7 @@ var testModalTarget = url + "loadEntity/";
 var haslo = "";
 var isOpen;
 var href = "";
+var messageFAQ="";
 function showTestModal(index, value) {
     isOpen = value;
     var editUrl = testModalTarget + index;
@@ -11,9 +12,12 @@ function showTestModal(index, value) {
         $("#spanTest").remove();
         document.getElementById('haslodostepu').style.display = "none";
         $("#labelhaslo").remove();
-    }
+    }else
+        document.getElementById('haslodostepu').style.display = "inline";
     loadEntity(editUrl);
 }
+
+
 function loadEntity(url) {
     $.getJSON(url, {}, function (data) {
         populateModal(data);
@@ -45,6 +49,8 @@ function populateModal(data) {
     $('#nazwaTestu').text(data.name);
     href = "/getSolutionTest?id=" + data.id;
     haslo = data.password;
+    messageFAQ = data.messageFAQ;
+    $('#messageFAQ').text(messageFAQ);
 }
 function checkPassword(pass) {
     if (!isOpen) {
