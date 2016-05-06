@@ -8,6 +8,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.zespolowka.entity.createTest.*;
 import com.zespolowka.entity.user.Role;
+import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.CreateTestForm;
 import com.zespolowka.forms.NewMessageForm;
 import com.zespolowka.forms.ProgrammingTaskForm;
@@ -71,6 +72,10 @@ public class TestServiceImpl implements TestService {
         newMessageForm.setReceivers(Role.USER.name());
         newMessageForm.setTopic(messages.getString("test_created.topic") + " " + test.getName());
         newMessageForm.setMessage(messages.getString("test_created.message"));
+        User system = userService.getUserById(1)
+                .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
+        logger.info("SYS:" + system);
+        newMessageForm.setSender(system);
         notificationService.sendMessage(newMessageForm);
         return testRepository.save(test);
     }
