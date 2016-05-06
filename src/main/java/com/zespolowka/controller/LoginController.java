@@ -61,7 +61,7 @@ public class LoginController {
                     .orElseThrow(() -> new UsernameNotFoundException(String.format("Uzytkownik z mailem=%s nie istnieje", email)));
             sendMailService.sendReminderMail(user);
             logger.info("Email:", email);
-            model.addAttribute("sukces",true);
+            model.addAttribute("sukces", true);
         } catch (Exception ex) {
             logger.info(ex.getMessage());
         }

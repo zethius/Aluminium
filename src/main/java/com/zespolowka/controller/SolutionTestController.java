@@ -163,9 +163,6 @@ public class SolutionTestController {
         model.addAttribute(new TaskTypeChecker());
         SolutionTest solutionTest = solutionTestService.getSolutionTestById(id);
         model.addAttribute("solutionTest", solutionTest);
-        TaskClosed taskClosed = (TaskClosed) solutionTest.getSolutionTasks().get(0).getTask();
-        logger.info(taskClosed.getAnswers().toString());
-        logger.info(((TaskClosed) solutionTest.getSolutionTasks().get(0).getTask()).getAnswers().toString());
         return "solutionTestCheckAnswers";
     }
 

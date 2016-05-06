@@ -30,8 +30,8 @@ public class SendMailServiceImpl implements SendMailService {
     @Autowired
     public SendMailServiceImpl(JavaMailSender mailSender, UserService userService) {
         this.mailSender = mailSender;
-        this.userService=userService;
         mimeMessage = mailSender.createMimeMessage();
+        this.userService=userService;
     }
 
     ///do testow - do usuniecia pozniej

@@ -31,15 +31,17 @@
 
                         <div class="input-group">
                             <div class="checkbox" th:each="entry,row:*{solutionTasks[__${rowStat.index}__].answers}">
-                                <label>
-                                    <input type="checkbox"
-                                           th:value="${entry.value}" th:checked="${entry.value}"/>
-                                    <span th:if="*{solutionTasks[__${rowStat.index}__].task.answers[__${entry.key}__]}==true"
+                                <div th:each="entryUser,rowRow:*{solutionTasks[__${rowStat.index}__].task.answers}">
+                                    <label th:if="${entryUser.key==entry.key}">
+                                        <input type="checkbox"
+                                               th:value="${entry.value}" th:checked="${entry.value}"/>
+                                    <span th:if="${entryUser.value}==true"
                                           class="trueClass" th:text="${entry.key}"/>
-                                    <span th:if="*{solutionTasks[__${rowStat.index}__].task.answers[__${entry.key}__]}==false"
+                                    <span th:if="${entryUser.value}==false"
                                           th:class="${entry.value}==true ? falseClass"
                                           th:text="${entry.key}"/>
-                                </label>
+                                    </label>
+                                </div>
                             </div>
                             <h2 th:text="*{solutionTasks[__${rowStat.index}__].points}%1==0 ? *{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].points, 0)}+' / '+*{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].task.max_points, 0)} : *{#numbers.formatDecimal(solutionTasks[__${rowStat.index}__].points, 0, 2,'POINT')}+' / '+*{#numbers.formatInteger(solutionTasks[__${rowStat.index}__].task.max_points, 0)}"/>
                         </div>

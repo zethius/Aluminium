@@ -247,23 +247,20 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public void createPDF(File file, String title, String header[], String body[][]){
+    public void createPDF(File file, String title, String header[], String body[][]) {
 
         logger.info("createPDF");
         Document documento = new Document();
-        float[] columnWidths = new float[] {15f, 30f, 30f, 15f, 40f};
+        float[] columnWidths = new float[]{15f, 30f, 30f, 15f, 40f};
         try {
             file.createNewFile();
             FileOutputStream fop = new FileOutputStream(file);
             PdfWriter.getInstance(documento, fop);
             documento.open();
-
+            documento.add(new Paragraph(title, FontFactory.getFont(FontFactory.defaultEncoding, 20, Font.BOLD, BaseColor.BLACK)));
             //Fonts
-            BaseFont helvetica = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED);
-
-            Font fontHeader = new Font(helvetica, 12, Font.BOLD);
-            Font fontBody = new Font(helvetica, 12, Font.NORMAL);
-            documento.add(new Paragraph(title,new Font(helvetica,20,Font.BOLD,BaseColor.BLACK)));
+            Font fontHeader = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+            Font fontBody = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
             //Table for header
             PdfPTable cabetabla = new PdfPTable(header.length);
             for (int j = 0; j < header.length; j++) {
@@ -289,13 +286,9 @@ public class TestServiceImpl implements TestService {
             fop.flush();
             fop.close();
         } catch (Exception e) {
-            logger.info("PDF BLAD"+e.getMessage());
+            logger.info("PDF BLAD" + e.getMessage());
         }
     }
-
-
-
-
 
     @Override
     public String toString() {

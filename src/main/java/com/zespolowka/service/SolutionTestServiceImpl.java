@@ -45,7 +45,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
 
     private int taskNo = 0;
 
-    private String dir = "/home/pitek/zespolowka/skrypty/";
+    private String dir = "/var/www/Aluminium/Team_Programming_Rewritten/";
 
     private String resultDir = "/tmp/";
 
@@ -89,14 +89,13 @@ public class SolutionTestServiceImpl implements SolutionTestService {
         solutionTest.setEndSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + '/' + dateTime.getDayOfMonth() + ' ' + dateTime.getHour() + ':' + dateTime.getMinute() + ':' + dateTime.getSecond(), dateTimeFormatter));
         solutionTest.setSolutionStatus(solutionStatus);
         logger.info(solutionTest.getBeginSolution() + " " + solutionTest.getEndSolution());
-        return solutionTestRepository.save(solutionTest);
+        return solutionTestRepository.saveAndFlush(solutionTest);
     }
 
     @Override
     public SolutionTestForm createForm(Test test, User user) {
         SolutionTest solutionTest;
         Optional<SolutionTest> solutionTest2 = findSolutionTestByTestAndUserAndSolutionStatus(test, user, SolutionStatus.OPEN);
-        logger.info(solutionTest2.isPresent() + "test");
         if (!solutionTest2.isPresent()) {
             solutionTest = new SolutionTest(test, user);
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m:s");
@@ -104,7 +103,8 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             solutionTest.setBeginSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + '/' + dateTime.getDayOfMonth() + ' ' + dateTime.getHour() + ':' + dateTime.getMinute() + ':' + dateTime.getSecond(), dateTimeFormatter));
             solutionTest.setAttempt(countSolutionTestsByUserAndTest(user, test) + 1);
             solutionTest.setSolutionStatus(SolutionStatus.OPEN);
-            solutionTestRepository.save(solutionTest);
+            solutionTestRepository.saveAndFlush(solutionTest);
+            solutionTestRepository.flush();
         } else solutionTest = solutionTest2.get();
         this.taskNo = 0;
         SolutionTestForm solutionTestForm = new SolutionTestForm();
@@ -126,8 +126,9 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.SQLTASK));
             }
         }
-        solutionTestForm.setTasks(solutionTaskFormList);
         solutionTestRepository.save(solutionTest);
+        solutionTestForm.setTasks(solutionTaskFormList);
+        solutionTestRepository.saveAndFlush(solutionTest);
         this.taskNo = 0;
         return solutionTestForm;
     }

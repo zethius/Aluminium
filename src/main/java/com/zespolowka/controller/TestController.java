@@ -264,25 +264,25 @@ public class TestController {
 
     @RequestMapping("/pdf/{id}")
     public void getPDF(@PathVariable final Long id, HttpServletRequest request,
-                      HttpServletResponse response){
+                       HttpServletResponse response) {
 
-        Collection<SolutionTest> tests=solutionTestService.getSolutionTestsByTest(testService.getTestById(id));
+        Collection<SolutionTest> tests = solutionTestService.getSolutionTestsByTest(testService.getTestById(id));
         final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        String[] header=new String[5];
-        header[0]="Lp";
-        header[1]="Osoba";
-        header[2]="Wynik testu";
-        header[3]="%";
-        header[4]="Data rozwiązania testu";
+        String[] header = new String[5];
+        header[0] = "Lp";
+        header[1] = "Osoba";
+        header[2] = "Wynik testu";
+        header[3] = "%";
+        header[4] = "Data rozwiązania testu";
 
-        String[][] body=new String[tests.size()][5];
-        int i=0;
+        String[][] body = new String[tests.size()][5];
+        int i = 0;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        if(tests.size()>0) {
-            String title = "Raport z dnia: "+LocalDate.now()+"\nDla: "+tests.iterator().next().getTest().getName()+"\n\n";
+        if (tests.size() > 0) {
+            String title = "Raport z dnia: " + LocalDate.now() + "\nDla: " + tests.iterator().next().getTest().getName() + "\n\n";
             for (SolutionTest test : tests) {
-                body[i][0] = "" + (i+1);
+                body[i][0] = "" + (i + 1);
                 body[i][1] = "" + test.getUser().getName() + " " + test.getUser().getLastName() + ", " + test.getUser().getEmail();
                 body[i][2] = "" + test.getPoints() + " / " + test.getTest().getMaxPoints();
                 float procent = (test.getPoints() / test.getTest().getMaxPoints()) * 100;
@@ -291,17 +291,16 @@ public class TestController {
                 i++;
             }
 
-            String filePath ="Raport dla "+currentUser.getUser().getEmail()+".pdf";
+            String filePath = "RaportDla" + currentUser.getUser().getId() + ".pdf";
             ServletContext context = request.getServletContext();
             String appPath = context.getRealPath("");
-            String fullPath = appPath + filePath;
-            logger.info("PDF utworzony w: "+fullPath);
-            File file = new File(fullPath);
+            String fullPath = appPath + filePath.replaceAll(" ","");
+            logger.info("PDF utworzony w: " + fullPath);
+            File file = new File(fullPath.replaceAll(" ",""));
             testService.createPDF(file, title, header, body);
 
             try {
                 FileInputStream inputStream = new FileInputStream(file);
-                //METODA PRZEGLADARKI
                 response.setContentType("application/pdf");
                 org.apache.commons.io.IOUtils.copy(inputStream, response.getOutputStream());
                 response.flushBuffer();
@@ -316,18 +315,15 @@ public class TestController {
                 // set content attributes for the response
                 response.setContentType(mimeType);
                 response.setContentLength((int) file.length());
-
                 // set headers for the response
                 String headerKey = "Content-Disposition";
                 String headerValue = String.format("attachment; filename=\"%s\"",
                         file.getName());
                 response.setHeader(headerKey, headerValue);
-
                 // get output stream of the response
                 OutputStream outStream = response.getOutputStream();
                 byte[] buffer = new byte[4096];
                 int bytesRead = -1;
-
                 // write bytes read from the input stream into the output stream
                 while ((bytesRead = inputStream.read(buffer)) != -1) {
                     outStream.write(buffer, 0, bytesRead);
@@ -337,7 +333,7 @@ public class TestController {
                 inputStream.close();
                 Files.delete(file.toPath());
             } catch (Exception ex) {
-                logger.info("FILE NOT FOUND: "+ex.getMessage());
+                logger.info("FILE NOT FOUND: " + ex.getMessage());
             }
         }
     }
