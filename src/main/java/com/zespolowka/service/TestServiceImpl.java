@@ -257,10 +257,11 @@ public class TestServiceImpl implements TestService {
             FileOutputStream fop = new FileOutputStream(file);
             PdfWriter.getInstance(documento, fop);
             documento.open();
-            documento.add(new Paragraph(title, FontFactory.getFont(FontFactory.defaultEncoding, 20, Font.BOLD, BaseColor.BLACK)));
             //Fonts
-            Font fontHeader = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
-            Font fontBody = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+            BaseFont helvetica = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED);
+            Font fontHeader = new Font(helvetica, 12, Font.BOLD);
+            Font fontBody = new Font(helvetica, 12, Font.NORMAL);
+            documento.add(new Paragraph(title,new Font(helvetica,20,Font.BOLD,BaseColor.BLACK)));
             //Table for header
             PdfPTable cabetabla = new PdfPTable(header.length);
             for (int j = 0; j < header.length; j++) {

@@ -122,7 +122,7 @@ public class SendMailServiceImpl implements SendMailService {
             message.setSubject("Przypomnienie Hasła");
             String newPassword = sb.toString();
             user.setPasswordHash(new BCryptPasswordEncoder().encode(newPassword));
-            userService.update(user);
+            userService.update(user); //dodane
             message.setText("<html><body><h4>Witaj " + user.getName() + "!</h4><p>Twoje nowe hasło to: " + newPassword + "</p></body></html>", true);
             mailSender.send(mimeMessage);
             logger.info("Reminder sent", newPassword);
