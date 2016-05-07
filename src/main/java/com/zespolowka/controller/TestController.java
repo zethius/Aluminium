@@ -1,6 +1,7 @@
 package com.zespolowka.controller;
 
 import com.zespolowka.entity.createTest.Test;
+import com.zespolowka.entity.solutionTest.SolutionStatus;
 import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.user.CurrentUser;
 import com.zespolowka.entity.user.User;
@@ -238,7 +239,12 @@ public class TestController {
     public String showAll(Model model) {
         logger.info("metoda - showAll");
         try {
-            model.addAttribute("Tests", testService.getAllTests());
+            Map<Test, Integer> testMap = new HashMap<>();
+            ArrayList<Test> lista = new ArrayList<>(testService.getAllTests());
+            for (Test aLista : lista)
+                testMap.put(aLista, solutionTestService.countSolutionTestsByTestAndSolutionStatus(aLista, SolutionStatus.FINISHED));
+
+            model.addAttribute("Tests", testMap);
             testFormService.removeEditTestIdInSession();
             testFormService.removeEditTestFormInSession();
 
@@ -274,7 +280,7 @@ public class TestController {
         header[1] = "Osoba";
         header[2] = "Wynik testu";
         header[3] = "%";
-        header[4] = "Data rozwiazania testu";
+        header[4] = "Data rozwiązania testu";
 
         String[][] body = new String[tests.size()][5];
         int i = 0;
@@ -294,9 +300,9 @@ public class TestController {
             String filePath = "RaportDla" + currentUser.getUser().getId() + ".pdf";
             ServletContext context = request.getServletContext();
             String appPath = context.getRealPath("");
-            String fullPath = appPath + filePath.replaceAll(" ","");
+            String fullPath = appPath + filePath.replaceAll(" ", "");
             logger.info("PDF utworzony w: " + fullPath);
-            File file = new File(fullPath.replaceAll(" ",""));
+            File file = new File(fullPath.replaceAll(" ", ""));
             testService.createPDF(file, title, header, body);
 
             try {

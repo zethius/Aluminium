@@ -3,6 +3,7 @@ package com.zespolowka.service.inteface;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.UserCreateForm;
 import com.zespolowka.forms.UserEditForm;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
@@ -21,12 +22,17 @@ public interface UserService {
 
     Collection<User> findByEmailIgnoreCaseContainingOrNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(String like);
 
+    @Transactional
+    @Modifying
     User create(UserCreateForm form);
 
     User editUser(UserEditForm userEditForm);
 
+    @Transactional
+    @Modifying
     User update(User user);
 
     @Transactional
+    @Modifying
     void delete(long id);
 }

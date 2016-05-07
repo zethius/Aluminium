@@ -12,7 +12,7 @@
     <div class="panel panel-primary">
 
         <div class="panel-heading">
-            <h3 class="panel-title">Użytkownicy</h3>
+            <h3 class="panel-title" th:text="#{usersView.users}"/>
         </div>
         <div class="panel-body">
             <div th:if="${sukces}" class="alert alert-success" role="alert" th:text="${message}">Usunieto uzytkownika
@@ -192,17 +192,14 @@
         }
     }
 
-
-    $(document).ready(function () {
-        $(".something").click(function () { // Click to only happen on announce links
-            $("#InputId").val($(this).data('id'));
-            $("#InputImie").val($(this).data('name'));
-            $("#InputNazwisko").val($(this).data('lastname'));
-            $("#InputEmail").val($(this).data('email'));
-            $("#InputRola").val($(this).data('role'));
-            $("#InputRola2").val($(this).data('role'));
-            <!--  $('#wynikiA').modal('show'); -->
-        });
+    $(".something").click(function () { // Click to only happen on announce links
+        $("#InputId").val($(this).data('id'));
+        $("#InputImie").val($(this).data('name'));
+        $("#InputNazwisko").val($(this).data('lastname'));
+        $("#InputEmail").val($(this).data('email'));
+        $("#InputRola").val($(this).data('role'));
+        $("#InputRola2").val($(this).data('role'));
+        <!--  $('#wynikiA').modal('show'); -->
     });
 
 </script>

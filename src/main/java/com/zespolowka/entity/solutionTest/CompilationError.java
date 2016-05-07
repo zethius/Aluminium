@@ -9,6 +9,7 @@ public class CompilationError {
     private Long id;
     @Enumerated(EnumType.STRING)
     private CompilationErrorTypes type;
+    @Lob
     @Column(length = 100000)
     private String Error;
 

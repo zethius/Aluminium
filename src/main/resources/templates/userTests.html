@@ -2,7 +2,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorator="layout">
 <head>
-    <title th:text="#{login.login_page}"></title>
+    <title th:text="#{navigation.results}"></title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -35,7 +35,7 @@
                             <td th:text="${#temporals.format(test.beginSolution, 'dd/MM/yyyy HH:mm:ss')}"/>
                             <td th:text="${#temporals.format(test.endSolution, 'dd/MM/yyyy HH:mm:ss')}"/>
                             <td th:text="*{test.points}+'/'+*{test.test.maxPoints}"/>
-                            <td th:text="*{test.points}/*{test.test.maxPoints}*100+'%'"/>
+                            <td th:text="${#numbers.formatDecimal(test.points/test.test.maxPoints*100, 1, 2)}+'%'"/>
                         </tr>
                         </tbody>
                     </table>
@@ -59,7 +59,7 @@
                             <td th:text="${#temporals.format(test.beginSolution, 'dd/MM/yyyy HH:mm:ss')}"/>
                             <td th:text="${#temporals.format(test.endSolution, 'dd/MM/yyyy HH:mm:ss')}"/>
                             <td th:text="*{test.points}+'/'+*{test.test.maxPoints}"/>
-                            <td th:text="*{test.points}/*{test.test.maxPoints}*100+'%'"/>
+                            <td th:text="${#numbers.formatDecimal(test.points/test.test.maxPoints*100, 1, 2)}+'%'"/>
                         </tr>
                         </tbody>
                     </table>
@@ -74,8 +74,8 @@
 <script layout:fragment="customScripts">
     document.getElementById("showResultsTab").className = "active";
     function myFunction(p1, p2) {
-    alert(p1/p2*100);
-    return p1/p2*100;
+        alert(p1 / p2 * 100);
+        return p1 / p2 * 100;
     }
 </script>
 </html>

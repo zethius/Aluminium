@@ -12,11 +12,11 @@ import javax.validation.constraints.Size;
 public class UserCreateForm {
 
     @NotBlank
-    @Size(min = 4, max = 15)
+    @Size(min = 3, max = 40)
     private String name;
 
     @NotBlank
-    @Size(min = 4, max = 20)
+    @Size(min = 3, max = 40)
     private String lastName;
 
     @NotBlank

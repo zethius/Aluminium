@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @Entity
 public class TaskSqlSolution extends TaskSolution {
+    @Lob
     @Column(length = 1000)
     private String sqlAnswer;
 

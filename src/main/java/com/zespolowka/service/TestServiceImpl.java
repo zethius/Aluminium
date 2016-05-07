@@ -8,6 +8,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.zespolowka.entity.createTest.*;
 import com.zespolowka.entity.user.Role;
+import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.CreateTestForm;
 import com.zespolowka.forms.NewMessageForm;
 import com.zespolowka.forms.ProgrammingTaskForm;
@@ -71,6 +72,10 @@ public class TestServiceImpl implements TestService {
         newMessageForm.setReceivers(Role.USER.name());
         newMessageForm.setTopic(messages.getString("test_created.topic") + " " + test.getName());
         newMessageForm.setMessage(messages.getString("test_created.message"));
+        User system = userService.getUserById(1)
+                .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
+        logger.info("SYS:" + system);
+        newMessageForm.setSender(system);
         notificationService.sendMessage(newMessageForm);
         return testRepository.save(test);
     }
@@ -87,6 +92,7 @@ public class TestServiceImpl implements TestService {
         test1.setEndDate(test.getEndDate());
         test1.setMaxPoints(test.getMaxPoints());
         test1.setName(test.getName());
+        test1.setMessageFAQ(test.getMessageFAQ());
         return testRepository.save(test1);
     }
 
@@ -111,6 +117,7 @@ public class TestServiceImpl implements TestService {
         createTestForm.setEndDate(test.getEndDate().toString());
         createTestForm.setAttempts(test.getAttempts().intValue());
         createTestForm.setTimePerAttempt(test.getTimePerAttempt());
+        createTestForm.setMessageFAQ(test.getMessageFAQ());
         List<TaskForm> taskForms = new ArrayList<>();
         for (Task task : test.getTasks()) {
             TaskForm taskForm = new TaskForm();
@@ -151,7 +158,7 @@ public class TestServiceImpl implements TestService {
                     programmingTaskForm.setTestCode(taskProgrammingDetail.getTestCode());
                     programmingTaskForm.setTestClassName(taskProgrammingDetail.getTestClassName());
                     programmingTaskForm.setSolutionClassName(taskProgrammingDetail.getSolutionClassName());
-                    programmingTaskForm.setWhiteList(taskProgrammingDetail.getWhiteList());
+                    programmingTaskForm.setWhiteList(taskProgrammingDetail.getRestrictedList());
                     languages.add(taskProgrammingDetail.getLanguage().toString());
                     programmingTaskFormSet.add(programmingTaskForm);
                 }
@@ -185,6 +192,7 @@ public class TestServiceImpl implements TestService {
         test.setBeginDate(LocalDate.parse(form.getBeginDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         test.setEndDate(LocalDate.parse(form.getEndDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         test.setName(form.getName());
+        test.setMessageFAQ(form.getMessageFAQ());
         for (TaskForm taskForm : taskFormList) {
             switch (taskForm.getTaskType()) {
                 case 0: {
@@ -219,7 +227,7 @@ public class TestServiceImpl implements TestService {
                     programmingTaskForms.stream().filter(ProgrammingTaskForm::getHidden).forEach(programmingTaskForm -> {
                         TaskProgrammingDetail taskProgrammingDetail = new TaskProgrammingDetail();
                         taskProgrammingDetail.setTestCode(programmingTaskForm.getTestCode());
-                        taskProgrammingDetail.setWhiteList(programmingTaskForm.getWhiteList());
+                        taskProgrammingDetail.setRestrictedList(programmingTaskForm.getWhiteList());
                         taskProgrammingDetail.setLanguage(ProgrammingLanguages.valueOf(programmingTaskForm.getLanguage()));
                         taskProgrammingDetail.setSolutionClassName(programmingTaskForm.getSolutionClassName());
                         taskProgrammingDetail.setTestClassName(programmingTaskForm.getTestClassName());
@@ -257,14 +265,15 @@ public class TestServiceImpl implements TestService {
             FileOutputStream fop = new FileOutputStream(file);
             PdfWriter.getInstance(documento, fop);
             documento.open();
-            documento.add(new Paragraph(title, FontFactory.getFont(FontFactory.defaultEncoding, 20, Font.BOLD, BaseColor.BLACK)));
-            //Fonts
-            Font fontHeader = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
-            Font fontBody = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+            BaseFont helvetica = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED);
+
+            Font fontHeader = new Font(helvetica, 12, Font.BOLD);
+            Font fontBody = new Font(helvetica, 12, Font.NORMAL);
+            documento.add(new Paragraph(title, new Font(helvetica, 20, Font.BOLD, BaseColor.BLACK)));
             //Table for header
             PdfPTable cabetabla = new PdfPTable(header.length);
-            for (int j = 0; j < header.length; j++) {
-                Phrase frase = new Phrase(header[j], fontHeader);
+            for (String aHeader : header) {
+                Phrase frase = new Phrase(aHeader, fontHeader);
                 PdfPCell cell = new PdfPCell(frase);
                 cell.setBackgroundColor(new BaseColor(Color.lightGray.getRGB()));
                 cabetabla.addCell(cell);
@@ -274,9 +283,9 @@ public class TestServiceImpl implements TestService {
             documento.add(cabetabla);
             //Table for body
             PdfPTable tabla = new PdfPTable(header.length);
-            for (int i = 0; i < body.length; i++) {
-                for (int j = 0; j < body[i].length; j++) {
-                    tabla.addCell(new Phrase(body[i][j], fontBody));
+            for (String[] aBody : body) {
+                for (String anABody : aBody) {
+                    tabla.addCell(new Phrase(anABody, fontBody));
                 }
             }
             tabla.setWidths(columnWidths);

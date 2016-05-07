@@ -11,6 +11,7 @@ import com.zespolowka.forms.SolutionTestForm;
 import com.zespolowka.repository.SolutionTestRepository;
 import com.zespolowka.service.inteface.NotificationService;
 import com.zespolowka.service.inteface.SolutionTestService;
+import com.zespolowka.service.inteface.UserService;
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -42,6 +44,8 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     private final SolutionTestRepository solutionTestRepository;
     private final HttpSession httpSession;
     private final NotificationService notificationService;
+    private final Environment environment;
+    private final UserService userService;
 
     private int taskNo = 0;
 
@@ -50,10 +54,16 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     private String resultDir = "/tmp/";
 
     @Autowired
-    public SolutionTestServiceImpl(SolutionTestRepository solutionTestRepository, HttpSession httpSession, NotificationService notificationService) {
+    public SolutionTestServiceImpl(SolutionTestRepository solutionTestRepository, HttpSession httpSession, NotificationService notificationService, Environment environment, UserService userService) {
         this.solutionTestRepository = solutionTestRepository;
         this.httpSession = httpSession;
         this.notificationService = notificationService;
+        this.environment = environment;
+        this.userService = userService;
+    }
+
+    public Integer countSolutionTestsByTestAndSolutionStatus(Test test, SolutionStatus solutionStatus) {
+        return solutionTestRepository.countSolutionTestsByTestAndSolutionStatus(test, solutionStatus);
     }
 
     @Override
@@ -89,6 +99,18 @@ public class SolutionTestServiceImpl implements SolutionTestService {
         solutionTest.setEndSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + '/' + dateTime.getDayOfMonth() + ' ' + dateTime.getHour() + ':' + dateTime.getMinute() + ':' + dateTime.getSecond(), dateTimeFormatter));
         solutionTest.setSolutionStatus(solutionStatus);
         logger.info(solutionTest.getBeginSolution() + " " + solutionTest.getEndSolution());
+        if (solutionTest.getSolutionStatus() == SolutionStatus.FINISHED) {
+            ResourceBundle messages = ResourceBundle.getBundle("messages", LocaleContextHolder.getLocale());
+            NewMessageForm newMessageForm = new NewMessageForm();
+            newMessageForm.setReceivers(solutionTest.getUser().getEmail());
+            newMessageForm.setTopic(messages.getString("results.topic") + " " + solutionTest.getTest().getName());
+            newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
+            User system = userService.getUserById(1)
+                    .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
+            logger.info("SYS:" + system);
+            newMessageForm.setSender(system);
+            notificationService.sendMessage(newMessageForm);
+        }
         return solutionTestRepository.saveAndFlush(solutionTest);
     }
 
@@ -107,6 +129,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             solutionTestRepository.flush();
         } else solutionTest = solutionTest2.get();
         this.taskNo = 0;
+        logger.info(solutionTest.getTest().toString());
         SolutionTestForm solutionTestForm = new SolutionTestForm();
         solutionTestForm.setName(test.getName());
         solutionTestForm.setSolutionId(solutionTest.getId());
@@ -115,7 +138,10 @@ public class SolutionTestServiceImpl implements SolutionTestService {
         Collections.shuffle(tasks);
         test.setTasks(tasks);
         solutionTest.setTest(test);
+
+        List<Long> integerList = new ArrayList<>();
         for (Task task : test.getTasks()) {
+            integerList.add(task.getId());
             if (task instanceof TaskClosed) {
                 solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.CLOSEDTASK));
             } else if (task instanceof TaskOpen) {
@@ -126,15 +152,19 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.SQLTASK));
             }
         }
-        solutionTestRepository.save(solutionTest);
-        solutionTestForm.setTasks(solutionTaskFormList);
+        httpSession.setAttribute("integerList", integerList);
         solutionTestRepository.saveAndFlush(solutionTest);
+        solutionTestForm.setTasks(solutionTaskFormList);
         this.taskNo = 0;
         return solutionTestForm;
     }
 
-    public void addTaskSolutionToTest(SolutionTest solutionTest, TaskSolution taskSolution) throws IOException, ParseException, FileNotFoundException {
-        taskSolution.setTask(solutionTest.getTest().getTasks().get(taskNo++));
+    public void addTaskSolutionToTest(SolutionTest solutionTest, TaskSolution taskSolution) throws IOException, ParseException {
+        List<Long> integerList = (List<Long>) httpSession.getAttribute("integerList");
+        if (environment.getActiveProfiles().length > 0 && environment.getActiveProfiles()[0].equals("prod")) {
+            Long minimumId = Collections.min(integerList);
+            taskSolution.setTask(solutionTest.getTest().getTasks().get(integerList.get(taskNo++).intValue() - minimumId.intValue()));
+        } else taskSolution.setTask(solutionTest.getTest().getTasks().get(taskNo++));
         if (taskSolution instanceof TaskClosedSolution) {
             TaskClosedSolution taskSol = (TaskClosedSolution) taskSolution;
             TaskClosed taskClo = (TaskClosed) taskSol.getTask();
@@ -207,19 +237,19 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                     jsonObject = solutionConfig.createJavaConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_java");
                     FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
                     FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_java"), taskProgrammingDetail.getWhiteList());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_java"), taskProgrammingDetail.getRestrictedList());
                     FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
                 } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.CPP)) {
                     jsonObject = solutionConfig.createCppConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_cpp", "-w");
                     FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
                     FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_cpp"), taskProgrammingDetail.getWhiteList());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_cpp"), taskProgrammingDetail.getRestrictedList());
                     FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
-                } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.PYTHON)) {
+                } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.PYTHON3)) {
                     jsonObject = solutionConfig.createPythonConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_python");
                     FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
                     FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_python"), taskProgrammingDetail.getWhiteList());
+                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_python"), taskProgrammingDetail.getRestrictedList());
                     FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
                 }
             }
@@ -233,7 +263,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
                 BigDecimal time = BigDecimal.valueOf((Double) jsonObject.get("time"));
                 BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP)); //TODO dodac czas rozwiazania do statystyk
-                BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSol.getTask().getMax_points())).setScale(2);
+                BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSol.getTask().getMax_points()), MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP);
                 taskSol.setPoints(points.floatValue());
                 solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
             } else {
@@ -279,7 +309,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
                 BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
                 BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP));
-                BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSqlSolution.getTask().getMax_points())).setScale(2);
+                BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSqlSolution.getTask().getMax_points()), MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP);
                 taskSqlSolution.setPoints(points.floatValue());
                 solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
             } else {
@@ -325,14 +355,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 taskSqlSolution.setSqlAnswer(solutionTaskForm.getAnswerCode());
                 addTaskSolutionToTest(solutionTest, taskSqlSolution);
             }
-        if (solutionTest.getSolutionStatus() == SolutionStatus.FINISHED) {
-            ResourceBundle messages = ResourceBundle.getBundle("messages", LocaleContextHolder.getLocale());
-            NewMessageForm newMessageForm = new NewMessageForm();
-            newMessageForm.setReceivers(solutionTest.getUser().getEmail());
-            newMessageForm.setTopic(messages.getString("results.topic") + " " + solutionTest.getTest().getName());
-            newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
-            notificationService.sendMessage(newMessageForm);
-        }
+
         return solutionTest;
     }
 
