@@ -262,14 +262,14 @@ public class SolutionConfig {
     @Override
     public String toString() {
         return "SolutionConfig{" +
-                "mainFile='" + mainFile + '\'' +
+                "compiler='" + compiler + '\'' +
+                ", mainFile='" + mainFile + '\'' +
                 ", restricted_list_path='" + restricted_list_path + '\'' +
-                ", compiler='" + compiler + '\'' +
                 ", interpreter='" + interpreter + '\'' +
                 ", compiler_flags='" + compiler_flags + '\'' +
                 ", interpreter_flags='" + interpreter_flags + '\'' +
                 ", ulimit_flags='" + ulimit_flags + '\'' +
-                ", max_time_of_tests='" + max_time_of_tests + '\'' +
+                ", max_time_of_tests=" + max_time_of_tests +
                 ", language='" + language + '\'' +
                 ", sources='" + sources + '\'' +
                 ", tester_files='" + tester_files + '\'' +

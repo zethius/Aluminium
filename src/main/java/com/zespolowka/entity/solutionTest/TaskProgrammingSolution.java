@@ -62,7 +62,8 @@ public class TaskProgrammingSolution extends TaskSolution {
         return "TaskProgrammingSolution{" +
                 "TaskSolution='" + super.toString() + '\'' +
                 "answerCode='" + answerCode + '\'' +
-                "language='" + language + '\'' +
+                ", language='" + language + '\'' +
+                ", compilationError=" + compilationError +
                 '}';
     }
 }

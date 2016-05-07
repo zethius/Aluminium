@@ -137,15 +137,17 @@ public class Test {
 
     @Override
     public String toString() {
-        return "createTest{" +
-                "id=" + id +
+        return "Test{" +
+                "attempts=" + attempts +
+                ", id=" + id +
                 ", name='" + name + '\'' +
-                ", maxPoints='" + maxPoints + '\'' +
-                ", attempts=" + attempts +
+                ", messageFAQ='" + messageFAQ + '\'' +
                 ", beginDate=" + beginDate +
                 ", endDate=" + endDate +
-                ", tasks=" + tasks +
+                ", maxPoints=" + maxPoints +
+                ", password='" + password + '\'' +
                 ", timePerAttempt=" + timePerAttempt +
+                ", tasks=" + tasks +
                 '}';
     }
 }

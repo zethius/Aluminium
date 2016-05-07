@@ -4,6 +4,7 @@ import com.zespolowka.entity.VerificationToken;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.repository.VerificationTokenRepository;
 import com.zespolowka.service.inteface.VerificationTokenService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.Optional;
  */
 @Service
 public class VerificationTokenServiceImpl implements VerificationTokenService {
-    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(VerificationTokenService.class);
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(VerificationTokenService.class);
 
     private final VerificationTokenRepository verificationTokenRepository;
 

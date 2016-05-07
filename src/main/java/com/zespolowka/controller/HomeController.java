@@ -16,14 +16,13 @@ import java.time.LocalDate;
 public class HomeController {
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-    @Autowired
-    private TestService testService;
+    private final TestService testService;
+    private final SolutionTestService solutionTestService;
 
     @Autowired
-    private SolutionTestService solutionTestService;
-
-
-    public HomeController() {
+    public HomeController(TestService testService, SolutionTestService solutionTestService) {
+        this.testService = testService;
+        this.solutionTestService = solutionTestService;
     }
 
 

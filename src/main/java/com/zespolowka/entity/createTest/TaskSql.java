@@ -46,7 +46,9 @@ public class TaskSql extends Task {
     @Override
     public String toString() {
         return "TaskSql{" +
-                "sqlAnswer='" + sqlAnswer + '\'' +
+                "Task='" + super.toString() + '\'' +
+                "preparations='" + preparations + '\'' +
+                ", sqlAnswer='" + sqlAnswer + '\'' +
                 '}';
     }
 }

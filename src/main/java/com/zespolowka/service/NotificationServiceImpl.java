@@ -99,36 +99,41 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     public void sendMessage(NewMessageForm form) {
-        String receivers;
-        if (form.getReceivers().endsWith(", "))
-            receivers = form.getReceivers().substring(0, form.getReceivers().length() - 2);
-        else receivers = form.getReceivers();
+        try {
+            String receivers;
+            if (form.getReceivers().endsWith(", "))
+                receivers = form.getReceivers().substring(0, form.getReceivers().length() - 2);
+            else receivers = form.getReceivers();
 
-        String result[] = receivers.split(",");
-        Notification notif;
-        ArrayList<String> wyslane = new ArrayList<>();
-        for (String s : result) {
+            String result[] = receivers.split(",");
+            Notification notif;
+            ArrayList<String> wyslane = new ArrayList<>();
+            for (String s : result) {
 
-            String st = s.replaceAll("\\s+", "");
-            if (wyslane.contains(st)) {
-                continue;
-            }
-            if (st.contains("@")) {
-                User usr = userRepository.findUserByEmail(st)
-                        .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o emailu =%s nie istnieje", st)));
-                notif = new Notification(form.getMessage(), form.getTopic(), usr.getId(), form.getSender());
-                logger.info("Wiadomosc wyslana do: " + st);
-                notificationRepository.save(notif);
-                wyslane.add(st);
-            } else {
-                String st2 = st.toUpperCase();
-                if (st2.equals(Role.ADMIN.name()) || st2.equals(Role.SUPERADMIN.name()) || st2.equals(Role.USER.name())) {
-                    notif = new Notification(form.getMessage(), form.getTopic(), Role.valueOf(st2), form.getSender());
-                    logger.info("Grupowa wiadomosc do: " + st);
+                String st = s.replaceAll("\\s+", "");
+                if (wyslane.contains(st)) {
+                    continue;
+                }
+                if (st.contains("@")) {
+                    User usr = userRepository.findUserByEmail(st)
+                            .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o emailu =%s nie istnieje", st)));
+                    notif = new Notification(form.getMessage(), form.getTopic(), usr.getId(), form.getSender());
+                    logger.info("Wiadomosc wyslana do: " + st);
                     notificationRepository.save(notif);
                     wyslane.add(st);
+                } else {
+                    String st2 = st.toUpperCase();
+                    if (st2.equals(Role.ADMIN.name()) || st2.equals(Role.SUPERADMIN.name()) || st2.equals(Role.USER.name())) {
+                        notif = new Notification(form.getMessage(), form.getTopic(), Role.valueOf(st2), form.getSender());
+                        logger.info("Grupowa wiadomosc do: " + st);
+                        notificationRepository.save(notif);
+                        wyslane.add(st);
+                    }
                 }
             }
+        } catch (Exception e) {
+            logger.info(e.getMessage(), e);
+            logger.info(form.toString());
         }
     }
 

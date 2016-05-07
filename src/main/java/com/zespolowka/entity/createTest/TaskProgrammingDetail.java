@@ -72,11 +72,12 @@ public class TaskProgrammingDetail {
     @Override
     public String toString() {
         return "TaskProgrammingDetail{" +
-                "testCode='" + testCode + '\'' +
-                ", whiteList='" + restrictedList + '\'' +
-                ", solutionClassName='" + solutionClassName + '\'' +
-                ", testClassName='" + testClassName + '\'' +
+                "id=" + id +
+                ", testCode='" + testCode + '\'' +
+                ", restrictedList='" + restrictedList + '\'' +
                 ", language=" + language +
+                ", testClassName='" + testClassName + '\'' +
+                ", solutionClassName='" + solutionClassName + '\'' +
                 '}';
     }
 }

@@ -48,10 +48,10 @@ public class TaskSolution {
 
     @Override
     public String toString() {
-        return "SolutionTask{" +
+        return "TaskSolution{" +
                 "id=" + id +
                 ", points=" + points +
-                // ", task=" + task +
+                ", task=" + task +
                 '}';
     }
 }
