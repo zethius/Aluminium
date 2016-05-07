@@ -46,7 +46,7 @@ public class CreateTestFormValidationTest {
         languages.add("java");
         taskForm.setLanguages(languages);
         programmingTaskForm.setTestCode("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        programmingTaskForm.setWhiteList("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+        programmingTaskForm.setRestrictedList("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
         taskForm.getProgrammingTaskForms().add(programmingTaskForm);
         createTestForm.getTasks().add(taskForm);
 
@@ -174,7 +174,7 @@ public class CreateTestFormValidationTest {
     @Test
     public void checkValidatorWithProgrammingTaskWithProgramingDetailTaskTestCodeNull() throws Exception {
         ProgrammingTaskForm programmingTaskForm = new ProgrammingTaskForm("java", true);
-        programmingTaskForm.setWhiteList("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        programmingTaskForm.setRestrictedList("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         programmingTaskForm.setTestCode("");
         createTestForm.getTasks().get(1).getProgrammingTaskForms().add(programmingTaskForm);
         errors = new BindException(createTestForm, "createTestForm");

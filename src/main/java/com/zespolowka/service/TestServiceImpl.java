@@ -176,7 +176,7 @@ public class TestServiceImpl implements TestService {
                         programmingTaskForm.setTestCode(taskProgrammingDetail.getTestCode());
                         programmingTaskForm.setTestClassName(taskProgrammingDetail.getTestClassName());
                         programmingTaskForm.setSolutionClassName(taskProgrammingDetail.getSolutionClassName());
-                        programmingTaskForm.setWhiteList(taskProgrammingDetail.getRestrictedList());
+                        programmingTaskForm.setRestrictedList(taskProgrammingDetail.getRestrictedList());
                         languages.add(taskProgrammingDetail.getLanguage().toString());
                         programmingTaskFormSet.add(programmingTaskForm);
                     }
@@ -251,7 +251,7 @@ public class TestServiceImpl implements TestService {
                         programmingTaskForms.stream().filter(ProgrammingTaskForm::getHidden).forEach(programmingTaskForm -> {
                             TaskProgrammingDetail taskProgrammingDetail = new TaskProgrammingDetail();
                             taskProgrammingDetail.setTestCode(programmingTaskForm.getTestCode());
-                            taskProgrammingDetail.setRestrictedList(programmingTaskForm.getWhiteList());
+                            taskProgrammingDetail.setRestrictedList(programmingTaskForm.getRestrictedList());
                             taskProgrammingDetail.setLanguage(ProgrammingLanguages.valueOf(programmingTaskForm.getLanguage()));
                             taskProgrammingDetail.setSolutionClassName(programmingTaskForm.getSolutionClassName());
                             taskProgrammingDetail.setTestClassName(programmingTaskForm.getTestClassName());
