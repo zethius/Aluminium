@@ -114,7 +114,7 @@ public class CreateTestValidator implements Validator {
                     }
                     if (!closedTaskWithoutCorrectAnswer && !questionWithoutAnswer) {
                         String[] answers = taskForm.getAnswer().split("[\\r\\n]+");
-                        if (answers.length<2 && answers.length>10) closedTaskWithWrongCountOfAnswers = true;
+                        if (answers.length < 2 && answers.length > 10) closedTaskWithWrongCountOfAnswers = true;
                         Boolean haveCorrectAnswer = false;
                         for (String answer : answers) {
                             if (answer.startsWith("<*>")) {
@@ -135,12 +135,10 @@ public class CreateTestValidator implements Validator {
                     }
                     if (!programmingTaskWithoutChoosenLanguage) {
                         Set<ProgrammingTaskForm> programmingTaskFormSet = taskForm.getProgrammingTaskForms();
-                        for (ProgrammingTaskForm programmingTaskForm : programmingTaskFormSet) {
-                            if (programmingTaskForm.getHidden() && !programingDetailTaskTestCodeNull && (programmingTaskForm.getTestCode() == null || programmingTaskForm.getTestCode().length() < 10)) {
-                                programingDetailTaskTestCodeNull = true;
-                                invalidTask = taskForms.indexOf(taskForm);
-                            }
-                        }
+                        programmingTaskFormSet.stream().filter(programmingTaskForm -> programmingTaskForm.getHidden() && !programingDetailTaskTestCodeNull && (programmingTaskForm.getTestCode() == null || programmingTaskForm.getTestCode().length() < 10)).forEach(programmingTaskForm -> {
+                            programingDetailTaskTestCodeNull = true;
+                            invalidTask = taskForms.indexOf(taskForm);
+                        });
                     }
                 }
                 if (taskForm.getTaskType() == TaskForm.SQLTASK) {

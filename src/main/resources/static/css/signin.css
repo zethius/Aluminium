@@ -121,9 +121,11 @@ body {
     -moz-border-radius: 0;
     background: #0088cc none;
 }
+
 h4 {
     white-space: pre-line;
 }
+
 .modal.fade.wyniki .modal-dialog {
     width: 60%;
 }

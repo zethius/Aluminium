@@ -92,6 +92,7 @@ public class TestServiceImpl implements TestService {
         test1.setEndDate(test.getEndDate());
         test1.setMaxPoints(test.getMaxPoints());
         test1.setName(test.getName());
+        test1.setMessageFAQ(test.getMessageFAQ());
         return testRepository.save(test1);
     }
 
@@ -116,6 +117,7 @@ public class TestServiceImpl implements TestService {
         createTestForm.setEndDate(test.getEndDate().toString());
         createTestForm.setAttempts(test.getAttempts().intValue());
         createTestForm.setTimePerAttempt(test.getTimePerAttempt());
+        createTestForm.setMessageFAQ(test.getMessageFAQ());
         List<TaskForm> taskForms = new ArrayList<>();
         for (Task task : test.getTasks()) {
             TaskForm taskForm = new TaskForm();
@@ -190,6 +192,7 @@ public class TestServiceImpl implements TestService {
         test.setBeginDate(LocalDate.parse(form.getBeginDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         test.setEndDate(LocalDate.parse(form.getEndDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         test.setName(form.getName());
+        test.setMessageFAQ(form.getMessageFAQ());
         for (TaskForm taskForm : taskFormList) {
             switch (taskForm.getTaskType()) {
                 case 0: {
@@ -269,8 +272,8 @@ public class TestServiceImpl implements TestService {
             documento.add(new Paragraph(title, new Font(helvetica, 20, Font.BOLD, BaseColor.BLACK)));
             //Table for header
             PdfPTable cabetabla = new PdfPTable(header.length);
-            for (int j = 0; j < header.length; j++) {
-                Phrase frase = new Phrase(header[j], fontHeader);
+            for (String aHeader : header) {
+                Phrase frase = new Phrase(aHeader, fontHeader);
                 PdfPCell cell = new PdfPCell(frase);
                 cell.setBackgroundColor(new BaseColor(Color.lightGray.getRGB()));
                 cabetabla.addCell(cell);
@@ -280,9 +283,9 @@ public class TestServiceImpl implements TestService {
             documento.add(cabetabla);
             //Table for body
             PdfPTable tabla = new PdfPTable(header.length);
-            for (int i = 0; i < body.length; i++) {
-                for (int j = 0; j < body[i].length; j++) {
-                    tabla.addCell(new Phrase(body[i][j], fontBody));
+            for (String[] aBody : body) {
+                for (String anABody : aBody) {
+                    tabla.addCell(new Phrase(anABody, fontBody));
                 }
             }
             tabla.setWidths(columnWidths);

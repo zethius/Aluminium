@@ -1,6 +1,5 @@
 package com.zespolowka.controller;
 
-import com.zespolowka.entity.createTest.TaskClosed;
 import com.zespolowka.entity.createTest.Test;
 import com.zespolowka.entity.solutionTest.SolutionStatus;
 import com.zespolowka.entity.solutionTest.SolutionTest;

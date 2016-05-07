@@ -62,6 +62,10 @@ public class SolutionTestServiceImpl implements SolutionTestService {
         this.userService = userService;
     }
 
+    public Integer countSolutionTestsByTestAndSolutionStatus(Test test, SolutionStatus solutionStatus) {
+        return solutionTestRepository.countSolutionTestsByTestAndSolutionStatus(test, solutionStatus);
+    }
+
     @Override
     public List<SolutionTest> getSolutionsWithTheBestResult(User user) {
         return solutionTestRepository.getSolutionsWithTheBestResult(user, SolutionStatus.FINISHED);
@@ -95,6 +99,18 @@ public class SolutionTestServiceImpl implements SolutionTestService {
         solutionTest.setEndSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + '/' + dateTime.getDayOfMonth() + ' ' + dateTime.getHour() + ':' + dateTime.getMinute() + ':' + dateTime.getSecond(), dateTimeFormatter));
         solutionTest.setSolutionStatus(solutionStatus);
         logger.info(solutionTest.getBeginSolution() + " " + solutionTest.getEndSolution());
+        if (solutionTest.getSolutionStatus() == SolutionStatus.FINISHED) {
+            ResourceBundle messages = ResourceBundle.getBundle("messages", LocaleContextHolder.getLocale());
+            NewMessageForm newMessageForm = new NewMessageForm();
+            newMessageForm.setReceivers(solutionTest.getUser().getEmail());
+            newMessageForm.setTopic(messages.getString("results.topic") + " " + solutionTest.getTest().getName());
+            newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
+            User system = userService.getUserById(1)
+                    .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
+            logger.info("SYS:" + system);
+            newMessageForm.setSender(system);
+            notificationService.sendMessage(newMessageForm);
+        }
         return solutionTestRepository.saveAndFlush(solutionTest);
     }
 
@@ -247,7 +263,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
                 BigDecimal time = BigDecimal.valueOf((Double) jsonObject.get("time"));
                 BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP)); //TODO dodac czas rozwiazania do statystyk
-                BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSol.getTask().getMax_points()), MathContext.DECIMAL128).setScale(4, BigDecimal.ROUND_HALF_UP);
+                BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSol.getTask().getMax_points()), MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP);
                 taskSol.setPoints(points.floatValue());
                 solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
             } else {
@@ -293,7 +309,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
                 BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
                 BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP));
-                BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSqlSolution.getTask().getMax_points()), MathContext.DECIMAL128).setScale(4, BigDecimal.ROUND_HALF_UP);
+                BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSqlSolution.getTask().getMax_points()), MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP);
                 taskSqlSolution.setPoints(points.floatValue());
                 solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
             } else {
@@ -339,18 +355,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 taskSqlSolution.setSqlAnswer(solutionTaskForm.getAnswerCode());
                 addTaskSolutionToTest(solutionTest, taskSqlSolution);
             }
-        if (solutionTest.getSolutionStatus() == SolutionStatus.FINISHED) {
-            ResourceBundle messages = ResourceBundle.getBundle("messages", LocaleContextHolder.getLocale());
-            NewMessageForm newMessageForm = new NewMessageForm();
-            newMessageForm.setReceivers(solutionTest.getUser().getEmail());
-            newMessageForm.setTopic(messages.getString("results.topic") + " " + solutionTest.getTest().getName());
-            newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
-            User system = userService.getUserById(1)
-                    .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
-            logger.info("SYS:" + system);
-            newMessageForm.setSender(system);
-            notificationService.sendMessage(newMessageForm);
-        }
+
         return solutionTest;
     }
 

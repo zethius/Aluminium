@@ -2,7 +2,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-    <title th:text="#{login.login_page}"></title>
+    <title th:text="#{navigation.mainPage}"></title>
     <script src="/js/ModalFunctions.js"></script>
 </head>
 <body>
@@ -85,6 +85,7 @@
                                 </h4>
                             </div>
                             <div class="modal-body">
+                                <div id="messageFAQ"></div>
                                 <form id="form_test" class="form-register" action="" method="POST">
                                     <div class="row">
                                         <div class="form-group col-md-12">

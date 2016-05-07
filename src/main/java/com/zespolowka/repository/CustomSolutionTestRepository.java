@@ -16,5 +16,8 @@ public interface CustomSolutionTestRepository {
 
     @Transactional
     @Modifying
-    SolutionTest update(SolutionTest solutionTest,Test test);
+    SolutionTest update(SolutionTest solutionTest, Test test);
+
+    List<Integer> getNumberOfAttempts(Test test);
+
 }

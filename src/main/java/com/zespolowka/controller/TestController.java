@@ -1,6 +1,7 @@
 package com.zespolowka.controller;
 
 import com.zespolowka.entity.createTest.Test;
+import com.zespolowka.entity.solutionTest.SolutionStatus;
 import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.user.CurrentUser;
 import com.zespolowka.entity.user.User;
@@ -238,7 +239,12 @@ public class TestController {
     public String showAll(Model model) {
         logger.info("metoda - showAll");
         try {
-            model.addAttribute("Tests", testService.getAllTests());
+            Map<Test, Integer> testMap = new HashMap<>();
+            ArrayList<Test> lista = new ArrayList<>(testService.getAllTests());
+            for (Test aLista : lista)
+                testMap.put(aLista, solutionTestService.countSolutionTestsByTestAndSolutionStatus(aLista, SolutionStatus.FINISHED));
+
+            model.addAttribute("Tests", testMap);
             testFormService.removeEditTestIdInSession();
             testFormService.removeEditTestFormInSession();
 
