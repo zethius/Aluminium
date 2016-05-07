@@ -5,7 +5,7 @@ package com.zespolowka.forms;
  */
 public class ProgrammingTaskForm implements Comparable<ProgrammingTaskForm> {
     private String language;
-    private String whiteList;
+    private String restrictedList;
     private String testCode;
     private String testClassName;
     private String solutionClassName;
@@ -29,12 +29,12 @@ public class ProgrammingTaskForm implements Comparable<ProgrammingTaskForm> {
         this.language = language;
     }
 
-    public String getWhiteList() {
-        return whiteList;
+    public String getRestrictedList() {
+        return restrictedList;
     }
 
-    public void setWhiteList(String whiteList) {
-        this.whiteList = whiteList;
+    public void setRestrictedList(String restrictedList) {
+        this.restrictedList = restrictedList;
     }
 
     public String getTestCode() {
@@ -73,7 +73,7 @@ public class ProgrammingTaskForm implements Comparable<ProgrammingTaskForm> {
     public String toString() {
         return "ProgrammingTaskForm{" +
                 "language='" + language + '\'' +
-                ", whiteList='" + whiteList + '\'' +
+                ", restrictedList='" + restrictedList + '\'' +
                 ", testClassName='" + testClassName + '\'' +
                 ", solutionClassName='" + solutionClassName + '\'' +
                 ", testCode='" + testCode + '\'' +
