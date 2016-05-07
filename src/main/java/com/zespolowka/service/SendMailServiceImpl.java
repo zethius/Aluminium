@@ -89,13 +89,13 @@ public class SendMailServiceImpl implements SendMailService {
 
     public void sendVerificationMail(String url, User user) {
         try {
-            message = new MimeMessageHelper(mimeMessage, true);
+            message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
             message.setFrom("noreply@gmail.com");
             message.setTo(user.getEmail());
             message.setSubject("Confirm Registration");
             message.setText("<html><body>" +
                     "<h4>Witaj, " + user.getName() + ' ' + user.getLastName() + "</h4>" +
-                    "<i>" + url + "</i>" +
+                    "<i>" + "<a href="+url+">"+"<strong>"+"kliknij tutaj by aktywować swoje konto!"+"</strong>"+"</a>" + "</i>" +
                     "</body></html>", true);
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {
@@ -114,7 +114,7 @@ public class SendMailServiceImpl implements SendMailService {
             sb.append(AB.charAt(rnd.nextInt(AB.length())));
         }
         try {
-            message = new MimeMessageHelper(mimeMessage, true);
+            message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
             message.setFrom("noreply@gmail.com");
             message.setTo(user.getEmail());
             message.setSubject("Przypomnienie Hasła");

@@ -4,6 +4,7 @@
 <head>
     <title th:text="#{navigation.mainPage}"></title>
     <script src="/js/ModalFunctions.js"></script>
+    <link rel="icon" type="image/png" href="/images/favicon_small.png" />
 </head>
 <body>
 <div layout:fragment="content">
@@ -12,8 +13,9 @@
             <div th:if="${testPasswordError}" class="alert alert-danger">
                 <p th:text="#{test.wrongPassword}"></p>
             </div>
-            <h1 th:utext="''+#{home.welcome}+' &lt;strong&gt;'+#{mainPage.user}+'&lt;/strong&gt;'">
-
+            <h1>
+                <span th:text="#{home.welcome}"></span>
+            <strong th:text="${#authentication.principal.user.name}"></strong>
             </h1>
 
             <h2 th:text="#{mainPage.greetings}"></h2>

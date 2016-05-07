@@ -202,7 +202,7 @@ public class DevDBConfig {
         test.addTaskToTest(taskOpen);
         test = testRepository.save(test);
 
-        Test test2 = new Test("KurzeTesty", 10L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>(), "TO JEST PRZYKLADOWY FAQ TESTU TRALALALALALALLALALALA");
+        Test test2 = new Test("KurzeTesty", 10L, LocalDate.now().minusWeeks(2L), LocalDate.now().minusWeeks(1L), new ArrayList<>(), "TO JEST PRZYKLADOWY FAQ TESTU TRALALALALALALLALALALA");
         TaskProgramming taskProgramming = new TaskProgramming("Zadanie z Javy", 100.0f);
         TaskProgrammingDetail taskProgrammingDetail = new TaskProgrammingDetail();
         taskProgrammingDetail.setLanguage(ProgrammingLanguages.JAVA);
