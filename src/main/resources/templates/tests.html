@@ -4,6 +4,7 @@
 <head>
     <title>Testy admina</title>
     <script src="/js/ModalFunctions.js"></script>
+    <link rel="icon" type="image/png" href="/images/favicon_small.png" />
 </head>
 
 <body>
@@ -43,7 +44,7 @@
                         <a class="glyphicon glyphicon-list-alt" aria-hidden="true" title="wyniki"
                            th:onclick="'showAttemptsModal(' + ${test.key.id} +',\''+${test.key.name} +'\')'">
                         </a>
-                        <a class="glyphicon glyphicon-retweet" aria-hidden="true" title="reopen"
+                        <a th:if="${#dates.format(#dates.create(test.key.endDate.year,test.key.endDate.monthValue,test.key.endDate.dayOfMonth), 'yyyy-MM-dd')} &lt; ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" class="glyphicon glyphicon-retweet" aria-hidden="true" title="reopen"
                            th:onclick="'showReopen(' + ${test.key.id} +',\''+${test.key.name} +'\')'">
                         </a>
                         <a th:href="${'/test/edit/' + test.key.id}"><span class="glyphicon glyphicon-pencil"
@@ -57,7 +58,7 @@
 
                             ></i>
                         </a>
-                        <a th:href="${'/test/pdf/' + test.key.id}" title="save PDF">
+                        <a th:if="${test.value}>0" th:href="${'/test/pdf/' + test.key.id}" title="save PDF">
                             <i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i>
                         </a>
                     </td>
@@ -174,6 +175,18 @@
     function deleteTest(tid) {
         href = "/test/delete/" + tid;
         document.getElementById('deleteform').setAttribute("action", href);
+    }
+    function costam(endDate, currentDate){
+        var year=endDate.substring(0,4);
+        var month=endDate.substring(5,7);
+        var day=endDate.substring(8);
+
+        var currentYear=currentDate.substring(0,4);
+        var currentMonth=currentDate.substring(5,7);
+        var currentDay=currentDate.substring(8);
+
+        alarm(year);
+        return true;
     }
 </script>
 </body>

@@ -89,7 +89,7 @@ angular.module('ngApp', [])
         $scope.languagesSet = [
             {id: '1', name: 'CPP'},
             {id: '2', name: 'JAVA'},
-            {id: '3', name: 'PYTHON'}
+            {id: '3', name: 'PYTHON3'}
         ];
         $scope.selectedLanguages = [];
         $scope.array = [];

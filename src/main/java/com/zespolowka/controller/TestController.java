@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -291,8 +292,8 @@ public class TestController {
                 body[i][0] = "" + (i + 1);
                 body[i][1] = "" + test.getUser().getName() + " " + test.getUser().getLastName() + ", " + test.getUser().getEmail();
                 body[i][2] = "" + test.getPoints() + " / " + test.getTest().getMaxPoints();
-                float procent = (test.getPoints() / test.getTest().getMaxPoints()) * 100;
-                body[i][3] = "" + procent + " %";
+                BigDecimal procent = new BigDecimal(test.getPoints() / test.getTest().getMaxPoints() * 100);
+                body[i][3] = "" + procent.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue() + " %";
                 body[i][4] = "" + formatter.format(test.getEndSolution());
                 i++;
             }
