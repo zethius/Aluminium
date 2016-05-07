@@ -19,6 +19,8 @@ public class CreateTestForm {
     @Size(min = 5, max = 30)
     private String name;
 
+    private String messageFAQ;
+
     @Min(1)
     private Integer attempts = 1;
 
@@ -43,12 +45,13 @@ public class CreateTestForm {
         this.tasks = new ArrayList<>();
     }
 
-    public CreateTestForm(String name, Integer attempts, String beginDate, String endDate, List<TaskForm> tasks) {
+    public CreateTestForm(String name, Integer attempts, String beginDate, String endDate, List<TaskForm> tasks, String messageFAQ) {
         this.name = name;
         this.attempts = attempts;
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.tasks = tasks;
+        this.messageFAQ = messageFAQ;
     }
 
     public void addTask(TaskForm task) {
@@ -61,6 +64,14 @@ public class CreateTestForm {
 
     public void setName(final String name) {
         this.name = name;
+    }
+
+    public String getMessageFAQ() {
+        return messageFAQ;
+    }
+
+    public void setMessageFAQ(final String messageFAQ) {
+        this.messageFAQ = messageFAQ;
     }
 
     public Integer getAttempts() {

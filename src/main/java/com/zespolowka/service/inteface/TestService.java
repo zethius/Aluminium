@@ -2,6 +2,8 @@ package com.zespolowka.service.inteface;
 
 import com.zespolowka.entity.createTest.Test;
 import com.zespolowka.forms.CreateTestForm;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -15,12 +17,20 @@ public interface TestService {
 
     Collection<Test> getAllTests();
 
+    @Transactional
+    @Modifying
     Test create(CreateTestForm form);
 
+    @Transactional
+    @Modifying
     Test update(CreateTestForm form, Long id);
 
+    @Transactional
+    @Modifying
     void delete(Long id);
 
+    @Transactional
+    @Modifying
     Test update(Test test);
 
     CreateTestForm createForm(Test test);

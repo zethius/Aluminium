@@ -44,7 +44,7 @@ public class TaskForm {
         if (taskType == 2) {
             programmingTaskForms.add(new ProgrammingTaskForm(ProgrammingLanguages.JAVA.toString()));
             programmingTaskForms.add(new ProgrammingTaskForm(ProgrammingLanguages.CPP.toString()));
-            programmingTaskForms.add(new ProgrammingTaskForm(ProgrammingLanguages.PYTHON.toString()));
+            programmingTaskForms.add(new ProgrammingTaskForm(ProgrammingLanguages.PYTHON3.toString()));
         }
     }
 
@@ -102,10 +102,10 @@ public class TaskForm {
         } else {
             programmingTaskFormSet.add(new ProgrammingTaskForm(ProgrammingLanguages.CPP.toString()));
         }
-        if (this.languages.contains(ProgrammingLanguages.PYTHON.toString())) {
-            programmingTaskFormSet.add(new ProgrammingTaskForm(ProgrammingLanguages.PYTHON.toString(), true));
+        if (this.languages.contains(ProgrammingLanguages.PYTHON3.toString())) {
+            programmingTaskFormSet.add(new ProgrammingTaskForm(ProgrammingLanguages.PYTHON3.toString(), true));
         } else {
-            programmingTaskFormSet.add(new ProgrammingTaskForm(ProgrammingLanguages.PYTHON.toString()));
+            programmingTaskFormSet.add(new ProgrammingTaskForm(ProgrammingLanguages.PYTHON3.toString()));
         }
         setProgrammingTaskForms(programmingTaskFormSet);
     }
@@ -114,7 +114,7 @@ public class TaskForm {
         if (programmingTaskForms.size() == 0) {
             programmingTaskForms.add(new ProgrammingTaskForm(ProgrammingLanguages.JAVA.toString()));
             programmingTaskForms.add(new ProgrammingTaskForm(ProgrammingLanguages.CPP.toString()));
-            programmingTaskForms.add(new ProgrammingTaskForm(ProgrammingLanguages.PYTHON.toString()));
+            programmingTaskForms.add(new ProgrammingTaskForm(ProgrammingLanguages.PYTHON3.toString()));
         }
         return programmingTaskForms;
     }

@@ -4,9 +4,11 @@ import com.zespolowka.entity.createTest.Task;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 
 @Entity
 public class TaskOpenSolution extends TaskSolution {
+    @Lob
     @Column(length = 10000)
     private String answer;
 

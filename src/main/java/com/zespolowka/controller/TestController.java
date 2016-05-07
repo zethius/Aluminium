@@ -1,6 +1,7 @@
 package com.zespolowka.controller;
 
 import com.zespolowka.entity.createTest.Test;
+import com.zespolowka.entity.solutionTest.SolutionStatus;
 import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.user.CurrentUser;
 import com.zespolowka.entity.user.User;
@@ -31,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -238,7 +240,12 @@ public class TestController {
     public String showAll(Model model) {
         logger.info("metoda - showAll");
         try {
-            model.addAttribute("Tests", testService.getAllTests());
+            Map<Test, Integer> testMap = new HashMap<>();
+            ArrayList<Test> lista = new ArrayList<>(testService.getAllTests());
+            for (Test aLista : lista)
+                testMap.put(aLista, solutionTestService.countSolutionTestsByTestAndSolutionStatus(aLista, SolutionStatus.FINISHED));
+
+            model.addAttribute("Tests", testMap);
             testFormService.removeEditTestIdInSession();
             testFormService.removeEditTestFormInSession();
 
@@ -285,8 +292,8 @@ public class TestController {
                 body[i][0] = "" + (i + 1);
                 body[i][1] = "" + test.getUser().getName() + " " + test.getUser().getLastName() + ", " + test.getUser().getEmail();
                 body[i][2] = "" + test.getPoints() + " / " + test.getTest().getMaxPoints();
-                float procent = (test.getPoints() / test.getTest().getMaxPoints()) * 100;
-                body[i][3] = "" + procent + " %";
+                BigDecimal procent = new BigDecimal(test.getPoints() / test.getTest().getMaxPoints() * 100);
+                body[i][3] = "" + procent.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue() + " %";
                 body[i][4] = "" + formatter.format(test.getEndSolution());
                 i++;
             }
@@ -294,9 +301,9 @@ public class TestController {
             String filePath = "RaportDla" + currentUser.getUser().getId() + ".pdf";
             ServletContext context = request.getServletContext();
             String appPath = context.getRealPath("");
-            String fullPath = appPath + filePath.replaceAll(" ","");
+            String fullPath = appPath + filePath.replaceAll(" ", "");
             logger.info("PDF utworzony w: " + fullPath);
-            File file = new File(fullPath.replaceAll(" ",""));
+            File file = new File(fullPath.replaceAll(" ", ""));
             testService.createPDF(file, title, header, body);
 
             try {

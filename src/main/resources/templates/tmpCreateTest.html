@@ -3,7 +3,7 @@
       layout:decorator="layout">
 <head>
     <title th:text="#{test.createTestForm}"/>
-
+    <link rel="icon" type="image/png" href="/images/favicon_small.png" />
 </head>
 <body>
 <div layout:fragment="content" ng-controller="CreateTestController">
@@ -33,6 +33,20 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label for="messageFAQ" th:text="#{test.messageFAQ}"/>
+                        <div class="input-group">
+                                    <textarea rows="5" class="form-control"
+                                              id="messageFAQ" name="messageFAQ" th:field="*{messageFAQ}"/>
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-asterisk"/>
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="attempts" th:text="#{test.testAttempts}"/>
@@ -266,12 +280,12 @@
 
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <label for="whitelist"
-                                           th:text="#{test.whiteList}+' '+*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].language}"/>
+                                    <label for="restrictedList"
+                                           th:text="#{test.restrictedList}+' '+*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].language}"/>
 
                                     <div class="input-group">
-                                        <textarea id="whitelist" rows="5" class="form-control"
-                                                  th:field="*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].whiteList}"/>
+                                        <textarea id="restrictedList" rows="5" class="form-control"
+                                                  th:field="*{tasks[__${rowStat.index}__].programmingTaskForms[__${row.index}__].restrictedList}"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-asterisk"/>
                                  </span>

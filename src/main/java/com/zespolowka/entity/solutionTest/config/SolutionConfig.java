@@ -63,7 +63,7 @@ public class SolutionConfig {
         this.compiler = "/usr/bin/javac";
         this.interpreter = "/usr/bin/java";
         this.compiler_flags = "-cp .:/var/www/Aluminium/Team_Programming_Rewritten/JAVA_LIB/*";
-        this.interpreter_flags = "-D/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/java.policy -Djava.security.policy=.java.policy -cp .:/var/www/Aluminium/Team_Programming_Rewritten/JAVA_LIB/*";
+        this.interpreter_flags = "-Djava.security.manager -Djava.security.policy==/var/www/Aluminium/Team_Programming_Rewritten/JAVA_LIB/java.policy -cp .:/var/www/Aluminium/Team_Programming_Rewritten/JAVA_LIB/*";
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(LANGUAGE, language);
         jsonObject.put(SOURCES, sources);
@@ -110,7 +110,6 @@ public class SolutionConfig {
         this.language = "python";
         this.sources = sources;
         this.tests = tests;
-        this.compiler = "/usr/bin/jython";
         this.interpreter = "/usr/bin/python3";
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(LANGUAGE, language);
@@ -263,14 +262,14 @@ public class SolutionConfig {
     @Override
     public String toString() {
         return "SolutionConfig{" +
-                "mainFile='" + mainFile + '\'' +
+                "compiler='" + compiler + '\'' +
+                ", mainFile='" + mainFile + '\'' +
                 ", restricted_list_path='" + restricted_list_path + '\'' +
-                ", compiler='" + compiler + '\'' +
                 ", interpreter='" + interpreter + '\'' +
                 ", compiler_flags='" + compiler_flags + '\'' +
                 ", interpreter_flags='" + interpreter_flags + '\'' +
                 ", ulimit_flags='" + ulimit_flags + '\'' +
-                ", max_time_of_tests='" + max_time_of_tests + '\'' +
+                ", max_time_of_tests=" + max_time_of_tests +
                 ", language='" + language + '\'' +
                 ", sources='" + sources + '\'' +
                 ", tester_files='" + tester_files + '\'' +

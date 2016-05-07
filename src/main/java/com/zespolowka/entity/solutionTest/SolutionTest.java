@@ -140,14 +140,15 @@ public class SolutionTest {
     @Override
     public String toString() {
         return "SolutionTest{" +
-                "id=" + id +
-                ", Test name =" + test.getName() +
-                ", Max Points =" + test.getMaxPoints() +
-                ", attempt=" + attempt +
+                "attempt=" + attempt +
+                ", id=" + id +
+                ", test=" + test +
                 ", beginSolution=" + beginSolution +
                 ", endSolution=" + endSolution +
-                ", solutionTasks=" + solutionTasks.toString() +
                 ", points=" + points +
+                ", user=" + user +
+                ", solutionStatus=" + solutionStatus +
+                ", solutionTasks=" + solutionTasks +
                 '}';
     }
 }

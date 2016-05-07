@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @Entity
 public class TaskSqlSolution extends TaskSolution {
+    @Lob
     @Column(length = 1000)
     private String sqlAnswer;
 
@@ -48,7 +49,9 @@ public class TaskSqlSolution extends TaskSolution {
     @Override
     public String toString() {
         return "TaskSqlSolution{" +
-                "sqlAnswer='" + sqlAnswer + '\'' +
+                "TaskSolution='" + super.toString() + '\'' +
+                "compilationError=" + compilationError +
+                ", sqlAnswer='" + sqlAnswer + '\'' +
                 '}';
     }
 }

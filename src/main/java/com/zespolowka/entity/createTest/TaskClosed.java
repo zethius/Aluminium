@@ -50,9 +50,8 @@ public class TaskClosed extends Task {
     public String toString() {
         return "TaskClosed{" +
                 "Task='" + super.toString() + '\'' +
-                "question='" + super.getQuestion() + '\'' +
-                "countingType=" + countingType + '\'' +
-//                "answers=" + answers.toString() +
+                "answers=" + answers +
+                ", countingType=" + countingType +
                 '}';
     }
 }

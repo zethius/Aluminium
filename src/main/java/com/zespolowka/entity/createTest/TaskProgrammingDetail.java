@@ -7,10 +7,12 @@ public class TaskProgrammingDetail {
     @Id
     @GeneratedValue
     private Long id;
+    @Lob
     @Column(length = 10000)
     private String testCode;
+    @Lob
     @Column(length = 10000)
-    private String whiteList;
+    private String restrictedList;
     @Enumerated(EnumType.STRING)
     private ProgrammingLanguages language;
     private String testClassName;
@@ -35,12 +37,12 @@ public class TaskProgrammingDetail {
         this.testCode = testCode;
     }
 
-    public String getWhiteList() {
-        return whiteList;
+    public String getRestrictedList() {
+        return restrictedList;
     }
 
-    public void setWhiteList(String whiteList) {
-        this.whiteList = whiteList;
+    public void setRestrictedList(String restrictedList) {
+        this.restrictedList = restrictedList;
     }
 
     public ProgrammingLanguages getLanguage() {
@@ -70,11 +72,12 @@ public class TaskProgrammingDetail {
     @Override
     public String toString() {
         return "TaskProgrammingDetail{" +
-                "testCode='" + testCode + '\'' +
-                ", whiteList='" + whiteList + '\'' +
-                ", solutionClassName='" + solutionClassName + '\'' +
-                ", testClassName='" + testClassName + '\'' +
+                "id=" + id +
+                ", testCode='" + testCode + '\'' +
+                ", restrictedList='" + restrictedList + '\'' +
                 ", language=" + language +
+                ", testClassName='" + testClassName + '\'' +
+                ", solutionClassName='" + solutionClassName + '\'' +
                 '}';
     }
 }

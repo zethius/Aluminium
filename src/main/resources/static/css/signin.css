@@ -62,11 +62,12 @@ body {
 .row .usunPytanie {
     position: absolute;
     top: 2px;
-    left: -15px;
+    left: -12px;
     font-size: 22px;
-    background: #fff;
-    padding: 5px;
+    background: white;
+    padding: 1px;
     cursor: pointer;
+    border-radius: 20px;
 }
 
 .ui-helper-hidden-accessible {
@@ -120,6 +121,10 @@ body {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     background: #0088cc none;
+}
+
+h4 {
+    white-space: pre-line;
 }
 
 .modal.fade.wyniki .modal-dialog {

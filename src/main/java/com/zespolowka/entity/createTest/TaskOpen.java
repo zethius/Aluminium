@@ -2,9 +2,11 @@ package com.zespolowka.entity.createTest;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 
 @Entity
 public class TaskOpen extends Task {
+    @Lob
     @Column(length = 10000)
     private String answer;
 
@@ -45,9 +47,8 @@ public class TaskOpen extends Task {
     public String toString() {
         return "TaskOpen{" +
                 "Task='" + super.toString() + '\'' +
-                "question='" + super.getQuestion() + '\'' +
-                "caseSens=" + caseSens + '\'' +
                 "answer='" + answer + '\'' +
+                ", caseSens=" + caseSens +
                 '}';
     }
 }

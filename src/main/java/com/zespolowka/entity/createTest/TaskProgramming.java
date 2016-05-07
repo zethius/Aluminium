@@ -36,7 +36,6 @@ public class TaskProgramming extends Task {
     public String toString() {
         return "TaskProgramming{" +
                 "Task='" + super.toString() + '\'' +
-                "question='" + super.getQuestion() + '\'' +
                 "programmingDetailSet=" + programmingDetailSet +
                 '}';
     }

@@ -2,8 +2,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-    <title th:text="#{login.login_page}"></title>
+    <title th:text="#{navigation.mainPage}"></title>
     <script src="/js/ModalFunctions.js"></script>
+    <link rel="icon" type="image/png" href="/images/favicon_small.png" />
 </head>
 <body>
 <div layout:fragment="content">
@@ -12,8 +13,9 @@
             <div th:if="${testPasswordError}" class="alert alert-danger">
                 <p th:text="#{test.wrongPassword}"></p>
             </div>
-            <h1 th:utext="''+#{home.welcome}+' &lt;strong&gt;'+#{mainPage.user}+'&lt;/strong&gt;'">
-
+            <h1>
+                <span th:text="#{home.welcome}"></span>
+            <strong th:text="${#authentication.principal.user.name}"></strong>
             </h1>
 
             <h2 th:text="#{mainPage.greetings}"></h2>
@@ -85,6 +87,7 @@
                                 </h4>
                             </div>
                             <div class="modal-body">
+                                <div id="messageFAQ"></div>
                                 <form id="form_test" class="form-register" action="" method="POST">
                                     <div class="row">
                                         <div class="form-group col-md-12">
@@ -134,7 +137,7 @@
                 <h2>Testy programistyczne</h2>
 
                 <p>Aplikacja pozwala na tworzenie testów online sprawdzających wiedzę programistów w takich językach jak
-                    Python, C++, Java. Ponadto istnieje możliwość tworzenia testów SQL. Prawidłowe rozwiązania zadań
+                    Python3, C++, Java. Ponadto istnieje możliwość tworzenia testów SQL. Prawidłowe rozwiązania zadań
                     sprawdzane są według wzorca wprowadzonego przez administratora testu, a nie jedynie kompilowane.</p>
             </div>
             <div class="col-md-4">

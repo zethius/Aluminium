@@ -6,6 +6,7 @@ import com.zespolowka.entity.solutionTest.SolutionStatus;
 import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +22,15 @@ public interface SolutionTestRepository extends JpaRepository<SolutionTest, Long
 
     Integer countSolutionTestsByUserAndTestAndSolutionStatus(User user, Test test, SolutionStatus solutionStatus);
 
+    Integer countSolutionTestsByTestAndSolutionStatus(Test test, SolutionStatus solutionStatus);
+
     Collection<SolutionTest> findSolutionTestsByUserAndSolutionStatus(User user, SolutionStatus solutionStatus);
 
     Collection<SolutionTest> findSolutionTestsByTestAndSolutionStatusOrderByPointsDesc(Test test, SolutionStatus solutionStatus);
 
-    @Transactional
     Optional<SolutionTest> findSolutionTestByTestAndUserAndSolutionStatus(Test test, User user, SolutionStatus solutionStatus);
 
     @Transactional
+    @Modifying
     void deleteSolutionTestsByTest(Test test);
 }

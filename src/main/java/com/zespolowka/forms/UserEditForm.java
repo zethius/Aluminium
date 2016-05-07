@@ -11,10 +11,10 @@ public class UserEditForm {
 
     private Long id;
 
-    @Size(min = 4, max = 15)
+    @Size(min = 3, max = 40)
     private String name;
 
-    @Size(min = 4, max = 20)
+    @Size(min = 3, max = 40)
     private String lastName;
 
     @NotBlank

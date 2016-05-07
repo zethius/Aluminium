@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f90f67c8-feda-4406-8ffd-53636fddb08d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aluminium.iml" afterPath="$PROJECT_DIR$/aluminium.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/AluminiumApplication.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/AluminiumApplication.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/Notification.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/Notification.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/VerificationToken.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Entity/VerificationToken.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserDetailsService.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/CurrentUserDetailsService.java" />
@@ -14,9 +17,81 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/SendMailServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/SendMailServiceImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/UserServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/UserServiceImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/VerificationTokenServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/Service/VerificationTokenServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/config/DevDBConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/config/DevDBConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/config/WebSecurityConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/config/WebSecurityConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/EmailController.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/EmailController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/HomeController.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/HomeController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/RegisterController.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/RegisterController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/SolutionTestController.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/SolutionTestController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/TestController.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/TestController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/rest/SolutionTestRestController.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/rest/SolutionTestRestController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/Notification.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/Notification.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/ProgrammingLanguages.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/ProgrammingLanguages.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/Task.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/Task.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/TaskClosed.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/TaskClosed.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/TaskOpen.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/TaskOpen.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/TaskProgramming.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/TaskProgramming.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/TaskProgrammingDetail.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/TaskProgrammingDetail.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/TaskSql.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/TaskSql.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/Test.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/Test.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/CompilationError.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/CompilationError.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/CompilationErrorTypes.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/CompilationErrorTypes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/SolutionTest.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/SolutionTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/TaskOpenSolution.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/TaskOpenSolution.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/TaskProgrammingSolution.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/TaskProgrammingSolution.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/TaskSolution.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/TaskSolution.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/TaskSqlSolution.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/TaskSqlSolution.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/config/SolutionConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/entity/solutionTest/config/SolutionConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/CreateTestForm.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/CreateTestForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/ProgrammingTaskForm.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/ProgrammingTaskForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/TaskForm.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/TaskForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/UserCreateForm.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/UserCreateForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/UserEditForm.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/forms/UserEditForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/CustomSolutionTestRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/CustomSolutionTestRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/NotificationRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/NotificationRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/SolutionTestRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/SolutionTestRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/SolutionTestRepositoryImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/SolutionTestRepositoryImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/VerificationTokenRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/repository/VerificationTokenRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/NotificationServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/NotificationServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/SendMailServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/SendMailServiceImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/SolutionTestServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/SolutionTestServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/TestFormService.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/TestFormService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/TestServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/TestServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/VerificationTokenServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/VerificationTokenServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/NotificationService.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/NotificationService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/SolutionTestService.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/SolutionTestService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/TestService.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/TestService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/UserService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/VerificationTokenService.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/service/inteface/VerificationTokenService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/validators/CreateTestValidator.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/validators/CreateTestValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/zespolowka/validators/SendMessageValidator.java" afterPath="$PROJECT_DIR$/src/main/java/com/zespolowka/validators/SendMessageValidator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application-prod.properties" afterPath="$PROJECT_DIR$/src/main/resources/application-prod.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/messages.properties" afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/messages_en.properties" afterPath="$PROJECT_DIR$/src/main/resources/messages_en.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/css/signin.css" afterPath="$PROJECT_DIR$/src/main/resources/static/css/signin.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/js/ModalFunctions.js" afterPath="$PROJECT_DIR$/src/main/resources/static/js/ModalFunctions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/js/angularController.js" afterPath="$PROJECT_DIR$/src/main/resources/static/js/angularController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/editTest.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/editTest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/navigation.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/navigation.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/style.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/style.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/messages.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/messages.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/register.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/register.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/remindPassword.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/remindPassword.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/sendMessage.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/sendMessage.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/solutionTestCheckAnswers.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/solutionTestCheckAnswers.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/testSolution.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/testSolution.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/tests.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/tests.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/tmpCreateTest.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/tmpCreateTest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/userDetail.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/userDetail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/userEdit.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/userEdit.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/userTests.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/userTests.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/users.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/users.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/zespolowka/CreateTestFormValidationTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/zespolowka/CreateTestFormValidationTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/zespolowka/HomeControllerTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/zespolowka/HomeControllerTest.java" />
     </list>
     <ignored path="Alluminium0.0.1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,8 +124,8 @@
       <file leaf-file-name="tests.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/tests.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.290323">
-              <caret line="49" column="26" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="52" column="26" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -60,7 +135,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/TestController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="283" column="45" selection-start-line="283" selection-start-column="45" selection-end-line="283" selection-end-column="45" />
+              <caret line="290" column="45" selection-start-line="290" selection-start-column="45" selection-end-line="290" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -71,18 +146,18 @@
       <file leaf-file-name="users.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/users.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.290323">
-              <caret line="166" column="47" selection-start-line="166" selection-start-column="42" selection-end-line="166" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="148" column="26" selection-start-line="148" selection-start-column="26" selection-end-line="148" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestServiceImpl.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TestServiceImpl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/TestServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="74" column="5" selection-start-line="74" selection-start-column="5" selection-end-line="77" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.9727768">
+              <caret line="112" column="42" selection-start-line="112" selection-start-column="42" selection-end-line="112" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -90,11 +165,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SolutionTestServiceImpl.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SolutionTestServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/SolutionTestServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5626134">
-              <caret line="339" column="17" selection-start-line="339" selection-start-column="17" selection-end-line="339" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="377" column="43" selection-start-line="377" selection-start-column="43" selection-end-line="377" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -104,7 +179,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="179" column="29" selection-start-line="179" selection-start-column="18" selection-end-line="179" selection-end-column="29" />
+              <caret line="181" column="29" selection-start-line="179" selection-start-column="18" selection-end-line="179" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -114,7 +189,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/Test.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -138,7 +213,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="PDF" />
+        <entry key="$PROJECT_DIR$" value="6MAJ" />
       </map>
     </option>
   </component>
@@ -206,8 +281,8 @@
         <option value="$PROJECT_DIR$/src/main/resources/templates/tests.html" />
         <option value="$PROJECT_DIR$/src/main/resources/messages_en.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UserController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/service/TestServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/service/SolutionTestServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/zespolowka/service/TestServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -342,13 +417,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files" />
-      </pane>
       <pane id="PackagesPane">
         <subPane />
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope">
+        <subPane subId="Project Files" />
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -755,6 +829,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1470,7 +1545,8 @@
       <workItem from="1462445066336" duration="9189000" />
       <workItem from="1462456093251" duration="908000" />
       <workItem from="1462473596085" duration="1140000" />
-      <workItem from="1462536048439" duration="7193000" />
+      <workItem from="1462536048439" duration="7390000" />
+      <workItem from="1462654041109" duration="231000" />
     </task>
     <task id="LOCAL-00001" summary="Aktualizacja 18 kwietnia">
       <created>1461008655087</created>
@@ -1604,7 +1680,13 @@
       <option name="project" value="LOCAL" />
       <updated>1462541288805</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="CONFIRMDELETE MODAL + sender System">
+      <created>1462545634523</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1462545634523</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1616,7 +1698,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="436671000" />
+    <option name="totallyTimeSpent" value="437099000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1695,7 +1777,8 @@
     <MESSAGE value="PDF polskie znaki" />
     <MESSAGE value="6MAJ" />
     <MESSAGE value="CONFIRMDELETE MODAL" />
-    <option name="LAST_COMMIT_MESSAGE" value="CONFIRMDELETE MODAL" />
+    <MESSAGE value="CONFIRMDELETE MODAL + sender System" />
+    <option name="LAST_COMMIT_MESSAGE" value="CONFIRMDELETE MODAL + sender System" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1927,9 +2010,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="3.1663551">
           <caret line="187" column="30" selection-start-line="187" selection-start-column="30" selection-end-line="187" selection-end-column="30" />
-          <folding>
-            <element signature="e#9626#9627#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2025,7 +2106,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="58" column="1" selection-start-line="58" selection-start-column="1" selection-end-line="58" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2039,16 +2119,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/users.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.290323">
-          <caret line="166" column="47" selection-start-line="166" selection-start-column="42" selection-end-line="166" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="148" column="26" selection-start-line="148" selection-start-column="26" selection-end-line="148" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/tests.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.290323">
-          <caret line="49" column="26" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="52" column="26" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
           <folding />
         </state>
       </provider>
@@ -2060,7 +2140,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.2285714">
           <caret line="130" column="0" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2068,14 +2147,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="118" column="22" selection-start-line="118" selection-start-column="22" selection-end-line="118" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="179" column="29" selection-start-line="179" selection-start-column="18" selection-end-line="179" selection-end-column="29" />
+          <caret line="181" column="29" selection-start-line="179" selection-start-column="18" selection-end-line="179" selection-end-column="29" />
           <folding />
         </state>
       </provider>
@@ -2083,7 +2161,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/entity/createTest/Test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -2091,17 +2169,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/controller/TestController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="283" column="45" selection-start-line="283" selection-start-column="45" selection-end-line="283" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/TestServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="74" column="5" selection-start-line="74" selection-start-column="5" selection-end-line="77" selection-end-column="41" />
+          <caret line="290" column="45" selection-start-line="290" selection-start-column="45" selection-end-line="290" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -2110,9 +2178,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/SolutionTestServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5626134">
-          <caret line="339" column="17" selection-start-line="339" selection-start-column="17" selection-end-line="339" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="377" column="43" selection-start-line="377" selection-start-column="43" selection-end-line="377" selection-end-column="43" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/zespolowka/service/TestServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9727768">
+          <caret line="112" column="42" selection-start-line="112" selection-start-column="42" selection-end-line="112" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

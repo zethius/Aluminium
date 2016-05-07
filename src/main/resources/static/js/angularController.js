@@ -20,6 +20,11 @@ angular.module('ngApp', [])
                 $scope.counter--;
                 $scope.minutes = parseInt($scope.counter / 60, 10);
                 $scope.seconds = parseInt($scope.counter % 60, 10);
+                if($scope.seconds%20){
+                    $http.get('/api/getTime/solutionTest/get/+' + value).success(function (data2) {
+                        $scope.counter = data2;
+                    });
+                }
                 if ($scope.counter <= 0) {
                     document.getElementById('solutionForm').setAttribute("action", "/solutionTestAfterTime");
                     var element = document.getElementById('solutionForm');
@@ -30,9 +35,6 @@ angular.module('ngApp', [])
             var mytimeout = $timeout($scope.onTimeout, 1000);
         }
     }])
-    .controller('RegisterController', ['$scope', function ($scope) {
-
-    }])
     .controller('CreateTestController', function ($scope, $http) {
         $scope.integerval = /^\d*$/;
         $scope.questionNumber = null;
@@ -40,7 +42,7 @@ angular.module('ngApp', [])
         $scope.languagesSet = [
             {id: '1', name: 'CPP'},
             {id: '2', name: 'JAVA'},
-            {id: '3', name: 'PYTHON'}
+            {id: '3', name: 'PYTHON3'}
         ];
         $scope.selectedLanguages = [];
         $scope.array = [];
@@ -92,7 +94,7 @@ angular.module('ngApp', [])
         $scope.languagesSet = [
             {id: '1', name: 'CPP'},
             {id: '2', name: 'JAVA'},
-            {id: '3', name: 'PYTHON'}
+            {id: '3', name: 'PYTHON3'}
         ];
         $scope.selectedLanguages = [];
         $scope.array = [];

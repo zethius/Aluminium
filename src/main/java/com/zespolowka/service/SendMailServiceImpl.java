@@ -2,7 +2,6 @@ package com.zespolowka.service;
 
 import com.zespolowka.entity.user.User;
 import com.zespolowka.service.inteface.SendMailService;
-import com.zespolowka.service.inteface.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +25,11 @@ public class SendMailServiceImpl implements SendMailService {
     private final JavaMailSender mailSender;
     private final MimeMessage mimeMessage;
     private MimeMessageHelper message;
-    private final UserService userService;
+
     @Autowired
-    public SendMailServiceImpl(JavaMailSender mailSender, UserService userService) {
+    public SendMailServiceImpl(JavaMailSender mailSender) {
         this.mailSender = mailSender;
         mimeMessage = mailSender.createMimeMessage();
-        this.userService=userService;
     }
 
     ///do testow - do usuniecia pozniej
@@ -91,13 +89,13 @@ public class SendMailServiceImpl implements SendMailService {
 
     public void sendVerificationMail(String url, User user) {
         try {
-            message = new MimeMessageHelper(mimeMessage, true);
+            message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
             message.setFrom("noreply@gmail.com");
             message.setTo(user.getEmail());
             message.setSubject("Confirm Registration");
             message.setText("<html><body>" +
                     "<h4>Witaj, " + user.getName() + ' ' + user.getLastName() + "</h4>" +
-                    "<i>" + url + "</i>" +
+                    "<i>" + "<a href="+url+">"+"<strong>"+"kliknij tutaj by aktywować swoje konto!"+"</strong>"+"</a>" + "</i>" +
                     "</body></html>", true);
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {
@@ -116,13 +114,12 @@ public class SendMailServiceImpl implements SendMailService {
             sb.append(AB.charAt(rnd.nextInt(AB.length())));
         }
         try {
-            message = new MimeMessageHelper(mimeMessage, true);
+            message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
             message.setFrom("noreply@gmail.com");
             message.setTo(user.getEmail());
             message.setSubject("Przypomnienie Hasła");
             String newPassword = sb.toString();
             user.setPasswordHash(new BCryptPasswordEncoder().encode(newPassword));
-            userService.update(user); //dodane
             message.setText("<html><body><h4>Witaj " + user.getName() + "!</h4><p>Twoje nowe hasło to: " + newPassword + "</p></body></html>", true);
             mailSender.send(mimeMessage);
             logger.info("Reminder sent", newPassword);

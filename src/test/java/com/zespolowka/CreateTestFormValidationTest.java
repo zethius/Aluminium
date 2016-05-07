@@ -46,7 +46,7 @@ public class CreateTestFormValidationTest {
         languages.add("java");
         taskForm.setLanguages(languages);
         programmingTaskForm.setTestCode("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        programmingTaskForm.setWhiteList("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+        programmingTaskForm.setRestrictedList("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
         taskForm.getProgrammingTaskForms().add(programmingTaskForm);
         createTestForm.getTasks().add(taskForm);
 
@@ -170,22 +170,11 @@ public class CreateTestFormValidationTest {
         logger.info(errors.getAllErrors().toString());
     }
 
-    @Test
-    public void checkValidatorWithProgrammingTaskWithProgramingDetailTaskWhiteListNull() throws Exception {
-        ProgrammingTaskForm programmingTaskForm = new ProgrammingTaskForm("cpp", true);
-        programmingTaskForm.setTestCode("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        programmingTaskForm.setWhiteList("");
-        createTestForm.getTasks().get(1).getProgrammingTaskForms().add(programmingTaskForm);
-        errors = new BindException(createTestForm, "createTestForm");
-        ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(1, errors.getErrorCount());
-        logger.info(errors.getAllErrors().toString());
-    }
 
     @Test
     public void checkValidatorWithProgrammingTaskWithProgramingDetailTaskTestCodeNull() throws Exception {
         ProgrammingTaskForm programmingTaskForm = new ProgrammingTaskForm("java", true);
-        programmingTaskForm.setWhiteList("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        programmingTaskForm.setRestrictedList("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         programmingTaskForm.setTestCode("");
         createTestForm.getTasks().get(1).getProgrammingTaskForms().add(programmingTaskForm);
         errors = new BindException(createTestForm, "createTestForm");

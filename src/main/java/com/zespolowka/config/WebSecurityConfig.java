@@ -75,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setForceEncoding(true);
         http
                 .authorizeRequests()
-                .antMatchers("/register", "/login**", "/registrationConfirm**", "/remindPassword")
+                .antMatchers("/register", "/login**", "/register/registrationConfirm**", "/remindPassword")
                 .permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and()
@@ -93,7 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .rememberMe()
-                .and().addFilterBefore(filter,CsrfFilter.class )
+                .and().addFilterBefore(filter, CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository()).and()
                 .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
 

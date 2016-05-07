@@ -9,6 +9,7 @@ public class CompilationError {
     private Long id;
     @Enumerated(EnumType.STRING)
     private CompilationErrorTypes type;
+    @Lob
     @Column(length = 100000)
     private String Error;
 
@@ -43,9 +44,9 @@ public class CompilationError {
     @Override
     public String toString() {
         return "CompilationError{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", Error='" + Error + '\'' +
+                "Error='" + Error + '\'' +
+                ", id=" + id +
+                ", type=" + type +
                 '}';
     }
 }
