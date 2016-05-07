@@ -69,12 +69,14 @@ public class RegisterController {
         logger.info("nazwa metody = registerSubmit");
         userCreateValidator.validate(userCreateForm, result);
         if (result.hasErrors()) {
+            logger.info(userCreateForm.toString());
+            model.addAttribute("userCreateForm", userCreateForm);
             return "register";
         } else {
             User user = userService.create(userCreateForm);
             String token = UUID.randomUUID().toString();
             VerificationToken verificationToken = verificationTokenService.create(user, token);
-            String url = "http://localhost:8080" + request.getContextPath() + "/registrationConfirm?token=" + token;
+            String url = "http://localhost:8080" + request.getContextPath() + "/registrationConfirm?token=" + verificationToken.getToken();
             sendMailService.sendVerificationMail(url, user);
             logger.info(user.toString());
             model.addAttribute("userCreateForm", new UserCreateForm());

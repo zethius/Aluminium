@@ -2,12 +2,15 @@ package com.zespolowka.entity.createTest;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 
 @Entity
 public class TaskSql extends Task {
+    @Lob
     @Column(length = 1000)
     private String sqlAnswer;
 
+    @Lob
     @Column(length = 10000)
     private String preparations;
 

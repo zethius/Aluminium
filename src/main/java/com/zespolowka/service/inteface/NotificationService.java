@@ -5,6 +5,8 @@ import com.zespolowka.entity.user.Role;
 import com.zespolowka.forms.NewMessageForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -29,10 +31,14 @@ public interface NotificationService {
 
     Page<Notification> findAllPageable(Pageable pageable, Long userId, Role role);
 
+    @Transactional
+    @Modifying
     Notification changeStatus(Long id);
 
     void sendMessage(NewMessageForm form);
 
+    @Transactional
+    @Modifying
     void deleteMessagesByUserId(Long id);
 
 }

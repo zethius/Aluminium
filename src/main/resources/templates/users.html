@@ -12,7 +12,7 @@
     <div class="panel panel-primary">
 
         <div class="panel-heading">
-            <h3 class="panel-title">Użytkownicy</h3>
+            <h3 class="panel-title" th:text="#{usersView.users}"/>
         </div>
         <div class="panel-body">
             <div th:if="${sukces}" class="alert alert-success" role="alert" th:text="${message}">Usunieto uzytkownika

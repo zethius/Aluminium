@@ -251,7 +251,7 @@ public class DevDBConfig {
                 "\t\tassertEquals(10,dodaj.my_add(7,5));\n" +
                 "\t}\n" +
                 "}");
-        taskProgrammingDetail.setWhiteList("fork\n" +
+        taskProgrammingDetail.setRestrictedList("fork\n" +
                 "kill\n" +
                 "pkill\n" +
                 "drop\n" +
@@ -366,7 +366,7 @@ public class DevDBConfig {
                 "    BOOST_CHECK_EQUAL_COLLECTIONS(daneWy.begin(), daneWy.end(), daneWe2.begin(), daneWe2.end());\t\n" +
                 "}\n" +
                 "BOOST_AUTO_TEST_SUITE_END()");
-        taskProgrammingDetail.setWhiteList("__asm\n" +
+        taskProgrammingDetail.setRestrictedList("__asm\n" +
                 "__asm__\n" +
                 "__getdelim\n" +
                 "__getpgid\n" +
@@ -563,7 +563,7 @@ public class DevDBConfig {
 
         taskProgramming = new TaskProgramming("Zadanie z Pythona", 100.0f);
         taskProgrammingDetail = new TaskProgrammingDetail();
-        taskProgrammingDetail.setLanguage(ProgrammingLanguages.PYTHON);
+        taskProgrammingDetail.setLanguage(ProgrammingLanguages.PYTHON3);
         taskProgrammingDetail.setTestCode("import unittest\n" +
                 "import my_example0\n" +
                 "import time\n" +
@@ -582,7 +582,7 @@ public class DevDBConfig {
                 "\n" +
                 "if __name__ == '__main__':\n" +
                 "    unittest.main()");
-        taskProgrammingDetail.setWhiteList("fork");
+        taskProgrammingDetail.setRestrictedList("fork");
         taskProgrammingDetail.setTestClassName("my_tests.py");
         taskProgrammingDetail.setSolutionClassName("my_example0.py");
         taskProgramming.getProgrammingDetailSet().add(taskProgrammingDetail);
@@ -621,7 +621,7 @@ public class DevDBConfig {
     public void createFakeNotifications() {
         for (int i = 0; i < 20; i++) {
             try {
-                notificationRepository.save(new Notification("WiadomoscPrzykladowaTresc" + i, "PrzykladowyTematWiadomosci" + i, this.sdf.parse("31-08-2005 10:20:56"), i,repository.findOne(1L)));
+                notificationRepository.save(new Notification("WiadomoscPrzykladowaTresc" + i, "PrzykladowyTematWiadomosci" + i, this.sdf.parse("31-08-2005 10:20:56"), i, repository.findOne(1L)));
             } catch (ParseException e) {
                 e.printStackTrace();
             }

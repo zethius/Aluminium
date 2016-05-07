@@ -4,6 +4,7 @@ import com.zespolowka.entity.createTest.Test;
 import com.zespolowka.entity.solutionTest.SolutionStatus;
 import com.zespolowka.entity.solutionTest.SolutionTest;
 import com.zespolowka.entity.user.User;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -54,11 +55,10 @@ public class SolutionTestRepositoryImpl implements CustomSolutionTestRepository 
 
     @Override
     @Transactional
+    @Modifying
     public SolutionTest update(SolutionTest solutionTest, Test test) {
-        System.out.println("chujow100"+solutionTest.getTest().getTasks().toString());
         solutionTest.setTest(test);
-        em.merge(solutionTest);
-        System.out.println("chujow100"+solutionTest.getTest().getTasks().toString());
+        solutionTest=em.merge(solutionTest);
         return solutionTest;
     }
 

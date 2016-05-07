@@ -7,6 +7,8 @@ import com.zespolowka.entity.solutionTest.TaskSolution;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.SolutionTestForm;
 import org.json.simple.parser.ParseException;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -25,6 +27,8 @@ public interface SolutionTestService {
 
     Collection<SolutionTest> getAllTests();
 
+    @Transactional
+    @Modifying
     SolutionTest create(SolutionTest solutionTest, SolutionStatus solutionStatus);
 
     SolutionTestForm createForm(Test test, User user);
@@ -33,6 +37,8 @@ public interface SolutionTestService {
 
     void addTaskSolutionToTest(SolutionTest solutionTest, TaskSolution taskSolution) throws IOException, ParseException;
 
+    @Transactional
+    @Modifying
     SolutionTest create(SolutionTest solutionTest, SolutionTestForm solutionTestForm) throws IOException, ParseException;
 
     Collection<SolutionTest> getSolutionTestsByUser(User user);

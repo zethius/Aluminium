@@ -274,7 +274,7 @@ public class TestController {
         header[1] = "Osoba";
         header[2] = "Wynik testu";
         header[3] = "%";
-        header[4] = "Data rozwiazania testu";
+        header[4] = "Data rozwiązania testu";
 
         String[][] body = new String[tests.size()][5];
         int i = 0;
@@ -294,9 +294,9 @@ public class TestController {
             String filePath = "RaportDla" + currentUser.getUser().getId() + ".pdf";
             ServletContext context = request.getServletContext();
             String appPath = context.getRealPath("");
-            String fullPath = appPath + filePath.replaceAll(" ","");
+            String fullPath = appPath + filePath.replaceAll(" ", "");
             logger.info("PDF utworzony w: " + fullPath);
-            File file = new File(fullPath.replaceAll(" ",""));
+            File file = new File(fullPath.replaceAll(" ", ""));
             testService.createPDF(file, title, header, body);
 
             try {

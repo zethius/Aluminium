@@ -27,9 +27,9 @@ public class CreateTestValidator implements Validator {
     private Boolean closedTaskWithoutCountingPointOption = false;
     private Boolean taskWithoutPoints = false;
     private Boolean programmingTaskWithoutChoosenLanguage = false;
-    private Boolean programingDetailTaskWhiteListNull = false;
     private Boolean programingDetailTaskTestCodeNull = false;
     private Boolean sqlTaskWithoutPreparations = false;
+    private Boolean closedTaskWithWrongCountOfAnswers = false;
     private int invalidTask;
 
     public CreateTestValidator() {
@@ -42,9 +42,9 @@ public class CreateTestValidator implements Validator {
         closedTaskWithoutCountingPointOption = false;
         taskWithoutPoints = false;
         programmingTaskWithoutChoosenLanguage = false;
-        programingDetailTaskWhiteListNull = false;
         programingDetailTaskTestCodeNull = false;
         sqlTaskWithoutPreparations = false;
+        closedTaskWithWrongCountOfAnswers = false;
     }
 
     @Override
@@ -90,7 +90,6 @@ public class CreateTestValidator implements Validator {
         closedTaskWithoutCountingPointOption = false;
         taskWithoutPoints = false;
         programmingTaskWithoutChoosenLanguage = false;
-        programingDetailTaskWhiteListNull = false;
         programingDetailTaskTestCodeNull = false;
         sqlTaskWithoutPreparations = false;
         if (createTestForm.getTasks().size() > 0) {
@@ -115,6 +114,7 @@ public class CreateTestValidator implements Validator {
                     }
                     if (!closedTaskWithoutCorrectAnswer && !questionWithoutAnswer) {
                         String[] answers = taskForm.getAnswer().split("[\\r\\n]+");
+                        if (answers.length<2 && answers.length>10) closedTaskWithWrongCountOfAnswers = true;
                         Boolean haveCorrectAnswer = false;
                         for (String answer : answers) {
                             if (answer.startsWith("<*>")) {
@@ -140,10 +140,6 @@ public class CreateTestValidator implements Validator {
                                 programingDetailTaskTestCodeNull = true;
                                 invalidTask = taskForms.indexOf(taskForm);
                             }
-                            if (programmingTaskForm.getHidden() && !programingDetailTaskWhiteListNull && (programmingTaskForm.getWhiteList() == null || programmingTaskForm.getWhiteList().length() < 4)) {
-                                programingDetailTaskWhiteListNull = true;
-                                invalidTask = taskForms.indexOf(taskForm);
-                            }
                         }
                     }
                 }
@@ -165,13 +161,13 @@ public class CreateTestValidator implements Validator {
         if (closedTaskWithoutCountingPointOption)
             errors.rejectValue("tasks[" + invalidTask + "].wrongReset", "Error.createTestForm.countingPoint");
         if (closedTaskWithoutCorrectAnswer)
+            errors.rejectValue("tasks[" + invalidTask + "].answer", "Error.createTestForm.wrongAnswerCount");
+        if (closedTaskWithWrongCountOfAnswers)
             errors.rejectValue("tasks[" + invalidTask + "].answer", "Error.createTestForm.correctAnswer");
         if (programmingTaskWithoutChoosenLanguage)
             errors.rejectValue("tasks[" + invalidTask + "].languages", "Error.createTestForm.Languages");
         if (programingDetailTaskTestCodeNull)
             errors.rejectValue("tasks[" + invalidTask + "].languages", "Error.createTestForm.testCode");
-        if (programingDetailTaskWhiteListNull)
-            errors.rejectValue("tasks[" + invalidTask + "].languages", "Error.createTestForm.whiteList");
         if (sqlTaskWithoutPreparations)
             errors.rejectValue("tasks[" + invalidTask + "].preparations", "Error.createTestForm.preparations");
 
@@ -190,7 +186,6 @@ public class CreateTestValidator implements Validator {
                 ", closedTaskWithoutCountingPointOption=" + closedTaskWithoutCountingPointOption +
                 ", taskWithoutPoints=" + taskWithoutPoints +
                 ", programmingTaskWithoutChoosenLanguage=" + programmingTaskWithoutChoosenLanguage +
-                ", programingDetailTaskWhiteListNull=" + programingDetailTaskWhiteListNull +
                 ", programingDetailTaskTestCodeNull=" + programingDetailTaskTestCodeNull +
                 ", invalidTask=" + invalidTask +
                 '}';

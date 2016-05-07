@@ -30,9 +30,6 @@ angular.module('ngApp', [])
             var mytimeout = $timeout($scope.onTimeout, 1000);
         }
     }])
-    .controller('RegisterController', ['$scope', function ($scope) {
-
-    }])
     .controller('CreateTestController', function ($scope, $http) {
         $scope.integerval = /^\d*$/;
         $scope.questionNumber = null;
@@ -40,7 +37,7 @@ angular.module('ngApp', [])
         $scope.languagesSet = [
             {id: '1', name: 'CPP'},
             {id: '2', name: 'JAVA'},
-            {id: '3', name: 'PYTHON'}
+            {id: '3', name: 'PYTHON3'}
         ];
         $scope.selectedLanguages = [];
         $scope.array = [];
