@@ -25,6 +25,8 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -76,7 +78,6 @@ public class TestServiceImpl implements TestService {
             newMessageForm.setMessage(messages.getString("test_created.message"));
             User system = userService.getUserById(1)
                     .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
-            logger.info("SYS:" + system);
             newMessageForm.setSender(system);
             notificationService.sendMessage(newMessageForm);
         } catch (Exception e) {
@@ -281,6 +282,11 @@ public class TestServiceImpl implements TestService {
     @Override
     public Collection<Test> getTestByEndDateBefore(LocalDate date) {
         return testRepository.findByEndDateBefore(date);
+    }
+
+    @Override
+    public Collection<Test> getTestByEndDateAfter(LocalDate date){
+        return testRepository.findByEndDateBetween(date,LocalDate.now().plusYears(100));
     }
 
     @Override

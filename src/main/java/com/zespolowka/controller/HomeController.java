@@ -30,7 +30,7 @@ public class HomeController {
     public String homePage(Model model) {
         logger.info("nazwa metody = homePage");
         try {
-            model.addAttribute("activeTest", testService.getAllTests());
+            model.addAttribute("activeTest", testService.getTestByEndDateAfter(LocalDate.now()));
             model.addAttribute("archiveTest", testService.getTestByEndDateBefore(LocalDate.now()));
         } catch (RuntimeException e) {
             logger.error(e.getMessage(), e);

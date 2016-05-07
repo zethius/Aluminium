@@ -107,7 +107,6 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
                 User system = userService.getUserById(1)
                         .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
-                logger.info("SYS:" + system);
                 newMessageForm.setSender(system);
                 notificationService.sendMessage(newMessageForm);
             }
