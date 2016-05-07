@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -31,10 +33,6 @@ import java.util.UUID;
 @Controller
 public class RegisterController {
     private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
-    /**
-     * TODO
-     * Zamienic na wstrzykiwanie przez konstruktor
-     */
 
     @Autowired
     private UserService userService;
@@ -65,7 +63,7 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerSubmit(@ModelAttribute @Valid UserCreateForm userCreateForm, BindingResult result, WebRequest request, Model model) {
+    public String registerSubmit(@ModelAttribute @Valid UserCreateForm userCreateForm, BindingResult result, WebRequest request, Model model,HttpServletRequest servletRequest) {
         logger.info("nazwa metody = registerSubmit");
         userCreateValidator.validate(userCreateForm, result);
         if (result.hasErrors()) {
@@ -76,7 +74,7 @@ public class RegisterController {
             User user = userService.create(userCreateForm);
             String token = UUID.randomUUID().toString();
             VerificationToken verificationToken = verificationTokenService.create(user, token);
-            String url = "http://localhost:8080" + request.getContextPath() + "/registrationConfirm?token=" + verificationToken.getToken();
+            String url = servletRequest.getRequestURL().toString()+"/registrationConfirm?token=" + verificationToken.getToken();
             sendMailService.sendVerificationMail(url, user);
             logger.info(user.toString());
             model.addAttribute("userCreateForm", new UserCreateForm());
@@ -86,25 +84,38 @@ public class RegisterController {
     }
 
 
-    @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
+    @RequestMapping(value = "/register/registrationConfirm", method = RequestMethod.GET)
     public String confirmRegistration(Model model, @RequestParam("token") String token) {
         logger.info("Potwierdzenie rejestacji");
-        VerificationToken verificationToken = verificationTokenService.getVerificationTokenByToken(token).
-                orElseThrow(() -> new NoSuchElementException(String.format("Podany token = %s nie istnieje", token)));
-        User user = verificationToken.getUser();
-        LocalDateTime localDateTime = LocalDateTime.now();
-        long diff = Duration.between(localDateTime, verificationToken.getExpiryDate()).toMinutes();
-
-        if (diff < 0L) {
-            logger.info(String.format("Token juz jest nieaktulany \n dataDO= %s \n", verificationToken.getExpiryDate()));
-            model.addAttribute("nieaktualny", true);
-            return "login";
-        } else {
-            logger.info("Token jest aktualny - aktywacja konta");
-            user.setEnabled(true);
-            userService.update(user);
+        Optional<VerificationToken> verificationToken = verificationTokenService.getVerificationTokenByToken(token);
+        if (!verificationToken.isPresent()){
+            model.addAttribute("blednyToken", true);
             return "login";
         }
+        try {
+            User user = verificationToken.get().getUser();
+            LocalDateTime localDateTime = LocalDateTime.now();
+            long diff = Duration.between(localDateTime, verificationToken.get().getExpiryDate()).toMinutes();
+
+            if (diff < 0L) {
+                logger.info(String.format("Token juz jest nieaktulany \n dataDO= %s \n", verificationToken.get().getExpiryDate()));
+                model.addAttribute("nieaktualny", true);
+                return "login";
+            } else {
+                logger.info("Token jest aktualny - aktywacja konta");
+                user.setEnabled(true);
+                userService.update(user);
+                model.addAttribute("aktualny", true);
+                verificationTokenService.deleteVerificationTokenByUser(user);
+                return "login";
+            }
+        } catch (Exception e) {
+            logger.info(token.toString());
+            logger.info(e.getMessage(), e);
+            logger.info(verificationToken.toString());
+
+        }
+        return "login";
     }
 
     @Override

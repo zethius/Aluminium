@@ -20,6 +20,11 @@ angular.module('ngApp', [])
                 $scope.counter--;
                 $scope.minutes = parseInt($scope.counter / 60, 10);
                 $scope.seconds = parseInt($scope.counter % 60, 10);
+                if($scope.seconds%20){
+                    $http.get('/api/getTime/solutionTest/get/+' + value).success(function (data2) {
+                        $scope.counter = data2;
+                    });
+                }
                 if ($scope.counter <= 0) {
                     document.getElementById('solutionForm').setAttribute("action", "/solutionTestAfterTime");
                     var element = document.getElementById('solutionForm');

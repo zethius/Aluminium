@@ -47,9 +47,8 @@ public class TaskOpen extends Task {
     public String toString() {
         return "TaskOpen{" +
                 "Task='" + super.toString() + '\'' +
-                "question='" + super.getQuestion() + '\'' +
-                "caseSens=" + caseSens + '\'' +
                 "answer='" + answer + '\'' +
+                ", caseSens=" + caseSens +
                 '}';
     }
 }

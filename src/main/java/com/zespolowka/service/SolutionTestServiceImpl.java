@@ -37,7 +37,6 @@ import java.util.stream.Collectors;
 @Service
 public class SolutionTestServiceImpl implements SolutionTestService {
     private static final Logger logger = LoggerFactory.getLogger(SolutionTestService.class);
-    private static final String TEST_ATTRIBUTE_NAME = "solutionTestSession";
     private static final String OUTPUT = "output.json";
     private static final String CONFIG = "config.json";
 
@@ -93,269 +92,293 @@ public class SolutionTestServiceImpl implements SolutionTestService {
 
     @Override
     public SolutionTest create(SolutionTest solutionTest, SolutionStatus solutionStatus) {
-        taskNo = 0;
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m:s");
-        LocalDateTime dateTime = LocalDateTime.now();
-        solutionTest.setEndSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + '/' + dateTime.getDayOfMonth() + ' ' + dateTime.getHour() + ':' + dateTime.getMinute() + ':' + dateTime.getSecond(), dateTimeFormatter));
-        solutionTest.setSolutionStatus(solutionStatus);
-        logger.info(solutionTest.getBeginSolution() + " " + solutionTest.getEndSolution());
-        if (solutionTest.getSolutionStatus() == SolutionStatus.FINISHED) {
-            ResourceBundle messages = ResourceBundle.getBundle("messages", LocaleContextHolder.getLocale());
-            NewMessageForm newMessageForm = new NewMessageForm();
-            newMessageForm.setReceivers(solutionTest.getUser().getEmail());
-            newMessageForm.setTopic(messages.getString("results.topic") + " " + solutionTest.getTest().getName());
-            newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
-            User system = userService.getUserById(1)
-                    .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
-            logger.info("SYS:" + system);
-            newMessageForm.setSender(system);
-            notificationService.sendMessage(newMessageForm);
+        try {
+            taskNo = 0;
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m:s");
+            LocalDateTime dateTime = LocalDateTime.now();
+            solutionTest.setEndSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + '/' + dateTime.getDayOfMonth() + ' ' + dateTime.getHour() + ':' + dateTime.getMinute() + ':' + dateTime.getSecond(), dateTimeFormatter));
+            solutionTest.setSolutionStatus(solutionStatus);
+            logger.info(solutionTest.getBeginSolution() + " " + solutionTest.getEndSolution());
+            if (solutionTest.getSolutionStatus() == SolutionStatus.FINISHED) {
+                ResourceBundle messages = ResourceBundle.getBundle("messages", LocaleContextHolder.getLocale());
+                NewMessageForm newMessageForm = new NewMessageForm();
+                newMessageForm.setReceivers(solutionTest.getUser().getEmail());
+                newMessageForm.setTopic(messages.getString("results.topic") + " " + solutionTest.getTest().getName());
+                newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
+                User system = userService.getUserById(1)
+                        .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
+                logger.info("SYS:" + system);
+                newMessageForm.setSender(system);
+                notificationService.sendMessage(newMessageForm);
+            }
+        } catch (Exception e) {
+            logger.info(e.getMessage(), e);
+            logger.info(solutionTest.toString());
+            logger.info(solutionStatus.toString());
         }
+
         return solutionTestRepository.saveAndFlush(solutionTest);
     }
 
     @Override
     public SolutionTestForm createForm(Test test, User user) {
-        SolutionTest solutionTest;
-        Optional<SolutionTest> solutionTest2 = findSolutionTestByTestAndUserAndSolutionStatus(test, user, SolutionStatus.OPEN);
-        if (!solutionTest2.isPresent()) {
-            solutionTest = new SolutionTest(test, user);
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m:s");
-            LocalDateTime dateTime = LocalDateTime.now();
-            solutionTest.setBeginSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + '/' + dateTime.getDayOfMonth() + ' ' + dateTime.getHour() + ':' + dateTime.getMinute() + ':' + dateTime.getSecond(), dateTimeFormatter));
-            solutionTest.setAttempt(countSolutionTestsByUserAndTest(user, test) + 1);
-            solutionTest.setSolutionStatus(SolutionStatus.OPEN);
-            solutionTestRepository.saveAndFlush(solutionTest);
-            solutionTestRepository.flush();
-        } else solutionTest = solutionTest2.get();
-        this.taskNo = 0;
-        logger.info(solutionTest.getTest().toString());
         SolutionTestForm solutionTestForm = new SolutionTestForm();
-        solutionTestForm.setName(test.getName());
-        solutionTestForm.setSolutionId(solutionTest.getId());
-        List<SolutionTaskForm> solutionTaskFormList = new ArrayList<>();
-        List<Task> tasks = test.getTasks();
-        Collections.shuffle(tasks);
-        test.setTasks(tasks);
-        solutionTest.setTest(test);
+        try {
+            SolutionTest solutionTest;
+            Optional<SolutionTest> solutionTest2 = findSolutionTestByTestAndUserAndSolutionStatus(test, user, SolutionStatus.OPEN);
+            if (!solutionTest2.isPresent()) {
+                solutionTest = new SolutionTest(test, user);
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/M/d H:m:s");
+                LocalDateTime dateTime = LocalDateTime.now();
+                solutionTest.setBeginSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + '/' + dateTime.getDayOfMonth() + ' ' + dateTime.getHour() + ':' + dateTime.getMinute() + ':' + dateTime.getSecond(), dateTimeFormatter));
+                solutionTest.setAttempt(countSolutionTestsByUserAndTest(user, test) + 1);
+                solutionTest.setSolutionStatus(SolutionStatus.OPEN);
+                solutionTestRepository.saveAndFlush(solutionTest);
+                solutionTestRepository.flush();
+            } else solutionTest = solutionTest2.get();
+            this.taskNo = 0;
+            solutionTestForm.setName(test.getName());
+            solutionTestForm.setSolutionId(solutionTest.getId());
+            List<SolutionTaskForm> solutionTaskFormList = new ArrayList<>();
+            List<Task> tasks = test.getTasks();
+            Collections.shuffle(tasks);
+            test.setTasks(tasks);
+            solutionTest.setTest(test);
 
-        List<Long> integerList = new ArrayList<>();
-        for (Task task : test.getTasks()) {
-            integerList.add(task.getId());
-            if (task instanceof TaskClosed) {
-                solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.CLOSEDTASK));
-            } else if (task instanceof TaskOpen) {
-                solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.OPENTASK));
-            } else if (task instanceof TaskProgramming) {
-                solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.PROGRAMMINGTASK));
-            } else if (task instanceof TaskSql) {
-                solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.SQLTASK));
+            List<Long> integerList = new ArrayList<>();
+            for (Task task : test.getTasks()) {
+                integerList.add(task.getId());
+                if (task instanceof TaskClosed) {
+                    solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.CLOSEDTASK));
+                } else if (task instanceof TaskOpen) {
+                    solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.OPENTASK));
+                } else if (task instanceof TaskProgramming) {
+                    solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.PROGRAMMINGTASK));
+                } else if (task instanceof TaskSql) {
+                    solutionTaskFormList.add(new SolutionTaskForm(task, SolutionTaskForm.SQLTASK));
+                }
             }
+            httpSession.setAttribute("integerList", integerList);
+            solutionTestRepository.saveAndFlush(solutionTest);
+            solutionTestForm.setTasks(solutionTaskFormList);
+            this.taskNo = 0;
+        } catch (Exception e) {
+            logger.info(test.toString());
+            logger.info(user.toString());
+            logger.info(solutionTestForm.toString());
         }
-        httpSession.setAttribute("integerList", integerList);
-        solutionTestRepository.saveAndFlush(solutionTest);
-        solutionTestForm.setTasks(solutionTaskFormList);
-        this.taskNo = 0;
         return solutionTestForm;
     }
 
     public void addTaskSolutionToTest(SolutionTest solutionTest, TaskSolution taskSolution) throws IOException, ParseException {
-        List<Long> integerList = (List<Long>) httpSession.getAttribute("integerList");
-        if (environment.getActiveProfiles().length > 0 && environment.getActiveProfiles()[0].equals("prod")) {
-            Long minimumId = Collections.min(integerList);
-            taskSolution.setTask(solutionTest.getTest().getTasks().get(integerList.get(taskNo++).intValue() - minimumId.intValue()));
-        } else taskSolution.setTask(solutionTest.getTest().getTasks().get(taskNo++));
-        if (taskSolution instanceof TaskClosedSolution) {
-            TaskClosedSolution taskSol = (TaskClosedSolution) taskSolution;
-            TaskClosed taskClo = (TaskClosed) taskSol.getTask();
-            Map<String, Boolean> userAnswers = taskSol.getAnswers();
-            Map<String, Boolean> correctAnswers = taskClo.getAnswers();
-            if (taskClo.getCountingType() == taskClo.WRONG_RESET) {
-                Boolean theSame = true;
-                for (Map.Entry<String, Boolean> stringBooleanEntry : userAnswers.entrySet()) {
-                    if (stringBooleanEntry.getValue() == null) {
-                        userAnswers.put(stringBooleanEntry.getKey(), false);
+        try {
+            List<Long> integerList = (List<Long>) httpSession.getAttribute("integerList");
+            if (environment.getActiveProfiles().length > 0 && environment.getActiveProfiles()[0].equals("prod")) {
+                Long minimumId = Collections.min(integerList);
+                taskSolution.setTask(solutionTest.getTest().getTasks().get(integerList.get(taskNo++).intValue() - minimumId.intValue()));
+            } else taskSolution.setTask(solutionTest.getTest().getTasks().get(taskNo++));
+            if (taskSolution instanceof TaskClosedSolution) {
+                TaskClosedSolution taskSol = (TaskClosedSolution) taskSolution;
+                TaskClosed taskClo = (TaskClosed) taskSol.getTask();
+                Map<String, Boolean> userAnswers = taskSol.getAnswers();
+                Map<String, Boolean> correctAnswers = taskClo.getAnswers();
+                if (taskClo.getCountingType() == taskClo.WRONG_RESET) {
+                    Boolean theSame = true;
+                    for (Map.Entry<String, Boolean> stringBooleanEntry : userAnswers.entrySet()) {
+                        if (stringBooleanEntry.getValue() == null) {
+                            userAnswers.put(stringBooleanEntry.getKey(), false);
+                        }
+                        if ((stringBooleanEntry.getValue() != null && stringBooleanEntry.getValue()) && (!correctAnswers.get(stringBooleanEntry.getKey()))) {
+                            theSame = false;
+                        } else if ((stringBooleanEntry.getValue() == null || !stringBooleanEntry.getValue()) && (correctAnswers.get(stringBooleanEntry.getKey()))) {
+                            theSame = false;
+                        }
                     }
-                    if ((stringBooleanEntry.getValue() != null && stringBooleanEntry.getValue()) && (!correctAnswers.get(stringBooleanEntry.getKey()))) {
-                        theSame = false;
-                    } else if ((stringBooleanEntry.getValue() == null || !stringBooleanEntry.getValue()) && (correctAnswers.get(stringBooleanEntry.getKey()))) {
-                        theSame = false;
-                    }
-                }
-                if (theSame) {
-                    taskSol.setPoints(taskClo.getMax_points());
-                } else taskSol.setPoints(0.0f);
-            } else {
-                Float pointsDivide = 0.0f;
-                Float noCorrectAnswers = 0.0f;
-                Boolean chooseIncorect = false;
-                for (Map.Entry<String, Boolean> stringBooleanEntry : userAnswers.entrySet()) {
-                    if (stringBooleanEntry.getValue() == null) userAnswers.put(stringBooleanEntry.getKey(), false);
-                    if (correctAnswers.get(stringBooleanEntry.getKey())) pointsDivide++;
-                    if (stringBooleanEntry.getValue() && !correctAnswers.get(stringBooleanEntry.getKey())) {
-                        chooseIncorect = true;
-                        break;
-                    } else if (stringBooleanEntry.getValue().equals(correctAnswers.get(stringBooleanEntry.getKey())) && correctAnswers.get(stringBooleanEntry.getKey()))
-                        noCorrectAnswers++;
-                }
-                if (chooseIncorect || noCorrectAnswers < 1.0F) {
-                    taskSol.setPoints(0.0f);
+                    if (theSame) {
+                        taskSol.setPoints(taskClo.getMax_points());
+                    } else taskSol.setPoints(0.0f);
                 } else {
-                    taskSol.setPoints(taskClo.getMax_points() / (pointsDivide / noCorrectAnswers));
-                }
-            }
-            solutionTest.setPoints(solutionTest.getPoints() + taskSol.getPoints());
-            solutionTest.getSolutionTasks().add(taskSol);
-        }
-        if (taskSolution instanceof TaskOpenSolution) {
-            TaskOpenSolution taskSol = (TaskOpenSolution) taskSolution;
-            TaskOpen taskOp = (TaskOpen) taskSol.getTask();
-            if (!taskOp.getCaseSens()) {
-                if (taskSol.getAnswer().toUpperCase().equals(taskOp.getAnswer().toUpperCase())) {
-                    solutionTest.setPoints(solutionTest.getPoints() + taskOp.getMax_points());
-                    taskSol.setPoints(taskOp.getMax_points());
-                } else taskSol.setPoints(0.0f);
-            } else {
-                if (taskSol.getAnswer().equals(taskOp.getAnswer())) {
-                    solutionTest.setPoints(solutionTest.getPoints() + taskOp.getMax_points());
-                    taskSol.setPoints(taskOp.getMax_points());
-                } else taskSol.setPoints(0.0f);
-            }
-            solutionTest.getSolutionTasks().add(taskSol);
-        }
-        if (taskSolution instanceof TaskProgrammingSolution) {
-            TaskProgrammingSolution taskSol = (TaskProgrammingSolution) taskSolution;
-            TaskProgramming taskProgramming = (TaskProgramming) taskSol.getTask();
-
-            SolutionConfig solutionConfig = new SolutionConfig();
-            JSONObject jsonObject;
-            String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getId() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
-            userDirectory = userDirectory.replaceAll(" ", "");
-            Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
-            for (TaskProgrammingDetail taskProgrammingDetail : taskProgrammingDetails) {
-                if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.JAVA)) {
-                    jsonObject = solutionConfig.createJavaConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_java");
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_java"), taskProgrammingDetail.getRestrictedList());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
-                } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.CPP)) {
-                    jsonObject = solutionConfig.createCppConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_cpp", "-w");
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_cpp"), taskProgrammingDetail.getRestrictedList());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
-                } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.PYTHON3)) {
-                    jsonObject = solutionConfig.createPythonConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_python");
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_python"), taskProgrammingDetail.getRestrictedList());
-                    FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
-                }
-            }
-            executeCommand("ruby " + dir + "skrypt.rb \"" + dir + "\" \"" + userDirectory + "\"");
-
-            JSONParser parser = new JSONParser();
-            Object result = parser.parse(new FileReader(resultDir + userDirectory + OUTPUT));
-            jsonObject = (JSONObject) result;
-            if (jsonObject.get("time") != null) {
-                BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
-                BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
-                BigDecimal time = BigDecimal.valueOf((Double) jsonObject.get("time"));
-                BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP)); //TODO dodac czas rozwiazania do statystyk
-                BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSol.getTask().getMax_points()), MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP);
-                taskSol.setPoints(points.floatValue());
-                solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
-            } else {
-                CompilationError compilationError = new CompilationError();
-
-                for (CompilationErrorTypes type : CompilationErrorTypes.values()) {
-                    if (jsonObject.get(type.getValue()) != null) {
-                        compilationError.setType(type);
-                        compilationError.setError(jsonObject.get(type.getValue()).toString());
+                    Float pointsDivide = 0.0f;
+                    Float noCorrectAnswers = 0.0f;
+                    Boolean chooseIncorect = false;
+                    for (Map.Entry<String, Boolean> stringBooleanEntry : userAnswers.entrySet()) {
+                        if (stringBooleanEntry.getValue() == null) userAnswers.put(stringBooleanEntry.getKey(), false);
+                        if (correctAnswers.get(stringBooleanEntry.getKey())) pointsDivide++;
+                        if (stringBooleanEntry.getValue() && !correctAnswers.get(stringBooleanEntry.getKey())) {
+                            chooseIncorect = true;
+                            break;
+                        } else if (stringBooleanEntry.getValue().equals(correctAnswers.get(stringBooleanEntry.getKey())) && correctAnswers.get(stringBooleanEntry.getKey()))
+                            noCorrectAnswers++;
+                    }
+                    if (chooseIncorect || noCorrectAnswers < 1.0F) {
+                        taskSol.setPoints(0.0f);
+                    } else {
+                        taskSol.setPoints(taskClo.getMax_points() / (pointsDivide / noCorrectAnswers));
                     }
                 }
-                taskSol.setCompilationError(compilationError);
-                taskSol.setPoints(0f);
+                solutionTest.setPoints(solutionTest.getPoints() + taskSol.getPoints());
+                solutionTest.getSolutionTasks().add(taskSol);
             }
-            solutionTest.getSolutionTasks().add(taskSol);
-        }
-        if (taskSolution instanceof TaskSqlSolution) {
-            TaskSqlSolution taskSqlSolution = (TaskSqlSolution) taskSolution;
-            TaskSql taskSql = (TaskSql) taskSqlSolution.getTask();
-            SolutionConfig solutionConfig = new SolutionConfig();
-            JSONObject jsonObject;
-            JSONObject source = new JSONObject();
-            source.put("task0", taskSqlSolution.getSqlAnswer());
-            JSONObject tests = new JSONObject();
-            JSONArray array = new JSONArray();
-            array.add("type0");
-            array.add(taskSql.getSqlAnswer());
-            tests.put("task0", array);
-            String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getId() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
-            userDirectory = userDirectory.replaceAll(" ", "");
-            jsonObject = solutionConfig.createSqlConfig("sources.json", "preparations.txt", "tests.json", "restricted_list_sql");
-            FileUtils.writeStringToFile(new File(dir + userDirectory + "tests.json"), tests.toJSONString());
-            FileUtils.writeStringToFile(new File(dir + userDirectory + "sources.json"), source.toJSONString());
-            FileUtils.writeStringToFile(new File(dir + userDirectory + "preparations.txt"), taskSql.getPreparations());
-            FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_sql"), "drop");
-            FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
-            executeCommand("ruby " + dir + "skrypt.rb \"" + dir + "\" \"" + userDirectory + "\"");
+            if (taskSolution instanceof TaskOpenSolution) {
+                TaskOpenSolution taskSol = (TaskOpenSolution) taskSolution;
+                TaskOpen taskOp = (TaskOpen) taskSol.getTask();
+                if (!taskOp.getCaseSens()) {
+                    if (taskSol.getAnswer().toUpperCase().equals(taskOp.getAnswer().toUpperCase())) {
+                        solutionTest.setPoints(solutionTest.getPoints() + taskOp.getMax_points());
+                        taskSol.setPoints(taskOp.getMax_points());
+                    } else taskSol.setPoints(0.0f);
+                } else {
+                    if (taskSol.getAnswer().equals(taskOp.getAnswer())) {
+                        solutionTest.setPoints(solutionTest.getPoints() + taskOp.getMax_points());
+                        taskSol.setPoints(taskOp.getMax_points());
+                    } else taskSol.setPoints(0.0f);
+                }
+                solutionTest.getSolutionTasks().add(taskSol);
+            }
+            if (taskSolution instanceof TaskProgrammingSolution) {
+                TaskProgrammingSolution taskSol = (TaskProgrammingSolution) taskSolution;
+                TaskProgramming taskProgramming = (TaskProgramming) taskSol.getTask();
 
-            JSONParser parser = new JSONParser();
-            Object result = parser.parse(new FileReader(resultDir + userDirectory + OUTPUT));
-            jsonObject = (JSONObject) result;
-            if (jsonObject.get("time") != null) {
-                BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
-                BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
-                BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP));
-                BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSqlSolution.getTask().getMax_points()), MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP);
-                taskSqlSolution.setPoints(points.floatValue());
-                solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
-            } else {
-                CompilationError compilationError = new CompilationError();
-
-                for (CompilationErrorTypes type : CompilationErrorTypes.values()) {
-                    if (jsonObject.get(type.getValue()) != null) {
-                        compilationError.setType(type);
-                        compilationError.setError(jsonObject.get(type.getValue()).toString());
+                SolutionConfig solutionConfig = new SolutionConfig();
+                JSONObject jsonObject;
+                String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getId() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
+                userDirectory = userDirectory.replaceAll(" ", "");
+                Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
+                for (TaskProgrammingDetail taskProgrammingDetail : taskProgrammingDetails) {
+                    if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.JAVA)) {
+                        jsonObject = solutionConfig.createJavaConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_java");
+                        FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
+                        FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
+                        FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_java"), taskProgrammingDetail.getRestrictedList());
+                        FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
+                    } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.CPP)) {
+                        jsonObject = solutionConfig.createCppConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_cpp", "-w");
+                        FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
+                        FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
+                        FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_cpp"), taskProgrammingDetail.getRestrictedList());
+                        FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
+                    } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.PYTHON3)) {
+                        jsonObject = solutionConfig.createPythonConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_python");
+                        FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
+                        FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
+                        FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_python"), taskProgrammingDetail.getRestrictedList());
+                        FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
                     }
                 }
-                taskSqlSolution.setCompilationError(compilationError);
-                taskSqlSolution.setPoints(0f);
+                executeCommand("ruby " + dir + "skrypt.rb \"" + dir + "\" \"" + userDirectory + "\"");
+
+                JSONParser parser = new JSONParser();
+                Object result = parser.parse(new FileReader(resultDir + userDirectory + OUTPUT));
+                jsonObject = (JSONObject) result;
+                if (jsonObject.get("time") != null) {
+                    BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
+                    BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
+                    BigDecimal time = BigDecimal.valueOf((Double) jsonObject.get("time"));
+                    BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP)); //TODO dodac czas rozwiazania do statystyk
+                    BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSol.getTask().getMax_points()), MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP);
+                    taskSol.setPoints(points.floatValue());
+                    solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
+                } else {
+                    CompilationError compilationError = new CompilationError();
+
+                    for (CompilationErrorTypes type : CompilationErrorTypes.values()) {
+                        if (jsonObject.get(type.getValue()) != null) {
+                            compilationError.setType(type);
+                            compilationError.setError(jsonObject.get(type.getValue()).toString());
+                        }
+                    }
+                    taskSol.setCompilationError(compilationError);
+                    taskSol.setPoints(0f);
+                }
+                solutionTest.getSolutionTasks().add(taskSol);
             }
-            solutionTest.getSolutionTasks().add(taskSqlSolution);
+            if (taskSolution instanceof TaskSqlSolution) {
+                TaskSqlSolution taskSqlSolution = (TaskSqlSolution) taskSolution;
+                TaskSql taskSql = (TaskSql) taskSqlSolution.getTask();
+                SolutionConfig solutionConfig = new SolutionConfig();
+                JSONObject jsonObject;
+                JSONObject source = new JSONObject();
+                source.put("task0", taskSqlSolution.getSqlAnswer());
+                JSONObject tests = new JSONObject();
+                JSONArray array = new JSONArray();
+                array.add("type0");
+                array.add(taskSql.getSqlAnswer());
+                tests.put("task0", array);
+                String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getId() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
+                userDirectory = userDirectory.replaceAll(" ", "");
+                jsonObject = solutionConfig.createSqlConfig("sources.json", "preparations.txt", "tests.json", "restricted_list_sql");
+                FileUtils.writeStringToFile(new File(dir + userDirectory + "tests.json"), tests.toJSONString());
+                FileUtils.writeStringToFile(new File(dir + userDirectory + "sources.json"), source.toJSONString());
+                FileUtils.writeStringToFile(new File(dir + userDirectory + "preparations.txt"), taskSql.getPreparations());
+                FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_sql"), "drop");
+                FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
+                executeCommand("ruby " + dir + "skrypt.rb \"" + dir + "\" \"" + userDirectory + "\"");
+
+                JSONParser parser = new JSONParser();
+                Object result = parser.parse(new FileReader(resultDir + userDirectory + OUTPUT));
+                jsonObject = (JSONObject) result;
+                if (jsonObject.get("time") != null) {
+                    BigDecimal all = BigDecimal.valueOf((Long) jsonObject.get("all"));
+                    BigDecimal passed = BigDecimal.valueOf((Long) jsonObject.get("passed"));
+                    BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP));
+                    BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSqlSolution.getTask().getMax_points()), MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP);
+                    taskSqlSolution.setPoints(points.floatValue());
+                    solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
+                } else {
+                    CompilationError compilationError = new CompilationError();
+
+                    for (CompilationErrorTypes type : CompilationErrorTypes.values()) {
+                        if (jsonObject.get(type.getValue()) != null) {
+                            compilationError.setType(type);
+                            compilationError.setError(jsonObject.get(type.getValue()).toString());
+                        }
+                    }
+                    taskSqlSolution.setCompilationError(compilationError);
+                    taskSqlSolution.setPoints(0f);
+                }
+                solutionTest.getSolutionTasks().add(taskSqlSolution);
+            }
+        } catch (Exception e) {
+            logger.info(e.getMessage(), e);
+            logger.info(taskSolution.toString());
+            logger.info(solutionTest.toString());
+            logger.info(httpSession.getAttribute("integerList").toString());
         }
     }
 
     public SolutionTest create(SolutionTest solutionTest, SolutionTestForm solutionTestForm) throws IOException, ParseException {
-        List<SolutionTaskForm> solutionTaskForms = solutionTestForm.getTasks();
-        logger.info(String.valueOf(solutionTaskForms.size()) + " create");
-        solutionTest.setSolutionTasks(new ArrayList<>());
-        solutionTest.setPoints(0f);
-        this.taskNo = 0;
-        for (SolutionTaskForm solutionTaskForm : solutionTaskForms)
-            if (solutionTaskForm.getTaskType() == SolutionTaskForm.CLOSEDTASK) {
-                TaskClosedSolution taskClosedSolution = new TaskClosedSolution(solutionTaskForm.getTask());
-                TreeMap<String, Boolean> answers = new TreeMap<>();
-                answers.putAll(solutionTaskForm.getAnswers());
-                taskClosedSolution.setAnswers(answers);
-                addTaskSolutionToTest(solutionTest, taskClosedSolution);
-            } else if (solutionTaskForm.getTaskType() == SolutionTaskForm.OPENTASK) {
-                TaskOpenSolution taskOpenSolution = new TaskOpenSolution(solutionTaskForm.getTask());
-                taskOpenSolution.setAnswer(solutionTaskForm.getAnswer());
-                addTaskSolutionToTest(solutionTest, taskOpenSolution);
-            } else if (solutionTaskForm.getTaskType() == SolutionTaskForm.PROGRAMMINGTASK) {
-                TaskProgrammingSolution taskProgrammingSolution = new TaskProgrammingSolution(solutionTaskForm.getTask());
-                taskProgrammingSolution.setAnswerCode(solutionTaskForm.getAnswerCode());
-                taskProgrammingSolution.setLanguage(solutionTaskForm.getLanguage());
-                addTaskSolutionToTest(solutionTest, taskProgrammingSolution);
-            } else if (solutionTaskForm.getTaskType() == SolutionTaskForm.SQLTASK) {
-                TaskSqlSolution taskSqlSolution = new TaskSqlSolution(solutionTaskForm.getTask());
-                taskSqlSolution.setSqlAnswer(solutionTaskForm.getAnswerCode());
-                addTaskSolutionToTest(solutionTest, taskSqlSolution);
-            }
-
+        try {
+            List<SolutionTaskForm> solutionTaskForms = solutionTestForm.getTasks();
+            logger.info(String.valueOf(solutionTaskForms.size()) + " create");
+            solutionTest.setSolutionTasks(new ArrayList<>());
+            solutionTest.setPoints(0f);
+            this.taskNo = 0;
+            for (SolutionTaskForm solutionTaskForm : solutionTaskForms)
+                if (solutionTaskForm.getTaskType() == SolutionTaskForm.CLOSEDTASK) {
+                    TaskClosedSolution taskClosedSolution = new TaskClosedSolution(solutionTaskForm.getTask());
+                    TreeMap<String, Boolean> answers = new TreeMap<>();
+                    answers.putAll(solutionTaskForm.getAnswers());
+                    taskClosedSolution.setAnswers(answers);
+                    addTaskSolutionToTest(solutionTest, taskClosedSolution);
+                } else if (solutionTaskForm.getTaskType() == SolutionTaskForm.OPENTASK) {
+                    TaskOpenSolution taskOpenSolution = new TaskOpenSolution(solutionTaskForm.getTask());
+                    taskOpenSolution.setAnswer(solutionTaskForm.getAnswer());
+                    addTaskSolutionToTest(solutionTest, taskOpenSolution);
+                } else if (solutionTaskForm.getTaskType() == SolutionTaskForm.PROGRAMMINGTASK) {
+                    TaskProgrammingSolution taskProgrammingSolution = new TaskProgrammingSolution(solutionTaskForm.getTask());
+                    taskProgrammingSolution.setAnswerCode(solutionTaskForm.getAnswerCode());
+                    taskProgrammingSolution.setLanguage(solutionTaskForm.getLanguage());
+                    addTaskSolutionToTest(solutionTest, taskProgrammingSolution);
+                } else if (solutionTaskForm.getTaskType() == SolutionTaskForm.SQLTASK) {
+                    TaskSqlSolution taskSqlSolution = new TaskSqlSolution(solutionTaskForm.getTask());
+                    taskSqlSolution.setSqlAnswer(solutionTaskForm.getAnswerCode());
+                    addTaskSolutionToTest(solutionTest, taskSqlSolution);
+                }
+        } catch (Exception e) {
+            logger.info(e.getMessage(), e);
+            logger.info(solutionTest.toString());
+            logger.info(solutionTestForm.toString());
+        }
         return solutionTest;
     }
 
@@ -377,37 +400,49 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     @Override
     public SolutionTestForm createFormWithExistingSolution(SolutionTest solutionTest) {
         this.taskNo = 0;
-        logger.info(solutionTest.getSolutionTasks().size() + "size SolutionTasks");
         SolutionTestForm solutionTestForm = new SolutionTestForm();
-        solutionTestForm.setName(solutionTest.getTest().getName());
-        solutionTestForm.setSolutionId(solutionTest.getId());
-        List<SolutionTaskForm> solutionTaskFormList = solutionTest.getSolutionTasks().stream().map(SolutionTaskForm::new).collect(Collectors.toList());
-        solutionTestForm.setTasks(solutionTaskFormList);
-        logger.info(solutionTestForm.getTasks().size() + "");
-        this.taskNo = 0;
+        try {
+            logger.info(solutionTest.getSolutionTasks().size() + "size SolutionTasks");
+            solutionTestForm.setName(solutionTest.getTest().getName());
+            solutionTestForm.setSolutionId(solutionTest.getId());
+            List<SolutionTaskForm> solutionTaskFormList = solutionTest.getSolutionTasks().stream().map(SolutionTaskForm::new).collect(Collectors.toList());
+            solutionTestForm.setTasks(solutionTaskFormList);
+            logger.info(solutionTestForm.getTasks().size() + "");
+            this.taskNo = 0;
+        } catch (Exception e) {
+            logger.info(e.getMessage(), e);
+            logger.info(solutionTest.toString());
+            logger.info(solutionTestForm.toString());
+        }
         return solutionTestForm;
     }
 
     public String executeCommand(String command) {
         logger.info(command);
         StringBuilder output = new StringBuilder();
-        Process p;
         try {
-            p = Runtime.getRuntime().exec(command);
-            p.waitFor();
-            BufferedReader reader =
-                    new BufferedReader(new InputStreamReader(p.getInputStream()));
+            Process p;
+            try {
+                p = Runtime.getRuntime().exec(command);
+                p.waitFor();
+                BufferedReader reader =
+                        new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                output.append(line).append('\n');
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    output.append(line).append('\n');
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        }catch (Exception e){
+            logger.info(e.getMessage(),e);
+            logger.info(command);
+            logger.info(output.toString());
         }
-
         return output.toString();
+
     }
 
     @Override

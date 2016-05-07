@@ -44,9 +44,9 @@ public class CompilationError {
     @Override
     public String toString() {
         return "CompilationError{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", Error='" + Error + '\'' +
+                "Error='" + Error + '\'' +
+                ", id=" + id +
+                ", type=" + type +
                 '}';
     }
 }

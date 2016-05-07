@@ -1,9 +1,12 @@
 package com.zespolowka;
 
 import com.zespolowka.controller.HomeController;
+import com.zespolowka.service.inteface.SolutionTestService;
+import com.zespolowka.service.inteface.TestService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,9 +28,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class HomeControllerTest {
     private MockMvc mvc;
 
+    @Mock
+    private TestService testService;
+
+    @Mock
+    SolutionTestService solutionTestService;
+
     @Before
     public void setUp() throws Exception {
-        mvc = MockMvcBuilders.standaloneSetup(new HomeController()).build();
+        mvc = MockMvcBuilders.standaloneSetup(new HomeController(testService, solutionTestService)).build();
     }
 
     @Test
