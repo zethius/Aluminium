@@ -23,7 +23,7 @@ public class UserRestController {
     @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getUsers(@RequestParam(value = "like", required = true) String like) {
-        return (List<User>) userService.findByEmailIgnoreCaseContainingOrNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(like);
+        return (List<User>) userService.findUsersByEmailIgnoreCaseContainingOrNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(like);
     }
 
     @CrossOrigin
