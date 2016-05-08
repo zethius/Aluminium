@@ -18,6 +18,9 @@
         </div>
         <div th:if="${aktualny}" class="alert alert-success" role="alert">Twoje konto zostało aktywowane
         </div>
+        <div th:if="${loginExpired}" class="alert alert-danger" role="alert">
+            <span th:text="#{login.expired}"></span>
+        </div>
         <label for="username" th:text="#{login.email}" class="sr-only"/>
         <input type="email" name="username" id="username" class="form-control" th:placeholder="#{login.email}"
                required="autofocus"/>

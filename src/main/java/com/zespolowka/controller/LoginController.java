@@ -46,6 +46,13 @@ public class LoginController {
         return "login";
     }
 
+    @RequestMapping("/login-expired")
+    public String loginExpired(Model model) {
+        logger.info("nazwa metody = loginError");
+        model.addAttribute("loginExpired", true);
+        return "login";
+    }
+
     @RequestMapping(value = "/remindPassword", method = RequestMethod.GET)
     public String getRemindPasswordPage() {
         logger.info("nazwa metody = getRemindPasswordPage");

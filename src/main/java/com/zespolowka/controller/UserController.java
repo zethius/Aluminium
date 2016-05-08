@@ -15,7 +15,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -120,8 +119,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String editUser(@PathVariable final Integer id, final Model model,
-                           final SecurityContextHolderAwareRequestWrapper request) {
+    public String editUser(@PathVariable final Integer id, final Model model) {
         logger.debug("nazwa metody = editUser");
         try {
             model.addAttribute("userEditForm", new UserEditForm(userService.getUserById(id)
