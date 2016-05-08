@@ -7,10 +7,15 @@ import javax.persistence.*;
 
 @Entity
 public class TaskProgrammingSolution extends TaskSolution {
+    @Lob
     @Column(length = 10000)
     private String answerCode;
 
     private String language;
+
+    @Lob
+    @Column(length = 10000)
+    private String failedUnitTest;
 
     @OneToOne(targetEntity = CompilationError.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private CompilationError compilationError;
@@ -31,6 +36,10 @@ public class TaskProgrammingSolution extends TaskSolution {
 
     public Boolean haveError() {
         return compilationError != null;
+    }
+
+    public Boolean haveFailedUnitTest() {
+        return failedUnitTest != null;
     }
 
     public String getAnswerCode() {
@@ -57,13 +66,20 @@ public class TaskProgrammingSolution extends TaskSolution {
         this.compilationError = compilationError;
     }
 
+    public String getFailedUnitTest() {
+        return failedUnitTest;
+    }
+
+    public void setFailedUnitTest(String failedUnitTest) {
+        this.failedUnitTest = failedUnitTest;
+    }
+
     @Override
     public String toString() {
         return "TaskProgrammingSolution{" +
                 "TaskSolution='" + super.toString() + '\'' +
                 "answerCode='" + answerCode + '\'' +
                 ", language='" + language + '\'' +
-                ", compilationError=" + compilationError +
                 '}';
     }
 }

@@ -95,7 +95,7 @@ public class SendMailServiceImpl implements SendMailService {
             message.setSubject("Confirm Registration");
             message.setText("<html><body>" +
                     "<h4>Witaj, " + user.getName() + ' ' + user.getLastName() + "</h4>" +
-                    "<i>" + "<a href="+url+">"+"<strong>"+"kliknij tutaj by aktywować swoje konto!"+"</strong>"+"</a>" + "</i>" +
+                    "<i>" + "<a href=" + url + ">" + "<strong>" + "kliknij tutaj by aktywować swoje konto!" + "</strong>" + "</a>" + "</i>" +
                     "</body></html>", true);
             mailSender.send(mimeMessage);
         } catch (MessagingException e) {

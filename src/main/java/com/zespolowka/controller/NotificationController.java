@@ -68,16 +68,16 @@ public class NotificationController {
     public String sendMessage(final Model model, @ModelAttribute final NewMessageForm newMessageForm, BindingResult errors) {
         logger.info("nazwa metody = sendMessage");
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        logger.info("Curr:" + currentUser.getUser());
+        logger.info("Curr:{}", currentUser.getUser());
         newMessageForm.setSender(currentUser.getUser());
         sendMessageValidator.validate(newMessageForm, errors);
         if (errors.hasErrors()) {
             String err = errors.getAllErrors().get(0).toString();
-            logger.info("err:" + err);
+            logger.info("err:{}", err);
             try {
                 notificationService.sendMessage(newMessageForm);
             } catch (final RuntimeException e) {
-                logger.info("\n" + model + '\n');
+                logger.info("\n{}" + '\n', model);
             }
             return "sendMessage";
         } else {

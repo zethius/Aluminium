@@ -26,13 +26,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = AluminiumApplication.class)
 @WebAppConfiguration
 public class HomeControllerTest {
-    private MockMvc mvc;
-
-    @Mock
-    private TestService testService;
-
     @Mock
     SolutionTestService solutionTestService;
+    private MockMvc mvc;
+    @Mock
+    private TestService testService;
 
     @Before
     public void setUp() throws Exception {

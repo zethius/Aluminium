@@ -66,7 +66,7 @@ public class UserController {
             model.addAttribute(user);
         } catch (final Exception e) {
             logger.error(e.getMessage(), e);
-            logger.info(id.toString() + '\n' + model);
+            logger.info("{}" + '\n' + "{}", id.toString(), model);
         }
         return "userDetail";
     }
@@ -106,7 +106,7 @@ public class UserController {
         userEditValidator.validate(userEditForm, errors);
         if (errors.hasErrors()) {
             String err = errors.getAllErrors().get(0).toString();
-            logger.info("err:" + err);
+            logger.info("err:{}", err);
             return "userEdit";
         } else {
             final User user = userService.editUser(userEditForm);
@@ -128,7 +128,7 @@ public class UserController {
                     .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", id)))));
         } catch (final Exception e) {
             logger.error(e.getMessage(), e);
-            logger.info(id.toString() + '\n' + model + '\n' + userService.getUserById(id));
+            logger.info("{}" + '\n' + "{}" + '\n' + "{}", id.toString(), model, userService.getUserById(id));
         }
         return "userEdit";
     }
@@ -152,7 +152,7 @@ public class UserController {
     public String deleteUser(@PathVariable final Long id, RedirectAttributes redirectAttributes) {
         final CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         logger.info("nazwa metody = deleteUser");
-        logger.info("userDelete" + id);
+        logger.info("userDelete{}", id);
         if (Objects.equals(currentUser.getId(), id)) {
             logger.info("Nie mozesz usunac siebie");
             redirectAttributes.addFlashAttribute("blad", true);
