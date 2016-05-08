@@ -93,6 +93,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .rememberMe()
+                .and()
+                .sessionManagement()
+                .maximumSessions(1).expiredUrl("/login-expired")
+                .and()
                 .and().addFilterBefore(filter, CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository()).and()
                 .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);

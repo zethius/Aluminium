@@ -38,11 +38,19 @@ public class LoginController {
         return "login";
     }
 
+
     @RequestMapping("/login-error")
     public String loginError(Model model, HttpServletRequest request) {
         logger.info("nazwa metody = loginError");
         model.addAttribute("loginError", true);
         model.addAttribute("errorMessage", request.getSession().getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION));
+        return "login";
+    }
+
+    @RequestMapping("/login-expired")
+    public String loginExpired(Model model, HttpServletRequest request) {
+        logger.info("nazwa metody = loginError");
+        model.addAttribute("loginExpired", true);
         return "login";
     }
 

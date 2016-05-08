@@ -12,6 +12,10 @@
         <div th:if="${loginError}" class="alert alert-danger" role="alert">
             <span th:text="${errorMessage}"></span>
         </div>
+
+        <div th:if="${loginExpired}" class="alert alert-danger" role="alert">
+            <span th:text="#{login.expired}"></span>
+        </div>
         <div th:if="${nieaktualny}" class="alert alert-danger" role="alert">Bledny link weryfikacyjny
         </div>
         <div th:if="${blednyToken}" class="alert alert-danger" role="alert">Podany token juz jest nieaktualny
