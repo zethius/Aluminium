@@ -4,7 +4,6 @@
       layout:decorator="layout">
 <head>
     <title th:text="#{users.title}">Użytkownicy</title>
-    <link rel="icon" type="image/png" href="/images/favicon_small.png" />
 </head>
 
 <body>
@@ -152,9 +151,6 @@
                     </div>
                 </div>
             </div>
-            <!--End of Modal -->
-
-            <!-- Modal -->
             <div class="modal fade" id="myModal" role="dialog">
                 <div class="modal-dialog">
 
@@ -169,7 +165,8 @@
                         </div>
                         <div class="modal-footer">
                             <form id="deleteform" action="" method="get">
-                                <input type="submit" name="submit1" id="submitdelete" th:value="#{testSolution.buttonConfirm}"
+                                <input type="submit" name="submit1" id="submitdelete"
+                                       th:value="#{testSolution.buttonConfirm}"
                                        class="btn btn-primary pull-right"/>
                                 <input type="button" class="btn btn-default" data-dismiss="modal"
                                        th:value="#{testSolution.buttonClose}"
@@ -181,7 +178,7 @@
 
                 </div>
             </div>
-            <!-- End of modal -->
+
 
         </div>
     </div>
@@ -194,6 +191,7 @@
         href = "/user/delete/" + uid;
         document.getElementById('deleteform').setAttribute("action", href);
     }
+
     function checkform() {
         var name = $('#InputImie').val();
         var lastName = $('#InputNazwisko').val();

@@ -150,7 +150,13 @@ public class SolutionTestController {
             solutionTest = solutionTestService.create(solutionTest2.get(), solutionTestForm);
         } else {
             solutionTest2 = solutionTestService.findSolutionTestByTestAndUserAndSolutionStatus(test, user, SolutionStatus.DURING);
-            solutionTest = solutionTestService.create(solutionTest2.get(), solutionTestForm);
+            if (solutionTest2.isPresent()) {
+                solutionTest = solutionTestService.create(solutionTest2.get(), solutionTestForm);
+            } else {
+                solutionTest2 = solutionTestService.findSolutionTestByTestAndUserAndSolutionStatus(test, user, SolutionStatus.FINISHED);
+                solutionTest = solutionTestService.create(solutionTest2.get(), solutionTestForm);
+            }
+
         }
         solutionTestService.create(solutionTest, SolutionStatus.FINISHED);
         model.addAttribute("testAfterTime", true);

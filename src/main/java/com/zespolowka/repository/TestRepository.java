@@ -12,6 +12,6 @@ public interface TestRepository extends JpaRepository<Test, Long> {
     Test findTestById(Long id);
 
     Collection<Test> findByEndDateBefore(LocalDate date);
-    Collection<Test> findByEndDateBetween(LocalDate now, LocalDate old);
 
+    Collection<Test> findByEndDateAfter(LocalDate date);
 }

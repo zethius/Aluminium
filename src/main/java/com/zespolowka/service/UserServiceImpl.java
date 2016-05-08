@@ -52,8 +52,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Collection<User> findByEmailIgnoreCaseContainingOrNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(String like) {
-        return userRepository.findEmailByEmailIgnoreCaseContainingOrNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(like, like, like);
+    public Collection<User> findUsersByEmailIgnoreCaseContainingOrNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(String like) {
+        return userRepository.findUsersByEmailIgnoreCaseContainingOrNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(like, like, like);
     }
 
     @Override
