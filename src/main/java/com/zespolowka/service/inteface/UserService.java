@@ -20,7 +20,7 @@ public interface UserService {
 
     Collection<User> getAllUsers();
 
-    Collection<User> findByEmailIgnoreCaseContainingOrNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(String like);
+    Collection<User> findUsersByEmailIgnoreCaseContainingOrNameIgnoreCaseContainingOrLastNameIgnoreCaseContaining(String like);
 
     @Transactional
     @Modifying

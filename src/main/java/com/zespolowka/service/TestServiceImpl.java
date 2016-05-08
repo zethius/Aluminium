@@ -284,6 +284,11 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
+    public Collection<Test> getTestByEndDateAfter(LocalDate date) {
+        return testRepository.findByEndDateAfter(date);
+    }
+
+    @Override
     public void createPDF(File file, String title, String header[], String body[][]) {
 
         logger.info("createPDF");

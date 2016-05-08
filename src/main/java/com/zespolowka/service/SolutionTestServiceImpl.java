@@ -107,7 +107,6 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                 newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
                 User system = userService.getUserById(1)
                         .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
-                logger.info("SYS:" + system);
                 newMessageForm.setSender(system);
                 notificationService.sendMessage(newMessageForm);
             }
@@ -277,6 +276,10 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                     BigDecimal resultTest = (passed.divide(all, MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP)); //TODO dodac czas rozwiazania do statystyk
                     BigDecimal points = resultTest.multiply(BigDecimal.valueOf(taskSol.getTask().getMax_points()), MathContext.DECIMAL128).setScale(4, RoundingMode.HALF_UP);
                     taskSol.setPoints(points.floatValue());
+                    if (jsonObject.get("output") != null) {
+                        String output = (String) jsonObject.get("output");
+                        taskSol.setAnswerCode(taskSol.getAnswerCode() + "\n\n\n" + output);
+                    }
                     solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
                 } else {
                     CompilationError compilationError = new CompilationError();
@@ -436,8 +439,8 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }catch (Exception e){
-            logger.info(e.getMessage(),e);
+        } catch (Exception e) {
+            logger.info(e.getMessage(), e);
             logger.info(command);
             logger.info(output.toString());
         }

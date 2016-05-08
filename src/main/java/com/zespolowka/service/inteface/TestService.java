@@ -37,5 +37,7 @@ public interface TestService {
 
     Collection<Test> getTestByEndDateBefore(LocalDate date);
 
+    Collection<Test> getTestByEndDateAfter(LocalDate date);
+
     void createPDF(File file, String title, String header[], String body[][]);
 }

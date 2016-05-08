@@ -4,7 +4,6 @@
       layout:decorator="layout">
 <head>
     <title th:text="#{users.title}">Użytkownicy</title>
-    <link rel="icon" type="image/png" href="/images/favicon_small.png" />
 </head>
 
 <body>
@@ -45,9 +44,12 @@
                            title="wyniki"
                            th:attr="data-email=${user.email}, data-name=${user.name}, data-lastname=${user.lastName}, data-role=${user.role}, data-id=${user.id}"
                            data-toggle="modal" data-target="#wynikiA"></a>
-                        <a th:href="${'/user/delete/' + user.id}" onclick="return confirmDelete()">
+                        <a>
                             <i class="glyphicon glyphicon-remove" aria-hidden="true"
-                               th:title="#{users.removeUser}"></i>
+                               th:title="#{users.removeUser}"
+                               data-toggle="modal" data-target="#myModal"
+                               th:onclick="'deleteUser(' + ${user.id} + ')'"
+                            ></i>
                         </a>
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span
@@ -149,6 +151,33 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header" style="background: #347AB6; color: white">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" th:text="#{users.confirmdelete}"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <p th:text="#{users.confirmText}"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <form id="deleteform" action="" method="get">
+                                <input type="submit" name="submit1" id="submitdelete"
+                                       th:value="#{testSolution.buttonConfirm}"
+                                       class="btn btn-primary pull-right"/>
+                                <input type="button" class="btn btn-default" data-dismiss="modal"
+                                       th:value="#{testSolution.buttonClose}"
+                                ></input>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
 
         </div>
@@ -158,10 +187,9 @@
 <script layout:fragment="customScripts">
     document.getElementById("usersTab").className = "active";
 
-    function confirmDelete() {
-        var x;
-        x = confirm("Czy na pewno chcesz usunąć?") == true;
-        return x;
+    function deleteUser(uid) {
+        href = "/user/delete/" + uid;
+        document.getElementById('deleteform').setAttribute("action", href);
     }
 
     function checkform() {
