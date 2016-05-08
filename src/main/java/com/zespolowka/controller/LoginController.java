@@ -48,7 +48,7 @@ public class LoginController {
     }
 
     @RequestMapping("/login-expired")
-    public String loginExpired(Model model, HttpServletRequest request) {
+    public String loginExpired(Model model) {
         logger.info("nazwa metody = loginError");
         model.addAttribute("loginExpired", true);
         return "login";

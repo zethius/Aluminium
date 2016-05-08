@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -107,7 +108,6 @@ public class TestController {
                 break;
             }
         }
-        model.addAttribute("createTestForm", testFormService.getTestFromSession());
         return "redirect:/test/create";
     }
 
@@ -134,7 +134,6 @@ public class TestController {
                 break;
             }
         }
-        model.addAttribute("createTestForm", testFormService.getEditTestFromSession());
         return "redirect:/test/edit/" + testFormService.getEditTestIdFromSession();
     }
 
@@ -153,7 +152,6 @@ public class TestController {
 
         createTestForm.getTasks().set(taskId, taskForm);
         testFormService.updateTestFormInSession(createTestForm);
-        model.addAttribute("createTestForm", testFormService.getTestFromSession());
         return "redirect:/test/create";
     }
 
@@ -171,7 +169,6 @@ public class TestController {
 
         createTestForm.getTasks().set(taskId, taskForm);
         testFormService.updateEditTestFormInSession(createTestForm);
-        model.addAttribute("createTestForm", testFormService.getTestFromSession());
         return "redirect:/test/edit/" + testFormService.getEditTestIdFromSession();
     }
 
@@ -181,7 +178,6 @@ public class TestController {
         logger.info("removeQuestion");
         createTestForm.getTasks().remove(taskId);
         testFormService.updateTestFormInSession(createTestForm);
-        model.addAttribute("createTestForm", testFormService.getTestFromSession());
         return "redirect:/test/create";
     }
 
@@ -191,7 +187,6 @@ public class TestController {
         logger.info("removeEditQuestion");
         createTestForm.getTasks().remove(taskId);
         testFormService.updateEditTestFormInSession(createTestForm);
-        model.addAttribute("createTestForm", testFormService.getEditTestFromSession());
         return "redirect:/test/edit/" + testFormService.getEditTestIdFromSession();
     }
 
@@ -229,9 +224,10 @@ public class TestController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/delete/{id}")
-    public String deleteTest(@PathVariable("id") Long id, final Model model) {
+    public String deleteTest(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         logger.info("Metoda - deleteTest");
         testService.delete(id);
+        redirectAttributes.addFlashAttribute("deleted", true);
         return "redirect:/test/all";
     }
 

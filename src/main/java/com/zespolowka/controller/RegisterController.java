@@ -62,7 +62,7 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerSubmit(@ModelAttribute @Valid UserCreateForm userCreateForm, BindingResult result, WebRequest request, Model model, HttpServletRequest servletRequest) {
+    public String registerSubmit(@ModelAttribute @Valid UserCreateForm userCreateForm, BindingResult result, Model model, HttpServletRequest servletRequest) {
         logger.info("nazwa metody = registerSubmit");
         userCreateValidator.validate(userCreateForm, result);
         if (result.hasErrors()) {
