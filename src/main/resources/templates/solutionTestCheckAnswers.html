@@ -56,6 +56,11 @@
                                 <span class="glyphicon glyphicon-asterisk"/>
                             </span>
                         </div>
+                        <div th:if="*{solutionTasks[__${rowStat.index}__].haveFailedUnitTest()}"
+                             class="input-group col-md-12">
+                            <textarea rows="5" class="form-control"
+                                      th:field="*{solutionTasks[__${rowStat.index}__].failedUnitTest}"/>
+                        </div>
                         <h4 th:if="*{solutionTasks[__${rowStat.index}__].haveError()}"
                             th:text="*{solutionTasks[__${rowStat.index}__].compilationError.type}"/>
                         <div th:if="*{solutionTasks[__${rowStat.index}__].haveError()}"

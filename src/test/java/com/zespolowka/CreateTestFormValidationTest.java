@@ -63,7 +63,7 @@ public class CreateTestFormValidationTest {
     public void checkValidatorWithCorrectDate() throws Exception {
         errors = new BindException(createTestForm, "createTestForm");
         ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(0, errors.getErrorCount());
+        assertEquals(0L, (long) errors.getErrorCount());
 
     }
 
@@ -72,7 +72,7 @@ public class CreateTestFormValidationTest {
         createTestForm.setEndDate("01/01/1999");
         errors = new BindException(createTestForm, "createTestForm");
         ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(1, errors.getErrorCount());
+        assertEquals(1L, (long) errors.getErrorCount());
         logger.info(errors.getAllErrors().toString());
     }
 
@@ -82,7 +82,7 @@ public class CreateTestFormValidationTest {
         createTestForm.setBeginDate("");
         errors = new BindException(createTestForm, "createTestForm");
         ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(2, errors.getErrorCount());
+        assertEquals(2L, (long) errors.getErrorCount());
         logger.info(errors.getAllErrors().toString());
     }
 
@@ -92,7 +92,7 @@ public class CreateTestFormValidationTest {
         createTestForm.setBeginDate("2001-11-01");
         errors = new BindException(createTestForm, "createTestForm");
         ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(1, errors.getErrorCount());
+        assertEquals(1L, (long) errors.getErrorCount());
         logger.info(errors.getAllErrors().toString());
     }
 
@@ -102,7 +102,7 @@ public class CreateTestFormValidationTest {
         createTestForm.setBeginDate("1999-11-11");
         errors = new BindException(createTestForm, "createTestForm");
         ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(1, errors.getErrorCount());
+        assertEquals(1L, (long) errors.getErrorCount());
         logger.info(errors.getAllErrors().toString());
     }
 
@@ -111,7 +111,7 @@ public class CreateTestFormValidationTest {
         createTestForm.getTasks().get(0).setQuestion("");
         errors = new BindException(createTestForm, "createTestForm");
         ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(1, errors.getErrorCount());
+        assertEquals(1L, (long) errors.getErrorCount());
         logger.info(errors.getAllErrors().toString());
     }
 
@@ -120,7 +120,7 @@ public class CreateTestFormValidationTest {
         createTestForm.getTasks().get(0).setQuestion("aaa");
         errors = new BindException(createTestForm, "createTestForm");
         ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(1, errors.getErrorCount());
+        assertEquals(1L, (long) errors.getErrorCount());
         logger.info(errors.getAllErrors().toString());
     }
 
@@ -129,7 +129,7 @@ public class CreateTestFormValidationTest {
         createTestForm.getTasks().get(0).setAnswer("aa");
         errors = new BindException(createTestForm, "createTestForm");
         ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(1, errors.getErrorCount());
+        assertEquals(1L, (long) errors.getErrorCount());
         logger.info(errors.getAllErrors().toString());
     }
 
@@ -138,7 +138,7 @@ public class CreateTestFormValidationTest {
         createTestForm.getTasks().get(0).setPoints(null);
         errors = new BindException(createTestForm, "createTestForm");
         ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(1, errors.getErrorCount());
+        assertEquals(1L, (long) errors.getErrorCount());
         logger.info(errors.getAllErrors().toString());
     }
 
@@ -148,7 +148,7 @@ public class CreateTestFormValidationTest {
         createTestForm.getTasks().get(0).setWrongReset(false);
         errors = new BindException(createTestForm, "createTestForm");
         ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(1, errors.getErrorCount());
+        assertEquals(1L, (long) errors.getErrorCount());
         logger.info(errors.getAllErrors().toString());
     }
 
@@ -157,7 +157,7 @@ public class CreateTestFormValidationTest {
         createTestForm.getTasks().get(0).setAnswer("sól\n" + "pieprz");
         errors = new BindException(createTestForm, "createTestForm");
         ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(1, errors.getErrorCount());
+        assertEquals(1L, (long) errors.getErrorCount());
         logger.info(errors.getAllErrors().toString());
     }
 
@@ -166,7 +166,7 @@ public class CreateTestFormValidationTest {
         createTestForm.getTasks().get(1).setLanguages(new TreeSet<>());
         errors = new BindException(createTestForm, "createTestForm");
         ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(1, errors.getErrorCount());
+        assertEquals(1L, (long) errors.getErrorCount());
         logger.info(errors.getAllErrors().toString());
     }
 
@@ -179,7 +179,7 @@ public class CreateTestFormValidationTest {
         createTestForm.getTasks().get(1).getProgrammingTaskForms().add(programmingTaskForm);
         errors = new BindException(createTestForm, "createTestForm");
         ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(1, errors.getErrorCount());
+        assertEquals(1L, (long) errors.getErrorCount());
         logger.info(errors.getAllErrors().toString());
 
     }
@@ -189,7 +189,7 @@ public class CreateTestFormValidationTest {
         createTestForm.getTasks().get(2).setPreparations("");
         errors = new BindException(createTestForm, "createTestForm");
         ValidationUtils.invokeValidator(createTestValidator, createTestForm, errors);
-        assertEquals(1, errors.getErrorCount());
+        assertEquals(1L, (long) errors.getErrorCount());
         logger.info(errors.getAllErrors().toString());
     }
 

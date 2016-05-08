@@ -98,14 +98,14 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             LocalDateTime dateTime = LocalDateTime.now();
             solutionTest.setEndSolution(LocalDateTime.parse(dateTime.getYear() + "/" + dateTime.getMonthValue() + '/' + dateTime.getDayOfMonth() + ' ' + dateTime.getHour() + ':' + dateTime.getMinute() + ':' + dateTime.getSecond(), dateTimeFormatter));
             solutionTest.setSolutionStatus(solutionStatus);
-            logger.info(solutionTest.getBeginSolution() + " " + solutionTest.getEndSolution());
+            logger.info("{} {}", solutionTest.getBeginSolution(), solutionTest.getEndSolution());
             if (solutionTest.getSolutionStatus() == SolutionStatus.FINISHED) {
                 ResourceBundle messages = ResourceBundle.getBundle("messages", LocaleContextHolder.getLocale());
                 NewMessageForm newMessageForm = new NewMessageForm();
                 newMessageForm.setReceivers(solutionTest.getUser().getEmail());
                 newMessageForm.setTopic(messages.getString("results.topic") + " " + solutionTest.getTest().getName());
                 newMessageForm.setMessage(messages.getString("results.message") + " " + solutionTest.getPoints() + " / " + solutionTest.getTest().getMaxPoints());
-                User system = userService.getUserById(1)
+                User system = userService.getUserById(1L)
                         .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
                 newMessageForm.setSender(system);
                 notificationService.sendMessage(newMessageForm);
@@ -291,7 +291,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                         }
                     }
                     taskSol.setCompilationError(compilationError);
-                    taskSol.setPoints(0f);
+                    taskSol.setPoints(0.0f);
                 }
                 solutionTest.getSolutionTasks().add(taskSol);
             }
@@ -337,8 +337,10 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                         }
                     }
                     taskSqlSolution.setCompilationError(compilationError);
-                    taskSqlSolution.setPoints(0f);
+                    taskSqlSolution.setPoints(0.0f);
                 }
+                FileUtils.deleteDirectory(new File(resultDir + userDirectory));
+                // FileUtils.deleteDirectory(new File(dir + userDirectory ));
                 solutionTest.getSolutionTasks().add(taskSqlSolution);
             }
         } catch (Exception e) {
@@ -352,9 +354,9 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     public SolutionTest create(SolutionTest solutionTest, SolutionTestForm solutionTestForm) throws IOException, ParseException {
         try {
             List<SolutionTaskForm> solutionTaskForms = solutionTestForm.getTasks();
-            logger.info(String.valueOf(solutionTaskForms.size()) + " create");
+            logger.info("{} create", String.valueOf(solutionTaskForms.size()));
             solutionTest.setSolutionTasks(new ArrayList<>());
-            solutionTest.setPoints(0f);
+            solutionTest.setPoints(0.0f);
             this.taskNo = 0;
             for (SolutionTaskForm solutionTaskForm : solutionTaskForms)
                 if (solutionTaskForm.getTaskType() == SolutionTaskForm.CLOSEDTASK) {
@@ -405,12 +407,12 @@ public class SolutionTestServiceImpl implements SolutionTestService {
         this.taskNo = 0;
         SolutionTestForm solutionTestForm = new SolutionTestForm();
         try {
-            logger.info(solutionTest.getSolutionTasks().size() + "size SolutionTasks");
+            logger.info("{}size SolutionTasks", solutionTest.getSolutionTasks().size());
             solutionTestForm.setName(solutionTest.getTest().getName());
             solutionTestForm.setSolutionId(solutionTest.getId());
             List<SolutionTaskForm> solutionTaskFormList = solutionTest.getSolutionTasks().stream().map(SolutionTaskForm::new).collect(Collectors.toList());
             solutionTestForm.setTasks(solutionTaskFormList);
-            logger.info(solutionTestForm.getTasks().size() + "");
+            logger.info("{}", solutionTestForm.getTasks().size());
             this.taskNo = 0;
         } catch (Exception e) {
             logger.info(e.getMessage(), e);

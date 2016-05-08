@@ -33,6 +33,7 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -264,7 +265,7 @@ public class TestController {
             model.addAttribute("Tests", solutionTestService.getSolutionTestsByUser(user));
         } catch (final Exception e) {
             logger.error(e.getMessage(), e);
-            logger.info(id.toString() + "\n" + model);
+            logger.info("{}\n{}", id.toString(), model);
         }
         return "userTests";
     }
@@ -292,8 +293,8 @@ public class TestController {
                 body[i][0] = "" + (i + 1);
                 body[i][1] = "" + test.getUser().getName() + " " + test.getUser().getLastName() + ", " + test.getUser().getEmail();
                 body[i][2] = "" + test.getPoints() + " / " + test.getTest().getMaxPoints();
-                BigDecimal procent = new BigDecimal(test.getPoints() / test.getTest().getMaxPoints() * 100);
-                body[i][3] = "" + procent.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue() + " %";
+                BigDecimal procent = BigDecimal.valueOf(test.getPoints() / test.getTest().getMaxPoints() * 100);
+                body[i][3] = "" + procent.setScale(2, RoundingMode.HALF_UP).floatValue() + " %";
                 body[i][4] = "" + formatter.format(test.getEndSolution());
                 i++;
             }
@@ -302,7 +303,7 @@ public class TestController {
             ServletContext context = request.getServletContext();
             String appPath = context.getRealPath("");
             String fullPath = appPath + filePath.replaceAll(" ", "");
-            logger.info("PDF utworzony w: " + fullPath);
+            logger.info("PDF utworzony w: {}", fullPath);
             File file = new File(fullPath.replaceAll(" ", ""));
             testService.createPDF(file, title, header, body);
 
@@ -340,7 +341,7 @@ public class TestController {
                 inputStream.close();
                 Files.delete(file.toPath());
             } catch (Exception ex) {
-                logger.info("FILE NOT FOUND: " + ex.getMessage());
+                logger.info("FILE NOT FOUND: {}", ex.getMessage());
             }
         }
     }

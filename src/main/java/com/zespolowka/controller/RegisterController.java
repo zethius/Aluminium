@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -63,7 +62,7 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerSubmit(@ModelAttribute @Valid UserCreateForm userCreateForm, BindingResult result, WebRequest request, Model model,HttpServletRequest servletRequest) {
+    public String registerSubmit(@ModelAttribute @Valid UserCreateForm userCreateForm, BindingResult result, WebRequest request, Model model, HttpServletRequest servletRequest) {
         logger.info("nazwa metody = registerSubmit");
         userCreateValidator.validate(userCreateForm, result);
         if (result.hasErrors()) {
@@ -74,7 +73,7 @@ public class RegisterController {
             User user = userService.create(userCreateForm);
             String token = UUID.randomUUID().toString();
             VerificationToken verificationToken = verificationTokenService.create(user, token);
-            String url = servletRequest.getRequestURL().toString()+"/registrationConfirm?token=" + verificationToken.getToken();
+            String url = servletRequest.getRequestURL().toString() + "/registrationConfirm?token=" + verificationToken.getToken();
             sendMailService.sendVerificationMail(url, user);
             logger.info(user.toString());
             model.addAttribute("userCreateForm", new UserCreateForm());
@@ -88,7 +87,7 @@ public class RegisterController {
     public String confirmRegistration(Model model, @RequestParam("token") String token) {
         logger.info("Potwierdzenie rejestacji");
         Optional<VerificationToken> verificationToken = verificationTokenService.getVerificationTokenByToken(token);
-        if (!verificationToken.isPresent()){
+        if (!verificationToken.isPresent()) {
             model.addAttribute("blednyToken", true);
             return "login";
         }

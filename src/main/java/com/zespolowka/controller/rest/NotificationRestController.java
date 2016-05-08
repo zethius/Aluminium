@@ -71,7 +71,7 @@ public class NotificationRestController {
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, value = "/update/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateNotification(@PathVariable("id") Long id, @RequestBody Notification notification) {
-        logger.info("Zaktualizuj wiadomosc o id " + id);
+        logger.info("Zaktualizuj wiadomosc o id {}", id);
         notificationService.changeStatus(id);
     }
 
@@ -79,7 +79,7 @@ public class NotificationRestController {
     @RequestMapping(value = "/updateStatus", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void changeQuantity(@RequestParam(value = "id", required = true) Long id) {
-        logger.info("Zaktualizuj wiadomosc o id " + id);
+        logger.info("Zaktualizuj wiadomosc o id {}", id);
         notificationService.changeStatus(id);
     }
 

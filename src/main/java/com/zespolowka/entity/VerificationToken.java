@@ -60,7 +60,7 @@ public class VerificationToken {
 
     private LocalDateTime calculateExpiryDate(int expiryTime) {
         LocalDateTime now = LocalDateTime.now();
-        return now.plusDays((long) expiryTime);
+        return now.plusDays(expiryTime);
     }
 
 

@@ -74,9 +74,9 @@ public class TestServiceImpl implements TestService {
             newMessageForm.setReceivers(Role.USER.name());
             newMessageForm.setTopic(messages.getString("test_created.topic") + " " + test.getName());
             newMessageForm.setMessage(messages.getString("test_created.message"));
-            User system = userService.getUserById(1)
+            User system = userService.getUserById(1L)
                     .orElseThrow(() -> new NoSuchElementException(String.format("Uzytkownik o id =%s nie istnieje", 1)));
-            logger.info("SYS:" + system);
+            logger.info("SYS:{}", system);
             newMessageForm.setSender(system);
             notificationService.sendMessage(newMessageForm);
         } catch (Exception e) {
@@ -293,7 +293,7 @@ public class TestServiceImpl implements TestService {
 
         logger.info("createPDF");
         Document documento = new Document();
-        float[] columnWidths = new float[]{15f, 30f, 30f, 15f, 40f};
+        float[] columnWidths = new float[]{15.0f, 30.0f, 30.0f, 15.0f, 40.0f};
         try {
             file.createNewFile();
             FileOutputStream fop = new FileOutputStream(file);
@@ -301,9 +301,9 @@ public class TestServiceImpl implements TestService {
             documento.open();
             BaseFont helvetica = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED);
 
-            Font fontHeader = new Font(helvetica, 12, Font.BOLD);
-            Font fontBody = new Font(helvetica, 12, Font.NORMAL);
-            documento.add(new Paragraph(title, new Font(helvetica, 20, Font.BOLD, BaseColor.BLACK)));
+            Font fontHeader = new Font(helvetica, 12.0F, Font.BOLD);
+            Font fontBody = new Font(helvetica, 12.0F, Font.NORMAL);
+            documento.add(new Paragraph(title, new Font(helvetica, 20.0F, Font.BOLD, BaseColor.BLACK)));
             //Table for header
             PdfPTable cabetabla = new PdfPTable(header.length);
             for (String aHeader : header) {
@@ -329,7 +329,7 @@ public class TestServiceImpl implements TestService {
             fop.flush();
             fop.close();
         } catch (Exception e) {
-            logger.info("PDF BLAD" + e.getMessage());
+            logger.info("PDF BLAD{}", e.getMessage());
         }
     }
 
