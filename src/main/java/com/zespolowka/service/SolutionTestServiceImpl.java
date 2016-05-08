@@ -339,6 +339,8 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                     taskSqlSolution.setCompilationError(compilationError);
                     taskSqlSolution.setPoints(0.0f);
                 }
+                FileUtils.deleteDirectory(new File(resultDir + userDirectory));
+                // FileUtils.deleteDirectory(new File(dir + userDirectory ));
                 solutionTest.getSolutionTasks().add(taskSqlSolution);
             }
         } catch (Exception e) {
