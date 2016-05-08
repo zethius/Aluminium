@@ -46,7 +46,7 @@ public class NotificationController {
     }
 
     @RequestMapping(value = "/messages/{id}", method = RequestMethod.GET)
-    public String readNotification(@PathVariable final Integer id, Model model, final RedirectAttributes redirectAttributes) {
+    public String readNotification(@PathVariable final Integer id, final RedirectAttributes redirectAttributes) {
         logger.info("nazwa metody = readNotification");
         Notification notif = notificationService.getNotificationById(id.longValue());
         notif.setUnread(false);

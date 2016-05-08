@@ -278,7 +278,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                     taskSol.setPoints(points.floatValue());
                     if (jsonObject.get("output") != null) {
                         String output = (String) jsonObject.get("output");
-                        taskSol.setAnswerCode(taskSol.getAnswerCode() + "\n\n\n" + output);
+                        taskSol.setFailedUnitTest(output);
                     }
                     solutionTest.setPoints(solutionTest.getPoints() + points.floatValue());
                 } else {
@@ -293,6 +293,8 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                     taskSol.setCompilationError(compilationError);
                     taskSol.setPoints(0.0f);
                 }
+                FileUtils.deleteDirectory(new File(resultDir + userDirectory));
+                // FileUtils.deleteDirectory(new File(dir + userDirectory ));
                 solutionTest.getSolutionTasks().add(taskSol);
             }
             if (taskSolution instanceof TaskSqlSolution) {
