@@ -149,7 +149,7 @@ public class DevDBConfig {
         taskOpen.setCaseSens(true);
         taskOpen.setAnswer("abcde");
         test.addTaskToTest(taskOpen);
-        test = testRepository.save(test);
+        testRepository.save(test);
 
         test = new Test("Przykładowy test z hasłem", 3L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>(), "TO JEST PRZYKLADOWY FAQ TESTU TRALALALALALALLALALALA");
         test.setTimePerAttempt(90);
@@ -625,28 +625,6 @@ public class DevDBConfig {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    public void createFakeTestsAndSolutionTestsWithClosedTask() {
-        for (int i = 0; i < 10; i++) {
-            Test test = new Test("PrzykladowyTest" + i, 3L, LocalDate.now().minusWeeks(1L), LocalDate.now().plusWeeks(1L), new ArrayList<>(), "TO JEST PRZYKLADOWY FAQ TESTU TRALALALALALALLALALALA");
-            test.setTimePerAttempt(i);
-            if (i % 3 == 0) test.setPassword("password");
-            else test.setPassword("");
-            TaskClosed taskClosed = new TaskClosed("Zaznacz wszystko", 6.0f);
-            TreeMap<String, Boolean> answer;
-            if (i % 2 == 0) taskClosed.setCountingType(taskClosed.COUNT_NOT_FULL);
-            else taskClosed.setCountingType(TaskClosed.WRONG_RESET);
-            answer = new TreeMap<>();
-            answer.put("1", true);
-            answer.put("2", true);
-            answer.put("3", true);
-            answer.put("4", true);
-            answer.put("5", true);
-            taskClosed.setAnswers(answer);
-            test.addTaskToTest(taskClosed);
-            testRepository.save(test);
         }
     }
 

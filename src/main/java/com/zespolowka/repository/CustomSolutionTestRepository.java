@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface CustomSolutionTestRepository {
-    SolutionTest getSolutionWithTheBestResult(Test test, User user);
 
     List<SolutionTest> getSolutionsWithTheBestResult(User user, SolutionStatus solutionStatus);
 
@@ -18,6 +17,5 @@ public interface CustomSolutionTestRepository {
     @Modifying
     SolutionTest update(SolutionTest solutionTest, Test test);
 
-    List<Integer> getNumberOfAttempts(Test test);
 
 }

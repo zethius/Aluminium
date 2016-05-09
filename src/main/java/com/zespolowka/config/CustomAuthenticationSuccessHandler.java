@@ -30,10 +30,11 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         super.onAuthenticationSuccess(httpServletRequest, httpServletResponse, authentication);
         String email = httpServletRequest.getParameter("username");
+        logger.info("Pomyslne logowanie uzytkownika "+email);
         User user = userService.getUserByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("Uzytkownik z mailem=%s nie istnieje", email)));
         user.setLogin_tries(3);
-        user = userService.update(user);
+        userService.update(user);
     }
 
 
