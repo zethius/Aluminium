@@ -15,11 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.File;
 import java.util.Date;
 
-/**
- * Created by Admin on 2016-02-17.
- * TODO
- * Do usuniecia pozniej - powstało tylko dla testow
- */
 
 @RestController
 public class EmailController {
@@ -31,23 +26,7 @@ public class EmailController {
         this.notificationService = notificationService;
         this.sendMailService = sendMailService;
     }
-
-    @RequestMapping("/send-mail")
-    public void sendMail() {
-        sendMailService.sendSimpleMail("olsz72@o2.pl", "Prosty mail", "Wiadomosc testowa");
-    }
-
-    @RequestMapping("/send-mail2")
-    public void sendMailWithAttachment() {
-        sendMailService.sendMailWIthAttachment("olsz72@o2.pl", "Mail z zalacznikiem", "Wiadomosc testowa", new FileSystemResource(new File("D:/PRIR.pdf")));
-    }
-
-    @RequestMapping("/send-mail3")
-    public void sendRichMail() {
-        CurrentUser user = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        sendMailService.sendRichMail("olsz72@o2.pl", "Ladniejszy mail", "Wiadomosc testowa", user.getUser());
-    }
-
+    
     @RequestMapping("/sendMessage")
     public void sendMessage() {
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
