@@ -196,7 +196,7 @@
         var name = $('#InputImie').val();
         var lastName = $('#InputNazwisko').val();
         var email = $('#InputEmail').val();
-        var nameRegex = /.*[a-zA-Z\d]{4}/;
+        var nameRegex = /.*[a-zA-Z\d]{3,40}/;
         emailRegex = /[a-zA-Z\d]+@[a-zA-Z\d]+\.[a-zA-Z]+/;
         if (!nameRegex.test(name)) {
             $('#InputImie').popover('show');
