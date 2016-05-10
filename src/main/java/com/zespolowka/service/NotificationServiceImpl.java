@@ -11,17 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -44,17 +40,6 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationRepository.findOne(id);
     }
 
-    @Override
-    public Collection<Notification> getAllNotifications() {
-        logger.info("getAllNotifications = ");
-        return notificationRepository.findAll();
-    }
-
-    @Override
-    public Collection<Notification> findByUserIdOrUserRoleOrderByDateDesc(Long userId, Role userRole) {
-        logger.info("findByUserId={}OrUserRole={}OrderByDateDesc = ", userId, userRole);
-        return notificationRepository.findByUserIdOrUserRoleOrderByDateDesc(userId, userRole);
-    }
 
     @Override
     public Collection<Notification> findTop5ByUserIdOrUserRoleOrderByDateDesc(Long userId, Role userRole) {
@@ -78,13 +63,6 @@ public class NotificationServiceImpl implements NotificationService {
     public Notification createNotification(Notification notification) {
         logger.info("createNotif{}", notification);
         return notificationRepository.save(notification);
-    }
-
-    @Override
-    public List<Notification> getNotifications(Integer page, Integer size) {
-        String DEFAULT_SORT_BY_DATE = "date";
-        PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC, DEFAULT_SORT_BY_DATE);
-        return notificationRepository.findAll(pageRequest).getContent().stream().map(Notification::new).collect(Collectors.toList());
     }
 
     public Page<Notification> findAllPageable(Pageable pageable, Long userId, Role userRol) {
@@ -125,7 +103,7 @@ public class NotificationServiceImpl implements NotificationService {
                     String st2 = st.toUpperCase();
                     if (st2.equals(Role.ADMIN.name()) || st2.equals(Role.SUPERADMIN.name()) || st2.equals(Role.USER.name())) {
                         Collection<User> users = userRepository.findUsersByRole(Role.valueOf(st2));
-                        for(User usr: users){
+                        for (User usr : users) {
                             notif = new Notification(form.getMessage(), form.getTopic(), usr.getId(), form.getSender());
                             logger.info("Grupowa wiadomosc do: {}", usr.getEmail());
                             notificationRepository.save(notif);

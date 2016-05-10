@@ -87,7 +87,7 @@ public class TestController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "create/add", method = RequestMethod.POST)
-    public String addQuestion(@RequestParam(value = "questionId", defaultValue = "0") int questionId, final CreateTestForm createTestForm, final Model model) {
+    public String addQuestion(@RequestParam(value = "questionId", defaultValue = "0") int questionId, final CreateTestForm createTestForm) {
         testFormService.updateTestFormInSession(createTestForm);
         logger.info("Metoda - addQuestion");
         switch (questionId) {
@@ -114,7 +114,7 @@ public class TestController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "edit/add", method = RequestMethod.POST)
-    public String addEditQuestion(@RequestParam(value = "questionId", defaultValue = "0") int questionId, final CreateTestForm createTestForm, final Model model) {
+    public String addEditQuestion(@RequestParam(value = "questionId", defaultValue = "0") int questionId, final CreateTestForm createTestForm) {
         testFormService.updateEditTestFormInSession(createTestForm);
         logger.info("Metoda - addEditQuestion");
         switch (questionId) {
@@ -198,7 +198,7 @@ public class TestController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String save(final @Valid CreateTestForm createTestForm, final BindingResult result) {
+    public String save(final @Valid CreateTestForm createTestForm, final BindingResult result, final RedirectAttributes redirectAttributes) {
         logger.info("Metoda - save");
         createTestValidator.validate(createTestForm, result);
         if (result.hasErrors()) {
@@ -210,6 +210,7 @@ public class TestController {
         logger.info(test.toString());
         testFormService.updateTestFormInSession(new CreateTestForm());
         testFormService.updateSelectedLanguagesInSession("");
+        redirectAttributes.addFlashAttribute("sukces", true);
         return "redirect:/test/create";
     }
 
