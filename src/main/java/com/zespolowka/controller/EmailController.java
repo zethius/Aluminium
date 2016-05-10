@@ -7,12 +7,10 @@ import com.zespolowka.entity.user.User;
 import com.zespolowka.service.inteface.NotificationService;
 import com.zespolowka.service.inteface.SendMailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
 import java.util.Date;
 
 
@@ -26,7 +24,7 @@ public class EmailController {
         this.notificationService = notificationService;
         this.sendMailService = sendMailService;
     }
-    
+
     @RequestMapping("/sendMessage")
     public void sendMessage() {
         CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

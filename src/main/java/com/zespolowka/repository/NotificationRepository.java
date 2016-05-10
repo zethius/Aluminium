@@ -12,9 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 
-public interface NotificationRepository extends JpaRepository<Notification, Long>{
-
-    List<Notification> findByUserIdOrUserRoleOrderByDateDesc(Long userId, Role userRole);
+public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
     List<Notification> findTop5ByUserIdOrUserRoleOrderByDateDesc(Long userId, Role userRole);
 
