@@ -95,7 +95,7 @@ public class SolutionTestController {
     }
 
     @RequestMapping(value = "/solutionTest", method = RequestMethod.POST)
-    public String saveSolutionTest(SolutionTestForm solutionTestForm) throws IOException, ParseException {
+    public String saveSolutionTest(SolutionTestForm solutionTestForm,final RedirectAttributes redirectAttributes) throws IOException, ParseException {
         logger.info("Metoda - saveSolutionTest");
         Long id = (Long) this.httpSession.getAttribute(TEST_ATTRIBUTE_NAME);
         Test test = testService.getTestById(id);
@@ -110,6 +110,7 @@ public class SolutionTestController {
             solutionTest = solutionTestService.create(solutionTest2.get(), solutionTestForm);
         }
         solutionTestService.create(solutionTest, SolutionStatus.FINISHED);
+        redirectAttributes.addFlashAttribute("sukces", true);
         return "redirect:/showResults";
     }
 

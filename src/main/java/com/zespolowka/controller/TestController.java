@@ -178,7 +178,7 @@ public class TestController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "create/remove", method = RequestMethod.POST)
-    public String removeQuestion(@RequestParam(value = "taskId") int taskId, final CreateTestForm createTestForm, final Model model) {
+    public String removeQuestion(@RequestParam(value = "taskId") int taskId, final CreateTestForm createTestForm) {
         logger.info("removeQuestion");
         createTestForm.getTasks().remove(taskId);
         testFormService.updateTestFormInSession(createTestForm);
@@ -188,7 +188,7 @@ public class TestController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "edit/remove", method = RequestMethod.POST)
-    public String removeEditQuestion(@RequestParam(value = "taskId") int taskId, final CreateTestForm createTestForm, final Model model) {
+    public String removeEditQuestion(@RequestParam(value = "taskId") int taskId, final CreateTestForm createTestForm) {
         logger.info("removeEditQuestion");
         createTestForm.getTasks().remove(taskId);
         testFormService.updateEditTestFormInSession(createTestForm);
@@ -198,7 +198,7 @@ public class TestController {
 
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String save(final @Valid CreateTestForm createTestForm, final BindingResult result) {
+    public String save(final @Valid CreateTestForm createTestForm, final BindingResult result, final RedirectAttributes redirectAttributes) {
         logger.info("Metoda - save");
         createTestValidator.validate(createTestForm, result);
         if (result.hasErrors()) {
@@ -210,6 +210,7 @@ public class TestController {
         logger.info(test.toString());
         testFormService.updateTestFormInSession(new CreateTestForm());
         testFormService.updateSelectedLanguagesInSession("");
+        redirectAttributes.addFlashAttribute("sukces", true);
         return "redirect:/test/create";
     }
 

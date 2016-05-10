@@ -63,7 +63,6 @@ public class NotificationController {
         return "sendMessage";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('SUPERADMIN')")
     @RequestMapping(value = "/sendMessage", method = RequestMethod.POST)
     public String sendMessage(final Model model, @ModelAttribute final NewMessageForm newMessageForm, BindingResult errors) {
         logger.info("nazwa metody = sendMessage");
