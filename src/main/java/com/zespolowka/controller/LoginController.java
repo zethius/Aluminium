@@ -38,7 +38,6 @@ public class LoginController {
         return "login";
     }
 
-
     @RequestMapping("/login-error")
     public String loginError(Model model, HttpServletRequest request) {
         logger.info("nazwa metody = loginError");

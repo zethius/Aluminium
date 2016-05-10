@@ -22,15 +22,6 @@ public class SolutionTestRepositoryImpl implements CustomSolutionTestRepository 
 
 
     @Override
-    public SolutionTest getSolutionWithTheBestResult(Test test, User user) {
-        String sql = "select s from SolutionTest s where s.points=(select max(g.points) from SolutionTest g where (g.test=:test and g.user=:user))";
-        Query query = em.createQuery(sql).setMaxResults(1);
-        query.setParameter("test", test);
-        query.setParameter("user", user);
-        return (SolutionTest) query.getSingleResult();
-    }
-
-    @Override
     public List<SolutionTest> getSolutionsWithTheBestResult(User user, SolutionStatus solutionStatus) {
         String sql =
                 "select s " + "from SolutionTest s where s.attempt = " +
@@ -60,19 +51,6 @@ public class SolutionTestRepositoryImpl implements CustomSolutionTestRepository 
         solutionTest.setTest(test);
         solutionTest = em.merge(solutionTest);
         return solutionTest;
-    }
-
-    public List<Integer> getNumberOfAttempts(Test test) {
-        String sql =
-                "SELECT test, SUM(attempts)" +
-                        "FROM SolutionTest" +
-                        "where ";
-        Query query = em.createQuery(sql);
-        query.setParameter("test", test);
-        List<Integer> numberOfAttempts = query.getResultList();
-
-        return numberOfAttempts;
-
     }
 
 }

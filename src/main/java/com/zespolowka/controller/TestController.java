@@ -108,6 +108,7 @@ public class TestController {
                 break;
             }
         }
+
         return "redirect:/test/create";
     }
 
@@ -134,6 +135,7 @@ public class TestController {
                 break;
             }
         }
+
         return "redirect:/test/edit/" + testFormService.getEditTestIdFromSession();
     }
 
@@ -152,6 +154,7 @@ public class TestController {
 
         createTestForm.getTasks().set(taskId, taskForm);
         testFormService.updateTestFormInSession(createTestForm);
+
         return "redirect:/test/create";
     }
 
@@ -169,6 +172,7 @@ public class TestController {
 
         createTestForm.getTasks().set(taskId, taskForm);
         testFormService.updateEditTestFormInSession(createTestForm);
+
         return "redirect:/test/edit/" + testFormService.getEditTestIdFromSession();
     }
 
@@ -178,6 +182,7 @@ public class TestController {
         logger.info("removeQuestion");
         createTestForm.getTasks().remove(taskId);
         testFormService.updateTestFormInSession(createTestForm);
+
         return "redirect:/test/create";
     }
 
@@ -187,6 +192,7 @@ public class TestController {
         logger.info("removeEditQuestion");
         createTestForm.getTasks().remove(taskId);
         testFormService.updateEditTestFormInSession(createTestForm);
+
         return "redirect:/test/edit/" + testFormService.getEditTestIdFromSession();
     }
 

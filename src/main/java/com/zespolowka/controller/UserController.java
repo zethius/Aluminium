@@ -15,7 +15,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -192,7 +191,7 @@ public class UserController {
                     redirectAttributes.addFlashAttribute("message", unlock);
                 } else {
                     user.setAccountNonLocked(true);
-                     user.setLogin_tries(3);
+                    user.setLogin_tries(3);
                     String lock = "Odblokowano uzytkownika " + user.getEmail();
                     redirectAttributes.addFlashAttribute("sukces", true);
                     redirectAttributes.addFlashAttribute("message", lock);
@@ -206,7 +205,6 @@ public class UserController {
                         redirectAttributes.addFlashAttribute("message", unlock);
                     } else {
                         user.setAccountNonLocked(true);
-
                         user.setLogin_tries(3);
                         String lock = "Odblokowano uzytkownika " + user.getEmail();
                         redirectAttributes.addFlashAttribute("sukces", true);

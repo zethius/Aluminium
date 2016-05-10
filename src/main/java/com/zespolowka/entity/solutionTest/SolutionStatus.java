@@ -3,7 +3,6 @@ package com.zespolowka.entity.solutionTest;
 
 public enum SolutionStatus {
     OPEN("Open"),
-    ERROR("Error"),
     DURING("During"),
     FINISHED("Finished");
 
