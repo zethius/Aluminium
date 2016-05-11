@@ -52,4 +52,8 @@ public interface SolutionTestService {
     SolutionTestForm createFormWithExistingSolution(SolutionTest solutionTest);
 
     Integer countSolutionTestsByTestAndSolutionStatus(Test test, SolutionStatus solutionStatus);
+
+    @Transactional
+    @Modifying
+    void deleteSolutionTestsByUser(User user);
 }

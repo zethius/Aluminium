@@ -5,6 +5,7 @@ import com.zespolowka.entity.user.Role;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.UserEditForm;
 import com.zespolowka.service.inteface.NotificationService;
+import com.zespolowka.service.inteface.SolutionTestService;
 import com.zespolowka.service.inteface.UserService;
 import com.zespolowka.validators.ChangePasswordValidator;
 import com.zespolowka.validators.UserEditValidator;
@@ -40,7 +41,7 @@ public class UserController {
 
     @Autowired
     private final NotificationService notificationService;
-
+    private final SolutionTestService solutionTestService;
     @Autowired
     private final ChangePasswordValidator changePasswordValidator;
 
@@ -48,11 +49,12 @@ public class UserController {
 
 
     @Autowired
-    public UserController(final UserService userService, NotificationService notificationService, ChangePasswordValidator changePasswordValidator, UserEditValidator userEditValidator) {
+    public UserController(final UserService userService, NotificationService notificationService, ChangePasswordValidator changePasswordValidator, UserEditValidator userEditValidator, SolutionTestService solutionTestService) {
         this.userService = userService;
         this.notificationService = notificationService;
         this.changePasswordValidator = changePasswordValidator;
         this.userEditValidator = userEditValidator;
+        this.solutionTestService=solutionTestService;
     }
 
     @PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
@@ -164,8 +166,9 @@ public class UserController {
                 redirectAttributes.addFlashAttribute("message", "Nie mozesz usunac SA");
             } else {
                 String usunieto = "Usunieto uzytkownika " + user.getEmail();
-                userService.delete(user.getId());
                 notificationService.deleteMessagesByUserId(user.getId());
+                solutionTestService.deleteSolutionTestsByUser(user);
+                userService.delete(user.getId());
                 redirectAttributes.addFlashAttribute("sukces", true);
                 redirectAttributes.addFlashAttribute("message", usunieto);
             }

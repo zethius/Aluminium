@@ -405,6 +405,14 @@ public class SolutionTestServiceImpl implements SolutionTestService {
     }
 
     @Override
+
+    public void deleteSolutionTestsByUser(User user) {
+        logger.info("deleteMessagesByUserId");
+        logger.info("Przed usunieciem:{}", solutionTestRepository.count());
+        solutionTestRepository.deleteSolutionTestsByUser(user);
+        logger.info("Po usunieciu:{}", solutionTestRepository.count());
+    }
+    @Override
     public SolutionTestForm createFormWithExistingSolution(SolutionTest solutionTest) {
         this.taskNo = 0;
         SolutionTestForm solutionTestForm = new SolutionTestForm();
