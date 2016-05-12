@@ -25,8 +25,6 @@ public interface SolutionTestService {
 
     SolutionTest getSolutionTestById(long id);
 
-    Collection<SolutionTest> getAllTests();
-
     @Transactional
     @Modifying
     SolutionTest create(SolutionTest solutionTest, SolutionStatus solutionStatus);

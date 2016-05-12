@@ -4,6 +4,7 @@ import com.zespolowka.entity.user.CurrentUser;
 import com.zespolowka.entity.user.Role;
 import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.UserEditForm;
+import com.zespolowka.repository.SolutionTestRepository;
 import com.zespolowka.service.inteface.NotificationService;
 import com.zespolowka.service.inteface.UserService;
 import com.zespolowka.validators.ChangePasswordValidator;
@@ -46,13 +47,16 @@ public class UserController {
 
     private final UserEditValidator userEditValidator;
 
+    private final SolutionTestRepository solutionTestRepository;
+
 
     @Autowired
-    public UserController(final UserService userService, NotificationService notificationService, ChangePasswordValidator changePasswordValidator, UserEditValidator userEditValidator) {
+    public UserController(final UserService userService, NotificationService notificationService, ChangePasswordValidator changePasswordValidator, UserEditValidator userEditValidator, SolutionTestRepository solutionTestRepository) {
         this.userService = userService;
         this.notificationService = notificationService;
         this.changePasswordValidator = changePasswordValidator;
         this.userEditValidator = userEditValidator;
+        this.solutionTestRepository = solutionTestRepository;
     }
 
     @PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
@@ -164,8 +168,10 @@ public class UserController {
                 redirectAttributes.addFlashAttribute("message", "Nie mozesz usunac SA");
             } else {
                 String usunieto = "Usunieto uzytkownika " + user.getEmail();
-                userService.delete(user.getId());
+                notificationService.deleteMessagesBySender(user);
+                solutionTestRepository.deleteSolutionTestsByUser(user);
                 notificationService.deleteMessagesByUserId(user.getId());
+                userService.delete(user.getId());
                 redirectAttributes.addFlashAttribute("sukces", true);
                 redirectAttributes.addFlashAttribute("message", usunieto);
             }

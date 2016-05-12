@@ -85,10 +85,6 @@ public class SolutionTestServiceImpl implements SolutionTestService {
         return solutionTestRepository.findSolutionTestById(id);
     }
 
-    @Override
-    public Collection<SolutionTest> getAllTests() {
-        return solutionTestRepository.findAll();
-    }
 
     @Override
     public SolutionTest create(SolutionTest solutionTest, SolutionStatus solutionStatus) {
@@ -171,6 +167,10 @@ public class SolutionTestServiceImpl implements SolutionTestService {
 
     public void addTaskSolutionToTest(SolutionTest solutionTest, TaskSolution taskSolution) throws IOException, ParseException {
         try {
+            for (ProgrammingLanguages a : ProgrammingLanguages.values()) {
+                logger.info(a.toString());
+            }
+
             List<Long> integerList = (List<Long>) httpSession.getAttribute("integerList");
             if (environment.getActiveProfiles().length > 0 && environment.getActiveProfiles()[0].equals("prod")) {
                 Long minimumId = Collections.min(integerList);
@@ -237,31 +237,37 @@ public class SolutionTestServiceImpl implements SolutionTestService {
             if (taskSolution instanceof TaskProgrammingSolution) {
                 TaskProgrammingSolution taskSol = (TaskProgrammingSolution) taskSolution;
                 TaskProgramming taskProgramming = (TaskProgramming) taskSol.getTask();
-
                 SolutionConfig solutionConfig = new SolutionConfig();
                 JSONObject jsonObject;
                 String userDirectory = solutionTest.getTest().getName() + '_' + solutionTest.getAttempt() + '_' + solutionTest.getUser().getId() + '_' + UUID.randomUUID().toString().substring(0, 4) + '/';
                 userDirectory = userDirectory.replaceAll(" ", "");
                 Set<TaskProgrammingDetail> taskProgrammingDetails = taskProgramming.getProgrammingDetailSet();
                 for (TaskProgrammingDetail taskProgrammingDetail : taskProgrammingDetails) {
-                    if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.JAVA)) {
-                        jsonObject = solutionConfig.createJavaConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_java");
-                        FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
-                        FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
-                        FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_java"), taskProgrammingDetail.getRestrictedList());
-                        FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
-                    } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.CPP)) {
-                        jsonObject = solutionConfig.createCppConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_cpp", "-w");
-                        FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
-                        FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
-                        FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_cpp"), taskProgrammingDetail.getRestrictedList());
-                        FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
-                    } else if (taskProgrammingDetail.getLanguage().equals(ProgrammingLanguages.PYTHON3)) {
-                        jsonObject = solutionConfig.createPythonConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_python");
-                        FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
-                        FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
-                        FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_python"), taskProgrammingDetail.getRestrictedList());
-                        FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
+                    logger.info(taskProgrammingDetail.getLanguage() + " " + taskSol.getLanguage() + " " + (taskProgrammingDetail.getLanguage().toString().equals(taskSol.getLanguage().toString())));
+                    if ((taskProgrammingDetail.getLanguage().toString().equals(taskSol.getLanguage().toString()))) {
+                        logger.info("aaa");
+                        if (((TaskProgrammingSolution) taskSolution).getLanguage().equals(ProgrammingLanguages.JAVA.toString())) {
+                            jsonObject = solutionConfig.createJavaConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_java");
+                            FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
+                            FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
+                            FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_java"), taskProgrammingDetail.getRestrictedList());
+                            FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
+                            logger.info(jsonObject.toJSONString());
+                        } else if (((TaskProgrammingSolution) taskSolution).getLanguage().equals("CPP")) {
+                            jsonObject = solutionConfig.createCppConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_cpp", "-w");
+                            FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
+                            FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
+                            FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_cpp"), taskProgrammingDetail.getRestrictedList());
+                            FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
+                            logger.info(jsonObject.toJSONString());
+                        } else if (((TaskProgrammingSolution) taskSolution).getLanguage().equals(ProgrammingLanguages.PYTHON3.toString())) {
+                            jsonObject = solutionConfig.createPythonConfig(taskProgrammingDetail.getSolutionClassName(), taskProgrammingDetail.getTestClassName(), "restricted_list_python");
+                            FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getSolutionClassName()), taskSol.getAnswerCode());
+                            FileUtils.writeStringToFile(new File(dir + userDirectory + taskProgrammingDetail.getTestClassName()), taskProgrammingDetail.getTestCode());
+                            FileUtils.writeStringToFile(new File(dir + userDirectory + "restricted_list_python"), taskProgrammingDetail.getRestrictedList());
+                            FileUtils.writeStringToFile(new File(dir + userDirectory + CONFIG), jsonObject.toJSONString());
+                            logger.info(jsonObject.toJSONString());
+                        }
                     }
                 }
                 executeCommand("ruby " + dir + "skrypt.rb \"" + dir + "\" \"" + userDirectory + "\"");
@@ -372,6 +378,7 @@ public class SolutionTestServiceImpl implements SolutionTestService {
                     taskOpenSolution.setAnswer(solutionTaskForm.getAnswer());
                     addTaskSolutionToTest(solutionTest, taskOpenSolution);
                 } else if (solutionTaskForm.getTaskType() == SolutionTaskForm.PROGRAMMINGTASK) {
+                    logger.info(solutionTaskForm.toString());
                     TaskProgrammingSolution taskProgrammingSolution = new TaskProgrammingSolution(solutionTaskForm.getTask());
                     taskProgrammingSolution.setAnswerCode(solutionTaskForm.getAnswerCode());
                     taskProgrammingSolution.setLanguage(solutionTaskForm.getLanguage());
