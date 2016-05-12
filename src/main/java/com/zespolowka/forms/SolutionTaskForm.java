@@ -134,6 +134,7 @@ public class SolutionTaskForm {
                 ", answer='" + answer + '\'' +
                 ", answerCode='" + answerCode + '\'' +
                 ", languages='" + languages + '\'' +
+                ", language='" + language + '\'' +
                 ", taskType=" + taskType +
                 '}';
     }

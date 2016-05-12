@@ -2,6 +2,7 @@ package com.zespolowka.service.inteface;
 
 import com.zespolowka.entity.Notification;
 import com.zespolowka.entity.user.Role;
+import com.zespolowka.entity.user.User;
 import com.zespolowka.forms.NewMessageForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +35,10 @@ public interface NotificationService {
     @Transactional
     @Modifying
     void deleteMessagesByUserId(Long id);
+
+    void deleteMessagesByUserRole(Role userRole);
+
+    void deleteMessagesBySender(User user);
 
 }
 

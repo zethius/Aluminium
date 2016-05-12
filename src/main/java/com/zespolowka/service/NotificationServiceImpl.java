@@ -127,6 +127,16 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public void deleteMessagesByUserRole(Role userRole) {
+        notificationRepository.deleteMessagesByUserRole(userRole);
+    }
+
+    @Override
+    public void deleteMessagesBySender(User user) {
+        notificationRepository.deleteMessagesBySender(user);
+    }
+
+    @Override
     public String toString() {
         return "NotificationServiceImpl{" +
                 "notificationRepository=" + notificationRepository +

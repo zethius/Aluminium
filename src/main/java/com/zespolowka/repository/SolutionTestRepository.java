@@ -32,5 +32,9 @@ public interface SolutionTestRepository extends JpaRepository<SolutionTest, Long
 
     @Transactional
     @Modifying
+    void deleteSolutionTestsByUser(User user);
+
+    @Transactional
+    @Modifying
     void deleteSolutionTestsByTest(Test test);
 }

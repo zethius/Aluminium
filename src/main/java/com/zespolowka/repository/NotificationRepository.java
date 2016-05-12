@@ -3,6 +3,7 @@ package com.zespolowka.repository;
 
 import com.zespolowka.entity.Notification;
 import com.zespolowka.entity.user.Role;
+import com.zespolowka.entity.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,5 +26,13 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
     Long countByUnreadAndUserRole(boolean unread, Role userRole);
 
     Page<Notification> findAllByUserIdOrUserRoleOrderByDateDesc(Pageable var1, Long userId, Role userRole);
+
+    @Transactional
+    @Modifying
+    void deleteMessagesByUserRole(Role userRole);
+
+    @Transactional
+    @Modifying
+    void deleteMessagesBySender(User user);
 }
 
